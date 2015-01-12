@@ -1,0 +1,19 @@
+-if @game.products.any?
+  .box
+    %h3
+      = link_to "Products (#{@game.products.count})", game_products_path(@game.products.first.owner, @game.products.first, @game)
+      - if current_user && ( current_user == @game.owner  || current_user.admin?)
+        .right
+          =link_to "(add)", system_categories_path(:game_id => @game.id)
+
+    .center
+      -@game.products.first(3).each do |product|
+        =render :partial => 'products/sidebar_product', :locals => {:product => product}
+
+-elsif current_user && (current_user == @game.owner || current_user.admin?)
+  .box
+    %h3
+      = link_to "What are you running?", system_categories_path(:game_id => @game.id)
+      - if current_user && ( current_user == @game.owner  || current_user.admin?)
+        .right
+          =link_to "(add)", system_categories_path(:game_id => @game.id)

@@ -1,0 +1,25 @@
+- @meta = { :description => "#{h(@game.name)}'s profile on #{configatron.community_name}.", :keywords => "#{h(@game.name)}, #{@game.tags.join(", ") unless @game.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'games'
+
+#col1
+  = render :partial => 'profile_game_info_sidebar', :locals => {:user => @game.owner}
+
+#col2
+  .box
+    %h2= "#{link_to h(@game.name), game_path(@game)} : Join with a pregenerated character".html_safe
+
+                
+  - if @game.pregenerated_character_offers.length > 0
+    .box.alt
+      %h3 Pregenerated characters
+      - @game.pregenerated_character_offers.each do |pregenerated_character_offer|
+        %dl.vcard
+          %dt.photo
+            = link_to image_tag(pregenerated_character_offer.character.avatar_photo_url(:thumb), :width => '50', :height => '50'), character_path(pregenerated_character_offer.character)
+          %dd.fn
+            = link_to h(pregenerated_character_offer.character.name), character_path(pregenerated_character_offer.character)
+          %dd
+            = link_to 'Register', register_pregenerated_character_path(@game, :character_id => pregenerated_character_offer.character_id)            
+                        
+
+

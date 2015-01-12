@@ -1,0 +1,2 @@
+%fb:request-form{:action=>facebook_home_path, :method=>"GET", :invite=>"true", :type=>"#{configatron.community_name}", :content=>"This is an invitation to connect with #{configatron.community_name}, #{configatron.community_description}.<fb:req-choice url='#{APP_URL}/new_facebook?fb_user=true' label='Confirm' />  "}
+  %fb:multi-friend-selector{:showborder=>"false", :actiontext=>"Invite your friends to use #{configatron.community_name}."}

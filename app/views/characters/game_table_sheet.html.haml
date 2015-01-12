@@ -1,0 +1,31 @@
+#col1
+  = render :partial => 'characters/game_table_sidebar', :locals => {:user => @character.owner}
+
+#col2
+  -if !@character.about.blank?
+    #about_me.box.alt
+      %h3 About me
+      #user_generated_html
+        = @character.about.html_safe
+
+  -if !@character.background.blank?
+    #background.box.alt
+      %h3 Background
+      #user_generated_html
+        = @character.background.html_safe
+
+  -if !@character.party_description.blank?
+    #party_description.box.alt
+      %h3 Someone else would describe me as...
+      #user_generated_html
+        = @character.party_description.html_safe
+
+  -if !@character.character_relationships.blank?
+    #character_relationships.box.alt
+      %h3 Character relationships
+      #user_generated_html
+        = @character.character_relationships.html_safe
+
+             
+  =render :partial => 'characters/sheet_content', :locals => {:character => @character}
+

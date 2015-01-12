@@ -1,0 +1,16 @@
+.center
+  %br
+  = link_to image_tag( user.avatar_photo_url(:medium), :class => "polaroid", :alt=> user.display_name), user_path(user)
+
+%p
+
+-if user.membership_level > 0
+  .box
+    .center
+      =link_to image_tag(premium_label(user.membership_level)), premium_membership_path
+%p
+
+-if user.accepted_achievements.any?
+  =render :partial => 'achievements/badge_box', :locals => {:accepted_achievements => user.accepted_achievements}
+
+

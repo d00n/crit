@@ -1,0 +1,44 @@
+= error_messages_for :user
+
+.box-single-col
+  %h3
+    =:dont_have_an_account.l
+    = link_to "Sign up!", signup_url
+
+.box-single-col
+  %h3
+    ="Login to #{configatron.community_name}"
+  =form_tag sessions_path, :class => 'MainForm' do
+    =hidden_field_tag 'target_page', @target_page
+    %label{"for"=>"login"}=:username.l
+    = text_field_tag 'login', nil, :size => 35
+
+    %p
+    %label{"for"=>"password"}=:password.l
+    = password_field_tag 'password', nil, :size => 35
+
+    %p
+    %fieldset
+      %label{"for"=>"remember_me"}
+        =:remember_me.l
+        = check_box_tag 'remember_me'
+    %p
+      = submit_tag "Login"
+
+
+.box-single-col
+  %h3=:forgot_your_password.l
+  = form_tag password_resets_path, :class => 'MainForm' do
+    %label{"for"=>"email"}=:enter_your_email_address.l+":"
+    = text_field_tag 'email', nil, :size => 35
+    %p
+      = submit_tag :reset_my_password.l
+
+.box-single-col
+  %h3 Forgot your login ID?
+  =form_tag forgot_username_url, :class => 'MainForm' do
+    %label{"for"=>"email"}=:enter_your_email_address.l+":"
+    = text_field_tag 'email', nil, :size => 35
+    %p
+      = submit_tag "Send me my login ID"
+

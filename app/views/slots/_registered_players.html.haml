@@ -1,0 +1,28 @@
+%br
+%div.registration_desk
+  %p
+    = link_to image_tag(game.owner.avatar_photo_url(:thumb), :width => '50', :height => '50', :alt => h(game.owner.display_name)), user_path(game.owner)
+    =render :partial => 'users/membership_level_glyph', :locals => {:user => game.owner}
+    GM
+    =link_to (game.owner.display_name), user_path(game.owner)
+  - game.active_players.each do |active_player|
+    %p
+      = link_to image_tag(active_player.avatar_photo_url(:thumb), :width => '50', :height => '50', :alt => h(active_player.display_name)), user_path(active_player)
+      =render :partial => 'users/membership_level_glyph', :locals => {:user => active_player}
+      Player
+      %br
+      =link_to (active_player.display_name), user_path(active_player)
+  -if game.alternate_players.size > 0
+    %br
+    %br
+    - game.alternate_players.each do |alternate_player|
+      %p
+        = link_to image_tag(alternate_player.avatar_photo_url(:thumb), :width => '50', :height => '50', :alt => h(alternate_player.display_name)), user_path(alternate_player)
+        =render :partial => 'users/membership_level_glyph', :locals => {:user => alternate_player}
+        = "Alt #{game.alternate_position(alternate_player)}"
+        %br
+        =link_to (alternate_player.display_name), user_path(alternate_player)
+
+                
+    
+

@@ -1,0 +1,9 @@
+%div{:class=>"c_maxwound"}
+  %br
+  = f.label :score
+  = f.text_field :score
+  = remove_link_unless_new_record(f)
+  %br
+  = f.label :notes
+  = f.text_field :notes
+

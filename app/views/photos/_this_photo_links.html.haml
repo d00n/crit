@@ -1,0 +1,11 @@
+
+.box 
+  %h3 This photo
+  %ul
+    %li= link_to :make_this_my_profile_photo.l, change_profile_photo_user_path({:id => current_user, :photo_id => photo.id}), :method => :put
+    %li= link_to :edit_this_photo_details.l, edit_user_photo_path(current_user, photo)
+    %li= link_to(:delete_this_photo.l, user_photo_path(current_user, photo), :method => :delete) + "<br class='clear' />".html_safe
+
+    -if photo.is_private
+      %li= "This photo is #{link_to 'private', edit_user_photo_path(current_user, photo)}".html_safe
+

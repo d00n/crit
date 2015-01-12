@@ -1,0 +1,19 @@
+<h1>Editing game_system</h1>
+
+<%=form_for(@game_system) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </p>
+    <%= f.label :format_approved %>
+    <%= f.check_box :format_approved %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @game_system %> |
+<%= link_to 'Index', admin_game_systems_path %>

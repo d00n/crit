@@ -1,0 +1,119 @@
+%br
+.center
+  -case level_name
+  -when "Epic"
+    =image_tag( premium_label(1))
+  -when "Legendary"
+    =image_tag( premium_label(2))
+  -when "Exalted"
+    =image_tag( premium_label(3))
+%p
+
+
+.prices
+  %br
+
+  -case level_name
+  -when "Epic"
+    ="Monthly: $#{configatron.EPIC_MONTHLY_AMOUNT}"
+    =form_tag PAYPAL_URL, :method => "post" do
+      =hidden_field_tag :cmd, "_s-xclick"
+      =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.EPIC_MONTHLY_DESCRIPTION, configatron.EPIC_MONTHLY_AMOUNT, 1)
+      %p
+      =image_submit_tag  "btn_subscribe_LG.gif"
+    %p
+    %br
+
+    ="Semiannual: $#{configatron.EPIC_SEMIANNUAL_AMOUNT}"
+    %br
+    10% savings!
+    =form_tag PAYPAL_URL, :method => "post" do
+      =hidden_field_tag :cmd, "_s-xclick"
+      =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.EPIC_SEMIANNUAL_DESCRIPTION, configatron.EPIC_SEMIANNUAL_AMOUNT, 6)
+      %p
+      =image_submit_tag  "btn_subscribe_LG.gif"
+    %p
+    %br
+
+    ="Annual: $#{configatron.EPIC_ANNUAL_AMOUNT}"
+    %br
+    20% savings!
+    =form_tag PAYPAL_URL, :method => "post" do
+      =hidden_field_tag :cmd, "_s-xclick"
+      =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.EPIC_ANNUAL_DESCRIPTION, configatron.EPIC_ANNUAL_AMOUNT, 12)
+      %p
+      =image_submit_tag  "btn_subscribe_LG.gif"
+    %p
+    %br
+
+
+  -when "Legendary"
+    ="Monthly: $#{configatron.LEGENDARY_MONTHLY_AMOUNT}"
+    =form_tag PAYPAL_URL, :method => "post" do
+      =hidden_field_tag :cmd, "_s-xclick"
+      =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.LEGENDARY_MONTHLY_DESCRIPTION, configatron.LEGENDARY_MONTHLY_AMOUNT, 1)
+      %p
+      =image_submit_tag  "btn_subscribe_LG.gif"
+    %p
+    %br
+
+    ="Semiannual: $#{configatron.LEGENDARY_SEMIANNUAL_AMOUNT}"
+    %br
+    10% savings!
+    =form_tag PAYPAL_URL, :method => "post" do
+      =hidden_field_tag :cmd, "_s-xclick"
+      =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.LEGENDARY_SEMIANNUAL_DESCRIPTION, configatron.LEGENDARY_SEMIANNUAL_AMOUNT, 6)
+      %p
+      =image_submit_tag  "btn_subscribe_LG.gif"
+    %p
+    %br
+
+    ="Annual: $#{configatron.LEGENDARY_ANNUAL_AMOUNT}"
+    %br
+    20% savings!
+    =form_tag PAYPAL_URL, :method => "post" do
+      =hidden_field_tag :cmd, "_s-xclick"
+      =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.LEGENDARY_ANNUAL_DESCRIPTION, configatron.LEGENDARY_ANNUAL_AMOUNT, 12)
+      %p
+      =image_submit_tag  "btn_subscribe_LG.gif"
+    %p
+    %br
+
+
+
+  -when "Exalted"
+    ="Monthly: $#{configatron.EXALTED_MONTHLY_AMOUNT}"
+    =form_tag PAYPAL_URL, :method => "post" do
+      =hidden_field_tag :cmd, "_s-xclick"
+      =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.EXALTED_MONTHLY_DESCRIPTION, configatron.EXALTED_MONTHLY_AMOUNT, 1)
+      %p
+      =image_submit_tag  "btn_subscribe_LG.gif"
+    %p
+    %br
+
+    ="Semiannual: $#{configatron.EXALTED_SEMIANNUAL_AMOUNT}"
+    %br
+    5% savings!
+    =form_tag PAYPAL_URL, :method => "post" do
+      =hidden_field_tag :cmd, "_s-xclick"
+      =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.EXALTED_SEMIANNUAL_DESCRIPTION, configatron.EXALTED_SEMIANNUAL_AMOUNT, 6)
+      %p
+      =image_submit_tag  "btn_subscribe_LG.gif"
+    %p
+    %br
+
+    ="Annual: $#{configatron.EXALTED_ANNUAL_AMOUNT}"
+    %br
+    10% savings!
+    =form_tag PAYPAL_URL, :method => "post" do
+      =hidden_field_tag :cmd, "_s-xclick"
+      =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.EXALTED_ANNUAL_DESCRIPTION, configatron.EXALTED_ANNUAL_AMOUNT, 12)
+      %p
+      =image_submit_tag  "btn_subscribe_LG.gif"
+    %p
+    %br
+
+
+
+
+

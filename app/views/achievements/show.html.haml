@@ -1,0 +1,23 @@
+#col1
+  =render :partial => "col1"
+
+
+
+#col2
+  .box
+    %h2= @achievement.name.html_safe
+
+  - if !@achievement.description.blank?
+    #about_me.box.alt
+      %p= @achievement.description.html_safe
+
+  -if @achievement.users
+    .box
+      %h3 Winners
+      -@achievement.users.each do |user|
+        =render :partial => "users/user", :locals => {:user => user}
+      -@achievement.characters.each do |char|
+        =render :partial => "characters/character_listing", :locals => {:character => char}
+      -@achievement.games.each do |game|
+        =render :partial => "games/game_listing", :locals => {:game => game}
+

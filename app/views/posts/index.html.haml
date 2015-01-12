@@ -1,0 +1,25 @@
+-@meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_show_content }
+
+#col1
+  = render :partial => 'author_profile', :locals => {:user => @user}
+  =render :partial => "shared/ad"
+
+  -if @is_current_user
+    =render :partial => 'post_links'
+
+  =render :partial => 'popular_posts'
+
+
+#col2
+  .box
+    %h2= "#{link_to h(@user.display_name), user_path(@user)} : Blog".html_safe
+    = @category ? "&raquo; " + link_to(@category.name.upcase, users_posts_in_category_path(@user, @category.name)) : ''
+
+  .box
+    %h3 Posts
+    = render :partial => 'post', :collection => @posts
+
+
+  -if @posts.any?
+    .box
+      =paginate @posts

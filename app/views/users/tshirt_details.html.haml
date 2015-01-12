@@ -1,0 +1,98 @@
+= error_messages_for :address
+
+-if current_user
+
+  #col1
+    -if current_user && !(@user.publisher && @user.avatar)
+      = render :partial => 'users/user_avatar_sidebar', :locals => {:user => @user}
+    -#= render :partial => 'users/profile_user_info_sidebar', :locals => {:user => @user}
+    -#= render :partial => 'users/profile_col1_content', :locals => {:user => @user}
+
+
+  #col2
+    .box
+      -if current_user.nil? || current_user.membership_level < 1
+        %h3= "Premium members get free tshirts! #{link_to 'Upgrade now!', premium_membership_path}".html_safe
+      -else
+        %h3 Premium members get free tshirts! Thank you for your support!
+        %h3 What's your size and shipping address?
+
+
+    .box
+      = form_for @user, :url => update_user_tshirt_details_path(@user), :html => {:class => "cmxform"} do |f|
+
+        %h3 Tshirt size
+        .container
+          .InfrnoForm
+            %ol
+              %li
+                = f.label "I'd like a:"
+                = select_tag 'user[tshirt_size]', options_for_select((@tshirt_sizes), @user.tshirt_size), {:include_blank => 'None', :style=>'width:120px'}
+
+        .user_row
+
+        %h3 Shipping address
+        = f.fields_for @user.address do |ff|
+          = ff.hidden_field :is_shipping, :value => '1'
+
+          .container
+            .InfrnoForm
+
+              %fieldset
+                %ol
+                  %li
+                    = ff.label 'Line 1'
+                    = ff.text_field :line_one
+
+                  %li
+                    = ff.label 'Line 2'
+                    = ff.text_field :line_two
+
+                  %li
+                    = ff.label 'City'
+                    = ff.text_field :city
+
+                  %li
+                    = ff.label 'State'
+                    = ff.text_field :state
+
+                  %li
+                    = ff.label 'Zip/postal code'
+                    = ff.text_field :postal_code
+
+                  %li
+                    = ff.label 'Country'
+                    = ff.text_field :country
+
+        %p
+        = f.submit 'Save'
+
+
+-else
+  #col-float-middle-600
+    .box
+      .scream-louder
+        ="Premium members get free tshirts! #{link_to 'Upgrade now!', premium_membership_path}".html_safe
+
+  #col-third-first
+    .header-image
+      =link_to image_tag("/system/photos/26411/medium/Zomer_tshirt.jpg", :width => "240"), premium_membership_path
+
+
+  #col-third
+    .header-image
+      =link_to image_tag("/system/photos/26409/original/InfrnoGun2.png?", :width => "240"), premium_membership_path
+
+  #col-third
+    .header-image
+      =link_to image_tag("/system/photos/27787/large/iphone 092.JPG", :width => "240"), premium_membership_path
+
+
+
+
+
+
+
+
+
+

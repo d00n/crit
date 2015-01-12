@@ -1,0 +1,108 @@
+#col1
+  -box :class => "alt first_alt" do 
+    %h3
+      - if params[:type]
+        = (params[:type].pluralize + ' tagged').l
+      - else
+        = :items_tagged.l
+      - @tags.each do |tag|
+        = link_to h(tag.name), tag_path(tag.name)
+     
+  =render :partial => "shared/ad"
+
+  -if @related_tags
+    .box
+      %h3
+        Related tags,
+        = link_to 'see all', tags_path
+      %ul
+        -tag_cloud @related_tags, %w(css1 css2 css3 css4) do |tag, css_class|
+          =link_to h(tag.name), tag_path(tag), :class => css_class
+        -#- tag_cloud @related_tags, %w(nube1 nube2 nube3 nube4 nube5) do |name, css_class|
+        -#  - css_class = css_class + (name.eql?(params[:id]) ? " selected": "")
+        -#  %li.tags= link_to name, tag_url(u name.name), :class => css_class
+
+  =render :partial => "shared/ad"
+
+  -if @popular_tags
+    .box
+      %h3
+        Popular tags,
+        = link_to 'see all', tags_path
+      %ul
+        - tag_cloud @popular_tags, %w(nube1 nube2 nube3 nube4 nube5) do |name, css_class|
+          - css_class = css_class + (name.eql?(params[:id]) ? " selected": "")
+          %li.tags= link_to name, tag_url(u name.name), :class => css_class
+    
+  =render :partial => "shared/ad"
+
+#col2
+  - if @games.any?
+    .box
+      %h3
+        Games 
+        - unless params[:type]
+          = " : " 
+          =link_to "All games tagged #{ @tags_raw }", show_tag_type_path(:id => @tags_raw, :type => 'Game').html_safe
+      - @games.each do |game|
+        =render :partial => "games/game_listing", :locals => {:game => game} 
+      
+  - if @characters.any?
+    .box
+      %h3 
+        Characters
+        - unless params[:type]
+          = " : " 
+          = link_to "All characters tagged #{ @tags_raw }", show_tag_type_path(:id => @tags_raw, :type => 'Character').html_safe
+      - @characters.each do |character|
+        =render :partial => "characters/character_listing", :locals => {:character => character} 
+
+  - if @posts.any?
+    .box
+      %h3
+        Posts
+        - unless params[:type]
+          = " : " 
+          = link_to "All posts tagged #{ @tags_raw }", show_tag_type_path(:id => @tags_raw, :type => 'Post').html_safe
+
+      = render :partial => 'posts/post', :collection => @posts      
+
+  - if @photos.any?
+    .box
+      %h3
+        =:photos.l(:count => @photos.size)
+        - unless params[:type]
+          = " : " 
+          = link_to :all_photos_tagged.l(:tag_name => @tags_raw ), show_tag_type_path(:id => @tags_raw, :type => 'Photo').html_safe
+      - @photos.each do |photo|
+        = link_to image_tag(photo.photo.url(:thumb), :title => "#{photo.description} ("+:uploaded_by.l+" #{photo.user.login})", :class => "polaroid"), user_photo_path(photo.user, photo)
+        
+  - if @users.any?
+    .box
+      %h3
+        Users
+        - unless params[:type]
+          = " : " 
+          = link_to :all_users_tagged.l(:tag_name => @tags_raw ), show_tag_type_path(:id => @tags_raw, :type => 'User').html_safe
+      - @users.each do |user|
+        =render :partial => "users/user", :locals => {:user => user} 
+
+  /- if @products.any?
+  /  .box
+  /    %h3
+  /      Products
+  /      - unless params[:type]
+  /        = " : "
+  /        = link_to "All products tagged #{ @tags_raw }", show_tag_type_path(:id => @tags_raw, :type => 'Product').html_safe
+  /    - @products.each do |product|
+  /      =render :partial => "products/product", :locals => {:product => product}
+
+
+  /- unless @clippings.empty?
+  /  .box
+  /    %h3= :clippings.l
+  /    - @clippings.each do |clipping|
+  /      %a{"href"=>"#{h user_clipping_url(clipping.user, clipping) }"}
+  /        %img.polaroid.clipping{"src"=>"#{h clipping.image_uri}", "style"=>"width:108px"}
+  /    %h6.all= link_to :all_clippings_tagged.l(:tag_name =>  h(@tags_raw) ), show_tag_type_path(:id => @tags_raw, :type => 'Clipping') unless params[:type]
+

@@ -1,0 +1,44 @@
+= error_messages_for :user
+
+.box-single-col
+  %h3 Sign up as a vendor
+
+  =form_for :user, :url => users_path, :html => {:class => 'MainForm'} do |f|
+    = f.hidden_field :publisher
+    = hidden_field_tag 'user[first_name]', 'n/a'
+    = hidden_field_tag 'user[last_name]', 'n/a'
+    = hidden_field_tag 'user[birthday(1i)]', '1985'
+    = hidden_field_tag 'user[birthday(2i)]', '1'
+    = hidden_field_tag 'user[birthday(3i)]', '28'
+    = hidden_field_tag 'tos_pp_agreement', '1'
+
+    %label{"for"=>"user_login"}
+      Login ID
+      %em (No spaces or special characters)
+    = f.text_field :login
+
+    %p
+    %label{"for"=>"user_email"}
+      Email
+      %em (You will receive a confirmation email)
+    = f.text_field :email
+
+    %p
+    %label{"for"=>"publisher_name"}
+      Company name
+    = f.text_field :publisher_name
+
+    %p
+    %label{"for"=>"user_password"}
+      Password
+    = f.password_field :password
+
+    %p
+    %label{"for"=>"user_password_confirmation"}
+      Confirm password
+    = f.password_field :password_confirmation
+    = hidden_field_tag :inviter_id, params[:inviter_id]
+    = hidden_field_tag :inviter_code, params[:inviter_code]
+    %p= submit_tag :sign_up.l
+
+

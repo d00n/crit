@@ -1,0 +1,62 @@
+-if game.has_access(current_user)
+  .user_row
+    %h4= link_to game.name, seo_game_path(game)
+
+    .user_row_col1
+      = link_to image_tag( game.avatar_photo_url(:thumb), :width => "100" ), seo_game_path(game)
+
+    .game_row_col2
+
+      %li.fn
+        = render :partial => 'users/user_name', :locals => {:user => game.owner, :name_prefix => "GM:"}
+
+      - if game.products.any?
+        %li.view
+          System:
+          =link_to game.products.first.name, publisher_product_path(game.products.first.owner, game.products.first)
+
+      - elsif !game.system_name.blank?
+        %li.view
+          System:
+          =link_to h(game.game_system.name), games_path(:system_name => game.game_system.name), :method => :get
+
+      -if game.slots.any?
+        %li.view= "Registered in #{link_to game.slots.last.event.name, event_path(game.slots.last.event)}".html_safe
+
+      %li.update
+        ="Last update: #{time_ago_in_words game.updated_at}"
+
+      - if game.start_at
+        %li.update="Day: #{game.start_at.strftime('%a, %b %d, %Y')}"
+        %li.update="Time: #{game.start_at.strftime('%I:%M%p %Z')}"
+
+        -if !game.session_length.blank?
+          %li.update="Length: #{h game.session_length}"
+
+      -if game.tags.any?
+        %li.tags
+          = li_tags_helper(game, 10)
+
+      - if current_user && game.status == "open"
+        - if (game.pending_players.include?current_user) || (game.active_players.include?current_user)
+          %li.view= link_to 'You are registered in this game', registration_desk_path(game)
+        -else
+          %li.view= link_to "Join this game", registration_desk_path(game)
+
+
+    .game_row_col3
+      - if @search && @search['description']
+        = h(truncate_words_with_highlight game.description, @search['description'])
+      - else
+        = h(truncate_words game.description, 100, '...')
+
+      -if game.is_d20pro
+        %p
+        =link_to image_tag('d20pro_161x78.jpg', :width => '80', :height => '39', :style => 'float:left; padding: 5px 5px 0px 5px;'), 'http://www.d20pro.com/'
+        This game will be played in d20Pro, and having d20Pro installed is required to participate.
+        =link_to  'Click here to download the latest version.', 'http://www.d20pro.com/downloads.php'
+
+-else
+  .user_row
+    %h2=link_to "Private games are a premium feature, upgrade today!", premium_membership_path
+

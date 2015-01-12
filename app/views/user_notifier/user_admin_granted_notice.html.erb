@@ -1,0 +1,27 @@
+<%= render :partial => 'user_notifier/greeting', :locals => {:user => @user}  %>
+Congratulations! You have been granted user admin status.
+
+Spam sucks, and while we've rolled out things like the registration captcha, some spam still gets through. If you see spam, you now have the ability to nuke the bastard from orbit.
+
+User profile and blog post pages now have a 'User Admin' section, in the left column. This data is provided to help you determine if the user is a spammer:
+
+    * created at: Dec 16, 2011
+    * activated at: Dec 16, 2011
+    * last request at: 17 hours ago
+    * email: staging6547@infrno.net
+    * 3 logins
+    * 1 blog posts
+    * 4 games
+    * 0 characters
+    * 1 friends
+    * 0 comments
+    * 5 activities
+    * 0 forum posts
+
+New accounts with no friends, games, or other such things, are very likely to be spam. It's a judgement call. The 'delete user' link in this section will do just that, along with any content associated with the user.
+
+This is a non-recoverable action. Please be careful!
+
+Thank you for helping us keep Infrno spam free!
+
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  %>

@@ -1,0 +1,19 @@
+%br
+.center
+  =image_tag( premium_label(3))
+%p
+
+.prices
+  %br
+  Lifetime: $199.99
+
+  =form_tag PAYPAL_URL, :method => "post" do
+    =hidden_field_tag :cmd, "_s-xclick"
+    =hidden_field_tag :encrypted, paypal_encrypted_invoice(configatron.EXALTED_LIFETIME_DESCRIPTION, configatron.EXALTED_LIFETIME_AMOUNT)
+    %p
+    =image_submit_tag  "btn_buynow.gif"
+
+    %p
+    %br
+=image_tag "paypal_cc.png"
+

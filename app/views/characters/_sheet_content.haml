@@ -1,0 +1,386 @@
+-if !@character.c_attributes.blank?
+  - collection = @character.c_attributes
+  .box
+    %h3 Attributes
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Name"
+          -if column_is_populated(collection, "score")
+            %th{:scope => "col"}= "Score"
+          -if column_is_populated(collection, "modifiers")
+            %th{:scope => "col"}= "Modifiers"
+          -if column_is_populated(collection, "notes")
+            %th{:scope => "col"}= "Notes"
+        - @character.c_attributes.each do |c_attribute|
+          %tr
+            -if column_is_populated(collection, "name")
+              %td= h(c_attribute.name)
+            -if column_is_populated(collection, "score")
+              %td= h(c_attribute.score)
+            -if column_is_populated(collection, "modifiers")
+              %td= h(c_attribute.modifiers)
+            -if column_is_populated(collection, "notes")
+              %td= h(c_attribute.notes)
+
+-if !@character.c_special_attributes.blank? 
+  - collection = @character.c_special_attributes
+  .box
+    %h3 Special attributes
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Name"
+          -if column_is_populated(collection, "level")
+            %th{:scope => "col"}= "Level"
+          -if column_is_populated(collection, "effects")
+            %th{:scope => "col"}= "Effects"
+          -if column_is_populated(collection, "notes")
+            %th{:scope => "col"}= "Notes"
+        - @character.c_special_attributes.each do |c_special_attribute|
+          %tr
+            -if column_is_populated(collection, "name")
+              %td= h(c_special_attribute.name)
+            -if column_is_populated(collection, "level")
+              %td= h(c_special_attribute.level)
+            -if column_is_populated(collection, "effects")
+              %td= h(c_special_attribute.effects)
+            -if column_is_populated(collection, "notes")
+              %td= h(c_special_attribute.notes)
+
+-if !@character.c_skills.blank? 
+  - collection = @character.c_skills
+  .box
+    %h3 Skills
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Name"
+          -if column_is_populated(collection, "level")
+            %th{:scope => "col"}= "Level"
+          -if column_is_populated(collection, "base_attribute")
+            %th{:scope => "col"}= "Base Attr"
+          -if column_is_populated(collection, "bonus")
+            %th{:scope => "col"}= "Bonus"
+          -if column_is_populated(collection, "penalty")
+            %th{:scope => "col"}= "Penalty"
+          -if column_is_populated(collection, "misc")
+            %th{:scope => "col"}= "Misc"
+          -if column_is_populated(collection, "notes")
+            %th{:scope => "col"}= "Notes"
+        - @character.c_skills.each do |c_skill|
+          %tr
+            -if column_is_populated(collection, "name")
+              %td= h(c_skill.name)
+            -if column_is_populated(collection, "level")
+              %td= h(c_skill.level)
+            -if column_is_populated(collection, "base_attribute")
+              %td= h(c_skill.base_attribute)
+            -if column_is_populated(collection, "bonus")
+              %td= h(c_skill.bonus)
+            -if column_is_populated(collection, "penalty")
+              %td= h(c_skill.penalty)
+            -if column_is_populated(collection, "misc")
+              %td= h(c_skill.misc)
+            -if column_is_populated(collection, "notes")
+              %td= h(c_skill.notes)
+
+-if !@character.c_skill_specializations.blank? 
+  - collection = @character.c_skill_specializations
+  .box
+    %h3 Skill specializations
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Name"
+          -if column_is_populated(collection, "skill")
+            %th{:scope => "col"}= "Skill"
+          -if column_is_populated(collection, "level")
+            %th{:scope => "col"}= "Level"
+          -if column_is_populated(collection, "bonus")
+            %th{:scope => "col"}= "Bonus"
+          -if column_is_populated(collection, "penalty")
+            %th{:scope => "col"}= "Penalty"
+          -if column_is_populated(collection, "notes")
+            %th{:scope => "col"}= "Notes"
+        - @character.c_skill_specializations.each do |c_skill_specialization|
+          %tr
+            -if column_is_populated(collection, "name")
+              %td= h(c_skill_specialization.name)
+            -if column_is_populated(collection, "skill")
+              %td= h(c_skill_specialization.skill)
+            -if column_is_populated(collection, "level")
+              %td= h(c_skill_specialization.level)
+            -if column_is_populated(collection, "bonus")
+              %td= h(c_skill_specialization.bonus)
+            -if column_is_populated(collection, "penalty")
+              %td= h(c_skill_specialization.penalty)
+            -if column_is_populated(collection, "notes")
+              %td= h(c_skill_specialization.notes)
+
+-if !@character.c_languages.blank? 
+  - collection = @character.c_languages
+  .box
+    %h3 Languages
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Name"
+          -if column_is_populated(collection, "level")
+            %th{:scope => "col"}= "Level"
+          -if column_is_populated(collection, "base_attribute")
+            %th{:scope => "col"}= "Base Attr"
+          -if column_is_populated(collection, "bonus")
+            %th{:scope => "col"}= "Bonus"
+          -if column_is_populated(collection, "penalty")
+            %th{:scope => "col"}= "Penalty"
+          -if column_is_populated(collection, "misc")
+            %th{:scope => "col"}= "Misc"
+          -if column_is_populated(collection, "notes")
+            %th{:scope => "col"}= "Notes"
+        - @character.c_languages.each do |c_language|
+          %tr
+            -if column_is_populated(collection, "name")
+              %td= h(c_language.name)
+            -if column_is_populated(collection, "level")
+              %td= h(c_language.level)
+            -if column_is_populated(collection, "base_attribute")
+              %td= h(c_language.base_attribute)
+            -if column_is_populated(collection, "bonus")
+              %td= h(c_language.bonus)
+            -if column_is_populated(collection, "penalty")
+              %td= h(c_language.penalty)
+            -if column_is_populated(collection, "misc")
+              %td= h(c_language.misc)
+            -if column_is_populated(collection, "notes")
+              %td= h(c_language.notes)
+
+-if !@character.c_qualities.blank? 
+  - collection = @character.c_qualities
+  .box
+    %h3 Qualities
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Name"
+          -if column_is_populated(collection, "qtype")
+            %th{:scope => "col"}= "Type"
+          -if column_is_populated(collection, "effects")
+            %th{:scope => "col"}= "Effects"
+          -if column_is_populated(collection, "notes")
+            %th{:scope => "col"}= "Notes"
+        - @character.c_qualities.each do |c_quality|
+          %tr
+            -if column_is_populated(collection, "name")
+              %td= h(c_quality.name)
+            -if column_is_populated(collection, "qtype")
+              %td= h(c_quality.qtype)
+            -if column_is_populated(collection, "effects")
+              %td= h(c_quality.effects)
+            -if column_is_populated(collection, "notes")
+              %td= h(c_quality.notes)
+
+-if !@character.c_racial_abilities.blank? 
+  - collection = @character.c_racial_abilities
+  .box
+    %h3 Racial abilities
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Name"
+          -if column_is_populated(collection, "effects")
+            %th{:scope => "col"}= "Effects"
+          -if column_is_populated(collection, "notes")
+            %th{:scope => "col"}= "Notes"
+        - @character.c_racial_abilities.each do |c_racial_ability|
+          %tr
+            -if column_is_populated(collection, "name")
+              %td= h(c_racial_ability.name)
+            -if column_is_populated(collection, "effects")
+              %td= h(c_racial_ability.effects)
+            -if column_is_populated(collection, "notes")
+              %td= h(c_racial_ability.notes)
+
+-if !@character.c_special_abilities.blank? 
+  - collection = @character.c_special_abilities
+  .box
+    %h3 Special abilities
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Name"
+          -if column_is_populated(collection, "effects")
+            %th{:scope => "col"}= "Effects"
+          -if column_is_populated(collection, "notes")
+            %th{:scope => "col"}= "Notes"
+        - @character.c_special_abilities.each do |c_special_ability|
+          %tr
+            -if column_is_populated(collection, "name")
+              %td= h(c_special_ability.name)
+            -if column_is_populated(collection, "effects")
+              %td= h(c_special_ability.effects)
+            -if column_is_populated(collection, "notes")
+              %td= h(c_special_ability.notes)
+
+-if !@character.c_powers.blank? 
+  - collection = @character.c_powers
+  .box
+    %h3 Powers
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Name"
+          -if column_is_populated(collection, "requirements")
+            %th{:scope => "col"}= "Reqs"
+          -if column_is_populated(collection, "duration")
+            %th{:scope => "col"}= "Duration"
+          -if column_is_populated(collection, "range")
+            %th{:scope => "col"}= "Range"
+          -if column_is_populated(collection, "uses")
+            %th{:scope => "col"}= "Uses"
+          -if column_is_populated(collection, "damage")
+            %th{:scope => "col"}= "Damage"
+          -if column_is_populated(collection, "effects")
+            %th{:scope => "col"}= "Effects"
+        - @character.c_powers.each do |c_power|
+          %tr
+            -if column_is_populated(collection, "name")
+              %td= h(c_power.name)
+            -if column_is_populated(collection, "requirements")
+              %td= h(c_power.requirements)
+            -if column_is_populated(collection, "duration")
+              %td= h(c_power.duration)
+            -if column_is_populated(collection, "range")
+              %td= h(c_power.range)
+            -if column_is_populated(collection, "uses")
+              %td= h(c_power.uses)
+            -if column_is_populated(collection, "damage")
+              %td= h(c_power.damage)
+            -if column_is_populated(collection, "effects")
+              %td= h(c_power.effects)
+
+-if !@character.c_combats.blank? 
+  - collection = @character.c_combats
+  .box
+    %h3 Combat
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Name"
+          -if column_is_populated(collection, "notes")
+            %th{:scope => "col"}= "Notes"
+        - @character.c_combats.each do |c_combat|
+          %tr
+            -if column_is_populated(collection, "name")
+              %td= h(c_combat.name)
+            -if column_is_populated(collection, "notes")
+              %td= h(c_combat.notes)
+
+-if !@character.c_defenses.blank? 
+  - collection = @character.c_defenses
+  .box
+    %h3 Defenses and resistances
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Name"
+          -if column_is_populated(collection, "dtype")
+            %th{:scope => "col"}= "Type"
+          -if column_is_populated(collection, "rating")
+            %th{:scope => "col"}= "Rating"
+          -if column_is_populated(collection, "penalties")
+            %th{:scope => "col"}= "Penalties"
+          -if column_is_populated(collection, "bonus")
+            %th{:scope => "col"}= "Bonus"
+          -if column_is_populated(collection, "special_properties")
+            %th{:scope => "col"}= "Special Props"
+          -if column_is_populated(collection, "notes")
+            %th{:scope => "col"}= "Notes"
+        - @character.c_defenses.each do |c_defense|
+          %tr
+            -if column_is_populated(collection, "name")
+              %td= h(c_defense.name)
+            -if column_is_populated(collection, "dtype")
+              %td= h(c_defense.dtype)
+            -if column_is_populated(collection, "rating")
+              %td= h(c_defense.rating)
+            -if column_is_populated(collection, "penalties")
+              %td= h(c_defense.penalties)
+            -if column_is_populated(collection, "bonus")
+              %td= h(c_defense.bonus)
+            -if column_is_populated(collection, "special_properties")
+              %td= h(c_defense.special_properties)
+            -if column_is_populated(collection, "notes")
+              %td= h(c_defense.notes)
+
+-if !@character.c_damages.blank? 
+  - collection = @character.c_damages
+  .box
+    %h3 Damage
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Name"
+          -if column_is_populated(collection, "notes")
+            %th{:scope => "col"}= "Notes"
+        - @character.c_damages.each do |c_damage|
+          %tr
+            -if column_is_populated(collection, "name")
+              %td= h(c_damage.name)
+            -if column_is_populated(collection, "notes")
+              %td= h(c_damage.notes)
+
+-if !@character.c_weapons.blank? 
+  - collection = @character.c_weapons
+  .box
+    %h3 Weapons
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Name"
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Dmg"
+          -if column_is_populated(collection, "range")
+            %th{:scope => "col"}= "Rng"
+          -if column_is_populated(collection, "rate_of_fire")
+            %th{:scope => "col"}= "ROF"
+          -if column_is_populated(collection, "capacity")
+            %th{:scope => "col"}= "Cap"
+          -if column_is_populated(collection, "modifiers")
+            %th{:scope => "col"}= "Mods"
+          -if column_is_populated(collection, "effects")
+            %th{:scope => "col"}= "Effects"
+          -if column_is_populated(collection, "properties")
+            %th{:scope => "col"}= "Props"
+        - @character.c_weapons.each do |c_weapon|
+          %tr
+            -if column_is_populated(collection, "name")
+              %td= h(c_weapon.name)
+            -if column_is_populated(collection, "damage")
+              %td= h(c_weapon.damage)
+            -if column_is_populated(collection, "range")
+              %td= h(c_weapon.range)
+            -if column_is_populated(collection, "rate_of_fire")
+              %td= h(c_weapon.rate_of_fire)
+            -if column_is_populated(collection, "capacity")
+              %td= h(c_weapon.capacity)
+            -if column_is_populated(collection, "modifiers")
+              %td= h(c_weapon.modifiers)
+            -if column_is_populated(collection, "effects")
+              %td= h(c_weapon.effects)
+            -if column_is_populated(collection, "properties")
+              %td= h(c_weapon.properties)
+

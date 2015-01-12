@@ -1,0 +1,12 @@
+<h1>Editing player_registration</h1>
+
+<%=form_for(@player_registration) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @player_registration %> |
+<%= link_to 'Back', player_registrations_path %>

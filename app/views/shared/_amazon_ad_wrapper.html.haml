@@ -1,0 +1,4 @@
+-#-if current_user.nil? || current_user.membership_level == 0
+-#  .box.center
+-#    =render :partial => "shared/amazon_ad"
+-#    %h3=link_to "Banish ads!", premium_membership_path

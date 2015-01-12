@@ -1,0 +1,26 @@
+.box_tile
+
+  %h2
+    -if defined?new_game
+      = link_to "Start a game using #{system_category.name}".html_safe, new_game_path(:system_category_id => system_category.id)
+    -elsif defined?game
+      = link_to "Add: #{system_category.name}".html_safe, system_category_add_game_path(system_category, game)
+    -elsif defined?character
+      = link_to "Add: #{system_category.name}".html_safe, system_category_add_character_path(system_category, character)
+    -else
+      = link_to system_category.name, system_category
+
+    -#-if defined?action && action = 'add'
+    -#  -if defined?game
+    -#    .right= link_to 'Add', system_category_add_game_path(system_category, game)
+    -#  -elsif defined?character
+    -#    .right= link_to 'Add', system_category_add_character_path(system_category, character)
+
+  %p
+  .center
+    -system_category.products.first(3).each do |product|
+      =render :partial => 'products/sidebar_product', :locals => {:product => product}
+
+  -#%a{:href=>"#{system_category_path(system_category)}", :class=>"photo", :rel=>"bookmark"}
+  -#  =render :partial => "system_categories/system_category_photo", :locals => {:system_category => system_category, :width =>"87"}
+

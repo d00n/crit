@@ -1,0 +1,110 @@
+= error_messages_for :product
+
+=form_for(@product, :html => {:class => "cmxform"}) do |product_form|
+  -if  @game
+    = hidden_field_tag :game_id, @game.id
+  -if  @character
+    = hidden_field_tag :character_id, @character.id
+  .container
+    .user_row 
+      %fieldset
+        %legend
+          Product Details
+        %ol
+          %li      
+            = product_form.label 'Name'
+            = product_form.text_field :name 
+      
+          %li      
+            = product_form.label 'Key creatives'
+            = product_form.text_field :key_creatives 
+      
+          %li      
+            = product_form.label 'Manufacturer'
+            = product_form.text_field :manufacturer 
+      
+          %li      
+            = product_form.label 'Product code'
+            = product_form.text_field :product_code 
+      
+          %li      
+            = product_form.label 'ISBN Number'
+            = product_form.text_field :isbn 
+      
+          %li      
+            = product_form.label 'Price'
+            = product_form.text_field :price 
+      
+          %li      
+            = product_form.label 'Date available'
+            = product_form.text_field :date_available 
+  
+          %li      
+            = product_form.label 'Purchase book url'
+            = product_form.text_field :purchase_book_url 
+      
+          %li      
+            = product_form.label 'Purchase pdf url'
+            = product_form.text_field :purchase_pdf_url 
+            
+          %li      
+            = product_form.label 'Catalog position'
+            = product_form.text_field :catalog_rank 
+      
+          %li      
+            = product_form.label 'Featured position'
+            = product_form.text_field :featured_product_rank 
+      
+    .user_row
+      %fieldset
+        %legend
+          Product attributes
+        %ol
+          %li
+            = product_form.check_box 'is_core_rulebook'
+            Core rulebook
+
+    .user_row
+      %fieldset
+        %legend
+          Product summary
+        This text is shown when your product appears in a list, such as your featured product section. It is limited to 75 words.
+        %ol
+          %li      
+            = product_form.text_area :summary, :size => "40x3"
+
+    .user_row 
+      %fieldset
+        %legend
+          Product description
+        This is the main part of your product page. It can be as long as you want, and can include embedded images in a variety of formats.
+        %ol
+          %li      
+            = product_form.text_area :description, :class => "rich_text_editor", :width => "100%"
+
+  
+        
+    .user_row
+      %h3= :tags.l
+      #product_tags
+        = text_field_tag 'tag_list', @product.tag_list, {:autocomplete => "on"}
+        -##tag_list_auto_complete.auto_complete
+        -#= auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [',', ' ']  }
+        %br
+          Tags are comma-separated keywords that describe your product.
+          %br
+          =:you_can_browse_all_content_and_users_on.l
+          = configatron.community_name
+          =:by_looking_at_the.l
+          = link_to :tags_page.l, tags_path     
+           
+    %p
+    = product_form.submit 'Save product' 
+  
+  
+          
+          
+  
+  
+  
+

@@ -1,0 +1,23 @@
+%p
+
+.box
+  %ul
+    %li.view= link_to "All categories", system_categories_path
+    - if current_user && (current_user == @system_category.owner || current_user.admin?)
+      %li.view= link_to "Edit category", edit_system_category_path(@system_category)
+      %li.view= link_to "Add product", system_category_product_search_path(@system_category)
+      %li.view= link_to "Delete category", @system_category, :confirm => 'Are you sure?', :method => :delete
+      %li.view= link_to "Choose a category photo", :controller => "system_categories", :id => @system_category.id, :action => "pick_profile_photo"
+      %li.view= link_to "Remove category photo", :controller => "system_categories", :id => @system_category.id, :action => "remove_profile_photo"
+      - if current_user.admin?
+        %li.view= link_to "Bump views", system_category_bump_views_path(@system_category)
+
+    %li.view= "Views (#{@system_category.view_count})"
+    -if DEPLOY_ADDTOANY
+      %li.view
+        =render :partial => "shared/addToAny"
+
+    -if DEPLOY_ADDTHIS
+      %li.view
+        =render :partial => "shared/addThis"
+

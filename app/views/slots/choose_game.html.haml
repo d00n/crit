@@ -1,0 +1,40 @@
+- @meta = { :description => "#{h(@slot.name)}'s profile on #{configatron.community_name}.", :keywords => "#{h(@slot.event.name)}, #{@slot.event.tags.join(", ") unless @slot.event.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'events'
+
+#col1
+  = render :partial => 'events/profile_sidebar', :locals => {:event => @slot.event}
+
+#col2
+  .box
+    %h3 Register one of your games in this slot
+    
+    %h3
+      -if @slot.name.blank?
+        Slot:
+      -else
+        = "#{h(@slot.name)}:"
+        
+      ="#{@slot.start_time.strftime('%x %I:%M%p')} - #{@slot.end_time.strftime('%I:%M%p %Z')}"
+    
+  -if current_user
+    .box
+      %h3 Choose your game to register in this slot
+      This will create a clone of your game.
+      %p
+      - current_user.games.each do |game|
+        %dl.vcard
+          %dt.photo
+            = link_to image_tag(game.avatar_photo_url(:thumb), :width => '50', :height => '50'), game_path(game)
+          %dd.fn
+            = link_to h(game.name), game_path(game)
+          %dd
+            = link_to 'Create a clone, and register it', register_game_path(@slot, :game_id => game.id)            
+            
+  -else
+    .box
+      = link_to "Log in", login_path
+      = :or.l
+      = link_to "create an account", signup_path
+      to register a game in this slot.
+      %p        
+

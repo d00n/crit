@@ -1,0 +1,12 @@
+#col1
+  = render :partial => 'events/profile_sidebar', :locals => {:event => @event}
+  
+  
+#col2
+  .box
+    %h2= "Grant event achievements"
+
+    %br.clear
+    - Achievement.all.each do |achievement|
+      = render :partial => "achievements/achievement_listing", :locals => { :achievement => achievement, :event => @event, :show_grant => false}
+      

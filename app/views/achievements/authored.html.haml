@@ -1,0 +1,17 @@
+-@meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_show_content }
+-@section = 'people'
+
+#col1
+  = render :partial => 'users/user_avatar_sidebar', :locals => {:user => @user}
+  = render :partial => 'users/profile_user_info_sidebar', :locals => {:user => @user}
+  
+  
+#col2
+  .box
+    %h2= "#{link_to h(@user.display_name), user_path(@user)} : Authored achievements".html_safe
+
+  .box
+    - @user.authored_achievements.each do |achievement|
+      = render :partial => "achievements/achievement_listing", :locals => { :achievement => achievement, :show_grant => false}
+
+

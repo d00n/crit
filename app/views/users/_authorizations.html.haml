@@ -1,0 +1,3 @@
+-auth = Authorization.where("user_id=? and provider=?", user.id, 'facebook')
+-if auth.any?
+  %li=link_to 'facebook', "http://facebook.com/profile.php?id=#{auth.first.uid}"

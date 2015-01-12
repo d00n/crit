@@ -1,0 +1,37 @@
+-if character.has_access(current_user)
+  .user_row
+    %h4= link_to h(character.name), seo_character_path(character)
+
+    .user_row_col1
+      = link_to image_tag( character.avatar_photo_url(:thumb), :class => "polaroid" ), seo_character_path(character)
+
+    .user_row_col2
+
+      %li.fn= render :partial => 'users/user_name', :locals => {:user => character.owner, :name_prefix => "Player:"}
+
+      -if !character.property.blank?
+        %li.view= link_to(character.property, :controller => "/characters", :action => "index", :property => character.property)
+
+      -if character.products.any?
+        %li.view= link_to character.products.first.name, publisher_product_path(character.products.first.owner, character.products.first)
+
+      - if character.tags.any?
+        %li.tags
+          = li_tags_helper(character, 10)
+
+
+
+    .user_row_col3b
+      - if @search && @search['description']
+        = truncate_words_with_highlight character.description, @search['description']
+      - else
+        = truncate_words character.about, 60, '...'
+
+
+-else
+  .user_row
+    %h2 Private character
+
+
+
+

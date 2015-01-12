@@ -1,0 +1,16 @@
+<%= render :partial => 'user_notifier/greeting', :locals => {:user => @user}  %>
+
+Your registration as an alternate been approved for the game '<%= h @game.name %>'.
+
+You are alternate number <%= @alternate_position %>.
+
+The game is scheduled for <%= @game.start_at.strftime('%a, %b %d, %Y') %>, at <%= @game.start_at.strftime('%I:%M%p %Z') %>.
+
+We have asked GMs to send you an email to invite you to join the game, or inform you that all seats are full, within 10 minutes of the game start time.
+
+As an alternate, please be present in the Infrno General Chat room, available at the footer of every Infrno page. The GM may wish to contact you with that tool.
+
+You can see the game's current roster of players and characters here:
+<%= registration_desk_url(@game) %>
+                
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  %>

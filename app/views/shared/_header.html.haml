@@ -1,0 +1,58 @@
+#contentHeader
+
+  %a{:href=>home_url, :class => "logo", :title=>"#{configatron.community_name}"}
+  
+  -if !defined? @hide_nav_items
+    -if current_user
+      =form_tag logout_button_path, :class => 'MainForm', :name => "logout_form" do
+        %ul.logoutbar
+          %li
+            = submit_tag 'Logout', :class => 'button'
+
+    -else
+      =form_tag sessions_path, :class => 'MainForm', :name => "login_form" do
+        %ul.loginbar
+          %li
+            = text_field_tag 'login', "Username", :class => "textbox", :style => "width: 100px", :onFocus => "if(this.value == 'Username') {this.value = '';}", :onBlur => "if (this.value == '') {this.value = 'Username';}"
+          %li
+            = password_field_tag 'password', "Password", :class => "textbox", :style => "width: 100px",  :onFocus => "if(this.value == 'Password') {this.value = '';}", :onBlur => "if (this.value == '') {this.value = 'Password';}"
+          %li
+            = submit_tag 'Login', :class => 'button'
+
+    .auto_width
+      -if FACEBOOK_CONNECT
+        = link_to(image_tag("/assets/facebook_small_f.gif", :alt => 'Sign in with facebook'), "/auth/facebook", :title => 'Sign in with facebook')
+      
+        
+ 
+  %ul{:class => "navbar"}
+    -if !defined? @hide_nav_items
+      -if current_user
+        %li{:class =>"profile"}
+          %a{:href=> user_path(current_user) }
+      -else
+        %li{:class =>"signup"}
+          %a{:href=> signup_url}
+
+      %li{:class =>"people"}
+        %a{:href=> users_path }
+      %li{:class =>"characters"}
+        %a{:href=> characters_path }
+      %li{:class =>"games"}
+        %a{:href=> games_path }
+      %li{:class =>"vendors"}
+        %a{:href=> publishers_path }
+      %li{:class =>"forums_nav"}
+        %a{:href=> forums_path }
+      %li{:class =>"feedback"}
+        %a{:href=> contact_url }
+      
+  :plain
+    <a class="gencon" href="http://gencon.com" title="Gen Con"> </a>
+
+  -#-if !defined? @hide_nav_items
+  -#  -if current_user.nil? || current_user.membership_level == 0
+  -#    .banner_468x60
+  -#      = link_to(image_tag("/assets/dtrpg_affiliatebanner2.gif", :alt => 'DriveThurRPG.com'), "http://rpg.drivethrustuff.com/index.php?affiliate_id=310477", :title => "DriveThruRPG.com")
+
+     

@@ -1,0 +1,48 @@
+#tooltip_epic_header_image
+  =render :partial => "guest_plan", :locals => {:level_name => 'Epic'}
+#tooltip_epic_pricing_image
+  =render :partial => "guest_plan", :locals => {:level_name => 'Epic'}
+#tooltip_epic_monthly
+  =render :partial => "guest_plan", :locals => {:level_name => 'Epic'}
+
+#tooltip_legendary_header_image
+  =render :partial => "guest_plan", :locals => {:level_name => 'Legendary'}
+#tooltip_legendary_pricing_image
+  =render :partial => "guest_plan", :locals => {:level_name => 'Legendary'}
+#tooltip_legendary_monthly
+  =render :partial => "guest_plan", :locals => {:level_name => 'Legendary'}
+
+#tooltip_exalted_header_image
+  =render :partial => "guest_plan", :locals => {:level_name => 'Exalted'}
+#tooltip_exalted_pricing_image
+  =render :partial => "guest_plan", :locals => {:level_name => 'Exalted'}
+#tooltip_exalted_monthly
+  =render :partial => "guest_plan", :locals => {:level_name => 'Exalted'}
+
+#tooltip_exalted_lifetime
+  =render :partial => "guest_lifetime", :locals => {:level_name => 'Exalted'}
+
+%script{:type => "text/javascript"}
+  new Tip('epic_header_image', $('tooltip_epic_header_image'),  {hideOn: false, hook: {target: 'topLeft', tip: 'bottomRight'}, offset: {x:190, y:170}, hideAfter: 0.01, className: 'gametip', });
+%script{:type => "text/javascript"}
+  new Tip('epic_pricing_image', $('tooltip_epic_pricing_image'),  {hideOn: false, hook: {target: 'topLeft', tip: 'bottomRight'}, offset: {x:190, y:170}, hideAfter: 0.01, className: 'gametip',});
+%script{:type => "text/javascript"}
+  new Tip('epic_monthly', $('tooltip_epic_monthly'),  {hideOn: false, hook: {target: 'topLeft', tip: 'bottomRight'}, offset: {x:190, y:170}, hideAfter: 0.01, className: 'gametip',});
+
+%script{:type => "text/javascript"}
+  new Tip('legendary_header_image', $('tooltip_legendary_header_image'),  {hideOn: false, hook: {target: 'topLeft', tip: 'bottomRight'}, offset: {x:190, y:170}, hideAfter: 0.01, className: 'gametip',});
+%script{:type => "text/javascript"}
+  new Tip('legendary_pricing_image', $('tooltip_legendary_pricing_image'),  {hideOn: false, hook: {target: 'topLeft', tip: 'bottomRight'}, offset: {x:190, y:170}, hideAfter: 0.01, className: 'gametip',});
+%script{:type => "text/javascript"}
+  new Tip('legendary_monthly', $('tooltip_legendary_monthly'),  {hideOn: false, hook: {target: 'topLeft', tip: 'bottomRight'}, offset: {x:190, y:170}, hideAfter: 0.01, className: 'gametip',});
+
+%script{:type => "text/javascript"}
+  new Tip('exalted_header_image', $('tooltip_exalted_header_image'),  {hideOn: false, hook: {target: 'topLeft', tip: 'bottomRight'}, offset: {x:190, y:170}, hideAfter: 0.01, className: 'gametip',});
+%script{:type => "text/javascript"}
+  new Tip('exalted_pricing_image', $('tooltip_exalted_pricing_image'),  {hideOn: false, hook: {target: 'topLeft', tip: 'bottomRight'}, offset: {x:190, y:170}, hideAfter: 0.01, className: 'gametip',});
+%script{:type => "text/javascript"}
+  new Tip('exalted_monthly', $('tooltip_exalted_monthly'),  {hideOn: false, hook: {target: 'topLeft', tip: 'bottomRight'}, offset: {x:190, y:170}, hideAfter: 0.01, className: 'gametip',});
+
+%script{:type => "text/javascript"}
+  new Tip('exalted_lifetime', $('tooltip_exalted_lifetime'),  {hideOn: false, hook: {target: 'topLeft', tip: 'bottomRight'}, offset: {x:190, y:170}, hideAfter: 0.01, className: 'gametip',});
+

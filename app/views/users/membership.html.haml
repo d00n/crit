@@ -1,0 +1,21 @@
+#col1
+  = render :partial => 'user_avatar_sidebar', :locals => {:user => @user}
+  = render :partial => 'profile_user_info_sidebar', :locals => {:user => @user}
+
+#col2
+  .box
+    %h2
+      ="#{link_to @user.display_name, user_path(@user)} Membership".html_safe
+
+  -if @user.ipn_invoice_notifications.any?
+    .box
+      %h3 Buy Now payments
+      = render :partial => "memberships/ipn_invoice_notification", :collection => @user.ipn_invoice_notifications
+
+  -if @user.ipn_subscription_notifications.any?
+    .box
+      %h3 Subscription payments
+      = render :partial => "memberships/ipn_subscription_notification", :collection => @user.ipn_subscription_notifications
+
+
+

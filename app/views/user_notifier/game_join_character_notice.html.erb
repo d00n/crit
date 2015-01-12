@@ -1,0 +1,13 @@
+<%= render :partial => 'user_notifier/greeting', :locals => {:user => @user}  %>
+
+<%= h @registration.character.name %>, owned by <%= h @registration.character.owner.display_name %>, has asked to register for your game, <%= h @game.name %>
+<%= character_url(@registration.character) %>
+  
+You can approve or deny their application right here:  
+Approve: <%= approve_character_url(@game, :character_id => @registration.character.id) %>
+Deny: <%= deny_character_url(@game, :character_id => @registration.character.id) %>
+  
+You can see the game's current roster of players and characters here:
+<%= registration_desk_url(@game) %>
+                
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  %>

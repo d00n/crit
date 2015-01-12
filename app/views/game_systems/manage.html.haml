@@ -1,0 +1,25 @@
+.yui-b
+  = render :partial => 'shared/admin_nav'
+
+#yui-main
+  .yui-b
+    -box do 
+      %h2= "#{@game_systems.size} game systems"
+
+      %table{:width=>"100%"}
+        %tr 
+          %th System
+          %th Open games
+          %th Total games
+          %th Approved
+          %th=:actions.l
+      
+        - for game_system in @game_systems
+          %tr
+            %td= h game_system.name
+            %td= game_system.open_game_count	
+            %td= game_system.total_game_count	
+            %td= game_system.format_approved
+            %td= link_to 'migrate!', system_category_search_path(:game_system_id => game_system.id)
+
+

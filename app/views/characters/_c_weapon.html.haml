@@ -1,0 +1,29 @@
+%div{:class=>"c_weapon"}
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = remove_link_unless_new_record(f)  
+  %div{:class=>"left-container-15"}   
+    %p{:class=>"text"}
+      = f.text_field :name, :size => 10
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = f.text_field :damage, :size => 5
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = f.text_field :range, :size => 5
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = f.text_field :rate_of_fire, :size => 5
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = f.text_field :capacity, :size => 5
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = f.text_field :modifiers, :size => 5
+  %div{:class=>"left-container-15"}   
+    %p{:class=>"text"}
+      = f.text_field :effects, :size => 10
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = f.text_field :properties, :size => 5
+  %div{:class=>"space-line"}

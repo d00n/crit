@@ -1,0 +1,305 @@
+.centered
+  %br
+    = image_tag( @character.avatar_photo_url(:medium), :class => "polaroid")
+  
+%p
+
+-if @character.showPersonalDetailsBox
+  .box
+    %h3 Personal details
+    .vcard.author
+      %ul
+
+        -if !@character.gender.blank?
+          %li
+            = 'Gender: '
+            = h(@character.gender )
+
+        -if !@character.race.blank?
+          %li
+            = 'Race: '
+            = h(@character.race)
+
+        -if !@character.ethnicity.blank?
+          %li
+            = 'Ethnicity: '
+            = h(@character.ethnicity)
+
+        -if !@character.alignment.blank?
+          %li
+            = 'Alignment/ethics: '
+            = h(@character.alignment)
+
+        -if !@character.skin_color.blank?
+          %li
+            = 'Skin color: '
+            = h(@character.skin_color)
+
+        -if !@character.age.blank?
+          %li
+            = 'Age: '
+            = h(@character.age)
+
+        -if !@character.birthday.blank?
+          %li
+            = 'Birthday: '
+            = h(@character.birthday)
+
+        -if !@character.astrological_sign.blank?
+          %li
+            = 'Astrological sign: '
+            = h(@character.astrological_sign)
+
+        -if !@character.height.blank?
+          %li
+            = 'Height : '
+            = h(@character.height)
+
+        -if !@character.weight.blank?
+          %li
+            = 'Weight: '
+            = h(@character.weight)
+
+        -if !@character.eye_color.blank?
+          %li
+            = 'Eye color: '
+            = h(@character.eye_color)
+
+        -if !@character.hair_color.blank?
+          %li
+            = 'Hair color & style: '
+            = h(@character.hair_color)
+
+        -if !@character.c_distinguishing_features.nil? and !@character.c_distinguishing_features.blank?
+          - @character.c_distinguishing_features.each do |c_distinguishing_feature|
+            %li
+              Distinguishing feature:
+              = h(c_distinguishing_feature.name)
+
+        -if !@character.fashion_sense.blank?
+          %li
+            = 'Fashion sense: '
+            = h(@character.fashion_sense)
+
+        -if !@character.c_mannerisms.nil? and !@character.c_mannerisms.blank?
+          - @character.c_mannerisms.each do |c_mannerism|
+            %li
+              Mannerism:
+              = h(c_mannerism.name)
+
+        -if !@character.c_virtues.nil? and !@character.c_virtues.blank?
+          - @character.c_virtues.each do |c_virtue|
+            %li
+              Virtue:
+              = h(c_virtue.name)
+
+        -if !@character.c_flaws.nil? and !@character.c_flaws.blank?
+          - @character.c_flaws.each do |c_flaw|
+            %li
+              Flaw:
+              = h(c_flaw.name)
+
+        -if !@character.place_of_birth.blank?
+          %li
+            = 'Place of birth: '
+            = h(@character.place_of_birth)
+
+        -if !@character.current_residence.blank?
+          %li
+            = 'Current residence: '
+            = h(@character.current_residence)
+
+        -if !@character.relationship_status.blank?
+          %li
+            = 'Relationship status: '
+            = h(@character.relationship_status)
+
+        -if !@character.c_educations.nil? and !@character.c_educations.blank?
+          - @character.c_educations.each do |c_education|
+            %li
+              Education:
+              = h(c_education.name)
+
+        -if !@character.c_trainings.nil? and !@character.c_trainings.blank?
+          - @character.c_trainings.each do |c_training|
+            %li
+              Training:
+              = h(c_training.name)
+
+        -if !@character.c_interests.nil? and !@character.c_interests.blank?
+          - @character.c_interests.each do |c_interest|
+            %li
+              Interest:
+              = h(c_interest.name)
+
+        -if !@character.c_hobbies.nil? and !@character.c_hobbies.blank?
+          - @character.c_hobbies.each do |c_hobby|
+            %li
+              Hobby:
+              = h(c_hobby.name)
+
+        -if !@character.c_goals.blank?
+          - @character.c_goals.each do |c_goal|
+            %li
+              Goal:
+              = h(c_goal.name)
+
+        -if !@character.weapon_of_choice.blank?
+          %li
+            = 'Weapon of choice: '
+            = h(@character.weapon_of_choice)
+
+
+-if @character.showCareerBox
+  .box
+    %h3 Career
+    .vcard.author
+      %ul
+
+        -if !@character.current_profession.blank?
+          %li
+            = 'Current profession: '
+            = h(@character.current_profession)
+
+        -if !@character.c_previous_professions.blank?
+          - @character.c_previous_professions.each do |c_previous_profession|
+            %li
+              = 'Previous profession: '
+              = h(c_previous_profession.name)
+
+        -if !@character.current_class.blank?
+          %li
+            = 'Current class: '
+            = h(@character.current_class)
+
+        -if !@character.c_previous_classes.blank?
+          - @character.c_previous_classes.each do |c_previous_class|
+            %li
+              = 'Previous class: '
+              = h(c_previous_class.name)
+
+        -if !@character.paragon_path.blank?
+          %li
+            = 'Paragon path: '
+            = h(@character.paragon_path)
+
+        -if !@character.epic_destiny.blank?
+          %li
+            = 'Epic destiny: '
+            = h(@character.epic_destiny  )
+  
+-if !@character.c_movements.blank?
+  .box
+    %h3 Movement
+    .vcard.author
+      %ul
+        - @character.c_movements.each do |c_movement|
+          %li
+            = h(c_movement.name)
+            = ": "
+            = h(c_movement.rate)
+
+-if !@character.c_senses.blank?
+  #personal_details.box.alt
+    %h3 Senses
+    .vcard.author
+      %ul
+        - @character.c_senses.each do |c_sense|
+          %li
+            = h(c_sense.name)
+            = ": "
+            = h(c_sense.effect)
+
+-if !@character.c_physical_abilities.blank?
+  #personal_details.box.alt
+    %h3 Physical abilities
+    .vcard.author
+      %ul
+        - @character.c_physical_abilities.each do |c_physical_ability|
+          %li
+            = h(c_physical_ability.name)
+            = ": "
+            = h(c_physical_ability.notes   )
+
+-if !@character.xp_name.blank?
+  #personal_details.box.alt
+    %h3 Character advancement
+    .vcard.author
+      %ul
+        %li
+          = h(@character.xp_name)
+          = "earned: "
+          = h(@character.xp_earned )
+        %li
+          = h(@character.xp_name)
+          = "spent: "
+          = h(@character.xp_spent  )
+        %li
+          = h(@character.xp_name)
+          = "banked: "
+          = h(@character.xp_unspent   )
+
+-if !@character.c_wealths.blank?
+  - collection = @character.c_wealths
+  #personal_details.box.alt
+    %h3 Wealth
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Denomination"
+          -if column_is_populated(collection, "value")
+            %th{:scope => "col"}= "Value"
+          -if column_is_populated(collection, "amount")
+            %th{:scope => "col"}= "Amount"
+        - @character.c_wealths.each do |c_wealth|
+          %tr
+            -if column_is_populated(collection, "name")
+              %td= h(c_wealth.name)
+            -if column_is_populated(collection, "value")
+              %td= h(c_wealth.value  )
+            -if column_is_populated(collection, "amount")
+              %td= h(c_wealth.amount  )
+
+-if !@character.c_possessions.blank?
+  #personal_details.box.alt
+    %h3 Possessions
+    .vcard.author
+      %ul
+        - @character.c_possessions.each do |c_possession|
+          %li
+            = h(c_possession.name )
+
+-if !@character.c_carried_items.blank?
+  #personal_details.box.alt
+    %h3 Gear carried
+    .vcard.author
+      %ul
+        - @character.c_carried_items.each do |c_carried_item|
+          %li
+            = h(c_carried_item.name)
+
+
+-if !@character.c_special_items.blank?
+  - collection = @character.c_special_items
+  #personal_details.box.alt
+    %h3 Special items
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Type"
+          -if column_is_populated(collection, "effects")
+            %th{:scope => "col"}= "Effects"
+          -if column_is_populated(collection, "uses")
+            %th{:scope => "col"}= "# of Uses"
+        - @character.c_special_items.each do |c_special_item|
+          %tr
+            -if column_is_populated(collection, "name")
+              %td= h(c_special_item.name)
+            -if column_is_populated(collection, "effects")
+              %td= h(c_special_item.effects  )
+            -if column_is_populated(collection, "uses")
+              %td= h(c_special_item.uses)
+
+

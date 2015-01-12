@@ -1,0 +1,5 @@
+- @section = 'characters'
+.box
+  %h2= "#{link_to h(@character.name), character_path(@character)} : Edit".html_safe
+  
+  = render :partial => "form"

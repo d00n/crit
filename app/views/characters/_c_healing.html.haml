@@ -1,0 +1,12 @@
+%div{:class=>"c_healing"}
+  %br
+  = f.label :name
+  = f.text_field :name
+  = remove_link_unless_new_record(f)
+  %br
+  = f.label :rating
+  = f.text_field :rating
+  %br
+  = f.label :notes
+  = f.text_field :notes  
+  

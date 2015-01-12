@@ -1,0 +1,8 @@
+- if !product.avatar.nil?
+  =image_tag((product.avatar_photo_url), :title=>product.name)
+- elsif !product.dtrpg_product_image.blank?
+  =image_tag(product.dtrpg_product_image, :title=>product.name)
+- elsif !product.amazon_image_url.blank?
+  =image_tag(product.amazon_image_url, :title=>product.name)
+- else
+  =image_tag(configatron.photo.missing_medium.to_s, :title=>product.name)

@@ -1,0 +1,7 @@
+
+-#supergross
+-unless RAILS_ENV.eql?('test')
+  :javascript 
+    Event.observe(window, 'load', function(){                
+      CE_Facebooker.showFbFeedForm('Tell your friends you\'re  infrnal!', #{FacebookPublisher.create_connected(current_user).to_json}, function(){});
+    });

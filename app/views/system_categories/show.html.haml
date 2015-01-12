@@ -1,0 +1,47 @@
+-#-description = "#{h(@system_category.name)}'s profile on #{configatron.community_name}. "
+-#-description += "#{h(@system_category.description).gsub(/<\/?[^>]*>/, "").gsub(/  +/, "")} "
+-#-description += configatron.meta_description
+-#
+-#- @meta = { :description => description, :keywords => "#{h(@system_category.name)}, #{configatron.meta_keywords}, #{h(@system_category.tags.join(", ")) unless @system_category.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'publishers'
+
+#col1
+  =render :partial => "system_categories/system_category_avatar_sidebar", :locals => {:system_category=> @system_category}
+  = render :partial => 'profile_sidebar', :locals => {:user => @system_category.owner}
+
+    
+
+#col2
+  .box
+    %h3
+      = link_to @system_category.name, system_category_path(@system_category)
+
+          
+  - if !@system_category.description.blank?
+    #about_me.box.alt
+      =@system_category.description.html_safe
+
+      
+  -if @system_category.products.any?
+    .box
+      -@system_category.products.each do |product|
+        -if current_user && (current_user == @system_category.owner || current_user.admin?)
+          = render :partial => 'products/product', :locals => {:product=> product, :action => 'remove', :system_category => @system_category}
+          -#= render :partial => 'products/product_listing_large', :locals => {:product=> product, :action => 'remove', :system_category => @system_category}
+        -else
+          = render :partial => 'products/product', :locals => {:product=> product}
+          -#= render :partial => 'products/product_listing_large', :locals => {:product=> product}
+
+  -##comments.box.alt
+  -#  %p= render :partial => 'comments/comment_form', :locals => {:commentable => @system_category}
+  -#
+  -#  %a#newest_comment
+  -#  = render :partial => 'comments/comment', :collection => @comments
+  -#
+  -#  / this shouldn't be needed, as any logged in user should be able to comment on a system_category
+  -#  - @user = @system_category.owner
+  -#  %span#more_comments_links= more_user_comments_links
+
+%script{:type=>"text/javascript", :charset=>"utf-8"}
+  = remote_function :url => {:controller => 'system_categories', :action => 'update_views', :id => @system_category}, :method => :put
+

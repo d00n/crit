@@ -1,0 +1,18 @@
+<%= h @name %> wants to share the following article with you:
+
+<%= @title %>
+<%= @url %>
+
+<%= @description %>
+
+<%= @message %>
+<%= @name.eql?('Someone') ? "The #{configatron.community_name} Team" : @name %>
+
+---------------------------------------	
+<%= configatron.community_description %>
+
+Want in? Sign up here: 
+<%= @signup_link %>
+
+
+For support, or to report abuse, please contact <%= configatron.support_email %>.	

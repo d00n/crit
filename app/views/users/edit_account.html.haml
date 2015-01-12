@@ -1,0 +1,121 @@
+
+= error_messages_for :user
+
+=form_tag update_account_user_url(@user), :method => 'put', :class => "MainForm", :multipart => true do
+
+  #col1
+    -box :class => "alt" do
+      %h3=:you_are_editing_your_account.l
+      = link_to :edit_your_user_profile.l, edit_user_path(@user)
+
+    .box
+      %h3 Login ID
+      = text_field :user, :login, :size => "28"
+
+      %p
+      %h3=:e_mail_address.l
+      = text_field :user, :email, :size => "28"
+
+      %p
+      %h3=:password.l
+      = password_field :user, :password, :size => "28"
+
+      %p
+      %h3=:confirm_password.l
+      = password_field :user, :password_confirmation, :size => "28"
+
+
+      -if @user.publisher
+        %p
+        %h3 Company name
+        = text_field :user, :publisher_name
+        %p
+        %h3 Blog RSS URL
+        = text_field :user, :blog_rss_url
+        %p
+        %h3 DriveThruRPG/OneBookShelf ID
+        = text_field :user, :dtrpg_id
+      -else
+        %p
+        %h3 First name
+        = text_field :user, :first_name
+        %p
+        %h3 Last name
+        = text_field :user, :last_name
+
+    .box
+      %h3 Membership
+      -if current_user.admin?
+        %p
+          %ul
+            %li.view= link_to 'Membership history', user_membership_path(@user)
+      %p
+        %li.view=link_to :deactivate_link.l, deactivate_user_path(@user), :method => :put, :confirm => :deactivate_confirmation.l
+      %label
+        %em= :deactivate_tip.l
+  #col2
+    = render :partial => "omniauth_connect"
+
+    -box :class => "yui-b" do
+      %h3=:e_mail_notification.l
+      %fieldset
+        - if !@user.publisher
+          %label
+            = check_box :user, :notify_admin_blasts
+            Send me the newsletter
+
+        %label
+          = check_box :user, :notify_friend_requests
+          Notify me of friend requests
+
+        %label
+          = check_box :user, :notify_comments
+          Notify me of comments on my stuff, or forum replies
+
+        %label
+          = check_box :user, :notify_upcoming_games
+          Notify me of games I have coming up soon
+
+        /%label
+        /  = check_box :user, :notify_community_news
+        /  =:notify_email_updates.l :site => configatron.community_name
+
+        - if !@user.publisher
+          %label
+            = check_box :user, :notify_registrations
+            Notify me of game registration status changes
+
+          /%label
+          /  = check_box :user, :notify_new_games
+          /  Notify me of new games
+
+      %p
+      %h3 Facebook wall autoposts
+      %fieldset
+        - if !@user.publisher
+          %label
+            = check_box :user, :allow_fb_autopost_achievement_unlocked
+            Submit wall post when I unlock an achievement
+          %label
+            = check_box :user, :allow_fb_autopost_new_friend
+            Submit wall post when I get a new friend
+            %br
+            %em These are limited to 1 per day. All other posts will show you a preview, asking for approval.
+
+      %p
+      %h3=:profile_privacy.l
+      %fieldset
+        %label
+          = check_box :user, :profile_public
+          =:make_my_profile_public.l
+          %br
+          %em
+            =:when_checked_your_profile_will_be_visible_to_anyone.l
+          %br
+          %em
+            =:when_unchecked_your_profile_will_only_be_visible_to_people_who_are_logged_in_to.l
+            = "#{configatron.community_name}."
+
+    .box
+      %p= submit_tag :save_changes.l
+

@@ -1,0 +1,15 @@
+- if @user.vendor?
+  = :user_vendor_offer.l
+- elsif @user.publisher?
+
+  Your company’s description is the first thing people see on your profile. Some ideas:
+  %p
+  Describe your company philosophy/culture
+  %br
+  Describe the products you are most proud of and why
+  %br
+  What kinds of exciting things are in the works right now
+  %p
+
+- else
+  = :user_bio_help.l

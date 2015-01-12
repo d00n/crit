@@ -1,0 +1,9 @@
+<%= render :partial => 'user_notifier/greeting', :locals => {:user => @user}  %>
+
+Congratulations! Your granting of '<%= h @achievement.name %>' has been accepted by <%=@grantee.display_name%>.
+
+<%= @description %>
+
+<%= achievement_url(@achievement) %>
+                
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  %>

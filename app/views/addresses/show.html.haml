@@ -1,0 +1,57 @@
+= error_messages_for :address
+
+#col1
+  -if !(@user.publisher && @user.avatar)
+    = render :partial => 'users/user_avatar_sidebar', :locals => {:user => @user}
+  -#= render :partial => 'users/profile_user_info_sidebar', :locals => {:user => @user}
+  -#= render :partial => 'users/profile_col1_content', :locals => {:user => @user}
+
+
+#col2
+  .box
+    %h3 Shipping address
+      
+    = form_for @address, :url => update_user_address_path(@user), :html => {:class => "cmxform"} do |ff|
+      = ff.hidden_field :is_shipping, :value => '1'
+      .container
+        .InfrnoForm
+
+          .user_row
+            %fieldset
+              %ol
+                %li
+                  = ff.label 'Line 1'
+                  = ff.text_field :line_one
+
+                %li
+                  = ff.label 'Line 2'
+                  = ff.text_field :line_two
+
+                %li
+                  = ff.label 'City'
+                  = ff.text_field :city
+
+                %li
+                  = ff.label 'State'
+                  = ff.text_field :state
+
+                %li
+                  = ff.label 'Zip/postal code'
+                  = ff.text_field :postal_code
+
+                %li
+                  = ff.label 'Country'
+                  = ff.text_field :country
+
+
+
+      %p
+      = ff.submit 'Save'
+
+
+
+
+
+
+
+

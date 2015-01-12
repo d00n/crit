@@ -1,0 +1,12 @@
+-if @popular_posts.any?
+  .sub-box
+    %h3 What's hot
+    = render :partial => 'posts/post', :collection => @popular_posts
+
+.sub-box
+  %h3
+    What's recent,
+    = link_to 'see all', activities_path
+  - @recent_activity.each do |activity|
+    =render :partial => "activities/activity", :locals => {:activity => activity }
+

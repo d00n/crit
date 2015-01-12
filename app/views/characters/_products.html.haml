@@ -1,0 +1,19 @@
+
+-if @character.products.any?
+  .box
+    %h3
+      = link_to "Products (#{@character.products.count})", character_products_path(@character)
+      - if current_user && ( current_user == @character.owner  || current_user.admin?)
+        .right
+          =link_to "(add)", system_categories_path(:character_id => @character.id)
+    .center
+      -@character.products.first(3).each do |product|
+        =render :partial => 'products/sidebar_product', :locals => {:product => product}
+
+-elsif current_user && (current_user == @character.owner || current_user.admin?)
+  .box
+    %h3
+      = link_to "What are you playing?", character_products_path(@character)
+      - if current_user && ( current_user == @character.owner  || current_user.admin?)
+        .right
+          =link_to "(add)", system_categories_path(:character_id => @character.id)

@@ -1,0 +1,9 @@
+=render :partial => 'messages/sidebar_nav'
+
+#col2
+  -box do 
+    %h3= :compose_message.l
+    
+    = error_messages_for :message
+    
+    =render :partial => 'newsletter_form', :locals => {:message => @message, :user => @user}

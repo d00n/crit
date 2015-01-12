@@ -1,0 +1,24 @@
+-achievement = unlocked_achievement.achievement
+
+.user_row
+  .user_row_col1
+    = link_to image_tag( achievement.thumb, :class => "achievement_thumb" ), achievement_path(achievement)
+    
+  .user_row_col2
+    %h2= link_to achievement.name.html_safe, achievement_path(achievement)
+    %h2= "#{link_to unlocked_achievement.user.display_name, user_path(unlocked_achievement.user)}".html_safe
+    %h2= "Level: #{unlocked_achievement.level}".html_safe
+
+    %ul
+      %li= "Author: #{link_to achievement.owner.display_name, user_path(achievement.owner)}".html_safe
+
+      %li= "Grantor: #{link_to unlocked_achievement.grantor.display_name, user_path(unlocked_achievement.grantor)}".html_safe
+
+
+
+  .user_row_col3
+    = h(truncate_words achievement.description, 100, '...').html_safe
+
+
+
+

@@ -1,0 +1,201 @@
+=form_for :intake_survey, @intake_survey, :html => { :action => "create"} do |f|
+  %p
+    How often to you participate in tabletop roleplaying?
+    %br
+    = radio_button :intake_survey, :q1, 1
+    Several times a week
+    %br
+    = radio_button :intake_survey, :q1, 2
+    Once a week
+    %br
+    = radio_button :intake_survey, :q1, 3
+    A couple times a month
+    %br
+    = radio_button :intake_survey, :q1, 4
+    Monthly
+    %br
+    = radio_button :intake_survey, :q1, 5
+    A few times a year
+    %br
+    = radio_button :intake_survey, :q1, 6
+    Almost never
+    %br
+    = radio_button :intake_survey, :q1, 7
+    I've never played
+
+  %p
+    How often would you <b>like</b> to participate in tabletop roleplaying?
+    %br
+    = radio_button :intake_survey, :q2, 1
+    Several times a week
+    %br
+    = radio_button :intake_survey, :q2, 2
+    Once a week
+    %br
+    = radio_button :intake_survey, :q2, 3
+    A couple times a month
+    %br
+    = radio_button :intake_survey, :q2, 4
+    Monthly
+    %br
+    = radio_button :intake_survey, :q2, 5
+    A few times a year
+    %br
+    = radio_button :intake_survey, :q2, 6
+    Almost never
+
+  %p
+    What games do you play now? (e.g., D&D 4e, Pathfinder, World of Darkness, CthulhuTech, etc.)
+    = text_area :intake_survey, :q3, :rows => 3
+
+  %p
+    When is the last time you played a new system?
+    %br
+    = radio_button :intake_survey, :q4, 1
+    Within the last week
+    %br
+    = radio_button :intake_survey, :q4, 2
+    Within the last month
+    %br
+    = radio_button :intake_survey, :q4, 3
+    Within the last year
+    %br
+    = radio_button :intake_survey, :q4, 4
+    Within the last few years
+    %br
+    = radio_button :intake_survey, :q4, 5
+    I've only played one system
+    %br
+    = radio_button :intake_survey, :q4, 6
+    I've never played any systems
+  
+  %p
+    Please indicate your level of agreement with the following statements
+    %table{:table_width => "80%"}
+      %tr{:bgcolor => "#FFEE99"}
+        %td{:colspan => 9}
+          Scheduling a time when everyone is free to play is a problem
+      %tr{:bgcolor => "#FFEE99"}
+        %td{:colspan => 3, :align => "Right"}
+          Strongly Disagree
+        %td{:colspan => 3}
+        %td{:colspan => 3}
+          Strongly Agree
+      %tr{:bgcolor => "#FFEE99"}
+        %td{:width => "10%"}
+        %td{:width => "10%"}
+          &nbsp;&nbsp;&nbsp;&nbsp;
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q5, 1
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q5, 2
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q5, 3
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q5, 4
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q5, 5
+        %td{:width => "10%"}
+        %td
+      %tr
+        %td{:colspan => 9}
+          It's hard to find people to play with locally
+      %tr
+        %td{:colspan => 3, :align => "Right"}
+          Strongly Disagree
+        %td{:colspan => 3}
+        %td{:colspan => 3}
+          Strongly Agree
+      %tr
+        %td{:width => "10%"}
+        %td{:width => "10%"}
+          &nbsp;&nbsp;&nbsp;&nbsp;
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q6, 1
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q6, 2
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q6, 3
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q6, 4
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q6, 5
+        %td{:width => "10%"}
+        %td
+      %tr{:bgcolor => "#FFEE99"}
+        %td{:colspan => 9}
+          I want to play games/systems that my current group isn't interested in
+      %tr{:bgcolor => "#FFEE99"}
+        %td{:colspan => 3, :align => "Right"}
+          Strongly Disagree
+        %td{:colspan => 3}
+        %td{:colspan => 3}
+          Strongly Agree
+      %tr{:bgcolor => "#FFEE99"}
+        %td{:width => "10%"}
+        %td{:width => "10%"}
+          &nbsp;&nbsp;&nbsp;&nbsp;
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q7, 1
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q7, 2
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q7, 3
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q7, 4
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q7, 5
+        %td{:width => "10%"}
+        %td
+      %tr
+        %td{:colspan => 9}          
+          I'm interested in meeting new people to play with
+      %tr
+        %td{:colspan => 3, :align => "Right"}
+          Strongly Disagree
+        %td{:colspan => 3}
+        %td{:colspan => 3}
+          Strongly Agree
+      %tr
+        %td{:width => "10%"}
+        %td{:width => "10%"}
+          &nbsp;&nbsp;&nbsp;&nbsp;
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q8, 1
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q8, 2
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q8, 3
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q8, 4
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q8, 5
+        %td{:width => "10%"}
+        %td
+      %tr{:bgcolor => "#FFEE99"}
+        %td{:colspan => 9}
+          I need a tool to help me organize resources (notes, maps, etc.) for my games
+      %tr{:bgcolor => "#FFEE99"}
+        %td{:colspan => 3, :align => "Right"}
+          Strongly Disagree
+        %td{:colspan => 3}
+        %td{:colspan => 3}
+          Strongly Agree
+      %tr{:bgcolor => "#FFEE99"}
+        %td{:width => "10%"}
+        %td{:width => "10%"}
+          &nbsp;&nbsp;&nbsp;&nbsp;
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q9, 1
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q9, 2
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q9, 3
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q9, 4
+        %td{:width => "10%", :align => "Center"}
+          =radio_button :intake_survey, :q9, 5
+        %td{:width => "10%"}
+        %td
+  %p
+    = f.submit "Submit survey"

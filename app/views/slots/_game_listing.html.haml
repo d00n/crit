@@ -1,0 +1,61 @@
+.user_row
+  %h4= link_to h(game.name), game_path(game)
+  .user_row_col1
+    = link_to image_tag( game.avatar_photo_url(), :width => "100" ), seo_game_path(game)
+    
+  .game_row_col2
+
+    %ul
+      %li.fn
+        = render :partial => 'users/user_name', :locals => {:user => game.owner, :name_prefix => "GM:"}
+
+      - if !game.system_name.blank?
+        %li.view
+          System:
+          =link_to h(game.game_system.name), games_path(:system_name => game.game_system.name), :method => :get
+
+      %li.view="Player seats: #{game.player_seats}"
+        
+      -if game.alternate_seats > 0
+        %li.view= "Alternate seats: #{game.alternate_seats}"
+        
+      
+      -if slot_game_registration.status == 'pending'
+        -if current_user && current_user == slot.event.owner
+          %li.view= link_to 'Approve registration', approve_game_path(slot, game)
+          %li.view= link_to 'Deny registration', deny_game_path(slot, game)
+        -if current_user && current_user == game.owner
+          %li.view= link_to 'Cancel registration', cancel_game_path(slot, game)
+
+      -if slot_game_registration.status == "active"
+        -if current_user && current_user == slot.event.owner
+          %li.view= link_to 'Kick game', kick_game_path(slot, game)
+        -if current_user && current_user == game.owner
+          %li.view= link_to 'Cancel game', cancel_game_path(slot, game), :confirm => 'Are you sure?'
+
+
+        -if current_user && (slot.registered_players.include?current_user)
+          %li.view= "You're already in a game in this slot: #{link_to slot.registered_in(current_user).name, game_path(slot.registered_in(current_user))}".html_safe
+        -else
+          =render :partial => 'games/registration_desk_links', :locals => { :game => game, :slot => slot }
+
+            
+
+  .game_row_col3
+    - if @search && @search['description']
+      = h(truncate_words_with_highlight game.description, @search['description'])
+    - else
+      = h(truncate_words game.description, 100, '...')
+      
+    -if game.is_d20pro
+      %p
+      =link_to image_tag('d20pro_161x78.jpg', :width => '80', :height => '39', :style => 'float:left; padding: 5px 5px 0px 5px;'), 'http://www.d20pro.com/'
+      This game will be played in d20Pro, and having d20Pro installed is required to participate. 
+      =link_to  'Click here to download the latest version.', 'http://www.d20pro.com/downloads.php'
+
+
+      
+
+
+
+

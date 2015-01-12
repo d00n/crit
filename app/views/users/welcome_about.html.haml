@@ -1,0 +1,18 @@
+= error_messages_for :user
+=form_tag user_path(:welcome => 'invite'), :method => 'put', :multipart =>true, :class => "MainForm" do
+
+
+  #col1
+    .box
+      %h3 Hail, weary traveller, might you be interested in a flagon of ale?
+      Have a seat! Tell us a tale!
+
+
+    =render :partial => "users/edit_about_form_col1_contents"
+
+  #col2
+    =render :partial => "users/edit_about_form_col2_contents"
+
+
+    .box
+      = submit_tag :save_and_continue_to_step_three.l

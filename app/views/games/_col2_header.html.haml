@@ -1,0 +1,16 @@
+.box
+  %h2= "#{link_to game.name, seo_game_path(game)}".html_safe
+  -if game.slots.any?
+    %h3= "Regsitered in: #{link_to game.slots.last.event.name, event_path(game.slots.last.event)}".html_safe
+
+
+  -if !game.system_name.blank? || !game.genre.blank?
+    %ul
+      -if !game.system_name.blank?
+        %li
+          = 'System: '
+          = link_to(h(game.system_name), :controller => "/games", :action => "index", :system_name => game.system_name)
+      -if !game.genre.blank?
+        %li
+          = 'Genre: '
+          = link_to(h(game.genre), :controller => "/games", :action => "index", :genre => game.genre)

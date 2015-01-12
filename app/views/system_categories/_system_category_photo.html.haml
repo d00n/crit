@@ -1,0 +1,13 @@
+- if !system_category.avatar.nil?
+  =image_tag((system_category.avatar_photo_url(:medium)), :title=>system_category.name)
+-elsif system_category.dtrpg_category_image
+  .dtrpg_category_image=image_tag((configatron.DTRPG_IMAGE + system_category.dtrpg_category_image), :title=>system_category.name)
+-elsif system_category.products.any?
+  -if system_category.products.first.dtrpg_product_image
+    =image_tag((system_category.products.first.dtrpg_product_image), :title=>system_category.name)
+  - elsif !system_category.products.first.amazon_image_url.blank?
+    =image_tag(system_category.products.first.amazon_image_url, :title=>system_category.name)
+  -else
+    =image_tag((system_category.products.first.avatar_photo_url(:medium)), :title=>system_category.name)
+- else
+  =image_tag(configatron.photo.missing_medium.to_s, :title=>system_category.name)

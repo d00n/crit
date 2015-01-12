@@ -1,0 +1,12 @@
+A game table has been reset.
+
+Game: <%= @game.name %>
+<%= game_url(@game) %>
+
+Reset by: <%= @user.display_name %>
+<%= user_url(@user) %>
+
+Old room_id: <%= @old_room_id %>
+New room_id: <%= @game.room_id %>
+
+

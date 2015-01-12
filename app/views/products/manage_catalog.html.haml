@@ -1,0 +1,49 @@
+-box do 
+  %h3 
+    Manage catalog order,
+    =link_to "New product", new_product_path  
+
+  %table{:border => 0, :width => '100%'}
+    %thead
+      %tr
+        %th Name
+        %th Catalog position
+        %th 
+        %th 
+    %tbody
+      =form_for @current_user, :url => { :action => "update_catalog" } do |publisher_form|
+        - @current_user.products.catalog_displayed.each do |product|
+          - publisher_form.fields_for product, :index => product.id do |product_form|
+            %tr            
+              %td
+                = link_to h(product.name), product_path(product)
+                
+              %td
+                = product_form.text_field :catalog_rank, :size => 1 
+              
+              %td
+                = link_to "Edit", edit_product_path(product)
+              %td
+                = link_to "Delete", product, :confirm => 'Are you sure?', :method => :delete
+                
+        %tr
+          %td
+                
+        - @current_user.products.catalog_not_displayed.each do |product|
+          - publisher_form.fields_for product, :index => product.id do |product_form|
+            %tr            
+              %td
+                = link_to h(product.name), product_path(product)
+                
+              %td
+                = product_form.text_field :catalog_rank, :size => 1 
+              
+              %td
+                = link_to "Edit", edit_product_path(product)
+              %td
+                = link_to "Delete", product, :confirm => 'Are you sure?', :method => :delete
+               
+        %p
+          =submit_tag("Save catalog order")  
+
+

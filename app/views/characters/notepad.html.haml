@@ -1,0 +1,19 @@
+-description = ''
+-if !@character.about.blank?
+  -description += "#{@character.about.gsub(/<\/?[^>]*>/, "").gsub(/  +/, "")} "
+-description += " #{configatron.meta_description}"
+
+- @meta = { :description => description, :keywords => "#{h(@character.owner.display_name)}, #{configatron.meta_keywords}, #{h(@character.tags.join(", ")) unless @character.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'characters'
+
+#col1
+  = render :partial => 'characters/avatar'
+  = render :partial => 'characters/nav_items'
+
+#col2
+  .box
+    %h2= "#{link_to h(@character.name), seo_character_path(@character)} : Notepad".html_safe
+
+  =render :partial => 'notepad_content', :locals => {:character => @character}
+        
+

@@ -1,0 +1,13 @@
+<p>
+  <b>User:</b>
+  <%=h @user_achievements.user_id %>
+</p>
+
+<p>
+  <b>Level:</b>
+  <%=h @user_achievements.level %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_achievements_path(@user_achievements) %> |
+<%= link_to 'Back', user_achievements_path %>

@@ -1,0 +1,39 @@
+-if @achievement.id
+  .centered
+    %br
+    = image_tag( @achievement.avatar(:large), :class => "achievement_avatar")
+
+  %p
+  .box_achievements
+    .badge_box.center
+      = link_to image_tag( @achievement.badge(:large), :alt => @achievement.name, :title  => @achievement.name, :class => "achievement_badge"), achievement_path(@achievement)
+
+  =render :partial => "links"
+
+-else
+  .centered
+    %br
+    =image_tag configatron.photo.missing_medium.to_s
+
+  .box
+    %h3 This is a badge rack:
+
+    %p
+    .box_achievements
+      .badge_box.center
+        -@sample_achievements.each do |achievement|
+          = link_to image_tag( achievement.badge(:large), :alt => achievement.name, :title  => achievement.name, :class => "achievement_badge"), achievement_path(achievement)
+
+    %p
+    Badge racks are where users, games, and characters display their achievements.
+
+
+
+
+
+
+
+
+
+
+

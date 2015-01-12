@@ -1,0 +1,13 @@
+#col1
+  = render :partial => 'users/user_avatar_sidebar', :locals => {:user => @user}
+
+  .box
+    %h3 Messages
+    %ul.message_nav
+      %li{:class => "inbox#{current_user.unread_messages? ? '_new': ''}"}
+        = link_to :inbox.l, user_messages_path(current_user)
+        = "(#{current_user.unread_message_count})" if current_user.unread_messages?
+      %li.sent= link_to :sent_messages.l, user_messages_path(current_user, :mailbox => :sent)
+
+  = render :partial => 'users/profile_user_info_sidebar', :locals => {:user => @user}
+

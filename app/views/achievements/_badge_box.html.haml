@@ -1,0 +1,16 @@
+.box_achievements
+  .badge_box.center
+    /%h3= link_to "Achievements", user_achievements_path(@user)
+    -accepted_achievements.each do |ua|
+      = link_to image_tag( ua.achievement.badge, :alt => ua.achievement.name, :title  => ua.achievement.name, :class => "achievement_badge"), achievement_path(ua.achievement)
+
+
+
+
+
+
+
+
+
+
+

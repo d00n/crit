@@ -1,0 +1,17 @@
+- @section = 'posts'
+
+#col1
+  =render :partial => "shared/home_page_user_profile", :locals => { :tags => tags}
+                
+                
+#col2
+  .box
+    %h2
+      Recent posts
+
+    -@posts.each do |recent_post|
+      = render :partial => 'posts/post', :locals => {:post => recent_post}
+
+ 
+    
+    =paginate @posts

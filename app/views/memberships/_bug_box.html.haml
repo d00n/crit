@@ -1,0 +1,31 @@
+.box.features-box
+  .bug-box-header-spacer
+  -bug_count.times do
+    -if use_badge_level == -1
+      .horizontally_aligned_text_and_images
+    -elsif use_badge_level == 0
+      .horizontally_aligned_text_and_images
+        .centered_images
+          =image_tag(asset_path("bug_16x16.png"))
+    -elsif use_badge_level == 1
+      .horizontally_aligned_text_and_images
+        .centered_images
+          =image_tag(asset_path("E_16x16.png"))
+        .centered_text
+    -elsif use_badge_level == 2
+      .horizontally_aligned_text_and_images
+        .centered_images
+          =image_tag(asset_path("L_16x16.png"))
+        .centered_text
+    -elsif use_badge_level == 3
+      .horizontally_aligned_text_and_images
+        .centered_images
+          =image_tag(asset_path("X_16x16.png"))
+        .centered_text
+    -elsif use_badge_level == 4
+      .horizontally_aligned_text_and_images
+        .centered_images
+          =image_tag(asset_path("M_16x16.png"))
+        .centered_text
+
+

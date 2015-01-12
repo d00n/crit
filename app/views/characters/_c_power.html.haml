@@ -1,0 +1,27 @@
+%div{:class=>"c_power"}
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = remove_link_unless_new_record(f)  
+  %div{:class=>"left-container-15"}   
+    %p{:class=>"text"}
+      = f.text_field :name, :size => 10
+  %div{:class=>"left-container-15"}   
+    %p{:class=>"text"}
+      = f.text_field :requirements, :size => 10
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = f.text_field :duration, :size => 5
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = f.text_field :range, :size => 5
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = f.text_field :uses, :size => 5
+  %div{:class=>"left-container-15"}   
+    %p{:class=>"text"}
+      = f.text_field :damage, :size => 10
+  %div{:class=>"left-container-15"}   
+    %p{:class=>"text"}
+      = f.text_field :effects, :size => 10
+  %div{:class=>"space-line"}
+

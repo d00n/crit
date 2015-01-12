@@ -1,0 +1,16 @@
+%br
+.center
+  =image_tag( premium_label(3))
+
+.prices
+  %p
+  Lifetime: $199.99
+  %p
+
+
+
+  = link_to "Log in", login_path({:target_page => "premium_membership"})
+  = :or.l
+  = link_to "create an account", signup_path
+  ="to upgrade your account."
+  %p

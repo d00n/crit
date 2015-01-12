@@ -1,0 +1,156 @@
+- @meta = { :description => "#{h(@game.name)}'s profile on #{configatron.community_name}.", :keywords => "#{h(@game.name)}, #{@game.tags.join(", ") unless @game.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'games'
+
+#col1
+  -if current_user && @game.has_access(current_user)
+    = render :partial => 'profile_game_info_sidebar', :locals => {:user => @game.owner}
+  -else
+    = render :partial => 'private_profile_game_info_sidebar', :locals => {:game => @game}
+
+#col2
+  =render :partial => 'col2_header', :locals => {:game => @game}
+  
+  .box
+    %h3
+      Player and character registration desk,
+      -if @game.open_player_seats > 0
+        ="#{pluralize(@game.open_player_seats, 'open seat')}"
+      -elsif @game.open_alternate_seats > 0
+        ="#{pluralize(@game.open_alternate_seats, 'open alternate seat')}"
+      -else
+        game is full
+
+    = render :partial => 'registration_desk_links', :locals => { :game => @game }
+
+      
+  - if @pending_players.length > 0
+    .box.alt
+      %h3 Pending registrations    
+      - for pending_player in @pending_players
+        %div.border_top
+          %div.left_col
+            %dl.item
+              %dt.photo.right-margin
+                = link_to image_tag(pending_player.avatar_photo_url(:thumb), :width => '100px', :alt => h(pending_player.display_name)), user_path(pending_player)
+              %li.fn
+                =render :partial => 'users/user_name', :locals => {:user => pending_player}
+
+              - if current_user == pending_player
+                %dd
+                  = link_to 'Cancel registration', cancel_player_path(@game, :user_id => pending_player.id)
+                  
+              - if current_user == @game.owner
+                %dd
+                  = link_to 'Approve player', approve_player_path(@game, :user_id => pending_player.id)
+                  
+              - if current_user == @game.owner && pending_player != @game.owner                
+                %dd
+                  = link_to 'Deny player', deny_player_path(@game, :user_id => pending_player.id)    
+                  
+          %div.right_col
+            -if current_user == pending_player
+              %ul.with_margin
+                - if @game.pregenerated_character_offers.length > 0
+                  %li.view= link_to 'Register a pregenerated character', choose_pregenerated_character_path(@game)  
+                -if current_user.characters.count > 0
+                  %li.view= link_to 'Register one of your characters', choose_character_path(@game)  
+                %li.view= link_to 'Register a new character', register_new_character_path(@game)  
+            
+              - for pending_character in @game.pending_characters_for_player(pending_player)
+                %dl.item
+                  %dt.photo.right-margin
+                    = link_to image_tag(pending_character.avatar_photo_url(:thumb), :alt => h(pending_character.name)), seo_character_path(pending_character)
+                  %dd.fn
+                    %li.fn= link_to h(pending_character.name), seo_character_path(pending_character)
+
+                  - if current_user == pending_character.owner
+                    %dd
+                      = link_to 'Leave game', character_leave_game_path(@game, :character_id => pending_character.id)          
+                  - if current_user == @game.owner 
+                    %dd
+                      = link_to 'Kick character', kick_character_path(@game, :character_id => pending_character.id)   
+
+  - if @game.alternate_players.size > 0                 
+    .box.alt
+      %h3 Alternates
+      - @game.alternate_players.each do |alternate_player|
+        %div.border_top
+          %div.left_col
+            %dl.item
+              %dt.photo.right-margin
+                = link_to image_tag(alternate_player.avatar_photo_url(:thumb), :width => '100px', :alt => h(alternate_player.display_name)), user_path(alternate_player)
+              %li.fn
+                =render :partial => 'users/user_name', :locals => {:user => alternate_player}
+              %dd.fn
+                = "Alternate #{@game.alternate_position(alternate_player)}"   
+
+              - if current_user == alternate_player
+                %dd
+                  = link_to 'Cancel registration', cancel_alternate_path(@game, :user_id => alternate_player.id)
+              - if current_user == @game.owner 
+                %dd
+                  = link_to 'Kick alternate', kick_alternate_path(@game, :user_id => alternate_player.id)        
+      %div.border_top
+        %p
+        =link_to 'Release alternates', release_alternates_path(@game)
+        (Inform alternates that the game has started, and all seats are full)
+
+                
+            
+  .box.alt
+    %h3 Registered players and characters
+    - if @active_players.length == 0
+      No approved registrations.
+    - else
+
+      %p
+      %div.left_col
+        .center
+          Players
+      %div.right_col
+        .center
+          Characters
+      %p
+      
+      - for active_player in @active_players
+        %div.border_top
+          %div.left_col
+            %dl.item
+              %dt.photo.right-margin
+                = link_to image_tag(active_player.avatar_photo_url(:thumb), :width=>"100px", :alt => h(active_player.display_name)), user_path(active_player)
+              %li.fn
+                =render :partial => 'users/user_name', :locals => {:user => active_player}
+
+              - if current_user == active_player
+                %dd
+                  = link_to 'Leave game', player_leave_game_path(@game, :user_id => active_player.id)                    
+              - if current_user == @game.owner 
+                %dd
+                  = link_to 'Kick player', kick_player_path(@game, :user_id => active_player.id)        
+                  
+          %div.right_col
+            -if current_user == active_player
+              %ul.with_margin
+                - if @game.pregenerated_character_offers.length > 0
+                  %li.view= link_to 'Register a pregenerated character', choose_pregenerated_character_path(@game)  
+                -if current_user.characters.count > 0
+                  %li.view= link_to 'Register one of your characters', choose_character_path(@game)  
+                %li.view= link_to 'Register a new character', register_new_character_path(@game)  
+          
+            - for active_character in @game.active_characters_for_player(active_player)
+              %dl.item
+                %dt.photo.right-margin
+                  = link_to image_tag(active_character.avatar_photo_url(:thumb), :alt => h(active_character.name)), seo_character_path(active_character)
+                %dd.fn
+                  %li.fn= link_to h(active_character.name), seo_character_path(active_character)
+
+                - if current_user == active_character.owner
+                  %dd
+                    = link_to 'Leave game', character_leave_game_path(@game, :character_id => active_character.id)          
+                - if current_user == @game.owner 
+                  %dd
+                    = link_to 'Kick character', kick_character_path(@game, :character_id => active_character.id)
+                    
+                    
+        
+

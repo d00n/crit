@@ -1,0 +1,35 @@
+#col1
+  -box do 
+    %h3 Tips
+    %p 
+      To delete a photo from an album, you need to delete it from
+      = link_to "your collection", user_photos_path(current_user)
+      Not good enough? 
+      = link_to "Tell us about it!", contact_url
+
+  -if @is_current_user
+    =render :partial => 'album_links'
+    =render :partial => 'photos/photo_links'
+
+#col2
+  -box :id => "single_upload", :class => ".yui-b" do
+    %h3 
+      Edit album
+      = link_to @album.title, user_album_path(current_user,@album)
+    =form_for(@album, :url => user_album_path(current_user, @album),:html => {:class => "MainForm"}) do |f|        
+      %label 
+        =:title.l + ":"
+      = f.text_field :title, :size => 35
+      
+      %p
+      %label
+        =:description.l + ":"
+      = f.text_area :description, :size => "58x5"
+      
+      = hidden_field_tag :go_to
+      
+      %p
+        = f.submit "Save", :onclick => "Form.getInputs(this.form, null, 'go_to')[0].value = 'only_create'"
+        = :or.l
+        = f.submit "Save and add photos"
+            

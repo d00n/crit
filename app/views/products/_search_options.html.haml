@@ -1,0 +1,24 @@
+-box :class => 'alt first_alt' do
+  = link_to( "&raquo; #{:back_to_all_users.l}", users_path) if params['login'] || params['tag_list']
+  = form_tag products_path, :method => :get , :class => 'MainForm' do
+    %label= "Product name"
+    = text_field_tag 'name', @search['name'], :style => "width:265px;"
+    %p
+    %label= "Publisher name"
+    = select_tag 'publisher_id', options_from_collection_for_select(@publishers, "id", "publisher_name"), :include_blank => true, :style => "width:270px;"
+    %p
+    = check_box_tag 'is_core_rulebook', @search['is_core_rulebook'], checked = @search['is_core_rulebook']
+    Core rulebook
+    %p
+
+
+    -if @game
+      = hidden_field_tag("game_id", @game.id)
+    -if @character
+      = hidden_field_tag("character_id", @character.id)
+    -if @system_category
+      = hidden_field_tag("system_category_id", @system_category.id)
+
+    %input{"type"=>"submit", "value"=>"Search products"}
+
+

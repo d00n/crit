@@ -1,0 +1,12 @@
+-type ||= nil
+
+-#supergross
+-unless RAILS_ENV.eql?('test')
+  :javascript 
+    Event.observe(window, 'load', function(){                
+    -case type
+      -when 'post'
+        CE_Facebooker.intercept_blog_post_form();
+      -when 'connected'
+        CE_Facebooker.showFbFeedForm('Tell your friends youve become Infrnal!', #{FacebookPublisher.create_connected(current_user).to_json}, function(){});
+    });

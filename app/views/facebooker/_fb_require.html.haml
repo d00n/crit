@@ -1,0 +1,29 @@
+-if session[:admin_id].nil? #if admin is assuming another user's id, don't log in to facebook
+  =stylesheet_link_tag 'facebook', :plugin => "community_engine_facebooker"
+  =javascript_include_tag 'application', :plugin => 'community_engine_facebooker'  
+  
+  :javascript      
+    window.xd_receiver_location = 'http://#{Facebooker.facebooker_config['callback_url']}/xd_receiver.html';
+    window.facebook_id = '#{current_user ? current_user.facebook_id : ''}';
+    window.facebook_session = '#{facebook_session ? 'true' : 'false'}';
+  
+    function fbInit() {
+      FB.init('#{Facebooker.api_key}', window.xd_receiver_location, 
+        { 'ifUserConnected': CE_Facebooker.fbConnected,
+          permsToRequestOnConnect : "email,publish_stream",
+        });
+    }
+    var head = document.getElementsByTagName("head")[0], script = document.createElement("script"), done = false;
+
+    script.src = 'http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US';
+    script.onload = script.onreadystatechange = function(){
+      if ( !done && (!this.readyState || this.readyState == "loaded" || this.readyState == "complete") ) {
+        done = true;
+        fbInit();
+      }
+    };
+
+    Event.observe(document, 'dom:loaded', function(){
+      head.appendChild(script);
+    });
+

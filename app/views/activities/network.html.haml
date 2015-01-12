@@ -1,0 +1,15 @@
+#col1
+  =render :partial => "shared/home_page_user_profile", :locals => { :tags => tags}
+
+
+#col2
+  .box
+    -unless @activities.empty?
+      %h3 Notifications
+      %table{:width => "100%"}
+        =render :partial => "activities/activity", :collection => @activities
+      -if @activities.total_count > 1
+        = paginate @activities
+    -else
+      =:you_have_no_network_activity_yet.l 
+      = link_to :add_some_friends_to_get_started.l, users_path

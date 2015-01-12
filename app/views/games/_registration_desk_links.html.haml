@@ -1,0 +1,55 @@
+-if game.status == "closed" 
+  ="Registration desk is closed"
+
+-else
+  -slot = game.slots.last
+  -if slot && slot.event.is_registering_premium_players && !slot.event.is_registering_regular_players
+    %h3="Welcome to early registration!"
+
+  -if current_user
+  
+    -if game.is_registered(current_user)
+      %li="You are registered in this game"
+
+    -elsif game.status == "open" && game.active_players.size < game.player_seats
+    
+      -if slot
+        -if slot.event.is_registering_regular_players
+          %li= link_to "Join this game", register_player_for_event_path(game, slot)
+          
+        -elsif slot.event.is_registering_premium_players
+
+          -if current_user.membership_level > 2
+            %li= link_to "Join this game", register_player_for_event_path(game, slot)
+          -else
+            %li= link_to "Early registration is available for Exalted members, upgrade now!", edit_account_user_path(current_user)
+
+      -else
+        %li= link_to "Join this game", register_player_path(game)
+
+    -elsif game.status == "open" && game.alternate_players.size < game.alternate_seats
+      %li="Game is full"
+
+      -if slot
+      
+        -if slot.event.is_registering_regular_players
+          %li= link_to "Sign up as an alternate", register_alternate_for_event_path(game, slot)
+          
+        -elsif slot.event.is_registering_premium_players
+ 
+          -if current_user.membership_level > 2
+            %li= link_to "Sign up as an alternate", register_alternate_for_event_path(game, slot)
+          -else
+            %li= link_to "Early registration is available for Exalted members, upgrade now!", edit_account_user_path(current_user)
+
+      -else
+        %li= link_to "Sign up as an alternate", register_alternate_path(game)
+
+    -elsif game.status == "open"
+      %li="Game is full"
+
+  -elsif game.status == "open"  && (game.active_players.size < game.player_seats || game.alternate_players.size < game.alternate_seats)
+    = link_to "Log in", login_path
+    = :or.l
+    = link_to "create an account", signup_path
+    ="to register for this game."

@@ -1,0 +1,28 @@
+-description = ''
+-if !@character.about.blank?
+  -description += "#{strip_tags(@character.about).gsub(/\n/, "")} "
+-description += " #{configatron.meta_description}"
+
+- @meta = { :description => description, :keywords => "#{h(@character.owner.display_name)}, #{configatron.meta_keywords}, #{h(@character.tags.join(", ")) unless @character.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'characters'
+
+#col1
+  = render :partial => 'characters/avatar'
+  = render :partial => 'characters/nav_items'
+  = render :partial => 'characters/profile_sidebar', :locals => {:user => @character.owner}
+
+#col2
+  .box
+    %h2= "#{link_to h(@character.name), character_path(@character)} : Select a profile photo".html_safe
+
+
+  .box
+    %p= link_to( 'New photo', new_character_avatar_photo_path(@character))
+
+    .clear
+    - @photos.each do |photo|
+      = link_to image_tag(h(photo.photo.url(:thumb)), :width => "94px"),  character_change_profile_photo_path({:id => @character, :photo_id => photo}), :method => :put
+
+    =paginate @photos
+
+        

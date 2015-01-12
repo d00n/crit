@@ -1,0 +1,123 @@
+- @meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_list_content }
+
+#col1
+  =render :partial => "shared/home_page_user_profile"
+  -#=render :partial => "shared/home_page_user_profile", :locals => { :tags => tags }
+
+      
+#col2
+
+  -if current_user.nil? || current_user.membership_level == 0
+    %p
+    = link_to image_tag(asset_path('PremiumInfrnoMembership_rounded_507x145.png') ), premium_membership_path
+
+
+  -if @system_announcement.any?
+    .box
+      %h3{:style=>"color: #ff0000;"}= "SPECIAL ANNOUNCEMENT"
+      = render :partial => 'posts/post', :collection => @system_announcement
+
+  -if !CON_GAME_ID.blank?
+    -game = Game.find(CON_GAME_ID)
+    .box
+      %h3= "#{link_to h(game.name), seo_game_path(game)} is open for registration".html_safe
+      .box_row
+        .event_row1_col1
+          %p= link_to image_tag(game.avatar_photo_url(), :width => '150px' ), seo_game_path(game)
+
+        .event_row1_col2
+          %p
+          =game.description.html_safe
+
+      =link_to 'See the game profile for the complete rules...', game_url(game)
+
+  -Event.all.each do |event|
+    -if event.is_primary_home_page_promo
+      .box
+        -if event.is_registering_regular_players
+          %h3= "#{link_to h(event.name), event_path(event)} is open for player registration, #{pluralize(event.seats_open, 'seat')} left!".html_safe
+        -elsif event.is_registering_premium_players
+          %h3= "#{link_to h(event.name), event_path(event)} is open for #{link_to 'early player registration', premium_membership_path}, #{pluralize(event.seats_open, 'seat')} left!".html_safe
+          
+        -if event.is_registering_games
+          %h3= "#{link_to h(event.name), event_path(event)} is open for GMs to register games!".html_safe
+          
+        .box_row
+          .event_row1_col1
+            %p= link_to image_tag(event.avatar_photo_url(), :width => '250px' ), event_path(event)
+
+
+          .col2{:style=>"MARGIN-LEFT: 260px; margin-right: 10px; margin-top: 10px;"}
+            =event.summary.html_safe
+
+          -if event.upcoming_games.any?
+            .event_row2
+              %h3= "Current game line up"
+              -event.upcoming_games.each do |game|
+                =link_to image_tag(game.avatar_photo_url(:thumb), :width => '94px', :title => game.image_tag_title ), seo_game_path(game)
+
+
+  -Event.all.each do |event|
+    -if event.is_secondary_home_page_promo
+      .box
+        .box_row
+          .col1{:style=>"width: 90px; float: left;"}
+            %p= link_to image_tag(event.avatar_photo_url(), :width => '90px' ), event_path(event)
+
+          .col2{:style=>"MARGIN-LEFT: 100px; margin-right: 10px; margin-top: 10px; margin-bottom:10px;"}
+            %h3= "#{link_to h(event.name), event_path(event)}".html_safe
+            %h3= "Coming soon: #{event.start_time.strftime('%a, %b %d, %I:%M%p %Z')}".html_safe
+            
+            -if event.is_registering_regular_players
+              %h3= "#{link_to h(event.name), event_path(event)} is open for player registration, #{pluralize(event.seats_open, 'seat')} left!".html_safe
+            -elsif event.is_registering_premium_players
+              %h3= "#{link_to h(event.name), event_path(event)} is open for premium player registration, #{pluralize(event.seats_open, 'seat')} left!".html_safe
+              
+              
+            -if event.is_registering_games
+              %h3= "#{link_to h(event.name), event_path(event)} is open for GMs to register games!".html_safe
+
+            -if !event.summary.blank?
+              =truncate_words(event.summary, 50, '...').html_safe
+
+
+
+
+      
+  -#.box
+  -#  -if current_user.nil? || current_user.membership_level == 0
+  -#    %h3
+  -#      Recent achievements.
+  -#      .right= link_to "Leaderboards!", achievement_leaderboard_top_authors_path
+  -#    = "Authoring and granting achievements is a premium feature. #{link_to 'Upgrade today!', premium_membership_path}".html_safe
+  -#    %p
+  -#  -else
+  -#    %h3
+  -#      Recent achievements
+  -#      .right= link_to "Leaderboards!", achievement_leaderboard_top_authors_path
+  -#  - Achievement.all(:order => 'created_at desc').first(10).each do |achievement|
+  -#    = link_to image_tag( achievement.thumb, :width => "94px", :height => "94px", :title => h(achievement.name)), achievement_path(achievement)
+
+  .box
+    %h3 Recent photos
+    - @recent_photos.each do |photo|
+      = link_to image_tag( photo.photo.url(:thumb), :width => "94px", :title => h(photo.name)), user_photo_path(photo.owner, photo)
+
+  .box
+    %h3
+      Recent blog posts,
+      = link_to 'see all', recent_path
+    -@recent_posts.each do |recent_post|
+      = render :partial => 'posts/post', :locals => {:post => recent_post}
+
+
+
+  .box
+    %h3
+      Recent forum posts,
+      = link_to 'see all', recent_forum_posts_path
+    = render :partial => 'forums/post', :collection => @recent_forum_posts
+
+
+
+

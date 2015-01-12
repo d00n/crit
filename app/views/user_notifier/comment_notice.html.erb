@@ -1,0 +1,6 @@
+Hello <%= h @user.display_name %>,
+
+<%= h @comment.user.display_name %> left a comment for you:
+<%= @url %> 
+
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  %>

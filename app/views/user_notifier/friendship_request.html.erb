@@ -1,0 +1,6 @@
+<%= render :partial => 'user_notifier/greeting', :locals => {:user => @user}  %>
+
+<%= @requester.display_name %> would like to be friends with you:
+<%= @url %> 
+
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  %>

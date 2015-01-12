@@ -1,0 +1,290 @@
+-if !@character.c_attributes.blank? 
+  %h3 attributes
+  %table{:id => "box-table-a" }
+    %thead
+      %tr
+        %th{:scope => "col"}= "Name"
+        %th{:scope => "col"}= "Score"
+        %th{:scope => "col"}= "Modifiers"
+        %th{:scope => "col"}= "Notes"
+      - character.c_attributes.each do |c_attribute|
+        %tr
+          %td
+            = h(c_attribute.name)
+          %td
+            = h(c_attribute.score)
+          %td
+            = h(c_attribute.modifiers)
+          %td
+            = h(c_attribute.notes)
+  
+-if !character.c_special_attributes.blank? 
+  %h3 special attributes
+  %table{:id => "box-table-a" }
+    %thead
+      %tr
+        %th{:scope => "col"}= "Name"
+        %th{:scope => "col"}= "Level"
+        %th{:scope => "col"}= "Effects"
+        %th{:scope => "col"}= "Notes"        
+        - character.c_special_attributes.each do |c_special_attribute|
+          %tr
+            %td
+              = h(c_special_attribute.name)
+            %td
+              = h(c_special_attribute.level)
+            %td
+              = h(c_special_attribute.effects)
+            %td
+              = h(c_special_attribute.notes)
+      
+-if !character.c_skills.blank? 
+  %h3 skills
+  %table{:id => "box-table-a" }
+    %thead
+      %tr
+        %th{:scope => "col"}= "Name"
+        %th{:scope => "col"}= "Level"
+        %th{:scope => "col"}= "Attr Base"
+        %th{:scope => "col"}= "Bonus"
+        %th{:scope => "col"}= "Penalty"
+        %th{:scope => "col"}= "Misc"
+        %th{:scope => "col"}= "Notes"
+      - character.c_skills.each do |c_skill|
+        %tr
+          %td
+            = h(c_skill.name)
+          %td
+            = h(c_skill.level)
+          %td
+            = h(c_skill.base_attribute)
+          %td
+            = h(c_skill.bonus)
+          %td
+            = h(c_skill.penalty)
+          %td
+            = h(c_skill.misc)
+          %td
+            = h(c_skill.notes)
+  
+-if !character.c_skill_specializations.blank? 
+  %h3 skill specializations
+  %table{:id => "box-table-a" }
+    %thead
+      %tr
+        %th{:scope => "col"}= "Name"
+        %th{:scope => "col"}= "Skill"
+        %th{:scope => "col"}= "Level"
+        %th{:scope => "col"}= "Bonus"
+        %th{:scope => "col"}= "Penalty"
+        %th{:scope => "col"}= "Notes"
+      - character.c_skill_specializations.each do |c_skill_specialization|
+        %tr
+          %td
+            = h(c_skill_specialization.name)
+          %td
+            = h(c_skill_specialization.skill)
+          %td
+            = h(c_skill_specialization.level)
+          %td
+            = h(c_skill_specialization.bonus)
+          %td
+            = h(c_skill_specialization.penalty)
+          %td
+            = h(c_skill_specialization.notes)
+  
+-if !character.c_languages.blank? 
+  %h3 languages
+  %table{:id => "box-table-a" }
+    %thead
+      %tr
+        %th{:scope => "col"}= "Name"
+        %th{:scope => "col"}= "Level"
+        %th{:scope => "col"}= "Attr Base"
+        %th{:scope => "col"}= "Bonus"
+        %th{:scope => "col"}= "Penalty"
+        %th{:scope => "col"}= "Misc"
+        %th{:scope => "col"}= "Notes"
+      - character.c_languages.each do |c_language|
+        %tr
+          %td
+            = h(c_language.name)
+          %td
+            = h(c_language.level)
+          %td
+            = h(c_language.base_attribute)
+          %td
+            = h(c_language.bonus)
+          %td
+            = h(c_language.penalty)
+          %td
+            = h(c_language.misc)
+          %td
+            = h(c_language.notes)
+  
+-if !character.c_qualities.blank? 
+  %h3 qualities
+  %table{:id => "box-table-a" }
+    %thead
+      %tr
+        %th{:scope => "col"}= "Name"
+        %th{:scope => "col"}= "Type"
+        %th{:scope => "col"}= "Effects"
+        %th{:scope => "col"}= "Notes"
+        - character.c_qualities.each do |c_quality|
+          %tr
+            %td
+              = h(c_quality.name)
+            %td
+              = h(c_quality.type)
+            %td
+              = h(c_quality.effects)
+            %td
+              = h(c_quality.notes)
+  
+-if !character.c_racial_abilities.blank? 
+  %h3 racial abilities
+  %table{:id => "box-table-a" }
+    %thead
+      %tr
+        %th{:scope => "col"}= "Name"
+        %th{:scope => "col"}= "Effects"
+        %th{:scope => "col"}= "Notes"
+        - character.c_racial_abilities.each do |c_racial_ability|
+          %tr
+            %td
+              = h(c_racial_ability.name)
+            %td
+              = h(c_racial_ability.effects)
+            %td
+              = h(c_racial_ability.notes)
+              
+-if !character.c_special_abilities.blank? 
+  %h3 special abilities
+  %table{:id => "box-table-a" }
+    %thead
+      %tr
+        %th{:scope => "col"}= "Name"
+        %th{:scope => "col"}= "Effects" 
+        %th{:scope => "col"}= "Notes" 
+      - character.c_special_abilities.each do |c_special_ability|
+        %tr
+          %td
+            = h(c_special_ability.name)
+          %td
+            = h(c_special_ability.effects)
+          %td
+            = h(c_special_ability.notes)
+  
+-if !character.c_powers.blank? 
+  %h3 powers
+  %table{:id => "box-table-a" }
+    %thead
+      %tr
+        %th{:scope => "col"}= "Name"
+        %th{:scope => "col"}= "Requirements"
+        %th{:scope => "col"}= "Duration"
+        %th{:scope => "col"}= "Range"
+        %th{:scope => "col"}= "Uses"
+        %th{:scope => "col"}= "Damage"
+        %th{:scope => "col"}= "Effects"   
+      - character.c_powers.each do |c_power|
+        %tr
+          %td
+            = h(c_power.name)
+          %td
+            = h(c_power.requirements)
+          %td
+            = h(c_power.duration)
+          %td
+            = h(c_power.range)
+          %td
+            = h(c_power.uses)
+          %td
+            = h(c_power.damage)
+          %td
+            = h(c_power.effects)
+  
+-if !character.c_combats.blank? 
+  %h3 combat
+  %table{:id => "box-table-a" }
+    %thead
+      %tr
+        %th{:scope => "col"}= "Name"
+        %th{:scope => "col"}= "Notes" 
+      - character.c_combats.each do |c_combat|
+        %tr
+          %td
+            = h(c_combat.name)
+          %td
+            = h(c_combat.notes)
+  
+-if !character.c_defenses.blank? 
+  %h3 defenses & Resistances
+  %table{:id => "box-table-a" }
+    %thead
+      %tr
+        %th{:scope => "col"}= "Name"
+        %th{:scope => "col"}= "Type"
+        %th{:scope => "col"}= "Rating"
+        %th{:scope => "col"}= "Penalties"
+        %th{:scope => "col"}= "Special Properties"
+      - character.c_defenses.each do |c_defense|
+        %tr
+          %td
+            = h(c_defense.name)
+          %td
+            = h(c_defense.type)
+          %td
+            = h(c_defense.rating)
+          %td
+            = h(c_defense.penalties)
+          %td
+            = h(c_defense.special_properties)
+            
+-if !character.c_damages.blank? 
+  %h3 damage
+  %table{:id => "box-table-a" }
+    %thead
+      %tr
+        %th{:scope => "col"}= "Name"
+        %th{:scope => "col"}= "Notes" 
+      - character.c_damages.each do |c_damage|
+        %tr
+          %td
+            = h(c_damage.name)
+          %td
+            = h(c_damage.notes)
+  
+-if !character.c_weapons.blank? 
+  %h3 weapons
+  %table{:id => "box-table-a" }
+    %thead
+      %tr
+        %th{:scope => "col"}= "Name"
+        %th{:scope => "col"}= "Damage"
+        %th{:scope => "col"}= "Range"  
+        %th{:scope => "col"}= "Rate Of Fire"  
+        %th{:scope => "col"}= "Capacity"
+        %th{:scope => "col"}= "Modifiers"  
+        %th{:scope => "col"}= "Effects"  
+        %th{:scope => "col"}= "Properties"  
+      - character.c_weapons.each do |c_weapon|
+        %tr
+          %td
+            = h(c_weapon.name)
+          %td
+            = h(c_weapon.damage)
+          %td
+            = h(c_weapon.range)
+          %td
+            = h(c_weapon.rate_of_fire)
+          %td
+            = h(c_weapon.capacity)
+          %td
+            = h(c_weapon.modifiers)
+          %td
+            = h(c_weapon.effects)
+          %td
+            = h(c_weapon.properties)
+

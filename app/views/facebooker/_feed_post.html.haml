@@ -1,0 +1,8 @@
+-type ||= nil
+
+-#supergross
+-unless RAILS_ENV.eql?('test')
+  :javascript 
+    Event.observe(window, 'load', function(){        
+      CE_Facebooker.intercept_blog_post_form();
+    });

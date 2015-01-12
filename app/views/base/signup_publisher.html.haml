@@ -1,0 +1,13 @@
+
+
+.box.alt.first_alt
+  %h3 Create publisher account
+  = form_tag signup_publisher_url, :class => "MainForm" do
+    %label{"for"=>"username"}
+      ="Beta invitation code"
+    = text_field_tag 'beta_invite_code', nil, :size => 35    
+    %p= submit_tag "Let me in!"
+
+
+    
+

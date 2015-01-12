@@ -1,0 +1,15 @@
+#col1
+  .box
+    %h3= "#{link_to 'Premium members', premium_membership_path} can author achievements and grant them to players, GMs, characters, and even games!".html_safe
+
+  =render :partial => "shared/ad"
+
+#col2
+  .box
+    %h2 Achievements
+
+    %br.clear
+    - Achievement.all(:order => "created_at desc").each do |achievement|
+      = render :partial => "achievement_listing", :locals => { :achievement => achievement, :show_grant => false }
+
+

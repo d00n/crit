@@ -1,0 +1,20 @@
+-@meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_show_content }
+-@section = 'people'
+
+#col1
+  = render :partial => 'user_avatar_sidebar', :locals => {:user => @user}
+  = render :partial => 'profile_user_info_sidebar', :locals => {:user => @user}
+  
+  
+#col2
+  .box.alt.user_list
+
+    %h2= "#{h(@user.display_name)}'s characters"
+    
+    - @characters.each do |character|
+      = render :partial => "characters/character_listing", :locals => { :character => character }        
+    %br.clear
+
+  .box
+    =paginate @characters
+      

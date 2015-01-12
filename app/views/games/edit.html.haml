@@ -1,0 +1,193 @@
+= error_messages_for :game
+=calendar_date_select_includes
+
+#col1
+  -if @game.id
+    = render :partial => 'profile_game_info_sidebar'
+  -else
+    .centered
+      %br
+      =image_tag @game.avatar_photo_url(:medium)
+
+
+
+#col2
+  -if @game.id
+    =render :partial => 'col2_header', :locals => { :game => @game }
+  -else
+    .box
+      %h3 New game
+
+
+  .box
+
+    =form_for(@game, :html => {:class => "cmxform"}) do |game_form|
+      .container
+        = hidden_field_tag :register_slot_id, @register_slot_id
+        = hidden_field_tag :status, @game.status
+        = hidden_field_tag :old_start_at, @game.start_at
+
+        .InfrnoForm
+
+          .user_row
+            %fieldset
+              %legend
+                Game details
+              %ol
+                %li
+                  = game_form.label :name
+                  = game_form.text_field :name
+                %li
+                  = game_form.label :player_seats
+                  = game_form.text_field :player_seats
+
+                %li
+                  = game_form.label :alternate_seats
+                  = game_form.text_field :alternate_seats
+
+                %li
+                  = game_form.check_box :others_can_clone
+                  Allow other users to clone
+
+                  %li
+                    = game_form.check_box :allow_spectators
+                    Allow spectators
+
+                  %li
+                    = game_form.check_box :use_video
+                    Use video chat
+
+          .user_row
+            %fieldset
+              %legend
+                Privacy
+              -if current_user.membership_level > 2
+                %ol
+                  %li
+                    = game_form.check_box :is_private
+                    Game is only visible to registered users.
+
+                    This includes game blog posts, game comments, game avatar photos, as well as blogs posts, comments, and avatar photos for registered characters.
+              -else
+                %h3= "Private games are a premium feature. #{link_to 'Upgrade now!', premium_membership_path}".html_safe
+
+          .user_row
+            %fieldset
+              %legend
+                Registration desk
+              -if @game.slots.any?
+                %h3 Registration for games in events is managed by the event owner.
+              -else
+                %ol
+                  %li
+                    = game_form.select(:status, [['Open for player registration', 'open'], ['Closed for player registration', 'closed']])
+
+                  %li
+                    = game_form.check_box :auto_approve_player_registrations
+                    Auto-approve registrations
+
+                  %li
+                    .three_char_input_text
+                      = game_form.label "Age range"
+                      = game_form.text_field :min_age, :size => '3'
+                      to
+                      = game_form.text_field :max_age, :size => '3'
+
+
+
+          .user_row
+            %fieldset
+              %legend
+                Scheduling
+              -if @game.slots.any?
+                %h3 Scheduling for games in events is managed by the event owner.
+              -else
+                %ol
+                  %li
+                    = game_form.label 'Start time'
+                    = game_form.calendar_date_select :start_at, :time => true
+
+                  %li
+                    = game_form.label 'Length (hours)'
+                    = game_form.text_field :session_length
+
+                  %li
+                    = game_form.label :number_of_sessions
+                    = game_form.text_field :number_of_sessions
+
+
+          .user_row
+            %fieldset
+              =link_to image_tag('d20pro_161x78.jpg', :width => '80'), 'http://www.d20pro.com/'
+              %ol
+                %li
+                  = game_form.label 'Play in d20Pro'
+                  = game_form.check_box :is_d20pro
+
+                %li
+                  = game_form.label 'IP address'
+                  = game_form.text_field :d20pro_ip
+
+                %li
+                  = game_form.label 'Port'
+                  = game_form.text_field :d20pro_port
+
+                %li
+                  = game_form.label 'Password'
+                  = game_form.text_field :d20pro_password
+
+
+          .user_row
+            %fieldset
+              %legend
+                Description
+              %ol
+                %li
+                  = game_form.text_area :description, :class => "rich_text_editor", :size => "50x20"
+
+          .user_row
+            %fieldset
+              %legend
+                Premise
+              %ol
+                %li
+                  = game_form.text_area :premise, :class => "rich_text_editor", :size => "50x20"
+
+          .user_row
+            %fieldset
+              %legend
+                Style of play
+              %ol
+                %li
+                  = game_form.text_area :style_of_play, :class => "rich_text_editor", :size => "50x20"
+
+
+          .user_row
+            %h3= :tags.l
+            #game_tags
+              = text_field_tag 'tag_list', @game.tag_list.to_s, {:autocomplete => "off", :size=>"90"}
+              -##tag_list_auto_complete.auto_complete
+              -#= auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [',']  }
+
+          -if current_user.admin?
+            .user_row
+              %fieldset
+                %legend
+                  Admin
+                %ol
+                  %li
+                    = game_form.label 'Room id'
+                    = game_form.text_field :room_id
+
+
+
+          %p
+          = game_form.submit 'Save profile'
+
+
+
+
+
+
+
+

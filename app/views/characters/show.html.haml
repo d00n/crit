@@ -1,0 +1,42 @@
+-description = ''
+-if !@character.about.blank?
+  -description += "#{strip_tags(@character.about).gsub(/\n/, "")} "
+-description += " #{configatron.meta_description}"
+
+- @meta = { :description => description, :keywords => "#{h(@character.owner.display_name)}, #{configatron.meta_keywords}, #{h(@character.tags.join(", ")) unless @character.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'characters'
+
+#col1
+  = render :partial => 'characters/avatar'
+  =render :partial => "characters/products"
+  =render :partial => "shared/ad"
+  = render :partial => 'characters/nav_items'
+  = render :partial => 'characters/profile_sidebar', :locals => {:user => @character.owner}  
+      
+#col2
+  .box
+    %h2= "#{link_to h(@character.name), seo_character_path(@character)} : Character profile".html_safe
+               
+            
+  - unless @posts.empty?
+    #posts.box.alt
+      %h3= link_to "Posts (#{@character.posts.count})", character_post_path(@character)
+      = render :partial => 'posts/post', :collection => @posts
+      
+
+  =render :partial => 'profile_content', :locals => {:character => @character}
+
+    
+  -box :class => 'hfeed comments', :id => 'comments' do      
+    = render :partial => 'comments/comment_form', :locals => {:commentable => @character}
+    %a#newest_comment
+    = render :partial => 'comments/comment', :collection => @comments
+    
+    -if @comments.any?
+      %span#more_comments_links= more_comments_links(@character)    
+      
+    .clear
+      
+%script{:type=>"text/javascript", :charset=>"utf-8"}
+  = remote_function :url => {:controller => 'characters', :action => 'update_views', :user_id => @current_user, :id => @character}, :method => :put
+

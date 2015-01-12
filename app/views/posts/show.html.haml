@@ -1,0 +1,105 @@
+%script{"type"=>"text/javascript", "src"=>"http://www.plaxo.com/css/m/js/util.js"}
+%script{"type"=>"text/javascript", "src"=>"http://www.plaxo.com/css/m/js/basic.js"}
+%script{"type"=>"text/javascript", "src"=>"http://www.plaxo.com/css/m/js/abc_launcher.js"}
+
+- @section = (@post.category && @post.category.name)
+- @meta = { :title => "#{@post.title}", :description => "#{truncate_words(@post.post, 200, '...' )}  #{configatron.meta_description}", :keywords => "#{configatron.meta_keywords}, #{@post.tags.join(", ") unless @post.tags.nil?}", :robots => configatron.robots_meta_show_content }
+
+#send_to_friend.modal.fade{:role => 'dialog', "aria-hidden" => "true", :"aria-labelledby" => "send_to_friend_label", :tabindex => "-1", :style => 'padding-top: 60px;'}
+
+#col1
+  -if @post.character
+    =render :partial => 'character_profile', :locals => {:character => @post.character}
+  -elsif @post.game
+    =render :partial => 'game_profile', :locals => {:game => @post.game}
+  -else
+    =render :partial => 'author_profile', :locals => {:user => @user}
+
+  =render :partial => 'shared/user_admin_sidebar', :locals => {:user => @user}
+
+
+  =render :partial => "shared/ad"
+
+    
+  -if @is_current_user
+    =render :partial => 'post_links'
+
+  .box 
+    %h3 This Post
+    %ul
+      %li.update
+        = @post.published_at_display(:literal_date)
+      %li.view= "Views(#{@post.view_count})"
+      %li.comments= link_to :comments.l+" (#{@post.comments.size})", user_post_path(@user, @post)+'#comments'      
+      - if current_user and current_user.can_request_friendship_with(@post.user)
+        %li.addfriend= add_friend_link(@post.user)
+      %li.print
+        %a{"href"=>"#", :onclick=>"window.print(); return false;", :title=>:print_this_story.l}= :print.l
+
+      -if DEPLOY_ADDTOANY
+        %li.view
+          =render :partial => "shared/addToAny"
+
+      -if DEPLOY_ADDTHIS
+        %li.view
+          =render :partial => "shared/addThis"      
+          
+      %li.email
+        %a{:href=>"#", :onclick=>"showSendTo_friend(); return false;", :title=>:email_this_story_to_friends.l}= :email_to_friends.l
+        
+      -if @is_current_user || admin? || moderator?
+        %li.edit= link_to :edit.l, edit_user_post_path(@post.user, @post)
+        %li.delete= link_to :delete.l, user_post_path(@post.user, @post), {:method => :delete, :confirm => :permanently_delete_this_post.l}
+  
+      - if @post.tags.any?
+        %li.tags
+          =li_tags_helper(@post)
+
+
+  - if @related.any?
+    -box :class => 'alt' do
+      %h3=:related_posts.l
+      %ul
+        - @related.each do |post|
+          %li.page 
+            =link_to h(truncate(post.title, :length => 75)), user_post_path(post.user, post)      
+
+  =render :partial => "shared/ad"
+
+  - if @popular_posts.any?
+    -box :class => 'alt' do
+      %h3=:popular_posts.l
+      %ul
+        - @popular_posts.each do |post|
+          %li.view
+            =link_to h(truncate(post.title, :length => 75)), user_post_path(post.user, post)      
+
+
+#col2
+  .box
+    %h2=@post.title
+    %p
+    #user_generated_html
+      = @post.post.html_safe
+      
+    = render :partial => 'polls/poll_ui', :locals => {:poll => @post.polls.first} unless @post.polls.empty?
+  
+  -box :class => 'hfeed comments', :id => 'comments' do      
+    %h3 Comments
+    %p= render :partial => 'comments/comment_form', :locals => {:commentable => @post}
+    %a#newest_comment
+    = render :partial => 'comments/comment', :collection => @comments
+    %span#more_comments_links= more_comments_links(@post)
+
+-#%script{:type=>"text/javascript", :charset=>"utf-8"}
+-#  = remote_function :url => {:controller => 'posts', :action => 'update_views', :user_id => @post.user, :id => @post}, :method => :put
+
+-content_for :end_javascript do
+  :javascript
+    $('.email').on('click', function(e){
+      e.preventDefault();
+      $.post("#{send_to_friend_user_post_path(:user_id => @user.id, :id => @post.id)}", function(response){
+        $('#send_to_friend').html(response);
+      });
+      $('#send_to_friend').modal();
+    });

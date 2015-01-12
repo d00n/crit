@@ -1,0 +1,8 @@
+<%= render :partial => 'user_notifier/greeting', :locals => {:user => @user}  %>
+Congratulations! You have been granted achievement admin status.
+
+This gives you the ability to approve or deny new achievements. Once approved, the author may then grant it, or delete it. Authors may not edit approved achievements.
+
+Thank you for helping us keep Infrno a friendly place!
+
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  %>

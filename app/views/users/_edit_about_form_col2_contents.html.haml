@@ -1,0 +1,44 @@
+-box do
+  %h3
+    - if @user.publisher
+      About Us
+    -else
+      About Me
+
+  = text_area :user, :description, :class => "rich_text_editor", :style => "width:100%"
+
+  - if @user.publisher
+    %p
+    What does your company specialize in?
+    %br
+    What kind of gamer likes your stuff?
+    %br
+    Don't miss the image and video embedding capabilities of this editor.
+  -else
+    %p
+    What do you like to play?
+    %br
+    Why do you dislike elves so much?
+    %br
+    What in Crom's name are you doing to that donkey?
+
+- if @user.vendor?
+  = render :partial => 'offerings/chooser'
+
+-box do
+  %h3= :tags.l
+  #user_tags
+    = text_field_tag 'tag_list', @user.tag_list.to_s, {:autocomplete => "off", :size=>"58"}
+    -##tag_list_auto_complete.auto_complete
+    -#= auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [',']}
+
+
+    %p
+
+    =:you_could_tag_yourself.l
+    - if @user.vendor?
+      =:custom_friendly_local.l
+    - else
+      = configatron.meta_keywords.split(",")[0..3].join(", ")
+    %br
+

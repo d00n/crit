@@ -1,0 +1,26 @@
+.user_row
+  -if game.has_access(current_user)
+    .user_row_col1
+      = link_to image_tag(game.avatar_photo_url(:thumb), :alt => "#{game.name}", :width => '100'), seo_game_path(game)
+
+    .user_row_col2
+      - if !game.name.blank?
+        %li.fn
+          =link_to h(game.name), seo_game_path(game)
+      %li.fn= render :partial => 'users/user_name', :locals => {:user => game.owner, :name_prefix => "GM:"}
+
+      -if game.products.any?
+        %li.view= link_to game.products.first.name, game_products_path(game.products.first.owner, game.products.first, game)
+      -elsif !game.system_name.blank?
+        %li.view= "#{link_to( h(game.system_name), :controller => "/games", :action => "index", :system_name => game.system_name)}".html_safe
+
+      -if game.slots.any?
+        %li.view= "Registered in #{link_to game.slots.last.event.name, event_path(game.slots.last.event)}".html_safe
+      -if !game.tags.empty?
+        %li.tags
+          =li_tags_helper(game, 5)
+
+  -else
+    %h3 Private game
+    %h3=link_to "Private games are a premium feature, upgrade today!", premium_membership_path
+

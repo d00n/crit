@@ -1,0 +1,29 @@
+!!!
+%html
+  %head
+    %link{:rel=>"shortcut icon", :href=>"#{home_url}favicon.ico"}
+    %meta{"http-equiv"=>"Content-Type", :content=>"text/html;charset=utf-8"}
+  
+    %title
+      = configatron.community_name
+      |
+      = configatron.community_tagline
+  
+    = render :partial => "shared/scripts_and_styles"
+    
+  %body.single-col
+
+
+    #container-single-col
+      #content-single-col
+        #contentHeader-single-col
+          %a{:href=>"/", :class => "logo", :title=>"#{configatron.community_name}"}
+        #contentBody-single-col
+          = render :partial => "shared/messages"
+
+          = yield
+
+        #contentFooter-single-col
+
+
+

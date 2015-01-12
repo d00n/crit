@@ -1,0 +1,3 @@
+-if current_user.nil? || current_user.membership_level < 1
+  .box
+    %h3= "Granting achievements is a premium feature. #{link_to 'Upgrade now!', premium_membership_path}".html_safe

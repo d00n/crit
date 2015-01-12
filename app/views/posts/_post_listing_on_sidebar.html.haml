@@ -1,0 +1,23 @@
+.user_row
+  .user_row_col1
+    - if !post.game.nil?
+      %a{:href=>"#{game_post_path(post.game)}", :class=>"polaroid", :rel=>"bookmark"}
+        =image_tag((post.first_image_in_body() || post.game.avatar_photo_url(:thumb)), :alt=>"",:width=>"90")
+    - elsif !post.character.nil?
+      %a{:href=>"#{character_post_path(post.character)}", :class=>"polaroid", :rel=>"bookmark"}
+        =image_tag((post.first_image_in_body() || post.character.avatar_photo_url(:thumb)), :alt=>"", :width=>"90")
+    - else
+      %a{:href=>"#{user_post_path(post.user, post)}", :class=>"polaroid", :rel=>"bookmark"}
+        =image_tag((post.first_image_in_body() || post.user.avatar_photo_url(:thumb)), :width=>"90")
+
+  .user_row_col2
+    %li.fn= link_to post.title, user_post_path(post.user, post), :rel => 'bookmark'
+    %li.update
+      = time_ago_in_words post.published_at
+
+    %li.view
+      = "Views(#{post.view_count})"
+
+
+
+  

@@ -1,0 +1,22 @@
+
+#tooltip_exalted_header_image
+  =render :partial => "choose_plan", :locals => {:level_name => 'Exalted'}
+#tooltip_exalted_pricing_image
+  =render :partial => "choose_plan", :locals => {:level_name => 'Exalted'}
+#tooltip_exalted_monthly
+  =render :partial => "choose_plan", :locals => {:level_name => 'Exalted'}
+
+#tooltip_exalted_lifetime
+  =render :partial => "choose_lifetime", :locals => {:level_name => 'Exalted'}
+
+
+%script{:type => "text/javascript"}
+  new Tip('exalted_header_image', $('tooltip_exalted_header_image'),  {hideOn: false, hook: {target: 'topLeft', tip: 'bottomRight'}, offset: {x:190, y:170}, hideAfter: 0.01, className: 'gametip',});
+%script{:type => "text/javascript"}
+  new Tip('exalted_pricing_image', $('tooltip_exalted_pricing_image'),  {hideOn: false, hook: {target: 'topLeft', tip: 'bottomRight'}, offset: {x:190, y:170}, hideAfter: 0.01, className: 'gametip',});
+%script{:type => "text/javascript"}
+  new Tip('exalted_monthly', $('tooltip_exalted_monthly'),  {hideOn: false, hook: {target: 'topLeft', tip: 'bottomRight'}, offset: {x:190, y:170}, hideAfter: 0.01, className: 'gametip',});
+
+%script{:type => "text/javascript"}
+  new Tip('exalted_lifetime', $('tooltip_exalted_lifetime'),  {hideOn: false, hook: {target: 'topLeft', tip: 'bottomRight'}, offset: {x:190, y:170}, hideAfter: 0.01, className: 'gametip',});
+

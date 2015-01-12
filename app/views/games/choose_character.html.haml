@@ -1,0 +1,26 @@
+- @meta = { :description => "#{h(@game.name)}'s profile on #{configatron.community_name}.", :keywords => "#{h(@game.name)}, #{@game.tags.join(", ") unless @game.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'games'
+
+#col1
+  = render :partial => 'profile_game_info_sidebar', :locals => {:user => @game.owner}
+
+#col2
+  .box
+    %h2= "#{link_to h(@game.name), game_path(@game)} : Register one of your characters".html_safe
+
+  .box
+    - if @eligible_characters.length == 0
+      %h3 You have no eligible characters
+      = link_to 'Make one!', register_new_character_path(@game)
+      
+    %h3 Your characters
+    - @eligible_characters.each do |eligible_character|
+      %dl.vcard
+        %dt.photo
+          = link_to image_tag(eligible_character.avatar_photo_url(:thumb), :width => '50', :height => '50'), character_path(eligible_character)
+        %dd.fn
+          = link_to h(eligible_character.name), character_path(eligible_character)
+        %dd
+          = link_to 'Register', register_character_path(@game, :character_id => eligible_character.id)            
+        
+

@@ -1,0 +1,88 @@
+-@meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_show_content }
+
+
+.tile_page_col_left
+  = render :partial => 'system_categories/search_options'
+
+  -if current_user
+    .box
+      -if @game
+        %h2= link_to 'All categories', system_categories_path(:game_id => @game.id)
+        %h2= link_to 'My categories', system_categories_path(:user_id => current_user.id, :game_id => @game.id)
+      -elsif @character
+        %h2= link_to 'All categories', system_categories_path(:character_id=>@character.id)
+        %h2= link_to 'My categories', system_categories_path(:user_id => current_user.id, :character_id=>@character.id)
+      -elsif @new_game
+        %h2= link_to 'All categories', system_categories_path(:new_game=>@new_game)
+        %h2= link_to 'My categories', system_categories_path(:user_id => current_user.id, :new_game=>@new_game)
+      -else
+        %h2= link_to 'All categories', system_categories_path
+        %h2= link_to 'My categories', system_categories_path(:user_id => current_user.id)
+
+      %h2= link_to 'Create category', new_system_category_path
+
+      -if @game_system && current_user.admin?
+        %ul
+          %li.view= "#{@game_system.name} : Migrate".html_safe
+
+      %br
+
+      -if @game
+        %h2= link_to 'All products', products_path(:game_id => @game.id)
+        %h2= link_to 'My products', products_path(:publisher_id => current_user.id, :game_id => @game.id)
+      -elsif @character
+        %h2= link_to 'All products', products_path(:character_id => @character.id)
+        %h2= link_to 'My products', products_path(:publisher_id => current_user.id, :character_id => @character.id)
+      -elsif @new_game
+        %h2= link_to 'All products', products_path(:new_game => @new_game)
+        %h2= link_to 'My products', products_path(:publisher_id => current_user.id, :new_game => @new_game)
+      -else
+        %h2= link_to 'All products', products_path
+        %h2= link_to 'My products', products_path(:publisher_id => current_user.id)
+
+      -if current_user
+        %h2= link_to 'Create product', new_product_path
+
+      -if @new_game
+        %br
+        %h2= link_to 'Skip this step', new_game_path
+
+      -if @game || @character
+        %br
+        -if @game
+          %h2= link_to "Back to #{@game.name}'s profile", seo_game_path(@game)
+        -elsif @character
+          %h2= link_to "Back to #{@character.name}'s profile", seo_character_path(@character)
+
+.tile_page_col_right
+  -if @new_game
+    .box_tile_header
+      %h2 What kind of game are you running?
+      %h3 Choosing a category is the best way to help players find your game.
+  -elsif @game
+    .box_tile_header
+      %h2= "#{link_to @game.name, @game} : Add a category of products".html_safe
+  -elsif @character
+    .box_tile_header
+      %h2= "#{link_to @character.name, @character} : Add a category of products".html_safe
+
+  -if @result_count
+    .box_tile_header
+      %h2= "#{pluralize(number_with_delimiter(@result_count), 'category')} found"
+
+  -@system_categories.each do |system_category|
+    -if @game
+      =render :partial => "system_categories/system_category_tile", :locals => {:system_category => system_category, :game => @game}
+    -elsif @character
+      =render :partial => "system_categories/system_category_tile", :locals => {:system_category => system_category, :character => @character}
+    -elsif @new_game
+      =render :partial => "system_categories/system_category_tile", :locals => {:system_category => system_category, :new_game => @new_game}
+    -else
+      =render :partial => "system_categories/system_category_tile", :locals => {:system_category => system_category}
+
+  .clear_both
+  %p
+  %br
+
+  .box_tile_header
+    =paginate @system_categories

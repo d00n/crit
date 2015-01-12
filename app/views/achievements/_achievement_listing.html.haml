@@ -1,0 +1,57 @@
+-if defined?(pending)
+  -achievement = pending.achievement
+  -ua_record = pending
+
+-elsif defined?(accepted)
+  -achievement = accepted.achievement
+  -ua_record = accepted
+
+
+.user_row
+  .user_row_col1
+    = link_to image_tag( achievement.thumb, :class => "achievement_thumb" ), achievement_path(achievement)
+    
+  .user_row_col2
+    %h2= link_to achievement.name.html_safe, achievement_path(achievement)
+    %h2= "#{pluralize(achievement.users.size + achievement.characters.size + achievement.games.size,  'winner')}".html_safe
+  
+    %ul
+      %li= "Author: #{link_to achievement.owner.display_name, user_path(achievement.owner)}".html_safe
+
+      /%li="ua_record.grantor=#{ua_record}"
+
+      -if ua_record && ua_record.grantor
+        %li= "Grantor: #{link_to ua_record.grantor.display_name, user_path(ua_record.grantor)}".html_safe
+
+      -if ua_record
+        %li= "Level: #{ua_record.level}".html_safe
+
+      -if ua_record && current_user
+        -if ua_record.grantor == current_user || current_user.admin?
+          %li=link_to 'Revoke', revoke_achievement_path(achievement, :ua_id => ua_record.id), :confirm => 'Are you sure?'
+        -elsif defined?(accepted) && accepted.has_access(current_user)
+          %li=link_to 'Remove', remove_achievement_path(achievement, :ua_id => ua_record.id), :confirm => 'Are you sure?'
+
+      - if show_grant
+        -if @user
+          %li=link_to 'Grant', grant_achievement_path(achievement, :recipient_type => 'user', :recipient_id => @user.id)
+        -elsif @game
+          %li=link_to 'Grant', grant_achievement_path(achievement, :recipient_type => 'game', :recipient_id => @game.id)
+        -elsif @character
+          %li=link_to 'Grant', grant_achievement_path(achievement, :recipient_type => 'character', :recipient_id => @character.id)
+
+      -if defined?(pending) && pending.has_access(current_user)
+        =render :partial => 'achievements/accept_deny_links', :locals => {:pending => pending}
+
+
+      - if defined?(event) && current_user && current_user.event_admin?
+        %li=link_to 'Grant player achievement', grant_player_achievements_path(event, achievement), :confirm => 'Are you sure?'
+        %li=link_to 'Grant GM achievement', grant_gm_achievements_path(event, achievement), :confirm => 'Are you sure?'
+
+
+  .user_row_col3
+    = h(truncate_words achievement.description, 100, '...').html_safe
+
+
+
+

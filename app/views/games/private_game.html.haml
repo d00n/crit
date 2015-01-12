@@ -1,0 +1,17 @@
+-description = " #{configatron.meta_description}"
+
+- @meta = { :description => description, :keywords => "#{configatron.meta_keywords}", :robots => configatron.robots_meta_show_content }
+- @section = 'games'
+
+
+#col1
+  = render :partial => 'private_profile_game_info_sidebar', :locals => {:game => @game}
+
+#col2
+  .box
+    %h2 This is a private game.
+
+  .box
+    %h3= "Private games are a premium feature. #{link_to 'Upgrade now!', premium_membership_path}".html_safe
+
+

@@ -1,0 +1,174 @@
+.center
+  %br
+  .profile_photo= link_to image_tag( @game.avatar_photo_url(:medium), :alt=> h(@game.name)), seo_game_path(@game)
+  - if current_user && current_user == @game.owner && !@game.avatar
+    .center
+      = link_to "Choose profile photo", game_pick_profile_photo_path(@game)
+
+%p
+-if @game.accepted_achievements.any?
+  =render :partial => 'achievements/badge_box', :locals => {:accepted_achievements => @game.accepted_achievements}
+
+
+=render :partial => "games/products"
+
+-if !@game.products.any?
+  =render :partial => "shared/ad"
+
+-if @game.is_d20pro
+  %p
+  .box
+    .box_row
+      .user_row_col1
+        =link_to image_tag('d20pro_161x78.jpg', :width => '120'), 'http://www.d20pro.com/'
+
+      .user_row_col2
+        %ul
+          %li
+            This game will be played using d20Pro.
+            = link_to 'Get it here!', 'http://www.d20pro.com/'
+
+          - if current_user == @game.owner
+            - if @game.d20pro_ready_to_play
+              %li.view= link_to "Disable d20Pro connections", :controller => "games", :action => "d20pro_disable_connections", :id => @game.id
+            - else
+              %li.view= link_to "Allow d20Pro connections", :controller => "games", :action => "d20pro_allow_connections", :id => @game.id
+
+
+          - if (@game.active_players.include?(current_user) || current_user == @game.owner)
+            - if @game.d20pro_ready_to_play
+              %li.view= link_to "Launch d20Pro", :controller => "games", :action => "d20pro_launch", :id => @game.id, :format => :xml
+            - else
+              %li.view= 'Judge is not ready to receive connections'
+
+
+
+%p
+.box
+  %h3 Navigation
+  .vcard.author
+    %ul
+      - if @game.allow_spectators || (current_user && current_user == @game.owner) || (current_user && (@game.active_players.include?current_user)) || (current_user && current_user.admin?)
+        -if GAMETABLE_DOWN_FOR_MAINT
+          %li.view Game table is down for upgrades, brb!
+        -else
+          %li.view= link_to "Game table", gametable_url(@game.id)
+          -#%li.view= link_to "Previous game table", :controller => "games", :action => "play", :id => @game.id
+
+
+      =render :partial => "games/registration_desk_nav_items", :locals => {:game => @game}
+
+      %li.view
+        =link_to "Game profile", seo_game_path(@game)
+        - if current_user && ( current_user == @game.owner  || current_user.admin?)
+          .right
+            =link_to "(edit)", edit_game_path(@game)
+
+      -#%li.view
+      -#  =link_to "Game system/products", game_products_path(@game.products.first.owner, @game.products.first, @game)
+      -#  - if current_user && ( current_user == @game.owner  || current_user.admin?)
+      -#    .right
+      -#      =link_to "(add)", game_product_search_path(@game)
+
+      %li.view
+        =link_to "Game notepad", game_notepad_path(@game)
+        - if current_user && ( current_user == @game.owner  || current_user.admin?)
+          .right
+            = link_to "(edit)", :controller => "games", :id => @game.id, :action => "edit_notepad"
+
+      %li.view
+        = link_to "Game blog", game_post_path(@game)
+        - if current_user && current_user == @game.owner
+          .right
+            = link_to "(new post)",  new_user_post_path({:user_id => current_user, 'post[game_id]' => @game.id})
+
+      %li.view
+        = link_to "Game achievements", unlocked_game_achievements_path(@game)
+        -if current_user && current_user == @game.user && @game.pending_achievements.any?
+          .right
+            ="(#{@game.pending_achievements.size} pending)"
+      %li.view= link_to "Grant achievement", select_game_achievements_path(@game)
+
+
+      -if current_user && @game.others_can_clone
+        %li.view= link_to "Clone game",  edit_game_clone_path(@game)
+
+      -if DEPLOY_ADDTOANY
+        %br
+        %li.view
+          =render :partial => "shared/addToAny"
+
+      -if DEPLOY_ADDTHIS
+        %br
+        %li.view
+          =render :partial => "shared/addThis"
+
+
+- if current_user && ( current_user == @game.owner || current_user.admin? )
+  .box
+    %h3 GM controls
+    /%li.compose= link_to("Send message to players", new_game_player_blast_path(@game) )
+    %li.compose= link_to("Send message to players", new_user_message_path(current_user, :to=>@game.active_players_pm_blast_list(current_user), :subject=>@game.name))
+    %li.compose= link_to("Send message to alternates", new_user_message_path(current_user, :to=>@game.alternate_players_pm_blast_list(current_user), :subject=>@game.name))
+    %br
+    %li.view= link_to "Choose profile photo", :controller => "games", :id => @game.id, :action => "pick_profile_photo"
+    %li.view= link_to 'Upload new profile photo', new_game_avatar_photo_path(@game)
+    %li.view= link_to "Manage pregenerated characters",  edit_pregenerated_character_offers_path(@game)
+    %li.view= link_to "Reset game table", :controller => "games", :action => "reset_game_table", :id => @game.id
+    %li.view= link_to "Clone game",  edit_game_clone_path(@game)
+    %li.view= link_to "Delete game",  @game, :confirm => 'Are you sure?', :method => :delete
+
+          
+.box
+  %h3 Game details
+  %li.fn
+    =render :partial => 'users/user_name', :locals => {:user => @game.owner, :name_prefix =>  'GM:'}
+
+  .vcard.author
+    %ul
+      - if current_user
+        %li.compose= link_to('Send message to GM', new_user_message_path(current_user, :to=>@game.owner, :subject=>@game.name))
+        /- if @game.active_players.include?current_user || current_user.admin?
+        /  %li.compose= link_to("Send message to GM and players", new_user_message_path(current_user, :to=>@game.players_and_owner_pm_blast_list(current_user), :subject=>@game.name))
+
+      -if @game.is_private
+        %li.view Private game
+
+      -if !@game.status.blank?
+        %li.view_
+          = "Game is " + @game.status + " for registration"
+
+      - if !@game.min_age.blank? && !@game.max_age.blank?
+        %li.view
+          = "Age range: " + h(@game.min_age.to_s) + " to " + h(@game.max_age.to_s)
+
+      -if !@game.player_seats.blank?
+        %li.view
+          = 'Player seats: '
+          = h(@game.player_seats)
+
+      -if !@game.alternate_seats.blank?
+        %li.view
+          = 'Alternate seats: '
+          = h(@game.alternate_seats)
+
+    - if @game.start_at
+      %li.update="Day: #{@game.start_at.strftime('%a, %b %d, %Y')}"
+      %li.update="Time: #{@game.start_at.strftime('%I:%M%p %Z')}"
+
+      -if !@game.session_length.blank?
+        %li.update="Length: #{h @game.session_length}"
+
+      %li.update
+        = "Game created: #{time_ago_in_words @game.created_at}"
+      %li.update
+        ="Last update: #{time_ago_in_words @game.updated_at}"
+      %li.view
+        Views:
+        = @game.view_count
+
+      - if @game.tags.any?
+        %li.tags
+          = li_tags_helper(@game)
+
+

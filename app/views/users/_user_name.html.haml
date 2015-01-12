@@ -1,0 +1,11 @@
+-if user.membership_level > 0
+  .membership_level_glyph_box
+    .membership_level_glyph
+      =render :partial => 'users/membership_level_glyph', :locals => {:user => user}
+
+.user_name
+  -if defined?name_prefix
+    =name_prefix
+
+  =link_to (user.display_name), user_path(user)
+

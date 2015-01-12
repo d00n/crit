@@ -1,0 +1,25 @@
+= error_messages_for :game 
+
+- @section = 'games'
+.box
+  %h2= "#{link_to h(@game.name), game_path(@game)} : Edit notepads".html_safe
+
+  =form_for @game, :url => { :action => :update_notepad, :id => @game} , :html => {:class => "cmxform"}  do |game_form|
+    .container 
+      .user_row
+        %fieldset
+          %legend
+            Private notepad
+          %ol
+            %li
+              = game_form.text_area :owner_notepad, :class => "rich_text_editor", :size => "100x20"
+            
+      .user_row
+        %fieldset
+          %legend
+            Public notepad
+          %ol
+            %li
+              = game_form.text_area :public_notepad, :class => "rich_text_editor", :size => "100x20"
+      
+    = game_form.submit "Save notepads" 

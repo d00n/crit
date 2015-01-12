@@ -1,0 +1,32 @@
+= error_messages_for :system_category
+
+=form_for(@system_category, :html => {:class => "cmxform"}) do |system_category_form|
+  .container
+    .user_row 
+      %fieldset
+        %legend
+          Category details
+        %ol
+          %li      
+            = system_category_form.label 'Name'
+            = system_category_form.text_field :name
+      
+
+    .user_row 
+      %fieldset
+        %legend
+          Category description
+        %ol
+          %li      
+            = system_category_form.text_area :description, :class => "rich_text_editor", :size => "100x20"
+
+    %p
+    = system_category_form.submit 'Save category'
+  
+  
+          
+          
+  
+  
+  
+

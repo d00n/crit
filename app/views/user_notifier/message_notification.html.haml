@@ -1,0 +1,25 @@
+%h3
+  Hey #{@message.recipient.display_name}!
+%p
+/=link_to (image_tag @message.sender.avatar_photo_url(:thumb)), @message.sender.display_name
+=@message.sender.display_name
+=' has sent you a private message on '
+#{configatron.community_name}
+%p
+%h3
+  Subject: #{@message.subject}
+%p
+= link_to 'Read the message here.', user_message_url(@message.recipient, @message)
+%p
+(We removed the message body because so many people reply to this email, and those messages never make it to the other party. We'll figure out how to route those replies into your Infrno private message box someday, I promise.)
+%p
+%p
+See you soon!
+%br
+The #{configatron.community_name} team
+%p
+%hr
+If you don't want to receive email notifications like this one from
+#{configatron.community_name}
+, you can change your preferences here:
+= link_to 'Edit account settings', edit_account_user_url(@user)

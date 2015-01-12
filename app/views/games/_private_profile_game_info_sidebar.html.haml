@@ -1,0 +1,13 @@
+.centered
+  %br
+  = image_tag( APP_URL + configatron.photo.missing_medium)
+
+  .box
+    %li.fn
+      =render :partial => 'users/user_name', :locals => {:user => @game.owner, :name_prefix =>  'GM'}
+    %ul
+      - if current_user && current_user != game.owner
+        %li.compose= link_to('Send message to GM', new_user_message_path(current_user, :to=>game.owner, :subject=>game.name))
+
+      =render :partial => "registration_desk_nav_items", :locals => {:game => @game}
+

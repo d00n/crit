@@ -1,0 +1,10 @@
+<%= render :partial => 'user_notifier/greeting', :locals => {:user => @user}  %>
+Congratulations! You have been granted chat admin status.
+
+The only new ability this enables is 'ban', which is IP and session based. That cheese-log can come back later, let's hope with some more manners.
+
+Please use this sparingly, with forewarning, and report to support@infrno.net afterwards with the user's info and appropriate details.
+
+Thank you for helping us keep Infrno a friendly place!
+
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  %>

@@ -1,0 +1,78 @@
+- @meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_list_content }
+
+/-unless logged_in?
+/  =render :partial => 'base/homepage_banner_message'
+
+#col-float-middle-600
+  .box
+    .scream
+      =configatron.community_description
+
+#col-third-first
+  .box-245
+    .header-image
+      =link_to image_tag("/assets/find.png"), users_path
+    %p
+    It has never been easy to find a gaming group that fits your style. 
+    %p
+    Until now. 
+    %p
+    On Infrno, you can read a  
+    =link_to("player's blog", "/user/charismacheck/posts").html_safe
+    along with their 
+    =link_to("character blogs", "/characters/1262/posts").html_safe
+    and 
+    = link_to("game blogs", "/games/538/posts").html_safe
+    to see how they like to play.
+    %p
+    Now it's easy to find people who share your passions and play at your level. 
+  
+      
+#col-third
+  .box-245
+    .header-image
+      =link_to image_tag("/assets/connect.png"), games_path
+    %p
+    Check out the 
+    = " #{link_to "open game calendar", games_path},".html_safe
+    or
+    = " #{link_to "cruise the forums", forums_path}.".html_safe 
+    %p
+    Find a crew that's into that one game your local crew won't touch, the one where you play zombie space ninja pirates.
+    %p
+    Then
+    = "#{link_to "create a character", characters_path},".html_safe
+    join a game, and figure out how to play an undead, rum-sodden assassin on Mars. Good luck.
+
+#col-third
+  .box-245
+    .header-image
+      =link_to image_tag("/assets/play.png"), "http://cdn1.infrno.net/assets/gametable_screenshot.png", :popup => true
+
+    %p
+    And finally, use the 
+    = " #{link_to "virtual game table", "http://cdn1.infrno.net/assets/gametable_screenshot.png", :popup => true},".html_safe
+    to play from any place, at any time.
+    /%p
+    /Now you and your compatriots can go on epic quests together without having to be in the same room. 
+    %p
+    .screenshot
+      =link_to image_tag("/assets/gametable_screenshot_238.png", :width => "200"), "http://cdn1.infrno.net/assets/gametable_screenshot.png", :popup => true
+    
+      
+#col-float-middle
+  -if current_user
+    =render :partial => "users/invite_your_friends"
+
+  -else
+    .box
+      .scream-louder
+        Want to be Infrnal?
+  
+      .scream-louder
+        = link_to "Sign up, it's free!", signup_url
+
+
+  
+
+

@@ -1,0 +1,5 @@
+%a{:href=>"#{publisher_product_path(product.owner, product)}", :class=>"photo", :rel=>"bookmark"}
+  .sidebar_photo=render :partial => "products/product_photo", :locals => {:product => product}
+-#%li.fn
+-#  =link_to product.name, publisher_product_path(product.owner, product)
+

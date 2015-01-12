@@ -1,0 +1,53 @@
+/.box-single-col
+/  .center
+/    %h3{:style => "color: #f00;"}
+/      \!!! Attention !!! Achtung !!!
+
+/  %h3{:style => "color: #f00;"}
+/    Mike, your loyal code monkey, is going off-grid for two weeks, returning on Sept 8th.
+
+
+
+.box-single-col
+  =form_for(:contact, :url => contact_create_url) do |form|
+
+    %fieldset
+      %h2
+        What's on your mind?
+
+      %ol
+        %p
+        %li
+          = form.label :subject
+          = form.text_field :subject
+
+        %p
+        %li
+          = form.label 'Your name'
+          -if current_user
+            = form.text_field :name, :value => current_user.display_name
+          -else
+            = form.text_field :name
+
+        %p
+        %li
+          = form.label 'Your email'
+          -if current_user
+            = form.text_field :email, :value => current_user.email if current_user
+          -else
+            = form.text_field :email
+
+        %p
+        %br
+        %li
+          = form.label ''
+          = form.text_area :body, :rows => '5', :cols=> '40'
+
+        %p
+        %br
+        %li
+          = form.submit "Send"
+          or
+          = link_to "Back to the fun", home_url
+
+

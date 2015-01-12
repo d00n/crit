@@ -1,0 +1,30 @@
+-description = ''
+-if @game.status == 'open'
+  -description = "#{h(@game.name)} is open for registration! "
+-if !@game.description.blank?
+  -description += "#{strip_tags(@game.description).gsub(/\n/, '')} "
+-description += " #{configatron.meta_description}"
+
+- @meta = { :description => description, :keywords => "#{@game.name}, #{configatron.meta_keywords}, #{@game.tags.join(", ") unless @game.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'games'
+
+
+#col1
+  = render :partial => 'profile_game_info_sidebar'
+
+
+
+#col2
+  .box
+    %h2= "#{link_to h(@game.name), game_path(@game)} : Select a profile photo".html_safe
+
+  .box
+    %p= link_to( 'New photo', new_game_avatar_photo_path(@game) )
+
+    .clear
+    - @photos.each do |photo|
+      = link_to image_tag(h(photo.photo.url(:thumb)), :width => "94px"),  game_change_profile_photo_path({:id => @game, :photo_id => photo}), :method => :put
+
+    =paginate @photos
+
+        

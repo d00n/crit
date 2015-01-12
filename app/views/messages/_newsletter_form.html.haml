@@ -1,0 +1,17 @@
+=form_for message, :url => send_newsletter_path(user), :html => {:class => "MainForm"} do |f|
+
+  %h3 Newsletter
+  
+  %label{:for => 'message_to'} 
+    To: All users
+      
+  %label{:for => 'message_subject'}= :subject.l + ":"
+  = f.text_field :subject
+
+  %p
+  %label{:for => "message_body"}= :message.l + ":"
+  = f.text_area :body
+
+  %p
+  = submit_tag :send.l
+

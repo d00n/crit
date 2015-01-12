@@ -1,0 +1,210 @@
+
+.full-width
+  .box
+    =image_tag('/assets/PremiumMemberships.png', :style => "width:790px;")
+
+#col-float-middle-600
+
+  .box
+    .scream-louder
+      Mad props and much love to the heroes
+      %br
+      who help keep the community alive!
+
+
+#col1.feature_description
+
+  .box.prices
+    .text-wrapper
+      Membership Level
+
+  .box.features-box
+    .membership_level_section_image
+      =image_tag( premium_label(0))
+    -#=render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Unlimited games"}
+    -#=render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Unlimited characters"}
+    -#=render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Unlimited game table usage"}
+    #dtrpg_discount.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "20% off select products at DriveThruRPG"}
+    #feature_caucus_1.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "10 votes in every Feature Caucus"}
+
+  .box.features-box
+    .membership_level_section_image
+      =image_tag( premium_label(1))
+    #epic_badge.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Epic membership badge"}
+    #premium_member_events.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Exclusive access to premium member appreciation events"}
+    #ad_free.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Ad-free"}
+    #feature_caucus_2.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "50 votes in every Feature Caucus"}
+
+  .box.features-box
+    .membership_level_section_image
+      =image_tag( premium_label(2))
+    #legendary_badge.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 2, :feature_description => "Legendary membership badge"}
+    #early_access.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Early access for virtual convention player registration"}
+    =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Private games"}
+    =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Private characters"}
+    #dtrpg_gift_certificate.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Monthly drawing for a $10 DriveThruRPG gift certificate"}
+    #free_tshirt.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Free Infrno staff tshirt, shipped after Gen Con"}
+    #feature_caucus_3.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "100 votes in every Feature Caucus"}
+
+  .box.features-box
+    .membership_level_section_image
+      =image_tag( premium_label(3))
+    #exalted_badge.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "Exalted membership badge"}
+    #achievements.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Author and grant achievements to users, characters, and games"}
+    #exalted_advisors.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Membership in Exalted Advisors"}
+    #exalted_access.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Exclusive access to celebrity GM events"}
+    #feature_caucus_4.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "200 votes in every Feature Caucus"}
+
+  .box.features-box
+    .membership_level_section_image
+      =image_tag( premium_label(4))
+    #mythic_badge.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 4, :feature_description => "Mythic membership badge"}
+    =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Lifetime Mythic account"}
+    =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Gift 5 Exalted lifetime accounts"}
+    #kieara_tattoo.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Kieara will get a tattoo of your favorite character’s name"}
+    =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Embroidered bomber jacket with Kieara sporting her new tattoo"}
+    #feature_caucus_5.link_color
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "10,000 votes in every Feature Caucus"}
+
+  .box
+    .text-wrapper
+      .membership_level_header_text
+        &nbsp;
+
+  .box.prices
+    .text-wrapper
+      Monthly
+  .box.prices
+    .text-wrapper
+      Lifetime
+
+
+#col-skinny
+  =render :partial => "level_label_image", :locals => {:label_graphic => '/assets/Infrnal_90x14.png'}
+  =render :partial => "bug_box", :locals => {:bug_count => 2, :use_badge_level => 0}
+  =render :partial => "bug_box", :locals => {:bug_count => 4, :use_badge_level => -1}
+  =render :partial => "bug_box", :locals => {:bug_count => 7, :use_badge_level => -1}
+  =render :partial => "bug_box", :locals => {:bug_count => 5, :use_badge_level => -1}
+  =render :partial => "bug_box", :locals => {:bug_count => 6, :use_badge_level => -1}
+  =render :partial => "level_label_image", :locals => {:label_graphic => '/assets/Infrnal_90x14.png'}
+  .box.prices
+    .text-wrapper
+      Free!
+  .box.prices
+    .text-wrapper
+      &nbsp;
+
+#col-skinny
+  #epic_header_image
+    =render :partial => "level_label_image", :locals => {:label_graphic => '/assets/Epic_46x14.png'}
+  =render :partial => "bug_box", :locals => {:bug_count => 2, :use_badge_level => 1}
+  =render :partial => "bug_box", :locals => {:bug_count => 4, :use_badge_level => 1}
+  =render :partial => "bug_box", :locals => {:bug_count => 7, :use_badge_level => -1}
+  =render :partial => "bug_box", :locals => {:bug_count => 5, :use_badge_level => -1}
+  =render :partial => "bug_box", :locals => {:bug_count => 6, :use_badge_level => -1}
+  #epic_pricing_image
+    =render :partial => "level_label_image", :locals => {:label_graphic => '/assets/Epic_46x14.png'}
+  .box.prices
+    .text-wrapper
+      #epic_monthly.link_color
+        $4.99
+  .box.prices
+    .text-wrapper
+      &nbsp;
+
+#col-skinny
+  #legendary_header_image
+    =render :partial => "level_label_image", :locals => {:label_graphic => '/assets/Legend_73x14.png'}
+  =render :partial => "bug_box", :locals => {:bug_count => 2, :use_badge_level => 2}
+  =render :partial => "bug_box", :locals => {:bug_count => 4, :use_badge_level => 2}
+  =render :partial => "bug_box", :locals => {:bug_count => 7, :use_badge_level => 2}
+  =render :partial => "bug_box", :locals => {:bug_count => 5, :use_badge_level => -1}
+  =render :partial => "bug_box", :locals => {:bug_count => 6, :use_badge_level => -1}
+  #legendary_pricing_image
+    =render :partial => "level_label_image", :locals => {:label_graphic => '/assets/Legend_73x14.png'}
+  .box.prices
+    .text-wrapper
+      #legendary_monthly.link_color
+        $9.99
+  .box.prices
+    .text-wrapper
+      &nbsp;
+
+#col-skinny
+  #exalted_header_image
+    =render :partial => "level_label_image", :locals => {:label_graphic => '/assets/Exalted_90x14.png'}
+  =render :partial => "bug_box", :locals => {:bug_count => 2, :use_badge_level => 3}
+  =render :partial => "bug_box", :locals => {:bug_count => 4, :use_badge_level => 3}
+  =render :partial => "bug_box", :locals => {:bug_count => 7, :use_badge_level => 3}
+  =render :partial => "bug_box", :locals => {:bug_count => 5, :use_badge_level => 3}
+  =render :partial => "bug_box", :locals => {:bug_count => 6, :use_badge_level => -1}
+  #exalted_pricing_image
+    =render :partial => "level_label_image", :locals => {:label_graphic => '/assets/Exalted_90x14.png'}
+  .box.prices
+    .text-wrapper#exalted_monthly.link_color
+      $14.99
+  .box.prices
+    .text-wrapper#exalted_lifetime.red
+      $199.99
+
+
+#col-skinny
+  .box.image-wrapper
+    .membership_level_header_image
+      =link_to image_tag('/assets/Mythic_71x14.png'), mythic_path
+  =render :partial => "bug_box", :locals => {:bug_count => 2, :use_badge_level => 4}
+  =render :partial => "bug_box", :locals => {:bug_count => 4, :use_badge_level => 4}
+  =render :partial => "bug_box", :locals => {:bug_count => 7, :use_badge_level => 4}
+  =render :partial => "bug_box", :locals => {:bug_count => 5, :use_badge_level => 4}
+  =render :partial => "bug_box", :locals => {:bug_count => 6, :use_badge_level => 4}
+  .box.image-wrapper
+    .membership_level_header_image
+      =link_to image_tag('/assets/Mythic_71x14.png'), mythic_path
+  .box.prices
+    .text-wrapper
+      &nbsp;
+  .box.prices
+    .text-wrapper
+      =link_to '$10,000', mythic_path
+
+
+#col-float-middle-600
+  .box.red
+    .footer-announcement-header.center
+      Limited Time Offer
+    .footer-announcement-body.center
+      %p
+      Lifetime Exalted memberships are only available until we
+      %br
+      reach 10,000 users, which is just
+      = number_with_delimiter(10000 - User.active.size, :delimeter => ',')
+      new users away!
+      %p
+
+-if current_user.nil?
+  =render :partial => "guest_tip"
+-elsif current_user.membership_level == 0
+  =render :partial => "price_tip"
+-elsif current_user.membership_level > 0
+  =render :partial => "upgrade_downgrade_tip"
+
+=render :partial => "feature_tip"
+

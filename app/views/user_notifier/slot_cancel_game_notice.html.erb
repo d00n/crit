@@ -1,0 +1,8 @@
+<%= render :partial => 'user_notifier/greeting', :locals => {:user => @slotGameRegistration.slot.event.owner}  %>
+
+<%= @slotGameRegistration.game.owner.display_name %> has cancelled the '<%= @slotGameRegistration.game.name %>' registration for '<%= @slotGameRegistration.slot.event.name %>'.
+
+You can manage active and pending games here:
+<%= event_url(@slotGameRegistration.slot.event) %>
+                
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @slotGameRegistration.slot.event.owner}  %>

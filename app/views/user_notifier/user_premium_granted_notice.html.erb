@@ -1,0 +1,7 @@
+<%= render :partial => 'user_notifier/greeting', :locals => {:user => @user}  %>
+Congratulations! You have been granted the <%= @membership_level_name %> membership level.
+
+What does that include? Check it out:
+http://www.infrno.net/membership/premium_plans
+
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  %>

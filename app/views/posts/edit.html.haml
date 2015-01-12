@@ -1,0 +1,103 @@
+/-if FACEBOOK_CONNECT
+/  =render :partial => "facebooker/feed_post", :locals => {:type => 'post'}
+
+#col1
+  -if @post.character
+    =render :partial => 'character_profile', :locals => {:character => @post.character}
+  -elsif @post.game
+    =render :partial => 'game_profile', :locals => {:game => @post.game}  
+  -else
+    =render :partial => 'author_profile', :locals => {:user => @user}
+
+  -box :class => "alt" do 
+    %a{:href => '#', :onclick => "tinyMCE.execCommand('mceCurblyAdvImage');return false;"}=:upload_an_image_for_your_post.l
+    
+  -if @is_current_user  
+    .box 
+      %h3 Blog links
+      %ul
+        -if @post.character
+          %li=link_to "Character blog", character_post_path(@post.character)
+          %li=link_to "New post",  new_user_post_path({:user_id => current_user, 'post[character_id]' => @post.character.id})
+        -elsif @post.game
+          %li=link_to "Game blog", game_post_path(@post.game)
+          %li=link_to "New post",  new_user_post_path({:user_id => current_user, 'post[game_id]' => @post.game.id})
+        -else
+          %li= link_to "My blog", user_posts_path(@user)
+          %li=link_to "New post", new_user_post_path(@user)
+          
+        %li=link_to "Manage posts", manage_user_posts_path(@user)
+    
+  .box 
+    %h3 This post
+    %ul
+      %li.update
+        = @post.published_at_display(:literal_date)
+      %li.view= "Views(#{@post.view_count})"
+      %li.comments= link_to :comments.l+" (#{@post.comments.size})", user_post_path(@user, @post)+'#comments'      
+      - if current_user and current_user.can_request_friendship_with(@post.user)
+        %li.addfriend= add_friend_link(@post.user)
+      %li.print
+        %a{"href"=>"#", :onclick=>"window.print(); return false;", :title=>:print_this_story.l}= :print.l
+        
+      %li.email
+        %a{:href=>"#", :onclick=>"showSendTo_friend(); return false;", :title=>:email_this_story_to_friends.l}= :email_to_friends.l
+        
+      -if @is_current_user || admin? || moderator?
+        %li.edit= link_to :edit.l, edit_user_post_path(@post.user, @post)
+        %li.delete= link_to :delete.l, user_post_path(@post.user, @post), {:method => :delete, :confirm => :permanently_delete_this_post.l}
+  
+      - if @post.tags.any?
+        %li.tags
+          =li_tags_helper(@post)
+
+#col2
+  .box
+    %h2
+      =:editing_post.l
+      - if @post.game
+        = "for #{h(@post.game.name)}"
+      - elsif @post.character
+        = "for #{h(@post.character.name)}"
+      -else
+        = "for #{h(@user.display_name)}"      
+
+    = error_messages_for :post
+    =form_for(:post, :url => user_post_path(@user, @post), :html => { :method => :put, :class =>'MainForm' }) do |f|
+      %label 
+        =:title.l
+        %em= '('+:required.l+')'
+      = f.text_field :title
+
+      %p
+      %label
+        =:body_text.l
+        %em= '('+:required.l+')'
+      = f.text_area :raw_post, :class => "rich_text_editor", :style => "width:95%;"
+
+      %p
+      %label
+        =:tags.l
+      = text_field_tag 'tag_list', @post.tag_list.to_s, {:autocomplete => "off", :size => 55}
+      -##tag_list_auto_complete.auto_complete
+      -#= auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [','] }
+
+      -if current_user.admin?
+        %p
+        %li
+          = f.check_box :is_system_announcement
+          System announcement
+        %li
+          = f.check_box :is_game_announcement
+          Game announcement
+
+      /%p
+      /%label=:save_post_as.l
+      /= f.select(:published_as, [[:published.l, 'live'], [:draft.l, 'draft']])
+
+      %p
+        = submit_tag :update.l
+        = :or.l
+        =link_to :cancel.l, user_post_path(current_user, @post)
+
+  = observe_field  "post_category_id", {:url => {:action => 'category_tips_update'}, :with => "post_category_id", :update => "category_tips", :complete => visual_effect(:highlight, "category_tips", :duration => 0.5)}

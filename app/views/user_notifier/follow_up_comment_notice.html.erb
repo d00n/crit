@@ -1,0 +1,16 @@
+Hey <%= h @user.display_name %>!
+
+<%= @comment.user.display_name %> has added a comment to a <%= @comment.commentable_type %> that you commented on:
+<%= @url %>
+
+<% if @unsubscribe_link %>
+To stop receiving updates about new comments on this <%= @comment.commentable_type %>, click this:
+<%= @unsubscribe_link %>
+<% end %>
+
+See you soon!
+The <%= configatron.community_name %> team
+
+-------------------------------
+If you don't want to receive email notifications like this one from <%= configatron.community_name %>, you can change your preferences here:
+<%= home_url %><%= @user.login_slug %>/edit_account

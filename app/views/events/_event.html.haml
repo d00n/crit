@@ -1,0 +1,22 @@
+.user_row
+  %h4.entry-title{:id=>"event_#{ event.id}"}
+    = link_to event.name, event_path(event), :rel => 'bookmark'
+
+  .user_row_col1
+    %h5
+      %a{:href=>"#{event_path(event)}", :class=>"photo", :rel=>"bookmark"}
+        =image_tag((event.avatar(:thumb)), :alt=>"", :width=>"50", :height=>"50")
+
+  .user_row_col2
+    .user_row_col2_col1
+      %li.view
+        = "Views(#{event.view_count})"
+      %li.comments
+        = link_to :comments.l+" (#{event.comments.count})", event_path(event)+'#comments'      
+
+  .entry-content
+    /= truncate_words(event.description, 75, '...' )
+    = event.summary
+    
+    
+  

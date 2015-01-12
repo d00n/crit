@@ -1,0 +1,23 @@
+User name: <%= @user_display_name  %>
+Profile: <%= @user_path  %>
+Attempted action: <%= @attempted_action %>
+
+Request
+* URL       : <%= raw @request.url %>
+* IP address: <%= raw @request.remote_ip %>
+* Parameters: <%= raw @request.filtered_parameters.inspect %>
+* Rails root: <%= raw Rails.root %>
+
+Session
+* session id: <%= raw @request.session['session_id'].inspect.html_safe %>
+* data: <%= raw PP.pp(@request.session, "") %>
+
+<!--Environment-->
+<!--<% filtered_env = @request.filtered_env -%>-->
+<!--<% max = filtered_env.keys.max { |a, b| a.length <=> b.length } -%>-->
+<!--<% filtered_env.keys.sort.each do |key| -%>-->
+<!--  <%= raw("%-*s: %s" % [max.length, key, inspect_object(filtered_env[key])]) %> -->
+<!--<% end -%>-->
+
+* Process: <%= raw $$ %>
+* Server : <%= raw `hostname -s`.chomp %>

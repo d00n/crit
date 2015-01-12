@@ -1,0 +1,102 @@
+
+.user_row
+  %li.fn
+    %h4
+      -if @new_game
+        = link_to "Start a game using #{product.name}".html_safe, new_game_path(:product_id => product.id)
+      -elsif defined?action
+        -if action == 'add'
+          -if defined?game
+            = link_to "Add:  #{product.name}".html_safe, game_product_add_path(game, product)
+          -if defined?character
+            = link_to "Add:  #{product.name}".html_safe, character_product_add_path(character, product)
+          -if defined?system_category
+            %li.plus= link_to "Add: #{product.name}".html_safe, system_category_product_add_path(system_category, product)
+        -else
+          = link_to product.name, publisher_product_path(product.owner, product)
+
+      -else
+        = link_to product.name, publisher_product_path(product.owner, product)
+
+      -#-if defined?action
+      -#  -if action == 'add'
+      -#    -if defined?game
+      -#      .right= link_to 'Add', game_product_add_path(game, product)
+      -#    -if defined?character
+      -#      .right= link_to 'Add', character_product_add_path(character, product)
+      -#    -if defined?system_category
+      -#      .right= link_to 'Add', system_category_product_add_path(system_category, product)
+      -#  -if action == 'remove'
+      -#    -if defined?game
+      -#      .right= link_to 'Remove', game_product_remove_path(game, product)
+      -#    -if defined?character
+      -#      .right= link_to 'Remove', character_product_remove_path(character, product)
+      -#    -if defined?system_category
+      -#      .right= link_to 'Remove', system_category_product_remove_path(system_category, product)
+
+  .user_row_col1
+    %a{:href=>"#{publisher_product_path(product.owner, product)}", :class=>"photo", :rel=>"bookmark"}
+      -#- if product.avatar.nil? and !product.first_image_in_description.nil?
+      -#  =image_tag((product.first_image_in_description(:thumb)), :alt=>"", :width=>"50", :height=>"50")
+
+      .listing_photo=render :partial => "products/product_photo", :locals => {:product => product}
+
+      -#- if !product.avatar.nil?
+      -#  =image_tag((product.avatar_photo_url(:thumb)), :alt=>product.name, :width=>"100")
+      -#- elsif !product.dtrpg_product_image.blank?
+      -#  =image_tag(product.dtrpg_product_image, :alt=>product.name, :width=>"100")
+      -#- else
+      -#  =image_tag(configatron.photo.missing_thumb.to_s, :alt=>product.name, :width=>"100")
+
+
+  .user_row_col2
+    %ul
+      -if defined?action
+        -if action == 'add'
+          -if defined?game
+            %li.plus= link_to 'Add', game_product_add_path(game, product)
+          -if defined?character
+            %li.plus= link_to 'Add', character_product_add_path(character, product)
+          -if defined?system_category
+            %li.plus= link_to 'Add', system_category_product_add_path(system_category, product)
+        -if action == 'remove'
+          -if defined?game
+            %li.delete= link_to 'Remove', game_product_remove_path(game, product)
+          -if defined?character
+            %li.delete= link_to 'Remove', character_product_remove_path(character, product)
+          -if defined?system_category
+            %li.delete= link_to 'Remove', system_category_product_remove_path(system_category, product)
+      %li.view=  link_to product.owner.display_name, publisher_path(product.user)
+
+      -if !product.dtrpg_price.blank?
+        %li.view= "Pdf price: #{link_to(product.dtrpg_price.html_safe, configatron.DTRPG_PRODUCT_URL + product.dtrpg_product_id.to_s + "?" + configatron.DTRPG_INFRNO_AFFILIATE_CODE)}".html_safe
+        -if !product.dtrpg_sale_price.blank?
+          %li.view.red= "Pdf on sale now! #{link_to(product.dtrpg_sale_price.html_safe, configatron.DTRPG_PRODUCT_URL + product.dtrpg_product_id.to_s + "?" + configatron.DTRPG_INFRNO_AFFILIATE_CODE)}".html_safe
+      -elsif product.amazon_asin && !product.price.blank?
+        -#%li.view
+        -#  Price:
+        -#  = number_to_currency product.price
+      -elsif !product.price.blank?
+        %li.view
+          Price:
+          = product.price
+
+
+      -if product.games.any?
+        %li.view= link_to "Games (#{product.games.count})", product_games_path(product.owner, product)
+      -if product.characters.any?
+        %li.view= link_to "Characters (#{product.characters.count})", product_characters_path(product.owner, product)
+      %li.view= "Views (#{product.view_count})"
+      %li.comments= link_to :comments.l+" (#{product.comments.count})", publisher_product_path(product.owner, product)+'#comments'
+
+
+      -if !product.amazon_asin.blank?
+        .center
+          =render :partial => 'ads/amazon_product_tile', :locals => {:asin => product.amazon_asin}
+
+  .user_row_col3b
+    = truncate_words(product.description, 50, '...' )
+
+
+    
+

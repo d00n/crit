@@ -1,0 +1,18 @@
+.user_row
+%h2
+  = link_to system_category.name, system_category
+  -if defined?action && action = 'add'
+    -if defined?game
+      .right= link_to 'Add', system_category_add_game_path(system_category, game)
+    -elsif defined?character
+      .right= link_to 'Add', system_category_add_character_path(system_category, character)
+    -elsif defined?new_game
+      .right= link_to 'Start', new_game_path(:system_category_id => system_category.id)
+
+.center
+  -system_category.products.first(3).each do |product|
+    =render :partial => 'products/sidebar_product', :locals => {:product => product}
+
+-#%a{:href=>"#{system_category_path(system_category)}", :class=>"photo", :rel=>"bookmark"}
+-#  =render :partial => "system_categories/system_category_photo", :locals => {:system_category => system_category, :width =>"87"}
+

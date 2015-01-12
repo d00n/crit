@@ -1,0 +1,68 @@
+%br
+.center
+  -case level_name
+  -when "Epic"
+    =image_tag( premium_label(1))
+  -when "Legendary"
+    =image_tag( premium_label(2))
+  -when "Exalted"
+    =image_tag( premium_label(3))
+
+
+.prices
+  %p
+
+  -case level_name
+  -when "Epic"
+    ="Monthly: $#{configatron.EPIC_MONTHLY_AMOUNT}"
+    %p
+
+    ="Semiannual: $#{configatron.EPIC_SEMIANNUAL_AMOUNT}"
+    %br
+    10% savings!
+    %p
+
+    ="Annual: $#{configatron.EPIC_ANNUAL_AMOUNT}"
+    %br
+    20% savings!
+    %p
+
+
+  -when "Legendary"
+    ="Monthly: $#{configatron.LEGENDARY_MONTHLY_AMOUNT}"
+    %p
+
+    ="Semiannual: $#{configatron.LEGENDARY_SEMIANNUAL_AMOUNT}"
+    %br
+    10% savings!
+    %p
+
+    ="Annual: $#{configatron.LEGENDARY_ANNUAL_AMOUNT}"
+    %br
+    20% savings!
+    %p
+
+
+
+  -when "Exalted"
+    ="Monthly: $#{configatron.EXALTED_MONTHLY_AMOUNT}"
+    %p
+
+    ="Semiannual: $#{configatron.EXALTED_SEMIANNUAL_AMOUNT}"
+    %br
+    10% savings!
+    %p
+
+    ="Annual: $#{configatron.EXALTED_ANNUAL_AMOUNT}"
+    %br
+    20% savings!
+    %p
+
+  Upgrades and downgrades are currently a manual process.
+  %p
+  =mail_to "accounts@infrno.net",  "Please submit your request to accounts@infrno.net."
+  %p
+  Subscription cancellations can be handled by logging in to your PayPal account.
+  %p
+
+

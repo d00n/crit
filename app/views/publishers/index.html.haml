@@ -1,0 +1,20 @@
+-@meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_show_content }
+- @section = 'publishers'
+
+#col1
+  =render :partial => "users/invite_your_friends"
+
+  = render :partial => 'publishers/search_options'
+  
+  =render :partial => "tags/tags" 
+
+#col2
+  .box.alt.user_list
+    %h3 
+      = "#{@users_found} publishers found"
+
+    %br.clear
+    = render :partial => "publishers/user", :collection => @users
+    %br.clear
+    
+    =paginate @users

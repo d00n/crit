@@ -1,0 +1,28 @@
+%h3
+  -if @message_thread
+    %em
+      =link_to @message_thread.parent_message.sender.display_name, @message_thread.parent_message.sender
+      \:
+    =h @message_thread.parent_message.subject
+  -else
+    =h @message.subject
+
+-unless @message_thread
+  -if !@message.created_at.nil?
+    .right= h I18n.l(@message.created_at, :format => :literal_date)
+  %pre.clear.message_body= auto_link @message.body
+-else
+  .right= h I18n.l(@message_thread.parent_message.created_at, :format => :literal_date)
+  %pre.clear.message_body= auto_link @message_thread.parent_message.body
+  %br
+
+  - children = @message_thread.parent_message.children
+  - children.each do |child|
+    %em
+      =link_to(child.sender.display_name, user_path(child.sender))
+      \:
+    %br
+    .right=h I18n.l(child.created_at, :format => :literal_date)
+    %pre.message_body= auto_link child.body
+    %br
+

@@ -1,0 +1,45 @@
+#container-single-col
+  #content-single-col
+    #contentHeader-single-col
+      %a{:href=>"/", :class => "logo", :title=>"#{configatron.community_name}"}
+    #contentBody-single-col
+      = render :partial => "shared/messages"
+        
+      .box-single-col
+        %h3 log in
+        =form_tag sessions_path, :class => "MainForm" do
+          %label{"for"=>"username"}
+            =:username.l
+          = text_field_tag 'login', nil, :size => 35
+        
+          %p
+          %label{"for"=>"password"} 
+            =:password.l
+          = password_field_tag 'password', nil, :size => 35
+        
+          %p
+          %fieldset
+            %label{"for"=>"remember_me"} 
+              =:remember_me.l
+              = check_box_tag 'remember_me'    
+          %p= submit_tag :log_in.l
+
+      .box-single-col
+        %h3 Create account
+        =form_tag signup_url, :class => "MainForm" do
+          %label{"for"=>"username"}
+            ="Beta invitation code"
+          = text_field_tag 'beta_invite_code', nil, :size => 35    
+          %p= submit_tag "Let me in!"
+
+      .box-single-col
+        %h3 Sign up for the newsletter
+        =form_tag keep_me_posted_path, :class => "MainForm" do
+          %label{"for"=>"email"}
+            =:"Email"
+          = text_field_tag 'email', nil, :size => 35    
+          %p= submit_tag "Keep me posted!"
+
+    #contentFooter-single-col
+    
+

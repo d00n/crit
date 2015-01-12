@@ -1,0 +1,16 @@
+%label 
+  =:title.l + ":"
+= f.text_field :title, :size => 35
+
+%p
+%label
+  =:description.l + ":"
+= f.text_area :description, :size => "58x5"
+
+= hidden_field_tag :go_to
+
+%p
+  = f.submit "Save", :onclick => "Form.getInputs(this.form, null, 'go_to')[0].value = 'only_create'"
+  = :or.l
+  = f.submit "Save and add photos"
+  

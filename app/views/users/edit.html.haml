@@ -1,0 +1,17 @@
+= error_messages_for :user
+=form_tag user_url(@user), :method => 'put', :multipart =>true, :class => 'MainForm' do
+
+  #col1
+    .box
+      %h3=:you_are_editing_your_profile.l
+      = link_to :edit_your_account_settings_instead.l, edit_account_user_path(@user)
+
+
+    =render :partial => "users/edit_about_form_col1_contents", :locals => {:tshirt_sizes => @tshirt_sizes}
+
+  #col2
+    =render :partial => "users/edit_about_form_col2_contents"
+
+    .box
+      = submit_tag :save_changes.l
+

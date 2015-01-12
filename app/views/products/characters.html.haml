@@ -1,0 +1,41 @@
+-description = "#{h(@product.name)}'s profile on #{configatron.community_name}. "
+-description += "#{h(@product.description).gsub(/<\/?[^>]*>/, "").gsub(/  +/, "")} "
+-description += configatron.meta_description
+
+- @meta = { :description => description, :keywords => "#{h(@product.name)}, #{configatron.meta_keywords}, #{h(@product.tags.join(", ")) unless @product.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'publishers'
+- @sidebar_left = true
+
+#col1
+  =render :partial => "products/product_avatar_sidebar", :locals => {:product => @product}
+  = render :partial => 'profile_sidebar', :locals => {:user => @product.owner}
+
+    
+
+#col2
+  .box
+    %h3
+      = link_to h(@product.name), publisher_product_path(@product.owner, @product)
+      \: Characters
+
+          
+  - if @product.characters.any?
+    .box
+      - @product.characters.each do |character|
+        = render :partial => "characters/character_listing", :locals => { :character => character }
+
+
+   
+  #comments.box.alt
+    %p= render :partial => 'comments/comment_form', :locals => {:commentable => @product}
+    
+    %a#newest_comment
+    = render :partial => 'comments/comment', :collection => @comments
+    
+    / this shouldn't be needed, as any logged in user should be able to comment on a game
+    - @user = @product.owner
+    %span#more_comments_links= more_user_comments_links
+      
+%script{:type=>"text/javascript", :charset=>"utf-8"}
+  = remote_function :url => {:controller => 'products', :action => 'update_views', :id => @product}, :method => :put
+      

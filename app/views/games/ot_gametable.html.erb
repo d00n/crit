@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <head>
+        <title></title>         
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <style type="text/css" media="screen"> 
+			html, body	{ height:100%; }
+			body { margin:0; padding:0; overflow:auto; text-align:center; 
+			       background-color: #ffffff; }   
+			#flashContent { display:none; }
+        </style>
+
+      <%if DEPLOY_GOOGLE_ANALYTICS%>
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-19974708-1']);
+          _gaq.push(['_trackPageview']);
+          (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+      <%end%>
+
+		    
+        <script type="text/javascript" src="<%= CACHE_SERVER_8 %>/mint/<%= OT_MINT_VERSION %>/swfobject.js"></script>
+        <script type="text/javascript">
+            <!-- For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. --> 
+            var swfVersionStr = "<%= SWFVERSIONSTR %>";
+            <!-- To use express install, set to playerProductInstall.swf, otherwise the empty string. -->
+            var xiSwfUrlStr = "<%= CACHE_SERVER_8 %>/mint/<%= OT_MINT_VERSION %>/playerProductInstall.swf";
+            var flashvars = {};
+            flashvars.auth_key = "<%= @auth_key %>";
+            flashvars.room_id = "<%= @room_id %>";
+            flashvars.room_name = "<%= @room_name %>";
+            flashvars.user_id = "<%= @user_id %>";
+            flashvars.user_name = "<%= @user_name %>";
+            flashvars.wowza_server = "<%= WOWZA_SERVER %>";
+            flashvars.wowza_whiteboard_app =  "<%=  WOWZA_WHITEBOARD_APP %>";
+            flashvars.wowza_chat_app = "<%= WOWZA_CHAT_APP %>";
+            flashvars.image_server = "<%= IMAGE_SERVER %>";
+            flashvars.library_server = "<%= LIBRARY_SERVER %>";
+            flashvars.library_base_path = "<%= LIBRARY_BASE_PATH %>";
+            flashvars.library_registry_file = "<%= LIBRARY_REGISTRY_FILE %>";
+            flashvars.peer_enabled = "<%= GAMETABLE_PEER_ENABLED %>";
+            flashvars.enable_network_god_mode = "<%= @enable_network_god_mode %>";
+            var params = {};
+            params.quality = "high";
+            params.bgcolor = "#ffffff";
+            params.allowscriptaccess = "sameDomain";
+            params.allowfullscreen = "true";
+            var attributes = {};
+            attributes.id = "SimpleDiagrams";
+            attributes.name = "SimpleDiagrams";
+            attributes.align = "middle";
+            swfobject.embedSWF(
+                "<%= CACHE_SERVER_9 %>/mint/<%= OT_MINT_VERSION %>/SimpleDiagrams.swf", "flashContent",
+                "100%", "100%", 
+                swfVersionStr, xiSwfUrlStr, 
+                flashvars, params, attributes);
+			<!-- JavaScript enabled so display the flashContent div in case it is not replaced with a swf object. -->
+			swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+      
+      </script>
+      
+      <style type="text/css">
+      body {
+        overflow:hidden;
+      }
+      </style>
+
+
+    </head>
+    <body>
+        <!-- SWFObject's dynamic embed method replaces this alternative HTML content with Flash content when enough 
+			 JavaScript and Flash plug-in support is available. The div is initially hidden so that it doesn't show
+			 when JavaScript is disabled.
+		-->
+        <div id="flashContent">
+        	<p>
+	        	To view this page ensure that Adobe Flash Player version <%= SWFVERSIONSTR %> or greater is installed.
+			</p>
+			<script type="text/javascript"> 
+				var pageHost = ((document.location.protocol == "https:") ? "https://" :	"http://"); 
+				document.write("<a href='http://www.adobe.com/go/getflashplayer'><img src='" 
+								+ pageHost + "www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a>" ); 
+			</script> 
+        </div>
+	   	
+       	<noscript>
+            <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="100%" height="100%" id="SimpleDiagrams">
+                <param name="movie" value="<%= CACHE_SERVER_9 %>/mint/<%= OT_MINT_VERSION %>/SimpleDiagrams.swf" />
+                <param name="quality" value="high" />
+                <param name="bgcolor" value="#ffffff" />
+                <param name="allowScriptAccess" value="sameDomain" />
+                <param name="allowFullScreen" value="true" />
+                <!--[if !IE]>-->
+                <object type="application/x-shockwave-flash" data="<%= CACHE_SERVER_9 %>/mint/<%= OT_MINT_VERSION %>/SimpleDiagrams.swf" width="100%" height="100%">
+                    <param name="quality" value="high" />
+                    <param name="bgcolor" value="#ffffff" />
+                    <param name="allowScriptAccess" value="sameDomain" />
+                    <param name="allowFullScreen" value="true" />
+                <!--<![endif]-->
+                <!--[if gte IE 6]>-->
+                	<p> 
+                		Either scripts and active content are not permitted to run or Adobe Flash Player version
+                		10.1.0 or greater is not installed.
+                	</p>
+                <!--<![endif]-->
+                    <a href="http://www.adobe.com/go/getflashplayer">
+                        <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash Player" />
+                    </a>
+                <!--[if !IE]>-->
+                </object>
+                <!--<![endif]-->
+            </object>
+	    </noscript>		
+   </body>
+</html>

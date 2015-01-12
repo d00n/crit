@@ -1,0 +1,873 @@
+= javascript_include_tag 'delegate'
+= javascript_include_tag 'form_helper'
+= error_messages_for :character
+
+
+
+=form_for @character, :html => {:class => "cmxform"}  do |character_form|
+
+  :javascript
+     var c_carried_item='#{generate_template(character_form, :c_carried_items).html_safe}';
+     var c_special_item='#{generate_template(character_form, :c_special_items).html_safe}';
+     var c_language='#{generate_template(character_form, :c_languages).html_safe}';
+     var c_wealth='#{generate_template(character_form, :c_wealths).html_safe}';
+     var c_physical_ability='#{generate_template(character_form, :c_physical_abilities).html_safe}';
+     var c_sense='#{generate_template(character_form, :c_senses).html_safe}';
+     var c_previous_profession='#{generate_template(character_form, :c_previous_professions).html_safe}';
+     var c_previous_class='#{generate_template(character_form, :c_previous_classes).html_safe}';
+     var c_skill='#{generate_template(character_form, :c_skills).html_safe}';
+     var c_skill_specialization='#{generate_template(character_form, :c_skill_specializations).html_safe}';
+     var c_attribute='#{generate_template(character_form, :c_attributes).html_safe}';
+     var c_special_attribute='#{generate_template(character_form, :c_special_attributes).html_safe}';
+     var c_quality='#{generate_template(character_form, :c_qualities).html_safe}';
+     var c_racial_ability='#{generate_template(character_form, :c_racial_abilities).html_safe}';
+     var c_damage='#{generate_template(character_form, :c_damages).html_safe}';
+     var c_combat='#{generate_template(character_form, :c_combats).html_safe}';
+     var c_special_ability='#{generate_template(character_form, :c_special_abilities).html_safe}';
+     var c_power='#{generate_template(character_form, :c_powers).html_safe}';
+     var c_movement='#{generate_template(character_form, :c_movements).html_safe}';
+     var c_defense='#{generate_template(character_form, :c_defenses).html_safe}';
+     var c_weapon='#{generate_template(character_form, :c_weapons).html_safe}';
+     var c_distinguishing_feature='#{generate_template(character_form, :c_distinguishing_features).html_safe}';
+     var c_mannerism='#{generate_template(character_form, :c_mannerisms).html_safe}';
+     var c_virtue='#{generate_template(character_form, :c_virtues).html_safe}';
+     var c_flaw='#{generate_template(character_form, :c_flaws).html_safe}';
+     var c_education='#{generate_template(character_form, :c_educations).html_safe}';
+     var c_training='#{generate_template(character_form, :c_trainings).html_safe}';
+     var c_interest='#{generate_template(character_form, :c_interests).html_safe}';
+     var c_hobby='#{generate_template(character_form, :c_hobbies).html_safe}';
+     var c_goal='#{generate_template(character_form, :c_goals).html_safe}';
+     var c_possession='#{generate_template(character_form, :c_possessions).html_safe}';
+ 
+
+    
+  .container
+
+    -if !@auto_register_game_id.blank?
+      = hidden_field_tag :auto_register_game_id, @auto_register_game_id
+    
+    .user_row
+      .InfrnoForm
+        %fieldset
+          %legend
+            Profile Details
+          %ol
+            %li
+              = character_form.label "Character name:"
+              = character_form.text_field :name
+            %li
+              = character_form.label "Genre:"
+              = character_form.text_field :genre
+              -#= text_field_with_auto_complete :character, :genre
+            -#%li
+            -#  = character_form.label "System: "
+            -#  = text_field_with_auto_complete :character, :property
+            %li
+              = character_form.label "Guild:"
+              = character_form.text_field :guild
+            %li
+              = character_form.label "Server:"
+              = character_form.text_field :server
+            %li
+              = character_form.label "Level:"
+              = character_form.text_field :level
+            %li
+              Allow other users to clone
+              = character_form.check_box :others_can_clone
+
+    .user_row
+      %fieldset
+        %legend
+          Privacy
+        -if current_user.membership_level > 2
+          %ol
+            %li
+              = character_form.check_box :is_private
+              Character is only visible to compatriots.
+
+              This includes character blog posts, comments, and avatar photos.
+        -else
+          %h3= "Private characters are a premium feature. #{link_to 'Upgrade now!', premium_membership_path}".html_safe
+      
+    .user_row
+      %fieldset
+        %legend
+          Attributes
+        %div{:id=>"c_attributes"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_attribute', :class => "add_nested_item", :rel => "c_attributes" 
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Name
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Score
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Modifier
+          %div{:class=>"left-container-35"}
+            %h5{:class=>"colhdr"}
+              Notes
+          %div{:class=>"space-line"}            
+          = character_form.fields_for :c_attributes do |c_attribute_form|
+            = render :partial => 'c_attribute', :locals => { :f => c_attribute_form } 
+      
+    .user_row 
+      %fieldset
+        %legend
+          Skills
+        %div{:id=>"c_skills"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_skill', :class => "add_nested_item", :rel => "c_skills" 
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Level    
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              Base Attr    
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              Bonus    
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              Penalty    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Misc    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Notes    
+          %div{:class=>"space-line"}       
+          = character_form.fields_for :c_skills do |c_skill_form|
+            = render :partial => 'c_skill', :locals => { :f => c_skill_form } 
+          
+    .user_row 
+      %fieldset
+        %legend
+          Skill Specialization
+        %div{:id=>"c_skill_specializations"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_skill_specialization', :class => "add_nested_item", :rel => "c_skill_specializations" 
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Skill    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Level    
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              Bonus    
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              Penalty    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Notes    
+          %div{:class=>"space-line"}       
+          = character_form.fields_for :c_skill_specializations do |c_skill_specialization_form|
+            = render :partial => 'c_skill_specialization', :locals => { :f => c_skill_specialization_form } 
+          
+    .user_row 
+      %fieldset
+        %legend
+          Special Attributes
+        %div{:id=>"c_special_attributes"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_special_attribute', :class => "add_nested_item", :rel => "c_special_attributes" 
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Level    
+          %div{:class=>"left-container-30"}
+            %h5{:class=>"colhdr"}
+              Effects  
+          %div{:class=>"left-container-30"}
+            %h5{:class=>"colhdr"}
+              Notes    
+          %div{:class=>"space-line"}       
+          = character_form.fields_for :c_special_attributes do |c_special_attribute_form|
+            = render :partial => 'c_special_attribute', :locals => { :f => c_special_attribute_form } 
+          
+    .user_row 
+      %fieldset
+        %legend
+          Qualities/Feats
+        %div{:id=>"c_qualities"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_quality', :class => "add_nested_item", :rel => "c_qualities" 
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Type    
+          %div{:class=>"left-container-30"}
+            %h5{:class=>"colhdr"}
+              Effects  
+          %div{:class=>"left-container-30"}
+            %h5{:class=>"colhdr"}
+              Notes    
+          %div{:class=>"space-line"}       
+          = character_form.fields_for :c_qualities do |c_quality_form|
+            = render :partial => 'c_quality', :locals => { :f => c_quality_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Racial Abilities
+        %div{:id=>"c_racial_abilities"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_racial_ability', :class => "add_nested_item", :rel => "c_racial_abilities" 
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Name     
+          %div{:class=>"left-container-30"}
+            %h5{:class=>"colhdr"}
+              Effects  
+          %div{:class=>"left-container-30"}
+            %h5{:class=>"colhdr"}
+              Notes    
+          %div{:class=>"space-line"}       
+          = character_form.fields_for :c_racial_abilities do |c_racial_ability_form|
+            = render :partial => 'c_racial_ability', :locals => { :f => c_racial_ability_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Special Abilities
+        %div{:id=>"c_special_abilities"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_special_ability', :class => "add_nested_item", :rel => "c_special_abilities" 
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Name     
+          %div{:class=>"left-container-30"}
+            %h5{:class=>"colhdr"}
+              Effects  
+          %div{:class=>"left-container-30"}
+            %h5{:class=>"colhdr"}
+              Notes    
+          %div{:class=>"space-line"}       
+          = character_form.fields_for :c_special_abilities do |c_special_ability_form|
+            = render :partial => 'c_special_ability', :locals => { :f => c_special_ability_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Powers
+        %div{:id=>"c_powers"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_power', :class => "add_nested_item", :rel => "c_powers" 
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Requirements    
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              Duration    
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              Range    
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              Uses    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Damage    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Effects    
+          %div{:class=>"space-line"}       
+          = character_form.fields_for :c_powers do |c_power_form|
+            = render :partial => 'c_power', :locals => { :f => c_power_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Combat
+        %div{:id=>"c_combats"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_combat', :class => "add_nested_item", :rel => "c_combats" 
+          %div{:class=>"left-container-45"}
+            %h5{:class=>"colhdr"}
+              Name     
+          %div{:class=>"left-container-45"}
+            %h5{:class=>"colhdr"}
+              Notes  
+          %div{:class=>"space-line"}       
+          = character_form.fields_for :c_combats do |c_combat_form|
+            = render :partial => 'c_combat', :locals => { :f => c_combat_form } 
+          
+    .user_row 
+      %fieldset
+        %legend
+          Damage
+        %div{:id=>"c_damages"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_damage', :class => "add_nested_item", :rel => "c_damages" 
+          %div{:class=>"left-container-45"}
+            %h5{:class=>"colhdr"}
+              Name     
+          %div{:class=>"left-container-45"}
+            %h5{:class=>"colhdr"}
+              Notes  
+          %div{:class=>"space-line"}       
+          = character_form.fields_for :c_damages do |c_damage_form|
+            = render :partial => 'c_damage', :locals => { :f => c_damage_form } 
+          
+    .user_row 
+      %fieldset
+        %legend
+          Movement
+        %div{:id=>"c_movements"} 
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_movement', :class => "add_nested_item", :rel => "c_movements" 
+          %div{:class=>"left-container-45"}
+            %h5{:class=>"colhdr"}
+              Name     
+          %div{:class=>"left-container-45"}
+            %h5{:class=>"colhdr"}
+              Rate  
+          %div{:class=>"space-line"}       
+          = character_form.fields_for :c_movements do |c_movement_form|
+            = render :partial => 'c_movement', :locals => { :f => c_movement_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Defenses/Resistances
+        %div{:id=>"c_defenses"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_defense', :class => "add_nested_item", :rel => "c_defenses" 
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Type    
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              Rating    
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              Penalties    
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              Bonus    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Special Properties    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Notes    
+          %div{:class=>"space-line"}       
+          = character_form.fields_for :c_defenses do |c_defense_form|
+            = render :partial => 'c_defense', :locals => { :f => c_defense_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Advancement Points
+        %ol
+          %li
+            = character_form.label "Name:" 
+            = character_form.text_field :xp_name 
+          %li
+            = character_form.label "Earned:" 
+            = character_form.text_field :xp_earned 
+          %li
+            = character_form.label "Spent:" 
+            = character_form.text_field :xp_spent 
+          %li
+            = character_form.label "Banked:" 
+            = character_form.text_field :xp_unspent 
+
+    .user_row 
+      %fieldset
+        %legend
+          About
+        %ol
+          %li 
+            = character_form.text_area :about, :class => "rich_text_editor", :size => "50x20"
+            
+    .user_row 
+      %fieldset
+        %legend
+          Background
+        %ol
+          %li 
+            = character_form.text_area :background, :class => "rich_text_editor", :size => "50x20"
+          
+    .user_row 
+      %fieldset
+        %legend
+          Someone else would describe me as...
+        %ol
+          %li
+            = character_form.text_area :party_description, :class => "rich_text_editor", :size => "50x20"
+          
+    .user_row 
+      %fieldset
+        %legend
+          Character relationships
+        %ol
+          %li 
+            = character_form.text_area :character_relationships, :class => "rich_text_editor", :size => "50x20"
+    
+    .user_row
+      .InfrnoForm
+        %fieldset
+          %legend
+            Career
+          %ol
+            %li
+              = character_form.label "current class:"
+              = character_form.text_field :current_class
+            %li
+              = character_form.label "current profession:"
+              = character_form.text_field :current_profession
+            %li
+              = character_form.label "paragon path:"
+              = character_form.text_field :paragon_path
+            %li
+              = character_form.label "epic destiny:"
+              = character_form.text_field :epic_destiny
+          
+    .user_row 
+      %fieldset
+        %legend
+          Previous Professions
+        %div{:id=>"c_previous_professions"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_previous_profession', :class => "add_nested_item", :rel => "c_previous_professions" 
+          %div{:class=>"left-container-90"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"space-line"}
+          = character_form.fields_for :c_previous_professions do |c_previous_profession_form|
+            = render :partial => 'c_previous_profession', :locals => { :f => c_previous_profession_form } 
+          
+    .user_row 
+      %fieldset
+        %legend
+          Previous Classes
+        %div{:id=>"c_previous_classes"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_previous_class', :class => "add_nested_item", :rel => "c_previous_classes" 
+          %div{:class=>"left-container-90"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"space-line"}
+          = character_form.fields_for :c_previous_classes do |c_previous_class_form|
+            = render :partial => 'c_previous_class', :locals => { :f => c_previous_class_form } 
+          
+    .user_row
+      .InfrnoForm
+        %fieldset
+          %legend
+            Personal Details
+          %ol
+            %li
+              = character_form.label "gender:"
+              = character_form.text_field :gender
+            %li
+              = character_form.label "race:"
+              = character_form.text_field :race
+            %li
+              = character_form.label "ethnicity:"
+              = character_form.text_field :ethnicity
+            %li
+              = character_form.label "Alignment/ethics:"
+              = character_form.text_field :alignment
+            %li
+              = character_form.label "skin_color:"
+              = character_form.text_field :skin_color
+            %li
+              = character_form.label "Hair color & style:"
+              = character_form.text_field :hair_color
+            %li
+              = character_form.label "eye_color:"
+              = character_form.text_field :eye_color
+            %li
+              = character_form.label "height:"
+              = character_form.text_field :height
+            %li
+              = character_form.label "weight:"
+              = character_form.text_field :weight
+            %li
+              = character_form.label "age:"
+              = character_form.text_field :age
+            %li
+              = character_form.label "fashion_sense:"
+              = character_form.text_field :fashion_sense
+            %li
+              = character_form.label "birthday:"
+              = character_form.text_field :birthday
+            %li
+              = character_form.label "astrological_sign:"
+              = character_form.text_field :astrological_sign
+            %li
+              = character_form.label "place_of_birth:"
+              = character_form.text_field :place_of_birth
+            %li
+              = character_form.label "current_residence:"
+              = character_form.text_field :current_residence
+            %li
+              = character_form.label "relationship_status:"
+              = character_form.text_field :relationship_status
+            %li
+              = character_form.label "weapon_of_choice:"
+              = character_form.text_field :weapon_of_choice
+
+    .user_row 
+      %fieldset
+        %legend
+          Languages
+        %div{:id=>"c_languages"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_language', :class => "add_nested_item", :rel => "c_languages" 
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Level    
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              Base Attr    
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              Bonus    
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              Penalty    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Misc    
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Notes    
+          %div{:class=>"space-line"}            
+          = character_form.fields_for :c_languages do |c_language_form|
+            = render :partial => 'c_language', :locals => { :f => c_language_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Physical Ability
+        %div{:id=>"c_physical_abilities"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_physical_ability', :class => "add_nested_item", :rel => "c_physical_abilities"
+          %div{:class=>"left-container-45"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"left-container-45"}
+            %h5{:class=>"colhdr"}
+              Notes    
+          %div{:class=>"space-line"}            
+          = character_form.fields_for :c_physical_abilities do |c_physical_ability_form|
+            = render :partial => 'c_physical_ability', :locals => { :f => c_physical_ability_form }
+        
+    .user_row 
+      %fieldset
+        %legend
+          Senses
+        %div{:id=>"c_senses"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_sense', :class => "add_nested_item", :rel => "c_senses"     
+          %div{:class=>"left-container-45"}
+            %h5{:class=>"colhdr"}
+              Type    
+          %div{:class=>"left-container-45"}
+            %h5{:class=>"colhdr"}
+              Effect    
+          %div{:class=>"space-line"}            
+          = character_form.fields_for :c_senses do |c_sense_form|
+            = render :partial => 'c_sense', :locals => { :f => c_sense_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Distinguishing Features
+        %div{:id=>"c_distinguishing_features"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_distinguishing_feature', :class => "add_nested_item", :rel => "c_distinguishing_features" 
+          %div{:class=>"left-container-90"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"space-line"}            
+          = character_form.fields_for :c_distinguishing_features do |c_distinguishing_feature_form|
+            = render :partial => 'c_distinguishing_feature', :locals => { :f => c_distinguishing_feature_form } 
+          
+    .user_row 
+      %fieldset
+        %legend
+          Mannerisms
+        %div{:id=>"c_mannerisms"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_mannerism', :class => "add_nested_item", :rel => "c_mannerisms" 
+          %div{:class=>"left-container-90"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"space-line"}            
+          = character_form.fields_for :c_mannerisms do |c_mannerism_form|
+            = render :partial => 'c_mannerism', :locals => { :f => c_mannerism_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Virtues
+        %div{:id=>"c_virtues"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_virtue', :class => "add_nested_item", :rel => "c_virtues" 
+          %div{:class=>"left-container-90"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"space-line"}            
+          = character_form.fields_for :c_virtues do |c_virtue_form|
+            = render :partial => 'c_virtue', :locals => { :f => c_virtue_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Flaws
+        %div{:id=>"c_flaws"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_flaw', :class => "add_nested_item", :rel => "c_flaws" 
+          %div{:class=>"left-container-90"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"space-line"}            
+          = character_form.fields_for :c_flaws do |c_flaw_form|
+            = render :partial => 'c_flaw', :locals => { :f => c_flaw_form } 
+          
+    .user_row 
+      %fieldset
+        %legend
+          Education
+        %div{:id=>"c_educations"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_education', :class => "add_nested_item", :rel => "c_educations" 
+          %div{:class=>"left-container-90"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"space-line"}            
+          = character_form.fields_for :c_educations do |c_education_form|
+            = render :partial => 'c_education', :locals => { :f => c_education_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Training
+        %div{:id=>"c_trainings"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_training', :class => "add_nested_item", :rel => "c_trainings" 
+          %div{:class=>"left-container-90"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"space-line"}            
+          = character_form.fields_for :c_trainings do |c_training_form|
+            = render :partial => 'c_training', :locals => { :f => c_training_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Interests
+        %div{:id=>"c_interests"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_interest', :class => "add_nested_item", :rel => "c_interests" 
+          %div{:class=>"left-container-90"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"space-line"}            
+          = character_form.fields_for :c_interests do |c_interest_form|
+            = render :partial => 'c_interest', :locals => { :f => c_interest_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Hobbies
+        %div{:id=>"c_hobbies"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_hobby', :class => "add_nested_item", :rel => "c_hobbies" 
+          %div{:class=>"left-container-90"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"space-line"}            
+          = character_form.fields_for :c_hobbies do |c_hobby_form|
+            = render :partial => 'c_hobby', :locals => { :f => c_hobby_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Goals
+        %div{:id=>"c_goals"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_goal', :class => "add_nested_item", :rel => "c_goals" 
+          %div{:class=>"left-container-90"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"space-line"}            
+          = character_form.fields_for :c_goals do |c_goal_form|
+            = render :partial => 'c_goal', :locals => { :f => c_goal_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Weapons
+        %div{:id=>"c_weapons"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_weapon', :class => "add_nested_item", :rel => "c_weapons"  
+          %div{:class=>"left-container-15"}   
+            %h5{:class=>"colhdr"}
+              Name
+          %div{:class=>"left-container-10"}   
+            %h5{:class=>"colhdr"}
+              Damage
+          %div{:class=>"left-container-10"}   
+            %h5{:class=>"colhdr"}
+              Range
+          %div{:class=>"left-container-10"}   
+            %h5{:class=>"colhdr"}
+              ROF
+          %div{:class=>"left-container-10"}   
+            %h5{:class=>"colhdr"}
+              Capacity
+          %div{:class=>"left-container-10"}   
+            %h5{:class=>"colhdr"}
+              Modifiers
+          %div{:class=>"left-container-15"}   
+            %h5{:class=>"colhdr"}
+              Effects
+          %div{:class=>"left-container-10"}   
+            %h5{:class=>"colhdr"}
+              Properties
+          %div{:class=>"space-line"}
+            = character_form.fields_for :c_weapons do |c_weapon_form|
+              = render :partial => 'c_weapon', :locals => { :f => c_weapon_form } 
+          
+    .user_row 
+      %fieldset
+        %legend
+          Possessions
+        %div{:id=>"c_possessions"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_possession', :class => "add_nested_item", :rel => "c_possessions" 
+          %div{:class=>"left-container-90"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"space-line"}            
+          = character_form.fields_for :c_possessions do |c_possession_form|
+            = render :partial => 'c_possession', :locals => { :f => c_possession_form } 
+      
+    .user_row 
+      %fieldset
+        %legend
+          Carried Items
+        %div{:id=>"c_carried_items"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_carried_item', :class => "add_nested_item", :rel => "c_carried_items" 
+          %div{:class=>"left-container-90"}
+            %h5{:class=>"colhdr"}
+              Name    
+          %div{:class=>"space-line"}            
+          = character_form.fields_for :c_carried_items do |c_carried_item_form|
+            = render :partial => 'c_carried_item', :locals => { :f => c_carried_item_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Special Items
+        %div{:id=>"c_special_items"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_special_item', :class => "add_nested_item", :rel => "c_special_items" 
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Name     
+          %div{:class=>"left-container-30"}
+            %h5{:class=>"colhdr"}
+              Effects  
+          %div{:class=>"left-container-30"}
+            %h5{:class=>"colhdr"}
+              Uses    
+          %div{:class=>"space-line"}       
+          = character_form.fields_for :c_special_items do |c_special_item_form|
+            = render :partial => 'c_special_item', :locals => { :f => c_special_item_form } 
+        
+    .user_row 
+      %fieldset
+        %legend
+          Wealth
+        %div{:id=>"c_wealths"}
+          %div{:class=>"left-container-10"}
+            %h5{:class=>"colhdr"}
+              = link_to 'Add row', '#c_wealth', :class => "add_nested_item", :rel => "c_wealths" 
+          %div{:class=>"left-container-15"}
+            %h5{:class=>"colhdr"}
+              Denomination
+          %div{:class=>"left-container-30"}
+            %h5{:class=>"colhdr"}
+              Value
+          %div{:class=>"left-container-30"}
+            %h5{:class=>"colhdr"}
+              Amount
+          %div{:class=>"space-line"}       
+          = character_form.fields_for :c_wealths do |c_wealth_form|
+            = render :partial => 'c_wealth', :locals => { :f => c_wealth_form } 
+     
+    .user_row 
+      %h3= :tags.l
+      #character_tags
+        = text_field_tag 'tag_list', @character.tag_list.to_s, {:autocomplete => "off", :size=>"90"}
+        -##tag_list_auto_complete.auto_complete
+        -#= auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [',', ' ']  }
+
+    %br
+    = character_form.submit "Save character"
+
+
+    
+
+  
+
+

@@ -1,0 +1,80 @@
+-description = "#{@user.display_name}'s profile on #{configatron.community_name}."
+-if !@user.description.blank?
+  -description += " #{strip_tags(@user.description).gsub(/\n/, '')}"
+-description += " {configatron.meta_description}"
+- @meta = { :description => description, :keywords => "#{h(@user.display_name)}, #{configatron.meta_keywords}, #{@user.tags.join(", ") unless @user.tags.nil?}", :robots => configatron.robots_meta_show_content }
+
+- if @user.publisher
+  - @section = @user.eql?(current_user) ? 'my_profile' : 'publishers'
+- else
+  - @section = @user.eql?(current_user) ? 'my_profile' : 'users'
+
+
+-if @user.publisher && @user.avatar
+  #avatar_image{:align => "center"}
+    = image_tag( @user.avatar_photo_url, :class => "vendor_logo")
+  %p
+    
+
+#col1
+  -if !(@user.publisher && @user.avatar)
+    = render :partial => 'user_avatar_sidebar', :locals => {:user => @user}
+  = render :partial => 'profile_user_info_sidebar', :locals => {:user => @user}
+  = render :partial => 'profile_col1_content', :locals => {:user => @user}
+
+#col2
+  .box
+    %h2
+      = link_to @user.display_name, user_path(@user)
+
+
+  - if !@user.description.blank?
+    #about_me.box.alt
+      %h3 About
+      #user_generated_html
+        =@user.description.html_safe
+      
+
+  -#- if @photos.empty? and @recent_posts.empty?
+  -#  -box :class => "alt" do
+  -#    %h3= :small_profile.l :user => @user.display_name
+
+  /- if @user.products.featured.count > 0
+  /  #photos.box.alt
+  /    %h3
+  /      Featured products,
+  /      =link_to "Catalog", publisher_products_path(@user)
+  /    - @user.products.featured.each do |product|
+  /      =render :partial => "products/product", :locals => {:product => product}
+      
+
+  - if !@photos.empty?
+    #photos.box.alt
+      %h3= link_to "Photos (#{@user.photos.length})", user_photos_path(@user)
+      - @photos.each do |photo|
+        = link_to image_tag( photo.photo.url(:thumb), :width => "94px"), user_photo_path(@user, photo)
+
+
+  - unless @recent_posts.empty?
+    #posts.box.alt
+      %h3= link_to "Posts (#{@user.posts.count})", user_posts_path(@user)
+      -@recent_posts.each do |recent_post|
+        = render :partial => 'posts/post', :locals => {:post => recent_post}
+
+  - if @user.products.any?
+    .box
+      %h2= link_to "Products (#{number_with_delimiter(@user.products.count)})".html_safe, publisher_products_path(@user)
+      -@user.products.popular.limit(3).each do |product|
+        = render :partial => 'products/product', :locals => {:product => product}
+
+  #comments.box.alt
+    %p= render :partial => 'comments/comment_form', :locals => {:commentable => @user}
+    %a#newest_comment
+    = render :partial => 'comments/comment', :collection => @comments
+    
+    -if @comments.any?
+      %span#more_comments_links= more_comments_links(@user)
+
+-#TODO: ajax fix
+-#%script{:type=>"text/javascript", :charset=>"utf-8"}
+-#  = remote_function :url => {:controller => 'users', :action => 'update_views', :id => @user}, :method => :put

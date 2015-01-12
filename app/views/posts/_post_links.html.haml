@@ -1,0 +1,16 @@
+
+.box 
+  %h3 Blog links
+  %ul
+    -if @character
+      %li.view=link_to "#{h(character.name)}'s blog", character_post_path(@character)
+      %li.view=link_to "New character post",  new_user_post_path({:user_id => current_user, 'post[character_id]' => @character.id})
+    -elsif @game
+      %li.view=link_to "#{h(game.name)}'s blog", game_post_path(@game)
+      %li.view=link_to "New game post",  new_user_post_path({:user_id => current_user, 'post[game_id]' => @game.id})
+    -else
+      %li.view= link_to "My blog", user_posts_path(@user)
+      %li.view=link_to "New post", new_user_post_path(@user)
+      
+    %li.view=link_to "Manage posts", manage_user_posts_path(@user)
+

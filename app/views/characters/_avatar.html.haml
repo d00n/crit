@@ -1,0 +1,11 @@
+.centered
+  %br
+  - if current_user == @character.owner
+    = link_to image_tag( @character.avatar_photo_url(:medium), :class => "polaroid"), seo_character_path(@character)
+  - else
+    = image_tag( @character.avatar_photo_url(:medium), :class => "polaroid")
+  - if current_user == @character.owner && !@character.avatar
+    .center
+      = link_to "Choose a profile photo", :controller => "characters", :id => @character.id, :action => "pick_profile_photo"
+
+%p

@@ -1,0 +1,60 @@
+-@meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_show_content }
+-@section = 'games'
+
+/=stylesheet_link_tag "prototip"
+/=stylesheet_link_tag "event_calendar"
+
+.box
+  -if @no_search_criteria
+    -cache "game_index_calendar_#{@month}_#{@year}_#{@game_index_calendar_cache_fragment_suffix}" do
+      = event_calendar.html_safe
+  -else
+    = event_calendar.html_safe
+
+
+
+  %p
+  -if current_user
+    = "Your time zone is #{current_user.time_zone}. #{link_to 'Change it here', edit_user_path(current_user)}" .html_safe
+  -else
+    = "You are viewing the default time zone, which is Pacific. To set it to your own time zone, #{link_to 'log in and edit your account.', login_path()}" .html_safe
+
+#col1
+  -#=render :partial => "game_systems/game_systems"
+  =render :partial => 'games/search_options'
+  -if current_user
+    .box
+      %h3= link_to "Your games (#{current_user.games.count})", user_games_path(current_user)
+      = link_to 'New game', system_categories_path(:new_game => true)
+
+      %p
+      - Game.all( :limit=>5, :conditions=>["user_id=?", current_user.id], :order => 'updated_at DESC').each do |game|
+        =render :partial => "games/sidebar_game", :locals => {:game => game}
+
+  - game = Game.find(19)
+  .box
+    .box_row
+      .user_row_col1
+        = link_to image_tag(game.avatar_photo_url(:thumb), :alt => "#{game.name}", :width => '50', :height => '50'), game_path(game)
+      .user_row_col2
+        %h3=link_to h(game.name), game_path(game), :class => 'url'
+        %ul
+          %li.view
+            -if GAMETABLE_DOWN_FOR_MAINT
+              Game table is down for upgrades, brb!
+            -else
+              = link_to "Game table", gametable_url(game.id)
+  
+
+#col2
+  .box.alt.user_list
+    %h2= @result_count
+
+    - @games.each do |game|
+      = render :partial => "game_listing", :locals => { :game => game }      
+
+
+
+  .box
+    =paginate @games
+      

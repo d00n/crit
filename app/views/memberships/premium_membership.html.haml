@@ -1,0 +1,182 @@
+
+-#.full-width
+-#  .box
+-#    =image_tag('/assets/PremiumMemberships.png', :style => "width:790px;")
+
+#col-float-middle-600
+  .box.center
+    =image_tag('/assets/PremiumMemberships.png', :style => "width:500px;")
+
+
+
+#col-half.feature_description
+  .box.features-box
+    .membership_level_section_image
+      =image_tag( premium_label(1))
+    #ad_free.pointer
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Ad-free", :has_popup => true}
+    -##exalted_badge
+    -#  =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Exalted membership badge"}
+
+    =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Unlimited games", :has_popup => false}
+    =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Unlimited characters", :has_popup => false}
+    =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Unlimited use of the game table", :has_popup => false}
+
+    #achievements.pointer
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Author achievements and grant them to users, characters, and games", :has_popup => true}
+    #staff_tshirt.pointer
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Free Infrno staff tshirt", :has_popup => true}
+    #feature_caucus_2.pointer
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "50 votes in every Feature Caucus", :has_popup => true}
+
+    %br
+    .prices= "Monthly: $#{configatron.EPIC_MONTHLY_AMOUNT}"
+
+    -if current_user.nil?
+      %br
+      .center
+        = link_to 'Log in', login_path
+        = :or.l
+        = link_to 'create an account', signup_path
+        to upgrade.
+
+    -elsif current_user.membership_level > 0
+      %br
+      .center
+        Upgrades and downgrades are currently a manual process.
+        %p
+        =mail_to "accounts@infrno.net",  "Please submit your request to accounts@infrno.net."
+        %p
+        Cancellations can be handled by logging in to your PayPal account.
+      %p
+
+    -else
+      .prices
+        %p
+        =form_tag PAYPAL_URL, :method => "post" do
+          =hidden_field_tag :cmd, "_s-xclick"
+          =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.EPIC_MONTHLY_DESCRIPTION, configatron.EPIC_MONTHLY_AMOUNT, 1)
+          =image_submit_tag  "btn_subscribe_LG.gif"
+        %br
+
+
+
+#col-half.feature_description
+  .box.features-box
+    .membership_level_section_image
+      =image_tag( premium_label(3))
+    =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "All Epic features", :has_popup => false}
+    =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "Private games and characters", :has_popup => false}
+    -##exalted_badge
+    -#  =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "Exalted membership badge"}
+
+    #early_access.pointer
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "Early player registration for virtual conventions", :has_popup => true}
+    #premium_member_events.pointer
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "Exclusive access to Exalted member appreciation events", :has_popup => true}
+    #dtrpg_gift_certificate.pointer
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "Monthly drawing for a $10 DriveThruRPG gift certificate", :has_popup => true}
+    -##exalted_tshirt.pointer
+    -#  =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "Free Infrno Exalted tshirt", :has_popup => true}
+    #feature_caucus_4.pointer
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "200 votes in every Feature Caucus", :has_popup => true}
+
+    %br
+
+    -if current_user.nil?
+      .prices
+        = "Monthly: $#{configatron.EXALTED_MONTHLY_AMOUNT}"
+      %br
+
+      .prices.red
+        = "Lifetime: $#{configatron.EXALTED_LIFETIME_AMOUNT}"
+        &#42;
+      %p
+
+      .center.red
+        %p
+        &#42;Limited Time Offer
+        %br
+        Available until we reach 15,000 users,
+        %br
+        ="only #{number_with_delimiter(15000 - User.active.not_publisher.size, :delimeter => ',')} new users away!".html_safe
+        %p
+
+
+      %br
+      .center
+        = link_to 'Log in', login_path
+        = :or.l
+        = link_to 'create an account', signup_path
+        to upgrade.
+
+    -elsif current_user.membership_level > 0
+      .prices= "Monthly: $#{configatron.EXALTED_MONTHLY_AMOUNT}"
+      %br
+
+      .prices.red= "Lifetime: $#{configatron.EXALTED_LIFETIME_AMOUNT}&#42;".html_safe
+      %br
+
+      .center
+        Upgrades and downgrades are currently a manual process.
+        %p
+        =mail_to "accounts@infrno.net",  "Please submit your request to accounts@infrno.net."
+        %p
+        Cancellations can be handled by logging in to your PayPal account.
+      %p
+
+    -else
+
+      .prices
+        = "Monthly: $#{configatron.EXALTED_MONTHLY_AMOUNT}"
+        %p
+        =form_tag PAYPAL_URL, :method => "post" do
+          =hidden_field_tag :cmd, "_s-xclick"
+          =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.EXALTED_MONTHLY_DESCRIPTION, configatron.EXALTED_MONTHLY_AMOUNT, 1)
+          =image_submit_tag  "btn_subscribe_LG.gif"
+        %br
+
+
+      .prices.red
+        = "Lifetime: $#{configatron.EXALTED_LIFETIME_AMOUNT}"
+        &#42;
+        %p
+
+        =form_tag PAYPAL_URL, :method => "post" do
+          =hidden_field_tag :cmd, "_s-xclick"
+          =hidden_field_tag :encrypted, paypal_encrypted_invoice(configatron.EXALTED_LIFETIME_DESCRIPTION, configatron.EXALTED_LIFETIME_AMOUNT)
+          =image_submit_tag  "btn_buynow.gif"
+
+      .center.red
+        %p
+        &#42;Limited Time Offer
+        %br
+        Available until we reach 15,000 users,
+        %br
+        ="only #{number_with_delimiter(15000 - User.active.not_publisher.size, :delimeter => ',')} new users away!".html_safe
+        %p
+
+
+.clear_both
+
+-if current_user
+  .center
+    =image_tag "paypal_cc.png"
+
+  #col-float-middle
+    .box
+      .center
+        ="Looking for #{link_to 'volume discounts?', membership_discounts_path}".html_safe
+        %p
+        ="Want the limited, ad-supported #{link_to 'free lunch account?', welcome_photo_user_path(current_user)}".html_safe
+
+-##col-third-first.feature_description
+-#  .box.features-box
+-#    %p
+-#    %h1.center Free Lunch
+-#    =render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Ad-supported", :has_popup => false}
+-#    -#=render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Limited access", :has_popup => false}
+
+
+=render :partial => "feature_tip"
+

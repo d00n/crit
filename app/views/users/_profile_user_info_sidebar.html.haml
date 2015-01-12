@@ -1,0 +1,208 @@
+
+%p
+
+-if !@user.publisher?
+  =render :partial => "shared/amazon_ad_wrapper"
+=render :partial => 'shared/user_admin_sidebar', :locals => {:user => @user}
+
+- if logged_in? && current_user.admin?
+  .box.alt
+    %h3
+      Site Admin
+
+
+    = link_to( "#{:assume_user_id.l}", assume_user_path(@user) , :method => :post )
+    %p
+    -if @user.event_admin
+      = link_to "Revoke event admin", revoke_event_admin_path(@user), :confirm => 'Are you sure?'
+    -else
+      = link_to "Grant event admin", grant_event_admin_path(@user), :confirm => 'Are you sure?'
+    %br
+    -if @user.chat_admin
+      = link_to "Revoke chat admin", revoke_chat_admin_path(@user), :confirm => 'Are you sure?'
+    -else
+      = link_to "Grant chat admin", grant_chat_admin_path(@user),  :confirm => 'Are you sure?'
+    %br
+    -if @user.user_admin
+      = link_to "Revoke user admin", revoke_user_admin_path(@user), :confirm => 'Are you sure?'
+    -else
+      = link_to "Grant user admin", grant_user_admin_path(@user), :confirm => 'Are you sure?'
+    %br
+    -if @user.is_banned
+      = link_to "Unban user", unban_user_path(@user), :confirm => 'Are you sure?'
+    -else
+      = link_to "Ban user", ban_user_path(@user), :confirm => 'Are you sure?'
+    %br
+
+    -#-if @user.achievement_admin
+    -#  = link_to "Revoke achievement admin", revoke_achievement_admin_path(@user)
+    -#-else
+    -#  = link_to "Grant achievement admin", grant_achievement_admin_path(@user)
+    %p
+    Grant:
+    &nbsp;
+    = link_to "Infrnal", revoke_premium_path(@user)
+    &nbsp;
+    = link_to "Epic", grant_epic_path(@user)
+    &nbsp;
+    = link_to "Legendary", grant_legendary_path(@user)
+    &nbsp;
+    = link_to "Exalted", grant_exalted_path(@user)
+    &nbsp;
+    = link_to "Mythic", grant_mythic_path(@user)
+
+    /%br/
+    /= link_to( "#{:toggle.l} #{:featured_writer.l}", toggle_featured_user_path(@user), {:method => :put} )
+    /%br
+    /= link_to( "#{:assign_role.l}: #{@user.moderator? ? :member.l : :moderator.l}", toggle_moderator_user_path(@user), {:method => :put} )
+
+
+-if logged_in? && Time.now < current_user.activated_at + 1.month
+  =render :partial => "users/invite_your_friends"
+
+
+-box :id => 'profile_details' do
+
+  /-if @user.publisher
+  /  .sub-box
+  /    %h3='Products'
+  /    .vcard.author
+  /      %ul
+  /        %li.view=link_to "Catalog", publisher_products_path(@user)
+  /        - if !@user.free_stuff_url.blank?
+  /          %li.view
+  /            =link_to "Free stuff", @user.free_stuff_url, :target => '_blank'
+  /        -if logged_in? && current_user == @user
+  /          /%li.view= link_to "New product", new_product_path
+  /          /%li.view= link_to "Manage catalog", manage_catalog_path(current_user)
+  /          /%li.view= link_to "Manage featured products", manage_featured_products_path(current_user)
+
+
+  .sub-box
+    %ul.message_nav
+      -if @user.vendor_url
+        %li.view= link_to("#{@user.publisher_name} website", @user.vendor_url + "&" + configatron.DTRPG_INFRNO_AFFILIATE_CODE).html_safe
+      -if @user.dtrpg_id
+        %li.view= link_to("#{@user.publisher_name} on DTRPG", configatron.DTRPG_PUBLISHER_URL + @user.dtrpg_id.to_s + "&" + configatron.DTRPG_INFRNO_AFFILIATE_CODE).html_safe
+
+      - if logged_in? && current_user != @user
+        %li.compose= link_to("Send #{h@user.first_name} a message", new_user_message_path(current_user, :to=>@user))
+        %li.view= link_to("Grant #{h@user.first_name} an achievement", select_user_achievements_path(@user))
+
+      - if logged_in? && current_user.can_request_friendship_with(@user)
+        %li.addfriend= add_friend_link(@user)
+
+      -if logged_in? && current_user == @user
+        %li.inbox
+          = link_to "Inbox", user_messages_path(@user)
+          -if @user.unread_messages?
+            .right
+              = link_to "(#{@user.unread_message_count} unread)", user_messages_path(@user)
+
+        /%li.compose= link_to("Send message to my friends", new_user_message_path(current_user, :to=>@user.friend_login_slug_list))
+
+
+      %li.view
+        - if logged_in? && current_user == @user
+          = link_to "Games I am running", user_games_path(@user)
+          .right
+            = link_to '(new game)', system_categories_path(:new_game => true)
+        -else
+          = link_to "Games #{h@user.first_name} is running", user_games_path(@user)
+
+      %li.view
+        - if logged_in? && current_user == @user
+          = link_to "Games I am playing", user_games_playing_path(@user)
+          .right
+            = link_to '(find more)', games_path
+        -else
+          = link_to "Games #{h@user.first_name} is playing", user_games_playing_path(@user)
+
+
+      %li.view
+        = link_to "Characters", user_characters_path(@user)
+        - if logged_in? && current_user == @user
+          .right
+            = link_to '(new character)', new_character_path
+
+      %li.view
+        = link_to "Blog", user_posts_path(@user)
+        - if logged_in? && current_user == @user  && (Time.now - @user.activated_at_before_type_cast) > 4000
+          .right
+            =link_to "(new post)", new_user_post_path(@user)
+
+      %li.view
+        =link_to "Photos", user_photos_path(@user)
+        - if logged_in? && current_user == @user
+          .right
+            =link_to("(new photo)", new_user_photo_path(@user))
+
+      %li.view
+        = link_to("Authored achievements", authored_achievements_path(@user))
+        - if current_user && current_user == @user && current_user.membership_level > 0
+          .right
+            = link_to '(new achievement)', new_achievement_path
+
+      %li.view
+        = link_to("Unlocked achievements", unlocked_user_achievements_path(@user))
+        -if current_user && current_user == @user && @user.total_pending_achievments_count > 0
+          .right
+            =link_to "(#{@user.total_pending_achievments_count} pending)", unlocked_user_achievements_path(@user)
+
+
+      - if logged_in? && current_user == @user
+        %li.update= link_to "Calendar", user_calendar_path(current_user)
+        %li.view= link_to image_tag('ical.gif'), user_ical_path(current_user)
+
+
+      - if current_user && current_user.admin?
+        %li.view=link_to :admin_dashboard.l, admin_dashboard_path
+        %li.view=link_to "Product categories", system_categories_path
+
+      - if current_user && current_user.chat_admin?
+        %li.view= link_to("Send message to chat admins", new_user_message_path(current_user, :to=>@chat_admin_list, :subject=>"Admin PM blast"))
+
+  -if logged_in? && current_user == @user
+    .sub-box
+      .vcard.author
+        %ul
+          -if current_user.membership_level == 0
+            %li.view= link_to 'Upgrade to a premium account!', premium_membership_path
+          %li.view= link_to :edit_profile.l, edit_user_path(current_user)
+          %li.view= link_to :edit_account.l, edit_account_user_path(current_user)           
+          %li.view= link_to 'Change profile photo', user_photos_path(current_user)
+          /%li.view= link_to :profile_photo_crop.l, crop_profile_photo_user_path(current_user)
+          %li.view= link_to "Log out", logout_url
+
+  .sub-box
+    .vcard.author
+      %ul
+        =render :partial => 'users/xp', :locals => {:user => @user}
+        %li.update= "Member since: #{time_ago_in_words(@user.created_at)}"
+        -if @user.last_request_at
+          %li.update= "Last seen: #{time_ago_in_words(@user.last_request_at)}"
+        %li.update= "Time zone: #{@user.time_zone}"
+        %li.view= "Profile views: #{@user.view_count}"
+
+
+        - if @user.tags.any?
+          %li.tags
+            = li_tags_helper(@user)
+
+        - if @user.metro_area
+          %li.geo= link_to( @user.full_location, users_path(:metro_area_id => @user.metro_area_id, :state_id => @user.state_id, :country_id => @user.country_id ) )
+
+        -if DEPLOY_ADDTOANY
+          %br
+          %li.view
+            =render :partial => "shared/addToAny"
+
+        -if DEPLOY_ADDTHIS
+          %br
+          %li.view
+            =render :partial => "shared/addThis"
+
+        
+=render :partial => "shared/ad"
+.clear
+

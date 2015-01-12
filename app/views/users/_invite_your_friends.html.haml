@@ -1,0 +1,11 @@
+
+- if current_user
+  -box :class => "alt" do
+    %h3 Make your friends Infrnal
+    %ul
+      /-if FACEBOOK_CONNECT && !FACEBOOK_CONNECT_STEALTH_TEST
+      /  %li.facebook
+      /    =link_to 'Invite your friends via Facebook', facebook_invite_path
+      %li.email
+        = link_to "Invite your friends via email", invite_user_path(current_user)
+

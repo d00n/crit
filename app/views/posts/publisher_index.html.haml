@@ -1,0 +1,24 @@
+#col1
+  = render :partial => 'author_profile', :locals => {:user => @user}
+
+  - unless @popular_posts.empty?
+    -box :id => "posts", :class => 'alt' do
+      %h3=:popular_posts.l
+      %ul.list.page
+        - @popular_posts.each do |post|
+          %li= link_to h(truncate(post.title, :length => 75)), user_post_path(@user, post)
+
+#col2
+  -box :class => "posts hfeed" do 
+    %h2
+      = link_to "#{h(@publisher.name)}", publisher_path(@publisher)
+      's blog
+      = @category ? "&raquo; " + link_to(@category.name.upcase, users_posts_in_category_path(@user, @category.name)) : ''
+
+    - if current_user == @publisher.owner
+      = link_to "New blog entry", new_user_post_path({:user_id => current_user, 'post[publisher_id]' => @publisher.id}), :class => "right"
+      %br
+
+    = render :partial => 'post', :collection => @posts
+
+    =paginate @posts

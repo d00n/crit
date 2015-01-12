@@ -1,0 +1,36 @@
+-description = ''
+-if !@character.about.blank?
+  -description += "#{strip_tags(@character.about).gsub(/\n/, "")} "
+-description += " #{configatron.meta_description}"
+
+- @meta = { :description => description, :keywords => "#{h(@character.owner.display_name)}, #{configatron.meta_keywords}, #{h(@character.tags.join(", ")) unless @character.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'characters'
+
+#col1
+  = render :partial => 'characters/avatar'
+  = render :partial => 'characters/nav_items'
+  = render :partial => 'characters/profile_sidebar', :locals => {:user => @character.owner}  
+  
+  
+#col2
+  .box
+    %h2= "#{link_to h(@character.name), user_path(@character)} : Grant achievement".html_safe
+
+  =render :partial => "grant_achievement_upsell"
+
+  -if current_user && current_user.authored_achievements.any?
+    .box
+      %h3 My achievements
+      - current_user.authored_achievements.each do |achievement|
+        = render :partial => "achievements/achievement_listing", :locals => { :achievement => achievement, :character => @character, :show_grant => true }
+      
+  .box
+    %h3 Kiera's achievements
+    - @kiearas_achievements.each do |achievement|
+      = render :partial => "achievements/achievement_listing", :locals => { :achievement => achievement, :character => @character, :show_grant => true }
+
+  .box
+    %h3 Public achievements
+    - Achievement.others_can_grant.each do |achievement|
+      -if current_user && (!current_user.authored_achievements.include?achievement)
+        = render :partial => "achievements/achievement_listing", :locals => { :achievement => achievement, :character => @character, :show_grant => true }

@@ -1,0 +1,18 @@
+%div{:class=>"c_wound_level"}
+  %br
+  = f.label :level
+  = f.text_field :level
+  = remove_link_unless_new_record(f)
+  %br
+  = f.label :rating
+  = f.text_field :rating
+  %br
+  = f.label :cur_damage
+  = f.text_field :cur_damage  
+  %br
+  = f.label :penalties
+  = f.text_field :penalties  
+  %br
+  = f.label :notes
+  = f.text_field :notes  
+  

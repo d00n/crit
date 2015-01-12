@@ -1,0 +1,19 @@
+#container-single-col
+  #content-single-col
+    #contentHeader-single-col
+      %a{:href=>"/", :class => "logo", :title=>"#{configatron.community_name}"}
+    #contentBody-single-col
+      = render :partial => "shared/messages"
+        
+      .box-single-col
+        %h3 Create vendor account
+        =form_tag new_publisher_url, :class => "MainForm" do
+          %label{"for"=>"username"}
+            ="Beta invitation code"
+          = text_field_tag 'beta_invite_code', nil, :size => 35    
+          %p= submit_tag "Let me in!"
+          
+
+    #contentFooter-single-col
+
+

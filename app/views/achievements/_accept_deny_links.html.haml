@@ -1,0 +1,4 @@
+%li=link_to 'Accept', accept_achievement_path(pending.achievement, :ua_id => pending.id)
+%li=link_to 'Decline', deny_achievement_path(pending.achievement, :ua_id => pending.id), :confirm => 'Are you sure?'
+
+

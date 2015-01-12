@@ -1,0 +1,10 @@
+<%= render :partial => 'user_notifier/greeting', :locals => {:user => @user}  %>
+
+Your registration been approved for <%= h @game.name %>
+
+The next game time is scheduled for <%= @game.start_at.strftime('%a, %b %d, %Y') %>, at <%= @game.start_at.strftime('%I:%M%p %Z') %>
+
+You can see the game's current roster of players and characters here:
+<%= registration_desk_url(@game) %>
+                
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  %>

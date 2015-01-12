@@ -1,0 +1,21 @@
+Hello!
+
+A new <%= h @game.system_name %> game has been created on Infrno: <%= h @game.name %>
+
+<%= h @game.description.gsub(/<\/?[^>]*>/, "") if !@game.description.blank? %>
+
+<%= h @game.premise.gsub(/<\/?[^>]*>/, "") if !@game.premise.blank? %>
+
+<%= h @game.style_of_play.gsub(/<\/?[^>]*>/, "") if !@game.style_of_play.blank? %>
+
+You can see the game's profile here:
+  <%= game_url(@game) %>
+                
+Hope to see you hanging out on <%= configatron.community_name %> really soon!
+The <%= configatron.community_name %> team
+
+---------------------------------------------------------------------------------
+If you don't want to receive e-mails like this one from <%= configatron.community_name %>, you can change 
+your e-mail preferences here:
+
+<%= home_url %>

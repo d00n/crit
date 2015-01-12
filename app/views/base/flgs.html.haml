@@ -1,0 +1,103 @@
+- @meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_list_content }
+
+#col1
+  =render :partial => "shared/home_page_user_profile", :locals => { :tags => tags }
+
+
+#col2
+
+
+
+  .box
+    %h3.center Welcome Retailers!
+
+  .box
+    %h3.center Infrno is facebook for role players, minus farmville, plus a virtual game table with video chat. All in your browser, and FREE!
+    %p
+    %p You may already have gotten a sense of what Infrno is – a social network, plus gameplay tools, plus a virtual table-top.
+    %p It's what we like to call Roleplaying 2.0, an answer to the fast-paced nature of modern life.
+    %p It gives members the ability to track all their game data in a way that is accessible anywhere with an internet connection, and to find players they want to game with wherever they are.
+
+  .box
+    %h3.center The Infrno Retailer Affiliate Program
+    %p
+    %p Everything you see today on Infrno will be free forever.
+    %p Premium accounts are launching very soon, with subscriptions at $5, $10, and $15 per month.
+    %p Shortly after that, we will be launching the Infrno Retailer Affiliate Program.
+
+
+    %p.center
+    %p{:style=>"color: #ff0000;"} For every user you sign up, Infrno will pay you 30% of their subscription revenue, in perpetuity.
+
+    %p
+    %p Beyond that, we are looking for ways to help you service your community and boost sales. Here's what we've got so far:
+
+    %ul
+      %li
+        • Infrno is a great way to close the sale when the player hasn't got anyone to play with. If his local crew won't play anything but D&D, and he's drooling over Mistborn, you can point him at Infrno, where he can find a crew to play Mistborn with.
+      %p
+      %li
+        • An FLGS locator, helping users find retail stores in their local geographic area.
+      %p
+      %li
+        • If you have an RSS feed, we can automatically include your news in our weekly newsletter, targetting your content to players within 100 miles of your store.
+      %p
+      %li
+        • If you have an ICAL feed, we can incorporate your calendar items, and display them to gamers in your area.
+      %p
+      %li
+        • FLGS profile pages on Infrno that allow members to friend their favorite stores. If you have a website, we can promote it here, along with your RSS and ICAL content.
+      %p
+      %li
+        • User activity data, helping retail stores find out what Infrno users in their area are playing, or what's trending nationwide.
+      %p
+      %li
+        • Want to run retail mini-cons? We run virtual conventions, called InfrnoCons. Our event and game registration system can be used to organize your own real-world events.
+
+    %p
+    %p These are what we, as non-retailers, have come up with as possible features and services that you might find valuable.
+
+    %p
+    %p However, we want to KNOW what you will find valuable.
+
+
+  .box
+    =form_for(:contact, :url => contact_create_url) do |form|
+
+      %fieldset
+        %h3.center Tell us what you want!
+
+        %ol
+          %li
+          = form.label :subject
+          = form.text_field :subject, :value => 'FLGS feedback'
+
+          %p
+          %li
+            = form.label 'Your name'
+            -if current_user
+              = form.text_field :name, :value => current_user.display_name
+            -else
+              = form.text_field :name
+
+          %p
+          %li
+            = form.label 'Your email'
+            -if current_user
+              = form.text_field :email, :value => current_user.email if current_user
+            -else
+              = form.text_field :email
+
+          %p
+          %br
+          %li
+            = form.label 'Your thoughts'
+            = form.text_area :body, :rows => '5', :cols=> '60'
+
+          %p
+          %br
+          %li
+            = form.submit "Send"
+
+  .box
+    %h3.center Thank you very much for your time and expertise!

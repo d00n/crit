@@ -1,0 +1,29 @@
+%tr.post{"id"=>"posts-#{post.dom_id}-row"}
+  %td.author.vcard{:width => "15%"}
+    -if post.user
+      = image_tag(post.user.avatar_photo_url(:thumb), :width => '100')
+
+      %li.fn= render :partial => 'users/user_name', :locals => {:user => post.user}
+
+      %span.posts= pluralize post.user.sb_posts_count, :post.l
+    -else
+      = image_tag(configatron.photo.missing_thumb, :width => '100')
+      %span.fn
+        =h(post.username)
+    .date
+      %a{"href"=>"##{post.dom_id}", "rel"=>"bookmark"}
+        %abbr.updated{"title"=>"#{post.created_at.xmlschema}"}= time_ago_in_words(post.created_at)
+
+
+
+    - if logged_in? && post.editable_by?(current_user)
+      %span.edit
+        = ajax_spinner_for "edit-post-#{post.id}", "spinner_bounce.gif"
+        = link_to_remote(:edit_post.l, {:url => edit_forum_topic_sb_post_path(@forum, @topic, post), :method => :get, :before => "EditForm.init(#{post.id});", :condition => "!EditForm.isEditing(#{post.id})" }, {:class => "utility"})
+      - if admin? && post.user && !post.user.admin?
+        %div{"class"=>"make-moderator-#{post.user_id}"}
+          = render :partial => '/moderators/toggle', :locals => {:user => post.user, :forum => @forum}
+
+  %td.body.entry-content{"id"=>"post-body-#{post.id}", :width => '85%'}
+    = link_to_function image_tag('clearbits/comment.gif', :class => 'icon reply'), "$('reply').toggle()" if logged_in?
+    = raw post.body_html

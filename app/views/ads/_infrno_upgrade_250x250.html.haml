@@ -1,0 +1,6 @@
+
+-if current_user.nil? || current_user.membership_level == 0
+  .box.center
+    =link_to image_tag(  asset_path(random_ad) ), premium_membership_path
+
+    =link_to "Banish ads!", premium_membership_path

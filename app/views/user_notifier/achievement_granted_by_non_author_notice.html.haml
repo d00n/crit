@@ -1,0 +1,19 @@
+= render :partial => 'user_notifier/greeting', :locals => {:user => @user} 
+
+
+="#{@achievement.name} has been granted by #{@unlocked_achievement.grantor.display_name}"
+-if @unlocked_achievement.user
+  ="to #{@unlocked_achievement.user.display_name}"
+-elsif @unlocked_achievement.game
+  ="to the game '#{@unlocked_achievement.game.name}'"
+-elsif @unlocked_achievment.character
+  ="to the character '#{@unlocked_achievement.character.name}'"
+
+
+="..bringing this winner to level #{@unlocked_achievement.level}"
+
+
+="..and the total levels granted of this achievement by other users to #{@unlocked_achievement.achievement.total_levels_granted_by_non_author}"
+
+
+= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  

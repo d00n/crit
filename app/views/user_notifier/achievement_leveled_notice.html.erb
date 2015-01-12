@@ -1,0 +1,12 @@
+<%= render :partial => 'user_notifier/greeting', :locals => {:user => @user}  %>
+
+Congratulations! You leveled up the <%= h @achievement.name %> achievement!
+
+<%= @description %>
+
+<%= achievement_url(@achievement) %>
+
+You can accept or decline this achievement here:
+<%= unlocked_user_achievements_url(@user) %>
+                
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  %>

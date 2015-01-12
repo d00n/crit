@@ -1,0 +1,9 @@
+%div{:class=>"c_possession"}
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = remove_link_unless_new_record(f)
+  %div{:class=>"left-container-90"}   
+    %p{:class=>"text"}
+      = f.text_field :name, :size => configatron.ONE_COL_INPUT_WIDTH
+  %div{:class=>"space-line"}
+  

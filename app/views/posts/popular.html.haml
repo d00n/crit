@@ -1,0 +1,17 @@
+- @meta = { :description => :popular_posts_on.l+" #{configatron.community_name}. #{configatron.meta_description}",:keywords => "#{configatron.meta_keywords}", :robots => configatron.robots_meta_list_content}
+- @section = 'popular'
+
+#col1
+  =render :partial => "shared/home_page_user_profile", :locals => { :tags => tags}
+                
+#col2
+  .box 
+    %h2
+      Popular posts
+
+    -@posts.each do |recent_post|
+      -if recent_post.has_access(current_user)
+        = render :partial => 'posts/post', :locals => {:post => recent_post}
+      -else
+        = render :partial => 'posts/private_post', :locals => {:post => recent_post}
+

@@ -1,0 +1,49 @@
+-if comment.user
+  .hentry{:id => "comment_#{comment.id}"}
+    .user_row
+      .user_row_col1
+        = link_to image_tag(comment.user.avatar_photo_url(:thumb), :height => '50', :width => '50', :alt => "#{comment.user.login}"), user_path(comment.user), :rel => 'bookmark', :class => 'photo', :title => :users_profile.l(:user => comment.user.login)
+      
+      .user_row_col2
+        %li.fn
+          = render :partial => 'users/user_name', :locals => {:user => comment.user}
+        .ul
+          .li.update
+            = time_ago_in_words comment.created_at
+          -if ( comment.can_be_deleted_by(current_user) )
+            .li.delete
+              -#TODO fix
+              =link_to_remote(:delete.l, {:url => commentable_comment_path(comment.commentable_type, comment.commentable_id, comment), :method => :delete, 500 => 'alert(\'Sorry, there was a server error\'); return false',  :success => visual_effect(:fade, "comment_#{comment.id}"), :confirm => :are_you_sure_you_want_to_permanently_delete_this_comment.l} )
+
+      .user_row_col3
+        #user_generated_html
+          = comment.comment.html_safe
+
+-else
+  .hentry{:id => "comment_#{comment.id}"}
+    .user_row
+      .user_row_col1
+        %h5
+          %a{:href => '#', :rel => 'bookmark', :class => 'photo', :onclick => 'return false;'}
+            = image_tag(configatron.photo['missing_thumb'], :height => '50', :width => '50')
+
+      .user_row_col2
+        %ul
+          %li.fn
+            =link_to_unless(comment.author_url.blank?, h(comment.username), h(comment.author_url)){ h(comment.username) }
+          %li.update
+            %a{"href"=> commentable_url(comment), "rel"=>"bookmark"}
+              %abbr.published{"title"=>"#{comment.created_at}"}
+                = time_ago_in_words comment.created_at
+          -if ( comment.can_be_deleted_by(current_user) )
+            %li.delete=link_to_remote(:delete.l, {:url => commentable_comment_path(comment.commentable_type, comment.commentable_id, comment), :method => :delete, 500 => 'alert(\'Sorry, there was a server error\'); return false',  :success => visual_effect(:fade, "comment_#{comment.id}"), :confirm => :are_you_sure_you_want_to_permanently_delete_this_comment.l} )
+
+      .user_row_col3
+        #user_generated_html
+          = comment.comment.html_safe
+
+- highlighted ||= nil
+- if highlighted
+  %script{"type"=>"text/javascript"}
+    =(visual_effect :highlight, "comment_#{comment.id}", :duration => 1).html_safe
+

@@ -1,0 +1,28 @@
+-if !@character.about.blank?
+  #about_me.box.alt
+    %h3 About me
+    #user_generated_html
+      = @character.about.html_safe
+
+  - if @character.description
+    #about_me.box
+      %h3 Description
+      %p= @character.description.html_safe
+
+-if !@character.background.blank?
+  #background.box.alt
+    %h3 Background
+    #user_generated_html
+      = @character.background.html_safe
+
+-if !@character.party_description.blank?
+  #party_description.box.alt
+    %h3 Someone else would describe me as...
+    #user_generated_html
+      = @character.party_description.html_safe
+
+-if !@character.character_relationships.blank?
+  #character_relationships.box.alt
+    %h3 Character relationships
+    #user_generated_html
+      = @character.character_relationships.html_safe

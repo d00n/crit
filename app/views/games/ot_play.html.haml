@@ -1,0 +1,114 @@
+!!!
+%html
+  %head
+    %link{:rel=>"shortcut icon", :href=>"/favicon.ico"}
+    %meta{"http-equiv"=>"Content-Type", :content=>"text/html;charset=utf-8"}
+    =stylesheet_link_tag "infrno_#{configatron.INFRNO_CSS_VERSION}"
+    = javascript_include_tag "prototype"
+    = javascript_include_tag "rails"
+
+    -if @game.use_video
+
+      :javascript
+        var apiKey = #{OPENTOK_API_KEY};
+        var sessionId = "#{@opentok_session_id}";
+        var token = "#{@opentok_token}";
+        var session = null;
+        var publisher = null;
+        var PUBLISHER_WIDTH = 220;
+        var PUBLISHER_HEIGHT = 165;
+        var SUBSCRIBER_WIDTH = 220;
+        var SUBSCRIBER_HEIGHT = 90;
+        var USERNAME = "#{@user_name}";
+        var VIDEO_BACKGROUND_IMAGE = "#{@video_background_image}";
+        var participants = 0;
+        var watchers = 0;
+        var learn = #{OPENTOK_CONNECTION_DEBUGGING}; // Set to true if you want detailed event listener alerting
+        var REMOTE_STREAMS = #{OPENTOK_REMOTE_STREAMS}
+
+      =javascript_include_tag "#{OPENTOK_JAVASCRIPT_SRC}"
+      =javascript_include_tag "opentok_#{configatron.OPENTOK_CSS_VERSION}"
+
+    %script{:type=>"text/javascript", :charset=>"utf-8"}
+      function hideAll()
+      {
+      document.getElementById('gametable').className='x-hide-display';
+      document.getElementById('gametable_tab').className='';
+      - @game.active_characters.each do |character|
+        ="document.getElementById('char_#{character.id}').hide();"
+        ="document.getElementById('char_tab_#{character.id}').className='';"
+      }
+
+  %body
+    .gametable-navbar
+      =link_to image_tag("/assets/infrnogametablelogo.png", :class => "smlogo"), game_path(@game), :confirm => "You are leaving the game table. Are you sure?"
+
+      %ul
+        %li{:class => 'current', :id => "gametable_tab"}
+          %a{:href => "foo", :onclick => "hideAll(); document.getElementById('gametable').className='x-show-display'; document.getElementById('gametable_tab').className='current'; return false;"}
+            %span
+              Game table
+
+        - @game.active_characters.each do |character|
+          %li{:class => '', :id => "char_tab_#{character.id}"}
+            %a{:href => character_url(character), :onclick => "hideAll(); document.getElementById('char_#{character.id}').show(); document.getElementById('char_tab_#{character.id}').className='current'; return false;"}
+              %span
+                = truncate_words(h(character.name), 2, "...")
+
+    -if @game.use_video
+      %div{:id=>"devicePanelContainer"}
+        %input{:id=>"closeButton", :type=>"button", :onclick=>"closePanel();", :value=>"Close panel"}
+
+
+
+    %div{:id=>"gametable", :class=>"x-show-display"}
+      -if @game.use_video
+        %div{:id=>"gametable_center"}
+          %iframe{:src => "/games/#{@game.id}/ot_gametable", :width=>"100%", :height=>"100%", :scrolling=>"no", :frameborder=>"0"}
+      -else
+        %div{:id=>"gametable_full"}
+          %iframe{:src => "/games/#{@game.id}/ot_gametable", :width=>"100%", :height=>"100%", :scrolling=>"no", :frameborder=>"0"}
+
+      -if @game.use_video
+        %div{:id=>"gametable_left"}
+          .controls
+            #status
+              Connecting...
+            #action
+              &nbsp;
+            #count-header{:class=>"hidden_controls"}
+              Not yet connected
+            #participants{:class=>"hidden_controls"}
+              &nbsp;
+            #watchers{:class=>"hidden_controls"}
+              &nbsp;
+          .video_feeds
+            #myCamera{:class =>"publisherContainer"}
+            #remote_views
+              #remote_stream_1{:class=>"remote_feed"}
+              #remote_stream_2{:class=>"remote_feed"}
+              #remote_stream_3{:class=>"remote_feed"}
+              #remote_stream_4{:class=>"remote_feed"}
+              #remote_stream_5{:class=>"remote_feed"}
+              #remote_stream_6{:class=>"remote_feed"}
+              #remote_stream_7{:class=>"remote_feed"}
+
+
+
+
+
+
+
+
+     
+    #container
+      #content
+        #contentBody
+          - @game.active_characters.each do |character|
+            %div{:id=>"char_#{character.id}", :style=>"display:none"}
+              - @character = character
+              = render :file => "characters/game_table_sheet.html.haml"
+
+
+
+

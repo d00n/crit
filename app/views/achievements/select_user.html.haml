@@ -1,0 +1,31 @@
+-@meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_show_content }
+-@section = 'people'
+
+#col1
+  = render :partial => 'users/user_avatar_sidebar', :locals => {:user => @user}
+  = render :partial => 'users/profile_user_info_sidebar', :locals => {:user => @user}
+  
+  
+#col2
+  .box
+    %h2= "#{link_to h(@user.display_name), user_path(@user)} : Grant achievement".html_safe
+
+  =render :partial => "grant_achievement_upsell"
+
+
+  -if current_user && current_user.authored_achievements.any?
+    .box
+      %h3 My achievements
+      - current_user.authored_achievements.each do |achievement|
+        = render :partial => "achievements/achievement_listing", :locals => { :achievement => achievement, :user => @user, :show_grant => true }
+      
+  .box
+    %h3 Kiera's achievements
+    - @kiearas_achievements.each do |achievement|
+      = render :partial => "achievements/achievement_listing", :locals => { :achievement => achievement, :user => @user, :show_grant => true }
+
+  .box
+    %h3 Public achievements
+    - Achievement.others_can_grant.each do |achievement|
+      -if current_user && (!current_user.authored_achievements.include?achievement)
+        = render :partial => "achievements/achievement_listing", :locals => { :achievement => achievement, :user => @user, :show_grant => true }

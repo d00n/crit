@@ -1,0 +1,36 @@
+#container-single-col
+  #content-single-col
+    #contentHeader-single-col
+      %a{:href=>"/", :class => "logo", :title=>"#{configatron.community_name}"}
+    #contentBody-single-col
+      = render :partial => "shared/messages"
+      = error_messages_for :user
+      %p
+      
+      -if !logged_in?
+        .box-single-col
+          .center
+            %h3 Want to login with your Facebook account? 
+            %fb:login-button{:autologoutlink => 'false', 'show-faces' => 'true', :title => 'Connect to your Facebook account!'} 
+            =render :partial => 'facebooker/fb_require'
+          
+        .box-single-col
+          .center
+            %h3 Want to link your Infrno and Facebook accounts? 
+            
+            =form_tag sessions_path, :class => 'MainForm', :name => "login_form" do
+              = hidden_field_tag 'target_page', 'link_accounts'
+              = text_field_tag 'login', "Username", :class => "textbox", :style => "width: 100px", :onFocus => "if(this.value == 'Username') {this.value = '';}", :onBlur => "if (this.value == '') {this.value = 'Username';}"
+              = password_field_tag 'password', "Password", :class => "textbox", :style => "width: 100px",  :onFocus => "if(this.value == 'Password') {this.value = '';}", :onBlur => "if (this.value == '') {this.value = 'Password';}"
+              = submit_tag 'Login', :class => 'button'
+              
+      -else
+        .box-single-col
+          .center
+            %h3 Click to link your accounts
+            %fb:login-button{:autologoutlink => 'false', 'show-faces' => 'true', :title => 'Connect to your Facebook account!'} 
+            =render :partial => 'facebooker/fb_require'
+      
+              
+    #contentFooter-single-col
+          

@@ -1,0 +1,25 @@
+.user_row
+  %h4.entry-title{:id=>"post_#{ post.id}"}
+    = link_to(h(post.forum_name), forum_path(post.forum))
+    \/
+    = link_to h(post.topic_title), forum_topic_path(post.forum, post.topic)
+
+  .user_row_col1
+    %h5
+      %a{:href=>"#{forum_topic_path(post.forum, post.topic)}", :class=>"polaroid", :rel=>"bookmark"}
+        =image_tag((post.user.avatar_photo_url(:thumb)), :alt=>"",:width=>"90", :height=>"90")
+
+  .user_row_col2
+    %li.fn
+      = render :partial => 'users/user_name', :locals => {:user => post.user}
+    %li.update
+      = time_ago_in_words post.created_at
+    %li.view
+      = pluralize User.find(post.user_id).sb_posts_count, :post.l
+      
+
+  .user_row_col3
+    = truncate_words(post.body_html, 50, '...' )
+    
+      
+  

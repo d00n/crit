@@ -1,0 +1,13 @@
+=render :partial => 'messages/sidebar_nav'
+
+#col2
+  -if @message_thread
+    .box
+      =render :partial => 'messages/message_thread', :locals => {:message_thread => @message_thread}
+
+  .box
+    %h3= :compose_message.l
+    
+    = error_messages_for :message
+    
+    =render :partial => 'messages/form', :locals => {:message => @message, :user => @user, :subject => @subject}

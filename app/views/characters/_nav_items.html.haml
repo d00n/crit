@@ -1,0 +1,67 @@
+-if @character.accepted_achievements.any?
+  =render :partial => 'achievements/badge_box', :locals => {:accepted_achievements => @character.accepted_achievements}
+
+
+.box
+  %h3='Navigation'
+  %ul 
+    %li.view
+      = link_to "Character profile", seo_character_path(@character)
+      - if current_user && (current_user == @character.owner || current_user.admin?)
+        .right
+          = link_to "(edit)", edit_character_path(@character)
+
+    %li.view
+      = link_to "Character sheet", sheet_path(@character)  
+      - if current_user && (current_user == @character.owner || current_user.admin?)
+        .right
+          = link_to "(edit)", edit_character_path(@character)
+        
+    %li.view
+      = link_to "Character notepad", character_notepad_path(@character)  
+      - if current_user && (current_user == @character.owner || current_user.admin?)
+        .right
+          = link_to "(edit)", :controller => "characters", :id => @character.id, :action => "edit_notepad"
+
+    -#%li.view
+    -#  = link_to "Character game/system", character_products_path(@character)
+    -#  - if current_user && (current_user == @character.owner || current_user.admin?)
+    -#    .right
+    -#      = link_to "(add)", character_product_search_url(@character)
+
+    %li.view
+      = link_to "Character blog", character_post_path(@character)
+      - if current_user && (current_user == @character.owner || current_user.admin?)
+        .right
+          = link_to "(new post)",  new_user_post_path({:user_id => current_user, 'post[character_id]' => @character.id})
+
+    %li.view
+      = link_to "Character achievements", unlocked_character_achievements_path(@character)
+      -if current_user && (current_user == @character.user && @character.pending_achievements.any?)
+        .right
+          ="(#{@character.pending_achievements.size} pending)"
+
+    %li.view= link_to "Grant achievement", select_character_achievements_path(@character)
+
+
+
+    - if current_user == @character.owner
+      %br
+      %li.view= link_to "Choose a profile photo", :controller => "characters", :id => @character.id, :action => "pick_profile_photo"
+      %li.view= link_to 'Upload new profile photo', new_character_avatar_photo_path(@character)
+      %li.print= link_to "Print character sheet", :controller => "characters", :id => @character.id, :action => "print"
+      %li.view= link_to "Clone character",  edit_character_clone_path(@character)  
+      %li.view= link_to "Delete character",  @character, :confirm => 'Are you sure?', :method => :delete
+        
+    -elsif current_user && @character.others_can_clone
+      %li.view= link_to "Clone character",  edit_character_clone_path(@character)  
+
+    -if DEPLOY_ADDTOANY
+      %br
+      %li.view
+        =render :partial => "shared/addToAny"
+
+    -if DEPLOY_ADDTHIS
+      %br
+      %li.view
+        =render :partial => "shared/addThis"          

@@ -1,0 +1,36 @@
+- @section = 'users'
+
+.box
+  %h3 New slot
+
+  =calendar_date_select_includes
+  = error_messages_for :slot
+  
+  =form_for(@slot, :html => {:class => "cmxform"}) do |slot_form|
+    .container
+      .user_row 
+        %fieldset
+          %legend
+            Slot details
+          %ol
+            %li      
+              = slot_form.label 'Name'
+              = slot_form.text_field :name 
+              
+            %li      
+              = slot_form.label 'Start time'
+              = slot_form.calendar_date_select :start_time, :time => true 
+              
+            %li      
+              = slot_form.label 'End time'
+              = slot_form.calendar_date_select :end_time, :time => true             
+             
+      %p
+      = slot_form.submit 'Save slot' 
+  
+  
+          
+          
+  
+  
+  

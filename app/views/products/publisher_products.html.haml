@@ -1,0 +1,38 @@
+- @meta = { :description => "#{h(@publisher.publisher_name)}'s products page on #{configatron.community_name}. #{configatron.meta_description}", :keywords => "#{h(@publisher.publisher_name)}, #{configatron.meta_keywords}, #{h(@publisher.tags.join(", ")) unless @publisher.tags.nil?}", :robots => configatron.robots_meta_show_content }
+
+
+#col1
+  = render :partial => 'publisher_profile', :locals => {:user => @publisher}
+    
+    
+  #pages.box.alt
+    %h3='Product links'
+    .vcard.author
+      %ul
+        /%li.view=link_to "Catalog", publisher_products_path(@publisher)
+        - if !@publisher.free_stuff_url.blank?
+          %li.view= link_to "Free stuff", @publisher.free_stuff_url, :target => '_blank' 
+        -if current_user == @publisher 
+          /%li.view= link_to "New product", new_product_path         
+          /%li.view= link_to "Manage catalog", manage_catalog_path(current_user)        
+          /%li.view= link_to "Manage featured products", manage_featured_products_path(current_user)        
+
+  - unless @popular_products.empty?
+    -box :id => "posts", :class => 'alt' do
+      %h3
+        Popular products
+      %ul.list.page
+        - @popular_products.each do |product|
+          %li= link_to h(truncate(product.name, :length => 75)), product_path(product)
+
+#col2
+  -box :class => "posts hfeed" do 
+    %h3
+      = link_to h(@publisher.display_name), user_path(@publisher)
+      's products
+
+    %br
+
+    = render :partial => 'product', :collection => @publisher.products.catalog
+
+    /=paginate @products

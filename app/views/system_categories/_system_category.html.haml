@@ -1,0 +1,19 @@
+
+.user_row
+
+  .user_row_col1
+    %a{:href=>"#{system_category_path(system_category)}"}
+      .listing_photo=render :partial => "system_categories/system_category_photo", :locals => {:system_category => system_category, :width =>"162"}
+
+  .user_row_col2
+    %ul
+      %li.view=  link_to system_category.name, system_category_path(system_category)
+      -if defined?game_system
+        %li.view=  link_to "Migrate", game_system_migrate_path(game_system, system_category)
+
+  .user_row_col3b
+    = truncate_words(system_category.description, 50, '...' )
+
+
+    
+

@@ -1,0 +1,29 @@
+#col1
+  = render :partial => 'posts/author_profile', :locals => {:user => @user}
+  
+  -if @is_current_user
+    =render :partial => 'photos/nav_links'
+  
+  /-box :id => 'tag_list', :class => 'yui-u first' do
+  /  %h3=:tags.l
+  /  %ul
+  /  - @tags.each do |tag|
+  /    %li.tags
+  /      - if (tag.name.eql?(params[:tag_name]) )
+  /        = link_to tag.name, user_photos_path(@user), :class => "selected"
+  /      - else
+  /        = link_to tag.name, user_photos_path(:user_id => @user, :tag_name => tag.name)
+  
+
+#col2
+  .box
+    %h2= link_to :users_photos.l(:user=>@user.display_name), user_photos_path(@user)
+
+  .box
+    .clear
+    - @photos.each do |photo|
+      = link_to image_tag( photo.photo(:thumb), :width => "94px"), user_photo_path(@user, photo)
+      
+    =paginate @photos
+
+      

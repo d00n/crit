@@ -1,0 +1,43 @@
+.box.alt
+
+  %ol
+    %h3
+      -if !slot.name.blank?
+        = "#{h(slot.name)}:".html_safe
+        
+      ="#{slot.start_time.strftime('%a, %b %d, %I:%M%p %Z')} - #{slot.end_time.strftime('%I:%M%p %Z')}".html_safe
+      
+    -if current_user && slot.event.is_registering_games  && slot.event.show_game_reg_links_on_event_profile
+      - if current_user.games.count > 0
+        %li= link_to 'Register an existing game in this slot (this will create a clone of the game)', choose_game_path(slot)  
+      %li= link_to 'Register a new game in this slot', register_new_game_path(slot)
+      %br
+      
+    -elsif slot.event.is_registering_games  && slot.event.show_game_reg_links_on_event_profile
+      = link_to "Log in", login_path
+      = :or.l
+      = link_to "create an account", signup_path
+      to register a game in this slot.
+      %p
+    
+    
+
+  -if slot.slot_game_registrations.count(:conditions => "status = 'pending'") > 0
+    %h3 Pending game registrations
+    - slot.slot_game_registrations.find_all_by_status('pending').each do |pending|
+      = render :partial => 'slots/game_listing', :locals => {:game => pending.game, :slot => slot, :slot_game_registration => pending}
+  
+    
+
+  -if slot.slot_game_registrations.count(:conditions => "status = 'active'") > 0
+    %h3 Games
+    - slot.slot_game_registrations.find_all_by_status('active').each do |active|
+      = render :partial => 'slots/game_listing', :locals => {:game => active.game, :slot => slot, :slot_game_registration => active}
+      = render :partial => 'slots/registered_players', :locals => {:game => active.game, :slot => slot}
+      %br
+  -else
+    %h3 Nothing in this slot yet. Coming soon!
+      
+      
+        
+

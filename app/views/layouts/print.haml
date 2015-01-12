@@ -1,0 +1,11 @@
+!!!
+%html
+  
+  %head
+    = stylesheet_link_tag 'infrno_print.css'
+    = stylesheet_link_tag 'infrno_print.css', :media => "print"
+  
+  %body{ :onload => "window.print()"}
+  %body
+    = yield
+

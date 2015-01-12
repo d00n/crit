@@ -1,0 +1,34 @@
+-description = ''
+-if !@character.about.blank?
+  -description += "#{strip_tags(@character.about).gsub(/\n/, "")} "
+-description += " #{configatron.meta_description}"
+
+- @meta = { :description => description, :keywords => "#{h(@character.owner.display_name)}, #{configatron.meta_keywords}, #{h(@character.tags.join(", ")) unless @character.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'characters'
+
+#col1
+  = render :partial => 'characters/avatar'
+  =render :partial => "shared/ad"
+  = render :partial => 'characters/nav_items'
+  = render :partial => 'characters/profile_sidebar', :locals => {:user => @character.owner}
+  =render :partial => "shared/ad"
+
+  
+#col2
+  .box
+    %h2= "#{link_to h(@character.name), seo_character_path(@character)} : Unlocked achievements".html_safe
+
+  -if @pending.any?
+    .box
+      %h3 Pending achievements
+      - @pending.each do |p|
+        = render :partial => "achievements/achievement_listing", :locals => { :pending => p, :show_grant => false }
+
+  .box
+    -if @character.accepted_achievements.any?
+      - @character.accepted_achievements.each do |accepted|
+        = render :partial => "achievements/achievement_listing", :locals => { :accepted => accepted, :character => @character, :show_grant => false }
+    -else
+      %h3 I'm sorry, your loot is in another castle.
+
+

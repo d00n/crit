@@ -1,0 +1,24 @@
+- @section = (params[:metro_area_id] ? 'metro_area' : 'users')
+
+#col1
+  =render :partial => "users/invite_your_friends"
+
+  = render :partial => 'users/search_options'
+  =render :partial => "shared/ad"
+  =render :partial => "tags/tags"   
+      
+  -box :class => 'alt' do
+    %h3= :metro_areas.l
+    - city_cloud @metro_areas_for_cloud, %w(nube1 nube2 nube3 nube4 nube5) do |city, css_class|
+      = link_to city.name, users_path(:metro_area_id => city.id), :class => css_class
+
+  =render :partial => "shared/ad"
+
+#col2
+  .box
+    %h2= "#{pluralize(number_with_delimiter(@users_found), 'person')} found"
+    
+    = render :partial => "users/user", :collection => @users
+
+  .box
+    =paginate @users

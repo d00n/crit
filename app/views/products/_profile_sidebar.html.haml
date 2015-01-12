@@ -1,0 +1,121 @@
+%p
+
+-if !@product.amazon_asin.blank?
+  .center
+    =render :partial => 'ads/amazon_product_tile', :locals => {:asin => @product.amazon_asin}
+
+.box
+  %ul
+    -if !@product.owner.nil?
+      %li.view
+        = 'Publisher: '
+        = link_to h(@product.owner.display_name), publisher_path(@product.owner)
+
+    -if !@product.manufacturer.blank?
+      %li.view= "Publisher: #{@product.manufacturer}".html_safe
+
+
+
+    -if !@product.dtrpg_price.blank?
+      %li.view= "Pdf price: #{link_to(@product.dtrpg_price.html_safe, configatron.DTRPG_PRODUCT_URL + @product.dtrpg_product_id.to_s + "?" + configatron.DTRPG_INFRNO_AFFILIATE_CODE)}".html_safe
+      -if !@product.dtrpg_sale_price.blank?
+        %li.view.red= "Pdf is on sale now! #{link_to(@product.dtrpg_sale_price.html_safe, configatron.DTRPG_PRODUCT_URL + @product.dtrpg_product_id.to_s + "?" + configatron.DTRPG_INFRNO_AFFILIATE_CODE)}".html_safe
+    -elsif @product.amazon_asin.blank? && !@product.price.blank?
+      %li.view
+        Book price:
+        = h(@product.price)
+
+
+    -if !@product.dtrpg_authors.blank?
+      -@product.dtrpg_authors.split(',').each do |author|
+        %li.view="Author: #{link_to(author, configatron.DTRPG_AUTHOR_URL + author + '&' + configatron.DTRPG_INFRNO_AFFILIATE_CODE)} ".html_safe
+
+    -if !@product.dtrpg_artists.blank?
+      -@product.dtrpg_artists.split(',').each do |artist|
+        %li.view="Artist: #{link_to(artist, configatron.DTRPG_ARTIST_URL + artist + '&' + configatron.DTRPG_INFRNO_AFFILIATE_CODE)} ".html_safe
+
+
+    -if !@product.key_creatives.blank?
+      %li.view
+        Key creatives:
+        = h(@product.key_creatives)
+
+    -if !@product.product_code.blank?
+      %li.view
+        Product code:
+        = h(@product.product_code)
+
+    -if !@product.isbn.blank? && current_user && current_user.admin?
+      %li.view
+        ISBN:
+        = h(@product.isbn)
+
+    -if !@product.date_available.blank?
+      %li.view
+        Date available:
+        = h(@product.date_available)
+
+    %li.view
+      Views:
+      = @product.view_count
+
+    - if @product.tags.any?
+      %li.tags
+        =li_tags_helper(@product)
+
+    -if !@product.purchase_book_url.blank?
+      %li.view
+        = link_to 'Purchase book', @product.purchase_book_url, :target => '_blank'
+
+    -if !@product.purchase_pdf_url.blank?
+      %li.view
+        = link_to 'Purchase pdf', @product.purchase_pdf_url, :target => '_blank'
+
+    /%li.view=link_to "#{@product.owner.display_name} catalog", publisher_products_path(@product.owner)
+
+    - if !@product.owner.free_stuff_url.blank?
+      %li.view
+        =link_to "Free stuff", @product.owner.free_stuff_url, :target => '_blank'
+
+    - if current_user && (current_user == @product.owner || current_user.admin?)
+      %li.view
+        = link_to "Edit product", edit_product_path(@product)
+      %li.view
+        = link_to "Delete product", @product, :confirm => 'Are you sure?', :method => :delete
+      %li.view
+        = link_to "Choose a product photo", :controller => "products", :id => @product.id, :action => "pick_profile_photo"
+      %li.view
+        = link_to "Remove product photo", :controller => "products", :id => @product.id, :action => "remove_profile_photo"
+
+    -if DEPLOY_ADDTOANY
+      %li.view
+        =render :partial => "shared/addToAny"
+
+    -if DEPLOY_ADDTHIS
+      %li.view
+        =render :partial => "shared/addThis"
+
+.box
+  %h3 Publisher
+  =render :partial => "users/sidebar_user", :locals => {:user => @product.owner}
+
+-if @product.system_categories.any?
+  .box
+    %h3= link_to "Categories with this product (#{@product.system_categories.count})".html_safe, product_system_categories_url(@product)
+    -@product.system_categories.first(5).each do |system_category|
+      =render :partial => "system_categories/sidebar_system_category", :locals => {:system_category => system_category}
+
+-#-if @product.games.any?
+-#  .box
+-#    %h3= link_to "Games using this product (#{@product.games.count})".html_safe, product_games_url(@product.owner, @product)
+-#    -@product.games.first(5).each do |game|
+-#      =render :partial => "games/sidebar_game", :locals => {:game => game}
+
+-if @product.characters.any?
+  .box
+    %h3= link_to "Characters using this product (#{@product.characters.count})".html_safe, product_characters_url(@product.owner, @product)
+    -@product.characters.first(5).each do |character|
+      =render :partial => "characters/sidebar_character", :locals => {:character => character}
+
+
+  .clear

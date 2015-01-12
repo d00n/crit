@@ -1,0 +1,104 @@
+
+- if current_user == user && current_user.event_admin
+  .box
+    %h3=link_to "Events (#{current_user.events.count})", events_path
+    = link_to 'New event', new_event_path
+    %p
+    - user.events.recent.first(2).each do |event|
+      =render :partial => "events/sidebar_event", :locals => {:event => event}
+
+
+
+.box
+  -if current_user && current_user == user
+    %h3=link_to "Games I am playing (#{user.player_registrations.count})", user_games_playing_path(user)
+    = link_to 'Find an open game', game_systems_path
+  -else
+    %h3=link_to "Games #{user.first_name} is playing (#{user.player_registrations.count})", user_games_playing_path(user)
+
+  %p
+  - user.games_registered_in.last(5).each do |game|
+    =render :partial => "games/sidebar_game", :locals => {:game => game}
+
+
+
+.box
+  -if current_user && current_user == user
+    %h3= link_to "Games I am running (#{user.games.count})", user_games_path(user)
+    = link_to 'New game', system_categories_path(:new_game => true)
+  -else
+    %h3= link_to "Games #{user.first_name} is running (#{user.games.count})", user_games_path(user)
+
+  %p
+  -user.games.recent.first(5).each do |game|
+    =render :partial => "games/sidebar_game", :locals => {:game => game}
+
+
+.box
+  %h3= link_to "Characters (#{user.characters.count})", user_characters_path(user)
+  -if current_user && current_user == user
+    = link_to 'New character', new_character_path
+
+  %p
+  -user.characters.recent.first(5).each do |character|
+    =render :partial => "characters/sidebar_character", :locals => {:character => character}
+
+
+
+-if @friend_count > 0
+  .box
+    %h3= link_to "Friends (#{@friend_count})", accepted_user_friendships_path(user)
+
+    -if @is_current_user
+      %p= link_to "Invite your friends", invite_user_path(user)
+
+    -if @is_current_user and @pending_friendships_count > 0
+      = link_to "#{:view_all_my_friend_requests.l} (#{@pending_friendships_count})", pending_user_friendships_path(user)
+
+    - @accepted_friendships.each do |user|
+      =render :partial => "users/sidebar_user", :locals => {:user => user}
+
+
+/- unless users_comments.empty?
+/  .box
+/    %h3= link_to "Comments (#{user.comments.count})", user_comments_path(user)
+/    - users_comments.each do |comment|
+/      %dl.vcard
+/        %dt.photo
+/          - if comment.recipient
+/            - case comment.commentable_type.underscore
+/              - when 'user'
+/                = link_to image_tag(comment.commentable.avatar_photo_url(:thumb), :alt => "#{h(comment.recipient.display_name)}", :width => '50', :height => '50'), user_path(comment.commentable)
+/              - when 'game'
+/                = link_to image_tag(comment.commentable.avatar_photo_url(:thumb), :alt => "#{h(comment.recipient.display_name)}", :width => '50', :height => '50'), seo_game_path(comment.commentable)
+/              - when 'character'
+/                = link_to image_tag(comment.commentable.avatar_photo_url(:thumb), :alt => "#{h(comment.recipient.display_name)}", :width => '50', :height => '50'), seo_character_path(comment.commentable)
+/              - when 'post'
+/                = link_to image_tag(comment.commentable.owner.avatar_photo_url(:thumb), :alt => "#{h(comment.recipient.display_name)}", :width => '50', :height => '50'), user_post_path(comment.commentable)
+/              - when 'photo'
+/                = link_to image_tag(comment.commentable.photo(:thumb), :alt => "#{h(comment.recipient.display_name)}", :width => '50', :height => '50'), user_photo_path(comment.commentable)
+/        %dd.fn
+/          - if comment.commentable.eql?(comment.recipient)
+/            =:to.l + ": #{link_to comment.recipient.display_name, commentable_url(comment)}".html_safe
+/          - else
+/            =:on_commentable.l + ": #{link_to comment.commentable_name, commentable_url(comment)} (#{comment.commentable_type.l})".html_safe
+/        %dd
+/          = "\"#{truncate_words( comment.comment, 10, '...')}\""
+/          %br
+/          = link_to  :view_comment.l, commentable_url(comment)
+
+
+- unless @photo_comments.empty?
+  .box
+    %h3 Photo comments
+    - @photo_comments.each do |comment|
+      %dl.vcard
+        %dt.photo
+          = link_to(image_tag(comment.commentable.photo.url(:thumb), :width => '50', :height => '50'), user_photo_path(user, comment.commentable))
+        %dd.fn= "#{comment.user.display_name}" + " " + :says.l + ":"
+        %dd
+          = truncate_words(comment.comment, 10)
+          %br
+          = link_to  :view_comment.l, user_photo_path(user, comment.commentable) + "#comment_#{comment.id}"
+
+=render :partial => "shared/ad"

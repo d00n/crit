@@ -1,0 +1,107 @@
+.box-single-col
+  .center
+    %h1 Volume Discounts
+
+-if current_user && current_user.membership_level > 0
+  .box-single-col
+    %br
+    Upgrades and downgrades are currently a manual process.
+    %p
+    =mail_to "accounts@infrno.net",  "Please submit your request to accounts@infrno.net."
+    %p
+    Cancellations can be handled by logging in to your PayPal account.
+    %p
+
+-else
+
+  .box-single-col
+    .center
+      =image_tag( premium_label(1))
+    %p
+    %br
+    .prices
+      ="Monthly: $#{configatron.EPIC_MONTHLY_AMOUNT}"
+      %p
+      =form_tag PAYPAL_URL, :method => "post" do
+        =hidden_field_tag :cmd, "_s-xclick"
+        =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.EPIC_MONTHLY_DESCRIPTION, configatron.EPIC_MONTHLY_AMOUNT, 1)
+        =image_submit_tag  "btn_subscribe_LG.gif"
+      %br
+
+      ="Semiannual: $#{configatron.EPIC_SEMIANNUAL_AMOUNT}"
+      %br
+      10% savings!
+      =form_tag PAYPAL_URL, :method => "post" do
+        =hidden_field_tag :cmd, "_s-xclick"
+        =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.EPIC_SEMIANNUAL_DESCRIPTION, configatron.EPIC_SEMIANNUAL_AMOUNT, 6)
+        %p
+        =image_submit_tag  "btn_subscribe_LG.gif"
+      %p
+      %br
+
+      ="Annual: $#{configatron.EPIC_ANNUAL_AMOUNT}"
+      %br
+      20% savings!
+      =form_tag PAYPAL_URL, :method => "post" do
+        =hidden_field_tag :cmd, "_s-xclick"
+        =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.EPIC_ANNUAL_DESCRIPTION, configatron.EPIC_ANNUAL_AMOUNT, 12)
+        %p
+        =image_submit_tag  "btn_subscribe_LG.gif"
+      %p
+
+  .box-single-col
+    .center
+      =image_tag( premium_label(3))
+    %p
+    %br
+      .prices
+        ="Monthly: $#{configatron.EXALTED_MONTHLY_AMOUNT}"
+        %p
+        =form_tag PAYPAL_URL, :method => "post" do
+          =hidden_field_tag :cmd, "_s-xclick"
+          =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.EXALTED_MONTHLY_DESCRIPTION, configatron.EXALTED_MONTHLY_AMOUNT, 1)
+          =image_submit_tag  "btn_subscribe_LG.gif"
+        %br
+
+        ="Semiannual: $#{configatron.EXALTED_SEMIANNUAL_AMOUNT}"
+        %br
+        10% savings!
+        =form_tag PAYPAL_URL, :method => "post" do
+          =hidden_field_tag :cmd, "_s-xclick"
+          =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.EXALTED_SEMIANNUAL_DESCRIPTION, configatron.EXALTED_SEMIANNUAL_AMOUNT, 6)
+          %p
+          =image_submit_tag  "btn_subscribe_LG.gif"
+        %p
+        %br
+
+        ="Annual: $#{configatron.EXALTED_ANNUAL_AMOUNT}"
+        %br
+        20% savings!
+        =form_tag PAYPAL_URL, :method => "post" do
+          =hidden_field_tag :cmd, "_s-xclick"
+          =hidden_field_tag :encrypted, paypal_encrypted_subscription(configatron.EXALTED_ANNUAL_DESCRIPTION, configatron.EXALTED_ANNUAL_AMOUNT, 12)
+          %p
+          =image_submit_tag  "btn_subscribe_LG.gif"
+        %p
+        %br
+
+      .prices.red
+        ="Lifetime: $#{configatron.EXALTED_LIFETIME_AMOUNT}&#42;".html_safe
+        %p
+
+        =form_tag PAYPAL_URL, :method => "post" do
+          =hidden_field_tag :cmd, "_s-xclick"
+          =hidden_field_tag :encrypted, paypal_encrypted_invoice(configatron.EXALTED_LIFETIME_DESCRIPTION, configatron.EXALTED_LIFETIME_AMOUNT)
+          =image_submit_tag  "btn_buynow.gif"
+
+      .prices.red
+        %p
+        &#42;Limited Time Offer
+        %br
+        Available until we
+        reach 10,000 users,
+        %br
+        only
+        = number_with_delimiter(10000 - User.active.size, :delimeter => ',')
+        new users away!
+        %p

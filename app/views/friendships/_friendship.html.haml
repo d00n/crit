@@ -1,0 +1,23 @@
+- user = friendship.friend
+
+.user_row
+  .user_row_col1
+    = image_tag( user.avatar_photo_url(:thumb), :class => "polaroid" )
+    
+  .user_row_col2
+    %h2= link_to user.display_name, user_path(user)
+    = "#{:from.l} #{user.location}<br/>" if user.metro_area      
+
+    .li.update
+      =:requested.l
+      = time_ago_in_words friendship.created_at
+      
+    -if !user.tags.empty?
+      %li.tags
+        = li_tags_helper(user, 10)
+
+        
+  -if @is_current_user
+    .user_row_col3b
+      = friendship_control_links(friendship)
+    

@@ -1,0 +1,38 @@
+.box.alt.first_alt
+  =form_tag games_path, :method => :get , :class => 'MainForm' do
+  
+    -#%label= "System"
+    -#=text_field_tag 'system_name', @search['system_name'], :autocomplete => "off"
+    -#.auto_complete{:id => 'system_name_auto_complete'}
+    -#= auto_complete_field 'system_name', {:url => game_system_search_path}
+
+    
+    -#%script{:type => "text/javascript"}
+    -#  new Ajax.Autocompleter('system_name', 'game_system_name_auto_complete', '/game_systems_search', {
+    -#  method:'get',
+    -#  paramName:'q',
+    -#  minChars: 3
+    -#  })
+    -#
+    
+    %p
+    %label= "Genre"
+    = text_field_tag 'genre', @search['genre']
+    
+    %p
+    %label= "Campaign"
+    = text_field_tag 'name', @search['name']
+
+    %p
+    = check_box_tag 'status', @search['status'], checked = @search['status']
+    Only show games open for registration
+
+    %p
+    = check_box_tag 'is_d20pro', @search['is_d20pro'], checked = @search['is_d20pro']
+    Only show games using d20Pro
+
+    %p 
+    %p
+    %input{"type"=>"submit", "value"=>"Search Games"}   
+      
+  

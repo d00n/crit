@@ -1,0 +1,73 @@
+/.box
+/  %h3= link_to event.name, event_path(event)
+
+
+.center
+  %br
+    =link_to image_tag( event.avatar_photo_url(:original)), event_path(event)
+
+
+%p
+#profile_details.box
+
+  .sub-box
+    %h3='Navigation'
+    .vcard.author
+      %ul
+        %li.update
+          / http://amcubes.com/2007/12/12/formating-date-time-in-rails/
+          ="Starts: #{event.start_time.strftime('%a, %b %d, %I:%M%p %Z')}"
+        %li.update
+          ="Ends: #{event.end_time.strftime('%a, %b %d, %I:%M%p %Z')}"
+        %li.update= link_to("Event calendar", event_calendar_path(@event))
+
+          
+        - if current_user
+          %li.compose= link_to('Send message to event owner', new_user_message_path(current_user, :to=>event.owner))
+          
+
+        -if DEPLOY_ADDTHIS
+          %li.view
+            =render :partial => "shared/addThis"              
+
+  - if current_user == event.owner  
+    .sub-box
+      %h3='Owner controls'
+      .vcard.author
+        %ul
+          %li.compose= link_to("Send message to GMs", new_user_message_path(current_user, :to => event.gm_login_slug_list))
+          %li.compose= link_to("Send message to players", new_user_message_path(current_user, :to => event.player_login_slug_list))
+          %li.compose= link_to("Send message to alternates", new_user_message_path(current_user, :to => event.alternate_login_slug_list))
+          
+          %li.view= link_to "Edit event", edit_event_path(event)                          
+          %li.view= link_to "Choose profile photo", :controller => "events", :id => event.id, :action => "pick_profile_photo"
+
+          - if !event.show_game_reg_links_on_event_profile
+            %li.view= link_to "Game registration page", event_path(event, :show_game_reg_links => '1')
+
+          %li.view= link_to "Grant event achievements", :controller => "events", :action => "select_achievements", :id => event.id
+
+                        
+          %li.view
+            = link_to "Remove profile photo", :controller => "events", :id => event.id, :action => "remove_profile_photo"
+          %li.view
+            = link_to "Delete event", event, :confirm => 'Are you sure?', :method => :delete     
+              
+          
+          
+          
+  .sub-box
+    %h3='Details'
+    .vcard.author
+      %ul
+
+        %li.view
+          Views:
+          = event.view_count
+            
+        - if event.tags.any?
+          %li.tags
+            =li_tags_helper(event)
+          
+
+  .clear

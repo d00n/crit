@@ -1,0 +1,8 @@
+
+.box 
+  %h3 Navigation
+  %ul
+    %li=link_to "My photos", user_photos_path(current_user)
+    %li=link_to "New photo", new_user_photo_path(current_user)
+    %li=link_to "Album manager", user_photo_manager_index_path(current_user)
+    %li=link_to :new_album.l, new_user_album_path(current_user)

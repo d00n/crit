@@ -1,0 +1,135 @@
+-@meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_show_content }
+-@section = 'people'
+
+#col1
+  = render :partial => 'users/user_avatar_sidebar', :locals => {:user => @user}
+  = render :partial => 'users/profile_user_info_sidebar', :locals => {:user => @user}
+
+  
+#col2
+  .box
+    %h2= "#{link_to h(@user.display_name), user_path(@user)} : Unlocked achievements".html_safe
+
+  -if @pending.any?
+    .box
+      %h3 Pending user achievements
+      - @pending.each do |p|
+        = render :partial => "achievements/achievement_listing", :locals => { :pending => p, :show_grant => false }
+
+  -if @games_with_pending.any?
+    .box
+      %h3 Pending game achievements
+
+      %p
+      %div.left_col
+        .center
+          Games
+      %div.right_col
+        .center
+          Achievements
+      %p
+
+      - @games_with_pending.each do |game|
+        %div.border_top
+          %div.left_col
+            %dl.item
+              %dt.photo
+                = link_to image_tag(game.avatar_photo_url(:thumb), :width => '90', :alt => game.name), seo_game_path(game)
+              %dd.name
+                %h3= link_to game.name, seo_game_path(game)
+
+          %div.right_col
+            -game.pending_achievements.each do |pending|
+              %dl.item
+                %dt.photo
+                  = link_to image_tag(pending.achievement.badge(:large), :class => "achievement_thumb", :alt => pending.achievement.name, :title  => pending.achievement.name), achievement_path(pending.achievement)
+                %dd.fn
+                  %h3= link_to pending.achievement.name, achievement_path(pending.achievement)
+
+                -if pending.has_access(current_user)
+                  %dd.fn= "Author: #{link_to pending.achievement.owner.display_name, user_path(pending.achievement.owner)}".html_safe
+                  %dd.fn= "Grantor: #{link_to pending.grantor.display_name, user_path(pending.grantor)}".html_safe
+                  %dd.fn=link_to 'Accept', accept_achievement_path(pending.achievement, :ua_id => pending.id)
+                  %dd.fn=link_to 'Decline', deny_achievement_path(pending.achievement, :ua_id => pending.id)
+
+
+
+  -if @characters_with_pending.any?
+    .box
+      %h3 Pending character achievements
+
+      %p
+      %div.left_col
+        .center
+          Games
+      %div.right_col
+        .center
+          Achievements
+      %p
+
+      - @characters_with_pending.each do |character|
+        %div.border_top
+          %div.left_col
+            %dl.item
+              %dt.photo
+                = link_to image_tag(character.avatar_photo_url(:thumb), :width => '90', :alt => character.name), seo_character_path(character)
+              %dd.name
+                %h3= link_to character.name, seo_character_path(character)
+
+          %div.right_col
+            -character.pending_achievements.each do |pending|
+              %dl.item
+                %dt.photo
+                  = link_to image_tag(pending.achievement.badge(:large), :class => "achievement_thumb", :alt => pending.achievement.name, :title  => pending.achievement.name), achievement_path(pending.achievement)
+                %dd.fn
+                  %h3= link_to pending.achievement.name, achievement_path(pending.achievement)
+
+                -if pending.has_access(current_user)
+                  %dd.fn= "Author: #{link_to pending.achievement.owner.display_name, user_path(pending.achievement.owner)}".html_safe
+                  %dd.fn= "Grantor: #{link_to pending.grantor.display_name, user_path(pending.grantor)}".html_safe
+                  %dd.fn=link_to 'Accept', accept_achievement_path(pending.achievement, :ua_id => pending.id)
+                  %dd.fn=link_to 'Decline', deny_achievement_path(pending.achievement, :ua_id => pending.id)
+
+  -if @user.accepted_achievements.any?
+    .box
+      %h3 User achievements
+      - @user.accepted_achievements.each do |accepted|
+        = render :partial => "achievements/achievement_listing", :locals => { :accepted => accepted, :user => @user, :show_grant => false }
+
+  -if @games_with_accepted.any?
+    .box
+      %h3 Game achievements
+      - @games_with_accepted.each do |game|
+        %div
+          %div.left_col_39
+            %dl.item
+              %dt.photo
+                = link_to image_tag(game.avatar_photo_url(:thumb), :width => '90', :alt => game.name), seo_game_path(game)
+              %dd.name
+                %h3= link_to game.name, seo_game_path(game)
+
+          %div.right_col_59
+            =render :partial => 'achievements/badge_box', :locals => {:accepted_achievements => game.accepted_achievements}
+        %p
+
+  -if @characters_with_accepted.any?
+    .box
+      %h3 Character achievements
+      - @characters_with_accepted.each do |character|
+        %div
+          %div.left_col_39
+            %dl.item
+              %dt.photo
+                = link_to image_tag(character.avatar_photo_url(:thumb), :width => '90', :alt => character.name), seo_character_path(character)
+              %dd.name
+                %h3= link_to character.name, seo_character_path(character)
+
+          %div.right_col_59
+            =render :partial => 'achievements/badge_box', :locals => {:accepted_achievements => character.accepted_achievements}
+        %p
+
+
+
+
+
+

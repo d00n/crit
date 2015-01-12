@@ -1,0 +1,32 @@
+-@meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_show_content }
+-@section = 'characters'
+
+#col1
+  =render :partial => "users/invite_your_friends"
+
+  = render :partial => 'characters/search_options'
+  =render :partial => "shared/ad"
+
+  -if current_user
+    .box
+      %h3= link_to "Your characters (#{current_user.characters.count})", user_characters_path(current_user)
+      =link_to 'New character', new_character_path     
+      %p
+      - Character.all( :limit=>5, :conditions=>["user_id=?", current_user.id], :order => 'updated_at DESC').each do |character|
+        =render :partial => "characters/sidebar_character", :locals => {:character => character}
+  
+  =render :partial => "tags/tags" 
+  
+  =render :partial => "shared/ad"
+
+  
+#col2
+  .box
+    %h2= "#{pluralize(number_with_delimiter(@characters_found), 'character')} found"
+    
+    - @characters.each do |character|
+      = render :partial => "character_listing", :locals => { :character => character }        
+
+  .box
+    =paginate @characters
+      

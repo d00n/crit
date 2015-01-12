@@ -1,0 +1,15 @@
+%div{:class=>"c_wealth"}
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = remove_link_unless_new_record(f)
+  %div{:class=>"left-container-15"}   
+    %p{:class=>"text"}
+      = f.text_field :name, :size => 10
+  %div{:class=>"left-container-30"}   
+    %p{:class=>"text"}
+      = f.text_field :value, :size => 20
+  %div{:class=>"left-container-30"}   
+    %p{:class=>"text"}
+      = f.text_field :amount, :size => 20
+  %div{:class=>"space-line"}   
+

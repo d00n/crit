@@ -1,0 +1,16 @@
+-box :class => 'alt first_alt' do
+  = link_to( "&raquo; #{:back_to_all_users.l}", users_path) if params['login'] || params['tag_list']
+  = form_tag system_categories_path, :method => :get , :class => 'MainForm' do
+    %label= "Name"
+    = text_field_tag 'name', @search['name']
+    %p
+    -if @new_game
+      = hidden_field_tag("new_game", @new_game)
+    -if @game
+      = hidden_field_tag("game_id", @game.id)
+    -if @character
+      = hidden_field_tag("character_id", @character.id)
+
+    %input{"type"=>"submit", "value"=>"Search categories"}
+
+

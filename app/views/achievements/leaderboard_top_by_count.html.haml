@@ -1,0 +1,32 @@
+#col1
+  -if current_user.nil? || current_user.membership_level == 0
+    .box
+      %h3= "#{link_to 'Premium members', premium_membership_path} can author achievements and grant them to players, GMs, characters, and even games!".html_safe
+
+
+  =render :partial => "achievements/leaderboard_col1"
+  =render :partial => "shared/amazon_ad_wrapper"
+  =render :partial => "shared/ad"
+
+#col2
+  .box
+    %h2 Top achievement winners by count
+  - @winners.each do |author|
+    .box
+      %div
+        %div.left_col_39
+          %dl.item
+            %dt.photo
+              = link_to image_tag(author.avatar_photo_url(:thumb), :width => '90', :alt => author.display_name), user_path(author)
+            %dd.name
+              %h3= link_to author.display_name, user_path(author)
+
+        %div.right_col_59
+          .box_achievements
+            .badge_box.center
+              -author.accepted_achievements.each do |ua|
+                = link_to image_tag( ua.achievement.badge, :alt => ua.achievement.name, :title  => ua.achievement.name, :class => "achievement_badge"), achievement_path(ua.achievement)
+
+
+
+

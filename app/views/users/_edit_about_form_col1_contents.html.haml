@@ -1,0 +1,67 @@
+
+- if @user.publisher
+  .box
+    %h3 Publisher details
+    %h3 Free stuff url
+    %h3
+      = text_field :user, :free_stuff_url
+    %h3
+      Blog RSS url
+    %h3
+      = text_field :user, :blog_rss_url
+    %h3
+      DriveThruRpg/Onebookshelf id
+    %h3
+      = text_field :user, :dtrpg_id
+
+.box
+  %h3
+    = render :partial => 'shared/location_chooser', :locals => {:selected_country => @user.country_id, :selected_state => @user.state_id, :selected_metro_area => @user.metro_area_id, :states => @states, :metro_areas => @metro_areas}
+
+.box
+  %h3 Zip or postal code
+  = text_field :user, :zip, :style=>"width:90px"
+
+.box
+  %h3 Time zone
+  = time_zone_select :user, :time_zone, nil, {}, {:style=>"width:270px"}
+
+.box
+  %h3 Gender
+  %label
+    = radio_button :user, :gender, User::MALE
+    =:male.l
+  %label
+    = radio_button :user, :gender, User::FEMALE
+    =:female.l
+  %label
+    = radio_button :user, :gender, 'Bent'
+    Bent
+  %label
+    = radio_button :user, :gender, 'Shiny'
+    Shiny
+  %label
+    = radio_button :user, :gender, 'Both'
+    Both
+  %label
+    = radio_button :user, :gender, 'Neither'
+    Neither
+  %label
+    = radio_button :user, :gender, 'Evolving'
+    Evolving
+  %label
+    = radio_button :user, :gender, 'Superfluous'
+    Superfluous
+  %label
+    = radio_button :user, :gender, "I've never looked!"
+    I've never looked!
+  %label
+    = radio_button :user, :gender, 'I forget...'
+    I forget..
+
+.box
+  %h3 Birthday
+  = date_select :user, :birthday, {:start_year => 1926, :end_year => Time.now.year - 1}
+
+.box
+  %h3=  link_to 'Edit tshirt details', user_tshirt_details_path(@user)

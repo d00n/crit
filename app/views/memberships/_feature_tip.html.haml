@@ -1,0 +1,155 @@
+-##tooltip_aoe_spell
+-#  .center
+-#    %h4 Kieara's Contempt
+-#  %p.feature_description
+-#    As a free loader, you suffer Kiera's contempt, and a slight whiff of cheapness lingers in your tattered clothing.
+-#  %p
+-#    =image_tag( APP_URL + User.find(5).avatar_photo_url, :width => '260')
+
+#tooltip_ad_free
+  .tooltip_body
+    %h4 Ad-free
+    %p
+  =image_tag(  asset_path(random_infrno_upgrade_ad) )
+
+#tooltip_feature_caucus_4
+  .tooltip_body
+    =render :partial => "feature_caucus"
+#tooltip_feature_caucus_2
+  .tooltip_body
+    =render :partial => "feature_caucus"
+
+-##tooltip_exalted_badge
+-#  =render :partial => "badge", :locals => {:level_name => 'Exalted', :membership_level => 3}
+-##tooltip_mythic_badge
+-#  =render :partial => "badge", :locals => {:level_name => 'Mythic', :membership_level => 4}
+
+
+#tooltip_dtrpg_gift_certificate
+  .tooltip_body
+    .center
+      %h4 DriveThruRPG gift certificate
+    %p.feature_description
+      Once a month, one lucky user wins a $10 gift certificate for DriveThruRPG!
+    %p
+  =image_tag(asset_path('DriveThruRPG.gif'), :width => '260')
+
+-##tooltip_ad_free
+-#  .center
+-#    %h4 Ad-free Forever
+-#  %p.feature_description
+-#    Infrno is currently ad-free, but when the day comes for us to start displaying ads, premium members will be exempt from those displays.
+-#  %p
+
+#tooltip_premium_member_events
+  .tooltip_body
+    .center
+      %h4 Exalted member appreciation events
+    %p.feature_description
+      Exalted members unlock access to exclusive virtual conventions, celebrity GM games, and other special events.
+    %p.feature_description
+      Imagine being able to play games run by their creators and industry legends, now that's some bragging rights!
+    %p.feature_description
+      All Exalted member appreciation events will feature commemorative achievements.
+    %p
+
+#tooltip_staff_tshirt
+  .tooltip_body
+    .center
+      %h4 Free Infrno staff tshirt
+    %p.feature_description
+      Our convention staff tshirts are freaking awesome, and have already become collector's items.
+    %p.feature_description.red
+      You must be an Epic member in good standing for 3 months to qualify.
+    %p.feature_description.red
+      Staff tshirts will ship in September.
+    %p
+  =image_tag(asset_path('InfrnoGun2.png'), :width => '240', :height => '490', :style => 'float:right')
+  =image_tag(asset_path('IPlayWithStrangers_300x82.png'), :width => '300', :style => 'float:left; margin-bottom:10px;' )
+  =image_tag(asset_path('CoatOfArms.png'), :width => '300', :style => 'float:left' )
+
+#tooltip_exalted_tshirt
+  .tooltip_body
+    .center
+      %h4 Free Infrno Exalted tshirt
+    %p.feature_description
+      The design work hasn't started, but this can we guarantee:
+    %p.feature_description
+      Infrno Exalted tshirts will come standard with a +3 CHA bonus.
+    %p.feature_description.red
+      You must be an Exalted member in good standing for 3 months to qualify.
+    %p.feature_description.red
+      Infrno Exalted tshirts will ship in September.
+    %p
+  =image_tag(asset_path('Kieara_250x506.jpg'), :width => '250', :height => '495', :style => 'float:right')
+  =image_tag(asset_path('boothbabe.png'), :width => '290', :style => 'float:left; margin-bottom:10px;' )
+  =image_tag(asset_path('AreYouInfrnal_00.png'), :width => '290', :style => 'float:left' )
+
+#tooltip_early_access
+  .tooltip_body
+    .center
+      %h4 Early player registration for virtual conventions
+    %p.feature_description
+      ="Bringing the convention game experience online is a specialty of ours."
+    %p.feature_description
+      ="We've run #{Event.all.size} virtual conventions, totalling #{@events_hour_total} hours of game play by #{@events_player_total} players in #{@events_game_total} games."
+    %p.feature_description
+      Exalted members unlock early access to player registration. It's VIP treatment, skip the velvet rope!
+    %p
+  =image_tag(asset_path('InfrnoCon.png'), :width => '260')
+
+#tooltip_achievements
+  .tooltip_body
+    .center
+      %h4 Author and grant achievements
+    %p.feature_description
+      Imagine being able to create your own achievements, and then granting those achievements to other players, characters, and even games.
+    %p.feature_description
+      Well, here you go. Let's see what you maniacs do with it!
+    %p.box_achievements.badge_box
+      -@sample_achievements.each do |achievement|
+        = link_to image_tag( achievement.badge(:large), :alt => achievement.name, :title  => achievement.name, :class => "achievement_badge"), achievement_path(achievement)
+
+-##tooltip_kieara_tattoo
+-#  .center
+-#    %h4 Kieara's tattoo
+-#  %p.feature_description
+-#    Kieara's always had a fascination with your character, let's ink it for posterity.
+-#  %p
+-#    =image_tag( APP_URL + User.find(5).avatar_photo_url, :width => '260')
+
+-#%script{:type => "text/javascript"}
+-#  new Tip('exalted_badge', $('tooltip_exalted_badge'),  {showOn: 'click', hideOn: 'click', closeButton: true, hook: {target: 'topRight', tip: 'topLeft'}, offset:{x:0, y:-40},  hideAfter: false className: 'gametip', });
+-#%script{:type => "text/javascript"}
+-#  new Tip('mythic_badge', $('tooltip_mythic_badge'),  {showOn: 'click', hideOn: 'click', closeButton: true, hook: {target: 'topRight', tip: 'topLeft'}, offset:{x:0, y:-40},  hideAfter: false className: 'gametip', });
+
+-#%script{:type => "text/javascript"}
+-#  new Tip('kieara_tattoo', $('tooltip_kieara_tattoo'),  {showOn: 'click', hideOn: 'click', closeButton: true, hook: {target: 'topRight', tip: 'topLeft'}, offset:{x:0, y:-140},  hideAfter: false className: 'gametip', });
+-#%script{:type => "text/javascript"}
+-#  new Tip('exalted_access', $('tooltip_exalted_access'),  {showOn: 'click', hideOn: 'click', closeButton: true, hook: {target: 'topRight', tip: 'topLeft'}, offset:{x:0, y:-70},  hideAfter: false, className: 'gametip', });
+
+%script{:type => "text/javascript"}
+  new Tip('achievements', $('tooltip_achievements'),  {showOn: 'click', hideOn: 'click', closeButton: true, hook: {target: 'bottomLeft', tip: 'topLeft'}, offset:{x:25, y:5},  hideAfter: false, className: 'gametip', });
+%script{:type => "text/javascript"}
+  new Tip('staff_tshirt', $('tooltip_staff_tshirt'),  {showOn: 'click', hideOn: 'click', closeButton: true, hook: {target: 'bottomLeft', tip: 'topLeft'}, offset: {x:25, y:5},  hideAfter: false, className: 'featuretip_2col', });
+%script{:type => "text/javascript"}
+  new Tip('feature_caucus_2', $('tooltip_feature_caucus_2'),  {showOn: 'click', hideOn: 'click', closeButton: true, hook: {target: 'bottomLeft', tip: 'topLeft'}, offset:{x:25, y:5},  hideAfter: false, className: 'gametip', });
+%script{:type => "text/javascript"}
+  new Tip('ad_free', $('tooltip_ad_free'),  {showOn: 'click', hideOn: 'click', closeButton: true, hook: {target: 'bottomLeft', tip: 'topLeft'}, offset:{x:25, y:5},  hideAfter: false, className: 'gametip', });
+
+
+%script{:type => "text/javascript"}
+  new Tip('early_access', $('tooltip_early_access'),  {showOn: 'click', hideOn: 'click', closeButton: true, hook: {target: 'bottomLeft', tip: 'topLeft'}, offset:{x:24, y:5},  hideAfter: false, className: 'gametip', });
+%script{:type => "text/javascript"}
+  new Tip('dtrpg_gift_certificate', $('tooltip_dtrpg_gift_certificate'),  {showOn: 'click', hideOn: 'click', closeButton: true, hook: {target: 'bottomLeft', tip: 'topLeft'}, offset:{x:24, y:5},  hideAfter: false, className: 'gametip', });
+%script{:type => "text/javascript"}
+  new Tip('exalted_tshirt', $('tooltip_exalted_tshirt'),  {showOn: 'click', hideOn: 'click', closeButton: true, hook: {target: 'bottomRight', tip: 'topRight'}, offset: {x:0, y:5},  hideAfter: false, className: 'featuretip_2col', });
+%script{:type => "text/javascript"}
+  new Tip('premium_member_events', $('tooltip_premium_member_events'),  {showOn: 'click', hideOn: 'click', closeButton: true, hook: {target: 'bottomLeft', tip: 'topLeft'}, offset:{x:24, y:5},  hideAfter: false, className: 'gametip', });
+-#%script{:type => "text/javascript"}
+-#  new Tip('ad_free', $('tooltip_ad_free'),  {showOn: 'click', hideOn: 'click', closeButton: true, hook: {target: 'topRight', tip: 'topLeft'}, offset:{x:0, y:-40},  hideAfter: false, className: 'gametip', });
+%script{:type => "text/javascript"}
+  new Tip('feature_caucus_4', $('tooltip_feature_caucus_4'),  {showOn: 'click', hideOn: 'click', closeButton: true, hook: {target: 'bottomLeft', tip: 'topLeft'}, offset:{x:24, y:5},  hideAfter: false, className: 'gametip', });
+-#%script{:type => "text/javascript"}
+-#  new Tip('aoe_spell', $('tooltip_aoe_spell'),  {showOn: 'click', hideOn: 'click', closeButton: true, hook: {target: 'bottomLeft', tip: 'topLeft'}, offset:{x:-21, y:10},  hideAfter: false, className: 'gametip', });
+

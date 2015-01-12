@@ -1,0 +1,24 @@
+
+
+.box
+  %h3 Navigation
+  %li.fn
+    = render :partial => 'users/user_name', :locals => {:user => @achievement.owner, :name_prefix => 'Author:'}
+
+  %ul
+    %li.view= link_to 'Achievement profile', achievement_path(@achievement)
+
+    -if current_user && current_user == @achievement.owner
+      %li.view= link_to 'Edit', edit_achievement_path(@achievement)
+      %li.view= link_to "Delete", @achievement, :confirm => 'Are you sure?', :method => :delete
+
+.box
+  %h3 Achievement collections
+  %ul
+
+    -if current_user
+      %li.view= link_to "My authored achievements", authored_achievements_path(current_user)
+
+    %li.view= link_to "Kiera's achievements", authored_achievements_path(User.find(5))
+    %li.view= link_to "Public achievements", achievements_path()
+

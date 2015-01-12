@@ -1,0 +1,9 @@
+- if !@character.public_notepad.blank?
+  .box
+    %h3 Public notepad
+    =simple_format(@character.public_notepad)
+
+- if current_user == @character.owner && !@character.owner_notepad.blank?
+  .box
+    %h3 Private notepad
+    =simple_format(@character.owner_notepad)

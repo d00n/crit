@@ -1,0 +1,149 @@
+= error_messages_for :achievement
+
+
+#col1
+  =render :partial => "col1"
+
+  -if @achievement.id
+    .box
+      %h3 Large badge
+      = link_to image_tag( @achievement.thumb(:large), :alt => h(@achievement.name), :title  => h(@achievement.name), :class => "achievement_thumb"), achievement_path(@achievement)
+
+
+  .box
+    %h3 Guidelines and process
+    %ul
+      %li.view Infrno is a friendly place, please help us keep it that way. Keep this content in line with what is consistent with our TOS.
+      %li.view Recipients are required to accept or deny the granting of an achievement.
+      %li.view Changing an achievement after it has been accepted could lead to shenanigans, so it is not allowed.
+      %li.view You may clone your approved achievement and edit the clone, or create a new one to suit your needs.
+      %li.view You may delete any of your achievements, even if it has been accepted by a recipient.
+      %li.view If you delete an achievement which others have accepted, it will be removed from their collections.
+
+
+
+#col2
+  .box
+    -if @achievement.id
+      %h3= @achievement.name.html_safe
+    -else
+      %h3 New achievement
+      
+  .box
+    = form_for @achievement,  :html => {:multipart =>true, :class => "cmxform"} do |achievement_form|
+      .container
+        .InfrnoForm
+
+          .user_row
+            %fieldset
+              %legend
+                Achievement details
+              %ol
+                %li
+                  = achievement_form.label 'Name (required)'
+                  = achievement_form.text_field :name
+
+                %li
+                  = achievement_form.check_box :others_can_grant
+                  Allow other users to grant
+
+                -#-if current_user.admin?
+                -#  %li
+                -#    = achievement_form.check_box :is_system
+                -#    System achievement
+
+
+
+          .user_row
+            %fieldset
+              %legend
+                Description (required)
+              %ol
+                %li
+                  = achievement_form.text_area :description, :class => "rich_text_editor", :size => "50x20"
+
+          -if  @achievement.id && current_user && current_user.achievement_admin?
+            .user_row
+              %fieldset
+                %legend
+                  Facebook wall post
+                %ol
+                  %li
+                    = achievement_form.label 'Message'
+                    = achievement_form.text_field :facebook_post_message, :size => "50"
+                  %p
+                  %li
+                    = achievement_form.label 'Caption'
+                    = achievement_form.text_field :facebook_post_caption, :size => "50"
+                  %p
+                  %li
+                    = achievement_form.label 'Description'
+                    = achievement_form.text_area :facebook_post_description, :size => "50x5"
+
+
+
+          .user_row
+            %fieldset
+              %legend
+                Profile photo (required)
+              %ol
+                %li
+                  For use on the achievement profile page.
+                  %br
+                  Will be resized to 290x320 pixels.
+                  %p
+                  = achievement_form.file_field :avatar
+
+          .user_row
+            %fieldset
+              %legend
+                Large badge (required)
+              %ol
+                %li
+                  For use in index listings, and Facebook wall posts.
+                  %br
+                  Will be resized to 90x90 pixels.
+                  %p
+                  = achievement_form.file_field :thumb
+
+          .user_row
+            %fieldset
+              %legend
+                Small badge (required)
+              %ol
+                %li
+                  For use in badge racks.
+                  %br
+                  Will be resized to 50x50 pixels.
+                  %p
+                  = achievement_form.file_field :badge
+
+
+          -if  @achievement.id && current_user && current_user.achievement_admin?
+            .user_row
+              %fieldset
+                %legend
+                  Achievement admin approval
+                %ol
+                  %li
+                    = achievement_form.check_box :is_approved
+                    This achievement passes QA, and is suitable for use.
+
+                  %li
+                    = 'Author: '
+                    = link_to (@achievement.owner.display_name), user_path(@achievement.owner)
+
+                  %li= "Does this not meet standards? #{link_to('Send message to author', new_user_message_path(current_user, :to=>@achievement.owner, :subject=>'Achievement feedback: ' +@achievement.name))}".html_safe
+
+
+
+          %p
+          = achievement_form.submit 'Save'
+
+
+
+
+
+
+
+

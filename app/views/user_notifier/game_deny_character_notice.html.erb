@@ -1,0 +1,8 @@
+<%= render :partial => 'user_notifier/greeting', :locals => {:user => @user}  %>
+
+<%= h @registration.character.name %>'s registration has been denied for <%= h @game.name %>.
+
+You can see the game's current roster of players and characters here:
+<%= registration_desk_url(@game) %>
+                
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  %>

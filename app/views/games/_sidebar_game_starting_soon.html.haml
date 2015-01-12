@@ -1,0 +1,18 @@
+.user_row
+  -if game.has_access(current_user)
+    .user_row_col1
+      = link_to image_tag(game.avatar_photo_url(:thumb), :alt => "#{game.name}", :width => '100'), game_path(game)
+
+    .user_row_col2
+      - if !game.name.blank?
+        %li.fn
+          =link_to h(game.name), game_path(game)
+      %li.fn= render :partial => 'users/user_name', :locals => {:user => game.owner, :name_prefix => "GM:"}
+      %li.fn
+      - if game.start_at
+        %li.fn="Day: #{game.start_at.strftime('%a, %b %d, %Y')}"
+        %li.fn="Time: #{game.start_at.strftime('%I:%M%p %Z')}"
+        %li.fn= link_to "Game table", gametable_url(game.id)
+
+  -else
+    %h3 Private game

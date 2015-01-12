@@ -1,0 +1,10 @@
+- @meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_list_content }
+
+#col1
+  .box
+
+    =form_tag PAYPAL_URL, :method => "post" do
+      =hidden_field_tag :cmd, "_s-xclick"
+      =hidden_field_tag :encrypted, @user.paypal_encrypted(home_url, payment_notifications_url(:secret => PAYPAL_SECRET), @invoice)
+      =submit_tag "Upgrade"
+

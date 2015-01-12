@@ -1,0 +1,151 @@
+- @meta = { :description => "#{h(@game.name)}'s profile on #{configatron.community_name}.", :keywords => "#{h(@game.name)}, #{@game.tags.join(", ") unless @game.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'games'
+- @sidebar_left = true
+
+#col1
+  = render :partial => 'profile_game_info_sidebar', :locals => {:user => @game.owner}
+
+#col2
+  .box
+    %h2= "#{link_to h(@game.name), game_path(@game)} : Join game"
+    
+  .box.alt
+    %h3 Registered characters
+    - if @active_characters.length == 0
+      No active characters.
+    - for active_character in @active_characters
+      %dl.vcard
+        %dt.photo
+          = link_to image_tag(active_character.avatar_photo_url(:thumb), :width => '50', :height => '50'), seo_character_path(active_character)
+        %dd.fn
+          = link_to h(active_character.name), seo_character_path(active_character)
+        %dd
+          Player:
+          = link_to active_character.owner.display_name, user_path(active_character.owner)
+        - if current_user == active_character.owner
+          %dd
+            = link_to 'Unregister', unregister_character_path(@game, :character_id => active_character.id)          
+        - if current_user == @game.owner 
+          %dd
+            = link_to 'Kick', kick_character_path(@game, :character_id => active_character.id)        
+  .box.alt
+    %h3 Registered players
+    - if @active_players.length == 0
+      No active players.
+    - for active_player in @active_players
+      %dl.vcard
+        %dt.photo
+          = link_to image_tag(active_player.avatar_photo_url(:thumb), :width => '50', :height => '50'), user_path(active_player)
+        %dd.fn
+          = link_to h(active_player.display_name), user_path(active_player)
+        - if current_user == active_player
+          %dd
+            = link_to 'Create a character', new_registered_character_path(@game)                    
+          %dd
+            = link_to 'Unregister', unregister_player_path(@game, :user_id => active_player.id)                    
+        - if current_user == @game.owner 
+          %dd
+            = link_to 'Kick', kick_player_path(@game, :user_id => active_player.id)        
+      
+  .box.alt    
+    %h3 Pending character registrations
+    - if @pending_characters.length == 0
+      No pending characters.
+    - for pending_character in @pending_characters
+      %dl.vcard
+        %dt.photo
+          = link_to image_tag(pending_character.avatar_photo_url(:thumb), :width => '50', :height => '50'), seo_character_path(pending_character)
+        %dd.fn              
+          = link_to h(pending_character.name), user_path(pending_character.owner)
+        %dd
+          Player:
+          = link_to pending_character.owner.display_name, user_path(pending_character.owner)
+        - if current_user == pending_character.owner
+          %dd
+            = link_to 'Cancel', cancel_character_path(@game, :character_id => pending_character.id)
+        - if current_user == @game.owner
+          %dd
+            = link_to 'Approve', approve_character_path(@game, :character_id => pending_character.id)
+          %dd
+            = link_to 'Deny', deny_character_path(@game, :character_id => pending_character.id)   
+            
+  .box.alt    
+    %h3 Pending player registrations
+    - if @pending_players.length == 0
+      No pending players.
+    - for pending_player in @pending_players
+      %dl.vcard
+        %dt.photo
+          = link_to image_tag(pending_player.avatar_photo_url(:thumb), :width => '50', :height => '50'), user_path(pending_player)
+        %dd.fn              
+          = link_to h(pending_player.display_name), user_path(pending_player)
+        - if current_user == pending_player
+          %dd
+            = link_to 'Cancel', cancel_player_path(@game, :user_id => pending_player.id)
+        - if current_user == @game.owner
+          %dd
+            = link_to 'Approve', approve_player_path(@game, :user_id => pending_player.id)
+          %dd
+            = link_to 'Deny', deny_player_path(@game, :user_id => pending_player.id)    
+            
+  .box.alt    
+    %h3 Pending pregenerated character registrations
+    - if @game.pregenerated_character_requests.length == 0
+      No pending pregenerated character requests.
+    - else 
+      - @game.pregenerated_character_requests.each do |pregenerated_character_request|
+        %dl.vcard
+          %dt.photo
+            = link_to image_tag(pregenerated_character_request.character.avatar_photo_url(:thumb), :width => '50', :height => '50'), seo_character_path(pregenerated_character_request.character)
+          %dd.fn              
+            = link_to h(pregenerated_character_request.character.name), seo_character_path(pregenerated_character_request.character)
+          %dd
+            Player:
+            = link_to h(pregenerated_character_request.owner.display_name), user_path(pregenerated_character_request.owner)
+          - if current_user == pregenerated_character_request.owner
+            %dd
+              = link_to 'Cancel', cancel_pregenerated_path(@game, :character_id => pregenerated_character_request.character_id)
+          - if current_user == @game.owner 
+            %dd
+              = link_to 'Approve', approve_pregenerated_path(@game, :character_id => pregenerated_character_request.character_id, :user_id => pregenerated_character_request.user_id)
+            %dd
+              = link_to 'Deny', deny_pregenerated_path(@game, :character_id => pregenerated_character_request.character_id, :user_id => pregenerated_character_request.user_id)                    
+                
+  .box.alt
+    %h3 Join game as a player
+    %dl.vcard
+      %dt.photo
+        = link_to image_tag(current_user.avatar_photo_url(:thumb), :width => '50', :height => '50'), user_path(current_user)
+      %dd.fn
+        = link_to h(current_user.display_name), user_path(current_user)
+      %dd              
+        = link_to 'Join', join_player_path(@game, :user_id => current_user.id)            
+                
+                
+  - if @game.pregenerated_character_offers.length > 0
+    .box.alt
+      %h3 Join game with a pregenerated character
+      - @game.pregenerated_character_offers.each do |pregenerated_character_offer|
+        %dl.vcard
+          %dt.photo
+            = link_to image_tag(pregenerated_character_offer.character.avatar_photo_url(:thumb), :width => '50', :height => '50'), seo_character_path(pregenerated_character_offer.character)
+          %dd.fn              
+            = link_to h(pregenerated_character_offer.character.name), seo_character_path(pregenerated_character_offer.character)
+          %dd              
+            = link_to 'Join', join_pregenerated_path(@game, :character_id => pregenerated_character_offer.character_id)            
+                        
+  .box.alt
+    %h3 Join game with one of your characters
+    - if @eligible_characters.length == 0
+      You have no characters,
+      = link_to 'make one!', new_character_path
+    - @eligible_characters.each do |eligible_character|
+      %dl.vcard
+        %dt.photo
+          = link_to image_tag(eligible_character.avatar_photo_url(:thumb), :width => '50', :height => '50'), seo_character_path(eligible_character)
+        %dd.fn              
+          = link_to h(eligible_character.name), seo_character_path(eligible_character)
+        %dd              
+          = link_to 'Join', join_character_path(@game, :character_id => eligible_character.id)            
+        
+

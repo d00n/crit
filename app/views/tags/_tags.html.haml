@@ -1,0 +1,8 @@
+.box
+  %h3
+    Tags,
+    =link_to 'see all', tags_path
+    %p
+    -tag_cloud @popular_tags, %w(css1 css2 css3 css4) do |tag, css_class|
+      =link_to tag.name, tag_url(tag.to_param), :class => css_class
+

@@ -1,0 +1,40 @@
+%h3= "Hey #{@user.display_name}!"
+
+These are your upcoming games.
+%p
+
+-@user.games_starting_soon.each do |game|
+  %p
+  %b= link_to(game.name, game_url(game))
+  %br
+  ="#{game.start_at.strftime('%a, %b %d, %I:%M%p %Z')}".html_safe
+  -if game.is_owner?(@user)
+    %br
+    You are the owner of this game.
+    %br
+    = link_to("Send message to players", new_user_message_url(@user, :to=>game.active_players_pm_blast_list(@user), :subject=>game.name))
+    %br
+    = link_to("Send message to alternates", new_user_message_url(@user, :to=>game.alternate_players_pm_blast_list(@user), :subject=>game.name))
+  -elsif game.active_players.include?(@user)
+    %br
+    You are a player in this game.
+    %br
+    = link_to('Send message to GM', new_user_message_url(@user, :to=>game.owner, :subject=>game.name))
+  -elsif game.alternate_players.include?(@user)
+    %br
+    You are an alternate in this game.
+    %br
+    = link_to('Send message to GM', new_user_message_url(@user, :to=>game.owner, :subject=>game.name))
+
+%p
+You can view your
+=link_to('calendar here.', user_calendar_url(@user))
+%p
+%p
+See you soon!
+%br
+The #{configatron.community_name} team
+%p
+%hr
+If you don't want to receive upcoming game notifications like this one, you can change your preferences here:
+= link_to 'Edit account settings', edit_account_user_url(@user)

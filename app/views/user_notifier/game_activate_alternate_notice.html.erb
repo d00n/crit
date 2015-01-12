@@ -1,0 +1,13 @@
+<%= render :partial => 'user_notifier/greeting', :locals => {:user => @user}  %>
+A seat has opened up for <%= h @game.name %>, and your alternate status has been activated. You are now in this game.
+<% if Time.now > @game.start_at %>
+The game has started! Please log in to Infrno, and jump in the game table:
+<%= home_url %>/games/play/<%= @game.id %>
+<% else %>
+The game is scheduled for <%= @game.start_at.strftime('%a, %b %d, %Y') %>, at <%= @game.start_at.strftime('%I:%M%p %Z') %>
+
+You can see the game's current roster of players and characters here:
+<%= registration_desk_url(@game) %>
+<%end%>
+
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  %>

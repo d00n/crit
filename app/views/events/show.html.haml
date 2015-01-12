@@ -1,0 +1,55 @@
+-description = ""
+-if !@event.description.blank?
+  -description = "#{strip_tags(@event.description).gsub(/\n/, '')} "
+-description += " " + configatron.meta_description
+
+- @meta = { :description => description, :keywords => "#{h(@event.name)}, #{configatron.meta_keywords}, #{h(@event.tags.join(", ")) unless @event.tags.nil?}", :robots => configatron.robots_meta_show_content }
+
+
+#col1
+  = render :partial => 'events/profile_sidebar', :locals => {:event => @event}
+
+#col2
+  .box
+    %h2= @event.name.html_safe
+
+  -if @event.end_time < Time.now
+    .box
+      %h3= "Event has finished. A big thanks to the GMs and the #{@event.seats_filled} players!".html_safe
+
+  - if !@event.description.blank?
+    .box
+      = @event.description.html_safe
+
+  -if @event.is_registering_regular_players && @event.end_time < Time.now
+    .box
+      %h3= "#{pluralize(@event.seats_open, 'seat')} left open, register now!"
+      %ul
+        %li.view= "#{pluralize(@event.seats_total, 'seat')} total"
+        %li.view= "#{pluralize(@event.seats_filled, 'seat')} filled"
+      
+  - if !@event.slots.empty?
+    -if @event.end_time < Time.now
+      = render :partial => 'slots/slot', :locals => {:event => @event}, :collection => @event.slots.order("start_time")
+    -else
+      = render :partial => 'slots/slot', :locals => {:event => @event}, :collection => @event.slots.order("start_time").where("start_time > ?", Time.now - 6.hours)
+     
+  /- unless @posts.empty?
+  /  #posts.box.alt
+  /    %h3
+  /      = link_to "event blog", event_post_path(@event)
+  /    = render :partial => 'posts/post', :collection => @posts
+   
+  #comments.box.alt
+    %p= render :partial => 'comments/comment_form', :locals => {:commentable => @event}
+    
+    %a#newest_comment
+    = render :partial => 'comments/comment', :collection => @comments
+    
+    / this shouldn't be needed, as any logged in user should be able to comment on a game
+    - @user = @event.owner
+    %span#more_comments_links= more_comments_links(@user)
+      
+%script{:type=>"text/javascript", :charset=>"utf-8"}
+  = remote_function :url => {:controller => 'events', :action => 'update_views', :id => @event}, :method => :put
+      

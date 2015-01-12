@@ -1,0 +1,9 @@
+.box
+  %h3= "#{link_to h(@character.name), character_path(@character)}".html_safe
+
+=render :partial => 'characters/avatar'
+=render :partial => 'sheet_content', :locals => {:character => @character}
+=render :partial => 'profile_content', :locals => {:character => @character}
+=render :partial => 'sheet_sidebar', :locals => {:user => @character.owner}
+=render :partial => 'profile_sidebar', :locals => {:user => @character.owner}
+=render :partial => 'notepad_content', :locals => {:character => @character}

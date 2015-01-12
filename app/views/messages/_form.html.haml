@@ -1,0 +1,31 @@
+
+.box
+  =form_for message, :url => user_messages_path(user), :html => {:class => "MainForm"} do |f|
+    %label{:for => 'message_to'}
+      To:
+      -if @recipient_names
+        = @recipient_names
+      -else
+        No recipient provided...
+
+    -if message.reply_to
+      =f.hidden_field :to, :value => @to
+      =f.hidden_field :parent_id
+    -else
+      =f.hidden_field :to
+      =f.hidden_field :parent_id
+
+    -if @reply
+      =f.hidden_field :subject
+    -else
+
+      %label{:for => 'message_subject'}= :subject.l + ":"
+      = f.text_field :subject
+
+      %p
+      %label{:for => "message_body"}= :message.l + ":"
+      = f.text_area :body, :cols => 50
+
+      %p
+      = submit_tag :send.l
+

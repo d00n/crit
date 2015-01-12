@@ -1,0 +1,60 @@
+-description = ''
+-if !@character.about.blank?
+  -description += "#{strip_tags(@character.about).gsub(/\n/, "")} "
+-description += " #{configatron.meta_description}"
+
+- @meta = { :description => description, :keywords => "#{h(@character.owner.display_name)}, #{configatron.meta_keywords}, #{h(@character.tags.join(", ")) unless @character.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'characters'
+
+
+#col1
+  = render :partial => 'characters/avatar'
+  =render :partial => "shared/ad"
+  = render :partial => 'characters/nav_items'
+  = render :partial => 'characters/profile_sidebar', :locals => {:user => @character.owner}
+
+
+#col2
+  .box
+    %h2= "#{link_to h(@character.name), seo_character_path(@character)}".html_safe
+
+  .box
+    %h2
+      Games and products used by this character
+      -if current_user && (current_user == @character.owner || current_user.admin?)
+        .right= link_to '(Add)', system_categories_path(:character_id => @character.id)
+
+    -if @character.products.any?
+      -@character.products.each do |product|
+        -if current_user && (current_user.admin? || current_user == @character.owner)
+          = render :partial => 'products/product', :locals => {:product=> product, :action => 'remove', :character => @character}
+          -#= render :partial => 'products/product_listing_large', :locals => {:product=> product, :action => 'remove', :character => @character}
+        -else
+          = render :partial => 'products/product', :locals => {:product=> product, :character => @character}
+          -#= render :partial => 'products/product_listing_large', :locals => {:product=> product, :character => @character}
+
+
+  -if @comments
+    #comments.box.alt
+      %p= render :partial => 'comments/comment_form', :locals => {:commentable => @character}
+
+      - if @character.is_private
+        %h2{:style=>"color: #ff0000;"} Image privacy warning
+        %p
+          Images included in comments on private characters are not (yet) made private automatically.
+          You can make an image private by selecting it on your photos page and editing it's details.
+
+
+      %a#newest_comment
+      = render :partial => 'comments/comment', :collection => @comments
+
+      -if @comments.any?
+        / this shouldn't be needed, as any user should be able to view comment on a character
+        - @user = current_user
+        %span#more_comments_links= more_comments_links(@character)
+
+      .clear
+
+%script{:type=>"text/javascript", :charset=>"utf-8"}
+  = remote_function :url => {:controller => 'characters', :action => 'update_views', :user_id => @current_user, :id => @character}, :method => :put
+

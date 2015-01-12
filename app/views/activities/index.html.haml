@@ -1,0 +1,11 @@
+#col1
+  =render :partial => "shared/home_page_user_profile", :locals => { :tags => tags}
+
+    
+#col2
+  .box
+    %h3 Activity feed
+    =render :partial => "activities/activity", :collection => @activities
+    =paginate @activities
+      
+

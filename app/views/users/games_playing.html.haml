@@ -1,0 +1,18 @@
+-@meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_show_content }
+-@section = 'people'
+
+#col1
+  = render :partial => 'user_avatar_sidebar', :locals => {:user => @user}
+  = render :partial => 'profile_user_info_sidebar', :locals => {:user => @user}
+  
+  
+#col2
+  .box.alt.user_list
+
+    %h3= "Games #{link_to (@user.display_name), user_path(@user)} is playing".html_safe
+    
+    - @games.each do |game|
+      = render :partial => "games/game_listing", :locals => { :game => game }        
+    %br.clear
+
+

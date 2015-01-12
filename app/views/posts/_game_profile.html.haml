@@ -1,0 +1,27 @@
+%br
+= link_to image_tag(game.avatar_photo_url(:medium), :alt=> h(game.name)), seo_game_path(game)
+
+.box
+  %h3= "#{link_to h(game.name), seo_game_path(game)}".html_safe
+  %ul
+    %li.fn
+      = render :partial => 'users/user_name', :locals => {:user => game.owner, :name_prefix => "Owner:"}
+    %li.update= "Created on #{I18n.l(game.created_at, :format => :short_published_date)}"
+
+    %li.view
+      - if game.posts.count == 1
+        = link_to :singular_posts.l(:count => game.posts.count), game_post_path(game)
+      - else
+        = link_to :plural_posts.l(:count => game.posts.count), game_post_path(game)
+
+    -if !game.system_name.blank?
+      %li.view
+        = 'System: '
+        = link_to(h(game.system_name), :controller => "/games", :action => "index", :system_name => game.system_name)
+
+    -if !game.genre.blank?
+      %li.view
+        = "Genre: "
+        = link_to(h(game.genre), :controller => "/games", :action => "index", :genre => game.genre)
+
+

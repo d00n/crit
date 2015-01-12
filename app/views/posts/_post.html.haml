@@ -1,0 +1,49 @@
+-if post.has_access(current_user)
+  .user_row
+    %h4{:id=>"post_#{ post.id}"}
+      = link_to post.title, user_post_path(post.user, post)
+
+    .user_row_col1
+      - if !post.game.nil?
+        %a{:href=>"#{user_post_path(post.game.owner, post)}", :class=>"polaroid", :rel=>"bookmark"}
+          /=image_tag( post.game.avatar_photo_url(:thumb), :alt=>"",:width=>"90")
+          =image_tag((post.first_image_in_body() || post.game.avatar_photo_url(:thumb)), :alt=>"",:width=>"90")
+      - elsif !post.character.nil?
+        %a{:href=>"#{user_post_path(post.character.owner, post)}", :class=>"polaroid", :rel=>"bookmark"}
+          /=image_tag(post.character.avatar_photo_url(:thumb), :alt=>"", :width=>"90")
+          =image_tag((post.first_image_in_body() || post.character.avatar_photo_url(:thumb)), :alt=>"", :width=>"90")
+      - else
+        %a{:href=>"#{user_post_path(post.user, post)}", :class=>"polaroid", :rel=>"bookmark"}
+          /=image_tag( post.user.avatar_photo_url(:thumb), :width=>"90")
+          =image_tag((post.first_image_in_body() || post.user.avatar_photo_url(:thumb)), :width=>"90")
+
+    .user_row_col2
+      %li.fn
+        - if !post.game.nil?
+          =link_to h(post.game.name), game_path(post.game)
+        - elsif !post.character.nil?
+          =link_to h(post.character.name), character_path(post.character)
+        - else
+          = render :partial => 'users/user_name', :locals => {:user => post.user}
+
+      %li.update
+        = time_ago_in_words post.published_at
+      %li.view
+        = "Views(#{post.view_count})"
+      %li.comments
+        = link_to :comments.l+" (#{post.comments.count})", user_post_path(post.user, post)+'#comments'
+
+      - if post.tags.any?
+        %li.tags
+          =li_tags_helper(post, 10)
+
+    .user_row_col3b
+      = truncate_words(post.post, 50, '...' )
+
+      = render :partial => 'polls/excerpt', :locals => {:poll => post.poll} if post.poll
+
+-else
+  .user_row
+    %h3 Private post
+    %h3=link_to "Private posts are a premium feature, upgrade today!", premium_membership_path
+

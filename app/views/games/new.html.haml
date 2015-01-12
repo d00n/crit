@@ -1,0 +1,57 @@
+= error_messages_for :game
+=calendar_date_select_includes
+
+#col1
+  .centered
+    %br
+    .profile_photo=image_tag @game.avatar_photo_url(:medium)
+
+
+
+#col2
+  -if @game.id
+    =render :partial => 'col2_header', :locals => { :game => @game }
+
+  =form_for(@game, :html => {:class => "cmxform"}) do |game_form|
+    -if @register_slot_id
+      = hidden_field_tag :register_slot_id, @register_slot_id
+    = hidden_field_tag :status, @game.status
+    = hidden_field_tag :old_start_at, @game.start_at
+
+    -#= hidden_field_tag :game_id, @game_id
+
+    -if @character_id
+      = hidden_field_tag :character_id, @character_id
+    -if @system_category_id
+      = hidden_field_tag :system_category_id, @system_category_id
+    -if @product_id
+      = hidden_field_tag :product_id, @product_id
+
+    .box
+      %h3 Name
+      %ol
+        %li
+          = game_form.text_field :name
+
+
+
+    .box
+      %h3 Date
+      -if @game.slots.any?
+        %h3 Scheduling for games in events is managed by the event owner.
+      -else
+        %ol
+          %li
+            = game_form.calendar_date_select :start_at, :time => true
+
+    .box
+      %p
+      = game_form.submit 'Save game'
+
+
+
+
+
+
+
+

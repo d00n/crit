@@ -1,0 +1,34 @@
+-description = ''
+-if @game.status == 'open'
+  -description = "#{h(@game.name)} is open for registration! "
+-if !@game.description.blank?
+  -description += "#{strip_tags(@game.description).gsub(/\n/, '')} "
+-description += " #{configatron.meta_description}"
+
+- @meta = { :description => description, :keywords => "#{@game.name}, #{configatron.meta_keywords}, #{@game.tags.join(", ") unless @game.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'games'
+
+
+#col1
+  = render :partial => 'games/profile_game_info_sidebar'
+  =render :partial => "shared/ad"
+
+  
+#col2
+  .box
+    %h2= "#{link_to h(@game.name), seo_game_path(@game)} : Unlocked achievements".html_safe
+
+  -if @pending.any?
+    .box
+      %h3 Pending achievements
+      - @pending.each do |p|
+        = render :partial => "achievements/achievement_listing", :locals => { :pending => p, :show_grant => false }
+
+  .box
+    -if @game.accepted_achievements.any?
+      - @game.accepted_achievements.each do |accepted|
+        = render :partial => "achievements/achievement_listing", :locals => { :accepted => accepted, :game => @game, :show_grant => false }
+    -else
+      %h3 I'm sorry, your loot is in another castle.
+
+

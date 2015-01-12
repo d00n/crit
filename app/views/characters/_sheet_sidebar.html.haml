@@ -1,0 +1,114 @@
+
+
+-if !@character.c_movements.blank? 
+  .box
+    %h3 Movement
+    .vcard.author
+      %ul
+        - @character.c_movements.each do |c_movement|
+          %li.view
+            = h(c_movement.name)
+            = ": "
+            = h(c_movement.rate)               
+
+-if !@character.c_senses.blank? 
+  .box
+    %h3 Senses
+    .vcard.author
+      %ul
+        - @character.c_senses.each do |c_sense|
+          %li.view
+            = h(c_sense.name)
+            = ": "
+            = h(c_sense.effect)               
+
+-if !@character.c_physical_abilities.blank? 
+  .box
+    %h3 Physical abilities
+    .vcard.author
+      %ul
+        - @character.c_physical_abilities.each do |c_physical_ability|
+          %li.view
+            = h(c_physical_ability.name) 
+            = ": "
+            = h(c_physical_ability.notes   )                                  
+                                   
+-if !@character.xp_name.blank? 
+  .box
+    %h3 Character advancement
+    .vcard.author
+      %ul
+        %li.view
+          = h(@character.xp_name) 
+          = "earned: "
+          = h(@character.xp_earned )   
+        %li.view
+          = h(@character.xp_name) 
+          = "spent: "
+          = h(@character.xp_spent  )            
+        %li.view
+          = h(@character.xp_name) 
+          = "banked: "
+          = h(@character.xp_unspent   )    
+          
+-if !@character.c_wealths.blank? 
+  .box
+    %h3 Wealth
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          %th{:scope => "col"}= "Denomination"
+          %th{:scope => "col"}= "Value"
+          %th{:scope => "col"}= "Amount"
+        - @character.c_wealths.each do |c_wealth|
+          %tr
+            %td
+              = h(c_wealth.name) 
+            %td
+              = h(c_wealth.value  )  
+            %td
+              = h(c_wealth.amount  )                
+
+-if !@character.c_possessions.blank? 
+  .box
+    %h3 Possessions
+    .vcard.author
+      %ul
+        - @character.c_possessions.each do |c_possession|
+          %li.view
+            = h(c_possession.name ) 
+
+-if !@character.c_carried_items.blank? 
+  .box
+    %h3 Gear carried
+    .vcard.author
+      %ul
+        - @character.c_carried_items.each do |c_carried_item|
+          %li.view
+            = h(c_carried_item.name) 
+
+          
+-if !@character.c_special_items.blank?
+  - collection = @character.c_special_items
+  .box
+    %h3 Special items
+    %table{:id => "box-table-a" }
+      %thead
+        %tr
+          -if column_is_populated(collection, "name")
+            %th{:scope => "col"}= "Type"
+          -if column_is_populated(collection, "effects")
+            %th{:scope => "col"}= "Effects"
+          -if column_is_populated(collection, "uses")
+            %th{:scope => "col"}= "# of Uses"
+        - @character.c_special_items.each do |c_special_item|
+          %tr
+            -if column_is_populated(collection, "name")
+              %td= h(c_special_item.name)
+            -if column_is_populated(collection, "effects")
+              %td= h(c_special_item.effects  )
+            -if column_is_populated(collection, "uses")
+              %td= h(c_special_item.uses)
+
+=render :partial => "shared/ad"
+

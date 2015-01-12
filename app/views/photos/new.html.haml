@@ -1,0 +1,56 @@
+#col1
+  - if @is_current_user && @album
+    =render :partial => 'albums/album_links'
+    
+  -if @is_current_user
+    =render :partial => 'photos/nav_links'
+
+
+#col2
+  .box
+    %h2
+      New photo
+      - if @album
+        for
+        = link_to @album.title, user_album_path(current_user,params[:album_id])
+
+    = error_messages_for :photo
+
+    =form_for(:photo, :url => user_photos_path(:user_id => current_user.id, :album_id => params[:album_id]), :html => {:multipart =>true, :class => "MainForm"} ) do |f|
+      = f.file_field :photo
+      %label
+        %em
+          = "#{configatron.photo['attachment_fu_options']['max_size']} megabyte limit".html_safe
+
+      %p
+      %label 
+        =:title.l + ':'
+
+      = f.text_field :name, :size => 35
+
+      %p
+      %label 
+        = :tags.l
+        %em="(#{:optional_keywords_describing_this_photo_separated_by_commas.l})"
+      = text_field_tag 'tag_list', @photo.tag_list, {:autocomplete => "off", :size => 35}
+
+      -##tag_list_auto_complete.auto_complete
+      -#= auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [','] }
+
+      %p
+      %label
+        =:description.l + ":"
+      = f.text_area :description, :size => "58x5"
+
+      - unless params[:album_id] || current_user.albums.empty?
+        %p
+        %label
+          Assign to an album:
+        = select_tag 'album_selected', options_for_select([''] +current_user.albums.collect{ |album| [album.title, album.id] })
+
+      %p
+      %p
+        = submit_tag "Save"
+
+
+

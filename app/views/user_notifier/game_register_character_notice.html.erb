@@ -1,0 +1,8 @@
+<%= render :partial => 'user_notifier/greeting', :locals => {:user => @user}  %>
+
+<%= h(@characterRegistration.character.owner.display_name) %> has registered their character <%= h(@characterRegistration.character.name) %> for your game, <%= h(@game.name) %>
+
+You can see the game's current roster of active and pending characters here:
+  <%= registration_desk_url(@game) %>
+                
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  %>

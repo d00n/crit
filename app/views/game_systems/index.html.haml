@@ -1,0 +1,26 @@
+-@meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_show_content }
+-@section = 'games'
+
+
+#col1
+  =render :partial => 'games/search_options'
+  
+  .box.alt
+    %h3 
+      Sample game 
+      %p
+      =render :partial => "games/sidebar_game", :locals => {:game => Game.find(19)}
+  
+  
+  - if current_user && !current_user.publisher
+    .box.alt
+      %h3 
+        My games, 
+        = link_to 'new game', new_game_path      
+      - current_user.games.each do |game|
+        =render :partial => "games/sidebar_game", :locals => {:game => game}  
+
+#col2
+  =render :partial => "game_systems/game_systems" 
+      
+

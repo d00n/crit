@@ -1,0 +1,28 @@
+#col1
+  .box
+    %h3 This is the default profile photo. I dare you to replace it with your high school senior photo.
+    %ul
+      %li.view= link_to "I'm a chicken, next step please", welcome_about_user_path(@user)
+
+#col2
+  .box
+    = form_for( @user, :url => user_path(:welcome => 'about'), :method => :put, :multipart => true, :html => {:class => "MainForm"}) do |f|
+      %h2=:profile_photo.l
+      %p.centered
+        = image_tag( @user.avatar_photo_url(:medium) )
+    
+      = f.fields_for :avatar, @avatar do |avatar_form|
+        %em
+          - if @user.vendor?
+            =:vendor_avatar_hint.l
+          Profile photos are resized to 290x320
+        %p
+        %label
+          =:choose_a_photo_to_upload.l
+    
+        = avatar_form.file_field :photo, :size => '15'
+    
+      %p
+      %p
+      %p
+      = submit_tag :upload_and_continue_to_step_two.l

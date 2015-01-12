@@ -1,0 +1,257 @@
+.box
+  %h3 Profile details
+  .vcard.author
+    %ul
+      -if !@character.owner.nil?
+        %li.fn
+          = render :partial => 'users/user_name', :locals => {:user => @character.owner, :name_prefix => "Owner:"}
+
+      -if current_user && current_user != @character.owner
+        %li.compose= link_to("Send #{h@character.owner.first_name} a message", new_user_message_path(current_user, :to=>@character.owner))
+
+      -if @character.is_private
+        %li.view Private character
+
+      -if !@character.property.blank?
+        %li.view
+          = "System: "
+          = link_to(h(@character.property), :controller => "/characters", :action => "index", :property => @character.property)
+
+      -if !@character.genre.blank?
+        %li.view
+          = "Genre: "
+          = link_to(h(@character.genre), :controller => "/characters", :action => "index", :genre => @character.genre)
+
+      - if @character.games.count != 0
+        - @character.games.each do |game|
+          %li.view
+            = "Registered in: "
+            = link_to h(game.name), seo_game_path(game)
+
+      %li.update
+        %abbr.published{:title=>"#{@character.owner.created_at}"}
+          = "Created: #{time_ago_in_words @character.created_at}  "
+
+      %li.view
+        Character views:
+        = h(@character.view_count)
+
+      - if @character.tags.any?
+        %li.tags
+          = li_tags_helper(@character)
+
+
+                        
+-if @character.showPersonalDetailsBox
+  .box
+    %h3 Personal details
+    .vcard.author
+      %ul
+      
+        -if !@character.gender.blank?
+          %li.view
+            = 'Gender: '
+            = h(@character.gender ) 
+            
+        -if !@character.race.blank?
+          %li.view
+            = 'Race: '
+            = h(@character.race)
+            
+        -if !@character.ethnicity.blank?
+          %li.view
+            = 'Ethnicity: '
+            = h(@character.ethnicity)
+            
+        -if !@character.alignment.blank?
+          %li.view
+            = 'Alignment/ethics: '
+            = h(@character.alignment)
+            
+        -if !@character.skin_color.blank?
+          %li.view
+            = 'Skin color: '
+            = h(@character.skin_color)
+            
+        -if !@character.age.blank?
+          %li.view
+            = 'Age: '
+            = h(@character.age)
+            
+        -if !@character.birthday.blank?
+          %li.view
+            = 'Birthday: '
+            = h(@character.birthday)
+            
+        -if !@character.astrological_sign.blank?
+          %li.view
+            = 'Astrological sign: '
+            = h(@character.astrological_sign)
+            
+        -if !@character.height.blank?
+          %li.view
+            = 'Height : '
+            = h(@character.height)
+            
+        -if !@character.weight.blank?
+          %li.view
+            = 'Weight: '
+            = h(@character.weight)
+            
+        -if !@character.eye_color.blank?
+          %li.view
+            = 'Eye color: '
+            = h(@character.eye_color)
+            
+        -if !@character.hair_color.blank?
+          %li.view
+            = 'Hair color & style: '
+            = h(@character.hair_color)
+            
+        -if !@character.c_distinguishing_features.nil? and !@character.c_distinguishing_features.blank?      
+          - @character.c_distinguishing_features.each do |c_distinguishing_feature|
+            %li.view
+              Distinguishing feature:
+              = h(c_distinguishing_feature.name)
+
+        -if !@character.fashion_sense.blank?
+          %li.view
+            = 'Fashion sense: '
+            = h(@character.fashion_sense)
+                
+        -if !@character.c_mannerisms.nil? and !@character.c_mannerisms.blank?          
+          - @character.c_mannerisms.each do |c_mannerism|
+            %li.view
+              Mannerism:
+              = h(c_mannerism.name)
+
+        -if !@character.c_virtues.nil? and !@character.c_virtues.blank?     
+          - @character.c_virtues.each do |c_virtue|
+            %li.view
+              Virtue:
+              = h(c_virtue.name)
+  
+        -if !@character.c_flaws.nil? and !@character.c_flaws.blank?     
+          - @character.c_flaws.each do |c_flaw|
+            %li.view
+              Flaw:
+              = h(c_flaw.name)
+  
+        -if !@character.place_of_birth.blank?
+          %li.view
+            = 'Place of birth: '
+            = h(@character.place_of_birth)
+            
+        -if !@character.current_residence.blank?
+          %li.view
+            = 'Current residence: '
+            = h(@character.current_residence)
+            
+        -if !@character.relationship_status.blank?
+          %li.view
+            = 'Relationship status: '
+            = h(@character.relationship_status)
+              
+        -if !@character.c_educations.nil? and !@character.c_educations.blank?  
+          - @character.c_educations.each do |c_education|
+            %li.view
+              Education:
+              = h(c_education.name)
+  
+        -if !@character.c_trainings.nil? and !@character.c_trainings.blank?  
+          - @character.c_trainings.each do |c_training|
+            %li.view
+              Training:
+              = h(c_training.name)
+  
+        -if !@character.c_interests.nil? and !@character.c_interests.blank?  
+          - @character.c_interests.each do |c_interest|
+            %li.view
+              Interest:
+              = h(c_interest.name)
+  
+        -if !@character.c_hobbies.nil? and !@character.c_hobbies.blank?  
+          - @character.c_hobbies.each do |c_hobby|
+            %li.view
+              Hobby:
+              = h(c_hobby.name)
+  
+        -if !@character.c_goals.blank?    
+          - @character.c_goals.each do |c_goal|
+            %li.view
+              Goal:
+              = h(c_goal.name)
+            
+        -if !@character.weapon_of_choice.blank?
+          %li.view
+            = 'Weapon of choice: '
+            = h(@character.weapon_of_choice)   
+                     
+          
+-if @character.showCareerBox
+  .box
+    %h3 Career
+    .vcard.author
+      %ul
+      
+        -if !@character.current_profession.blank?
+          %li.view
+            = 'Current profession: '
+            = h(@character.current_profession)    
+
+        -if !@character.c_previous_professions.blank?     
+          - @character.c_previous_professions.each do |c_previous_profession|
+            %li.view
+              = 'Previous profession: '
+              = h(c_previous_profession.name)
+            
+        -if !@character.current_class.blank?
+          %li.view
+            = 'Current class: '
+            = h(@character.current_class)
+            
+        -if !@character.c_previous_classes.blank?     
+          - @character.c_previous_classes.each do |c_previous_class|
+            %li.view
+              = 'Previous class: '
+              = h(c_previous_class.name)
+            
+        -if !@character.paragon_path.blank?
+          %li.view
+            = 'Paragon path: '
+            = h(@character.paragon_path)
+            
+        -if !@character.epic_destiny.blank?
+          %li.view
+            = 'Epic destiny: '
+            = h(@character.epic_destiny  )
+
+
+        -if !@character.guild.blank?
+          %li.view
+            = "Guild: "
+            = h(@character.guild)
+
+        -if !@character.server.blank?
+          %li.view
+            = "Server: "
+            = h(@character.server)
+
+        -if !@character.level.blank?
+          %li.view
+            = "Level: "
+            = h(@character.level   )
+
+=render :partial => "shared/ad"
+
+
+- if @character.compatriots.length > 0
+  .box
+    %h3 Compatriots
+    %p
+    - @character.compatriots.each do |compatriot|
+      =render :partial => "characters/sidebar_character", :locals => {:character => compatriot}
+     
+
+
+/.clear

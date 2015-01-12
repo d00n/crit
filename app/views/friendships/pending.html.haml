@@ -1,0 +1,8 @@
+#col1
+  = render :partial => 'users/user_avatar_sidebar', :locals => {:user => @user}
+  = render :partial => 'users/profile_user_info_sidebar'
+
+#col2
+  -box :id => "friends" do
+    %h2= :pending_friendships.l
+    .user_list= render :partial => "friendships/friendship", :collection => @friendships

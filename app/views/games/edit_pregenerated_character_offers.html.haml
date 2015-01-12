@@ -1,0 +1,43 @@
+= error_messages_for :game
+
+#col1
+  = render :partial => 'profile_game_info_sidebar', :locals => {:user => @game.owner}
+
+#col2
+
+  .box
+    %h2= "#{link_to h(@game.name), game_path(@game)} : Manage pregenerated characters".html_safe
+
+  =form_for(@game, :url => {:action => :update_pregenerated_character_offers}, :html => {:class => "cmxform"}) do |game_form|
+
+    .box
+      %h3='Currently offered pregenerated characters'
+      - if @offered_pregenerated_characters.nil?
+        None
+      - else
+        - @offered_pregenerated_characters.each do |offered_pregenerated_character|
+          %dl.vcard
+            %dt.photo
+              = link_to image_tag(offered_pregenerated_character.avatar_photo_url(:thumb), :width => '50', :height => '50'), character_path(offered_pregenerated_character)
+            %dd.fn
+              = link_to h(offered_pregenerated_character.name), character_path(offered_pregenerated_character)
+            %dd
+              Revoke
+              = check_box 'revoke', offered_pregenerated_character.id
+
+    .box
+      %h3='Characters available for offering as pregenerated'
+      - if @available_pregenerated_characters.nil? || @available_pregenerated_characters.empty?
+        = link_to 'Create one', new_character_path
+      - else
+        - @available_pregenerated_characters.each do |available_pregenerated_character|
+          %dl.vcard
+            %dt.photo
+              = link_to image_tag(available_pregenerated_character.avatar_photo_url(:thumb), :width => '50', :height => '50'), character_path(available_pregenerated_character)
+            %dd.fn
+              = link_to h(available_pregenerated_character.name), character_path(available_pregenerated_character)
+            %dd
+              Make available
+              = check_box 'offer', available_pregenerated_character.id
+      %p
+      = game_form.submit 'Save'

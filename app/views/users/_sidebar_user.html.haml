@@ -1,0 +1,31 @@
+.user_row
+  .user_row_col1
+    -if user.publisher
+      = link_to image_tag( user.avatar_photo_url(:thumb), :class => "index_listing" ), publisher_path(user)
+    -else
+      = link_to image_tag( user.avatar_photo_url(:thumb), :class => "index_listing" ), user_path(user)
+      -#-if user.membership_level > 0
+      -#  =link_to image_tag(premium_label(user.membership_level), :width=>"100"), premium_membership_path
+
+  .user_row_col2
+    %li.fn
+      - if user.publisher
+        = link_to "#{user.publisher_name}", publisher_path(user)
+      - else
+        = render :partial => 'users/user_name', :locals => {:user => user}
+
+    %ul
+      =render :partial => 'users/xp', :locals => {:user => user}
+      - if user.metro_area
+        %li.geo= user.location
+      %li.view= "Views: #{user.view_count}"
+      %li.update
+        %abbr.published{:title=>"#{user.created_at}"}
+          ="Joined: #{time_ago_in_words user.created_at}"
+
+      - if current_user and current_user.can_request_friendship_with(user)
+        %li.addfriend= add_friend_link(user)
+
+    - unless user.tags.empty?
+      %li.tags
+        = li_tags_helper(user, 10)

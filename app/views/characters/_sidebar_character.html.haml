@@ -1,0 +1,30 @@
+.user_row
+
+  -if character.has_access(current_user)
+    .user_row_col1
+      = link_to image_tag(character.avatar_photo_url(:thumb), :alt => "#{character.name}"), seo_character_path(character)
+
+    .user_row_col2
+      %li.fn
+        =link_to h(character.name), seo_character_path(character), :class => 'url'
+
+      -if !character.property.blank?
+        %li.view
+          = link_to(h(character.property), :controller => "/characters", :action => "index", :property => character.property)
+
+      - if character.games.count != 0
+        - character.games.each do |game|
+          %li.view
+            Registered in:
+            = link_to h(game.name), seo_game_path(game)
+
+      -if character.products.any?
+        %li.view= link_to character.products.first.name, publisher_product_path(character.products.first.owner, character.products.first)
+
+      -if !character.tags.empty?
+        %li.tags
+          =li_tags_helper(character, 5)
+
+  -else
+    %h3 Private character
+      

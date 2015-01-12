@@ -1,0 +1,107 @@
+.box
+  -if logged_in?
+    %h3= "Hello #{link_to(h(current_user.display_name), user_path(current_user))}".html_safe
+  -else
+    %h3= "Welcome to Infrno!"
+
+  .box_row
+    .user_row_col1
+      -if logged_in?
+        %p= link_to image_tag(current_user.avatar_photo_url(:thumb), :width => '120px' ), user_path(current_user)
+      -else
+        %p= image_tag('/assets/bug_290.png', :width => '120px' )
+    .user_row_col2
+      %ul
+        -if logged_in?
+          %li.compose
+            = link_to "Inbox (#{current_user.unread_message_count} unread)", user_messages_path(current_user)
+
+          -if current_user.total_pending_achievments_count > 0
+            %li.view
+              = link_to("Pending achievements", unlocked_user_achievements_path(current_user))
+
+
+          -if current_user.pending_friendships.size > 0
+            %li.view
+              = link_to "Friend requests (#{current_user.pending_friendships.size})", pending_user_friendships_path(current_user)
+
+        -if !logged_in? || (logged_in? && Time.now < current_user.activated_at + 1.month)
+          %li.view= link_to("What is Infrno?", :controller => 'base', :action => 'welcome')
+          %li.view= link_to("Show me the tour", user_post_path(@site_tour_post.user, @site_tour_post))
+          %li.view= link_to("Show me the game table", user_post_path(@game_table_tour_post.user, @game_table_tour_post))
+
+          /-if !GAMETABLE_DOWN_FOR_MAINT
+          /  %li.view= link_to "Test drive the game table", :controller => "games", :action => "play", :id => @sample_game.id
+
+          /  %li.view= link_to Page.find(1).title, pages_path(Page.find(1))
+          /  %li.view= link_to Page.find(2).title, pages_path(Page.find(2))
+
+
+        %li.view= link_to("Global activity feed", activities_path)
+        -if current_user
+          -#this generates a routing error, wtf by the bucket
+          -#%li.view= link_to("Personal activity feed", network_user_activities_path)
+          %li.view= link_to("Notifications", "/users/#{current_user.login_slug}/activities/network")
+        %li.view= link_to("Achievement leaderboards", achievement_leaderboard_top_by_level_path)
+
+        -#%li.view= link_to("Dev blog", "/tags/tech tips/Post")
+        -#%li.view= link_to("Shwag", "http://infrno.spreadshirt.com/")
+
+
+
+.box
+  %h3 Your upcoming games
+  -if @games_starting_soon &&  @games_starting_soon.size > 0
+    -@games_starting_soon.each do |g|
+      =render :partial => 'games/sidebar_game_starting_soon', :locals => { :game => g}
+  -else
+    You have none, find some!!
+    %li.view= link_to("Game listings", games_path)
+    %li.view= link_to("Players seeking games", "/forums/12")
+    %li.view= link_to("Games seeking players", "/forums/13")
+
+-if logged_in? && Time.now < current_user.activated_at + 1.month
+  .box
+    .box_row
+      .user_row_col1
+        = link_to image_tag(@sample_game.avatar_photo_url(:thumb), :alt => "#{@sample_game.name}", :width => '50', :height => '50'), game_path(@sample_game)
+      .user_row_col2
+        %h3=link_to h(@sample_game.name), game_path(@sample_game), :class => 'url'
+        %ul
+          %li.view
+            -if GAMETABLE_DOWN_FOR_MAINT
+              Game table is down for upgrades, brb!
+            -else
+              = link_to "Game table", gametable_url(@sample_game.id)
+
+
+
+
+-#- kieara = User.find(5)
+-#.box
+-#  %h3= "Kiera's blog, #{link_to 'see all', user_posts_path(kieara)}".html_safe
+-#  -kieara.posts.find_recent(:limit => 3).each do |post|
+-#    =render :partial => 'posts/post_listing_on_sidebar', :locals => { :post => post }
+
+
+
+-#-if @featured_writers.any?
+-#  .box
+-#    %h3
+-#      =:featured_writer.l
+-#    -@featured_writers.each do |user|
+-#      =render :partial => "users/sidebar_user", :locals => {:user => user}
+
+.box
+  %h3 Active users
+  -@active_users.each do |user|
+    =render :partial => "users/sidebar_user", :locals => {:user => user}
+
+
+
+=render :partial => "shared/amazon_ad_wrapper"
+=render :partial => "tags/tags"
+=render :partial => "shared/ad"
+
+
+

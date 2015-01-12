@@ -1,0 +1,12 @@
+
+-box :id => "photos", :class => "yui-u" do
+  %h2= "Select a profile photo for #{@event.name}"
+  %p= link_to( :new_photo.l, new_user_photo_path(@user))
+
+  .clear
+  - @photos.each do |photo|
+    = link_to image_tag(photo.photo.url(:thumb), :class => "polaroid"),  event_pick_profile_photo_path({:id => @event, :photo_id => photo}), :method => :put
+    
+  =paginate @photos
+
+      

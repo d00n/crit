@@ -1,0 +1,21 @@
+#col1
+  = render :partial => 'products/product_avatar_sidebar', :locals => {:product => @product}
+  = render :partial => 'products/profile_sidebar'
+
+#col2
+  .box
+    %h2= "#{link_to h(@product.name), product_path(@product)} : Select a profile photo".html_safe
+
+  .box
+    %h3= "Select a profile photo for #{@product.name}"
+    %p= link_to( :new_photo.l, new_user_photo_path(@user))
+    -#%p= link_to( 'New photo', new_product_avatar_photo_path(@product))
+
+    .clear
+    - @photos.each do |photo|
+      = link_to image_tag(photo.photo.url(:thumb), :class => "polaroid"),  product_change_profile_photo_path({:id => @product, :photo_id => photo}), :method => :put
+
+  .box
+    =paginate @photos
+
+      

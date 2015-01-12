@@ -1,0 +1,28 @@
+%div{:class=>"c_defense"}
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = remove_link_unless_new_record(f)  
+  %div{:class=>"left-container-15"}   
+    %p{:class=>"text"}
+      = f.text_field :name, :size => 10
+  %div{:class=>"left-container-15"}   
+    %p{:class=>"text"}
+      = f.text_field :dtype, :size => 10
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = f.text_field :rating, :size => 5
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = f.text_field :penalties, :size => 5
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = f.text_field :bonus, :size => 5
+  %div{:class=>"left-container-15"}   
+    %p{:class=>"text"}
+      = f.text_field :special_properties, :size => 10
+  %div{:class=>"left-container-15"}   
+    %p{:class=>"text"}
+      = f.text_field :notes, :size => 10
+  %div{:class=>"space-line"}
+
+  

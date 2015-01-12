@@ -1,0 +1,15 @@
+<%= render :partial => 'user_notifier/greeting', :locals => {:user => @user}  %>
+
+<%= h @pregeneratedCharacterRequest.owner.display_name %> has asked to join <%= @game.name %> using a pregenerated character, <%= h @pregeneratedCharacterRequest.character.name %>
+
+<%= character_url(@pregeneratedCharacterRequest.character) %>
+
+
+You can approve or deny their application right here:  
+Approve: <%= approve_pregenerated_url(@game, :character_id => @pregeneratedCharacterRequest.character.id, :user_id => @pregeneratedCharacterRequest.owner.id) %>
+Deny: <%= deny_pregenerated_url(@game, :character_id => @pregeneratedCharacterRequest.character.id, :user_id => @pregeneratedCharacterRequest.owner.id) %>
+  
+You can see the game's current roster of players and characters here:
+<%= registration_desk_url(@game) %>
+                
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  %>

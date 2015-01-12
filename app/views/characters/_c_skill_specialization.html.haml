@@ -1,0 +1,25 @@
+%div{:class=>"c_skill_specialization"}
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = remove_link_unless_new_record(f)  
+  %div{:class=>"left-container-15"}   
+    %p{:class=>"text"}
+      = f.text_field :name, :size => 10
+  %div{:class=>"left-container-15"}   
+    %p{:class=>"text"}
+      = f.text_field :skill, :size => 10
+  %div{:class=>"left-container-15"}   
+    %p{:class=>"text"}
+      = f.text_field :level, :size => 10
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = f.text_field :bonus, :size => 5
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = f.text_field :penalty, :size => 5
+  %div{:class=>"left-container-15"}   
+    %p{:class=>"text"}
+      = f.text_field :notes, :size => 10
+  %div{:class=>"space-line"}
+
+

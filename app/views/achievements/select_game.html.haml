@@ -1,0 +1,37 @@
+-description = ''
+-if @game.status == 'open'
+  -description = "#{h(@game.name)} is open for registration! "
+-if !@game.description.blank?
+  -description += "#{strip_tags(@game.description).gsub(/\n/, '')} "
+-description += " #{configatron.meta_description}"
+
+- @meta = { :description => description, :keywords => "#{@game.name}, #{configatron.meta_keywords}, #{@game.tags.join(", ") unless @game.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'games'
+
+
+#col1
+  = render :partial => 'games/profile_game_info_sidebar'
+  
+  
+#col2
+  .box
+    %h2= "#{link_to h(@game.name), user_path(@game)} : Grant achievement".html_safe
+
+  =render :partial => "grant_achievement_upsell"
+
+  -if current_user && current_user.authored_achievements.any?
+    .box
+      %h3 My achievements
+      - current_user.authored_achievements.each do |achievement|
+        = render :partial => "achievements/achievement_listing", :locals => { :achievement => achievement, :game => @game, :show_grant => true }
+      
+  .box
+    %h3 Kiera's achievements
+    - @kiearas_achievements.each do |achievement|
+      = render :partial => "achievements/achievement_listing", :locals => { :achievement => achievement, :game => @game, :show_grant => true }
+
+  .box
+    %h3 Public achievements
+    - Achievement.others_can_grant.each do |achievement|
+      -if current_user && (!current_user.authored_achievements.include?achievement)
+        = render :partial => "achievements/achievement_listing", :locals => { :achievement => achievement, :game => @game, :show_grant => true }

@@ -1,0 +1,31 @@
+%script{"type"=>"text/javascript", "src"=>"http://www.plaxo.com/css/m/js/util.js"}
+%script{"type"=>"text/javascript", "src"=>"http://www.plaxo.com/css/m/js/basic.js"}
+%script{"type"=>"text/javascript", "src"=>"http://www.plaxo.com/css/m/js/abc_launcher.js"}
+
+
+#col1
+  .box
+    %h3 Invite your friends!
+    They will be automatically added as your friends when they arrive.
+    %ul
+      %li.view= link_to :skip_this_and_go_to_your_profile.l, user_path(@user)
+
+#col2
+  = form_for(:invitation, :url => user_invitations_path(:user_id => @user.id), :html => {:class => "MainForm"} ) do |f|
+    .box
+      %h2 Enter email addresses, comma separated
+      %p
+      %label{"for"=>"email_addresses"}
+        .left{:style => 'margin-right: 1em'}
+          %a{"href"=>"#", "onclick"=>"showPlaxoABChooser('invitation_email_addresses', '/base/plaxo'); return false;"}
+            %img{"src"=>"http://www.plaxo.com/images/abc/buttons/add_button.gif", "alt"=>:add_from_my_address_book.l}
+
+      = f.text_area :email_addresses , :size => "65x5"
+
+
+      %p
+      %h3 Write a message
+      = f.text_area :message, :size => "65x5", :value => "Infrno.net is facebook for role players, minus farmville, plus a virtual game table with video chat. All in your browser, and FREE!" 
+
+      %p
+      = submit_tag :send_invitations.l

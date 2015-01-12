@@ -1,0 +1,30 @@
+-description = ''
+-if @game.status == 'open'
+  -description = "#{h(@game.name)} is open for registration! "
+-if !@game.description.blank?
+  -description += "#{@game.description.gsub(/<\/?[^>]*>/, "").gsub(/  +/, "")} "
+-description += " #{configatron.meta_description}"
+
+- @meta = { :description => description, :keywords => "#{@game.name}, #{configatron.meta_keywords}, #{@game.tags.join(", ") unless @game.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'games'
+
+#col1
+  = render :partial => 'games/profile_game_info_sidebar'
+
+#col2
+  =render :partial => 'col2_header', :locals => { :game => @game }
+
+  .box
+    %h3 Public notepad
+    #user_generated_html
+      - if @game.public_notepad
+        =@game.public_notepad.html_safe
+
+  - if current_user == @game.owner
+    .box
+      %h3 Private notepad
+      #user_generated_html
+        -if @game.owner_notepad
+          =@game.owner_notepad.html_safe
+        
+

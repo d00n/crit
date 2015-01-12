@@ -1,0 +1,24 @@
+.center
+  %h4=" #{level_name} Badge"
+%p
+
+%p.feature_description
+  ="#{level_name} members make Infrno possible."
+.centered_div_with_dynamic_width_container
+  .centered_div_with_dynamic_width
+    %h4
+      .membership_level_glyph_box.inline_block.vertical_align_middle
+        .membership_level_glyph
+          =link_to image_tag(premium_glyph(membership_level) )
+      .user_name.inline_block.vertical_align_middle
+        -if current_user
+          =current_user.display_name
+        -else
+          Capt. AwesomeSauce
+.clear_both
+
+%p.feature_description
+  Wear your membership with pride.
+%p
+
+

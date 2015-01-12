@@ -1,0 +1,16 @@
+%div{:class=>"c_special_ability"}
+  %div{:class=>"left-container-10"}   
+    %p{:class=>"text"}
+      = remove_link_unless_new_record(f)
+  %div{:class=>"left-container-15"}   
+    %p{:class=>"text"}
+      = f.text_field :name, :size => 10
+  %div{:class=>"left-container-30"}   
+    %p{:class=>"text"}
+      = f.text_field :effects, :size => 20
+  %div{:class=>"left-container-30"}   
+    %p{:class=>"text"}
+      = f.text_field :notes, :size => 20
+  %div{:class=>"space-line"}  
+ 
+  

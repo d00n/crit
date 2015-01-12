@@ -1,0 +1,12 @@
+%li.view
+  = link_to "Registration desk", registration_desk_path(game)
+  .right
+    -if game.open_player_seats > 0
+      ="(#{pluralize(game.open_player_seats, 'open seat')})"
+    -elsif game.open_alternate_seats > 0
+      ="(#{pluralize(game.open_alternate_seats, 'open alternate seat')})"
+    -else
+      (game is full)
+
+- if current_user && game.status == "open" &&  (!game.pending_players.include?current_user) && (!game.active_players.include?current_user) && (!game.alternate_players.include?current_user)
+  %li.view= link_to "Join this game", register_player_path(game)

@@ -1,0 +1,30 @@
+- if !logged_in?
+  .box
+    %h3 Want to be infrnal?
+    %h3= link_to "Sign up for the free beta!", signup_url
+    
+.box
+  %h3 
+    Welcome to 
+    =link_to "Infrno!", home_url
+  %ul.list.checks
+    - Category.find(:all).each do |c|
+      %li= link_to c.name, category_path(c)
+    
+    %li= link_to "What's hot", popular_url, {:class => 'popular'}
+    %li= link_to "What's recent", recent_url, {:class => 'recent'}
+    
+    -if current_user
+      %li= link_to "Dashboard", dashboard_user_path(current_user)
+    
+    - Page.find(:all).each do |page|
+      - if (logged_in? || page.page_public)
+        %li= link_to page.title, pages_path(page)
+        
+    %li= link_to "Contact us", contact_url      
+    
+    - if @rss_title && @rss_url
+      %li#rss= link_to :rss.l, @rss_url, {:title => @rss_title}
+        
+
+

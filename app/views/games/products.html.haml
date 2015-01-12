@@ -1,0 +1,66 @@
+-description = ''
+-if @game.status == 'open'
+  -description = "#{h(@game.name)} is open for registration! "
+-if !@game.description.blank?
+  -description += "#{strip_tags(@game.description).gsub(/\n/, '')} "
+-description += " #{configatron.meta_description}"
+
+- @meta = { :description => description, :keywords => "#{@game.name}, #{configatron.meta_keywords}, #{@game.tags.join(", ") unless @game.tags.nil?}", :robots => configatron.robots_meta_show_content }
+- @section = 'games'
+
+
+#col1
+  = render :partial => 'games/profile_game_info_sidebar'
+  =render :partial => "shared/ad"
+
+  -box :class => 'alt', :id => 'characters' do      
+    %h3 Characters    
+    - if @game.active_characters.length == 0
+      No active characters.
+    - @game.active_characters.each do |character|
+      %p
+        =render :partial => "characters/sidebar_character", :locals => {:character => character}
+    
+
+#col2
+
+  =render :partial => 'games/col2_header', :locals => { :game => @game }
+
+  .box
+    %h2
+      Games and products used in this campaign
+      -if current_user && (current_user == @game.owner || current_user.admin?)
+        .right= link_to '(Remove all)', game_product_remove_all_path(@game)
+
+    -if @game.products.any?
+      -@game.products.each do |product|
+        -if current_user && (current_user == @game.owner || current_user.admin?)
+          = render :partial => 'products/product', :locals => {:product=> product, :action => 'remove', :game => @game}
+          -#= render :partial => 'products/product_listing_large', :locals => {:product=> product, :action => 'remove', :game => @game}
+        -else
+          = render :partial => 'products/product', :locals => {:product=> product}
+          -#= render :partial => 'products/product_listing_large', :locals => {:product=> product}
+
+  -if @comments
+    #comments.box.alt
+      %p= render :partial => 'comments/comment_form', :locals => {:commentable => @game}
+
+      - if @game.is_private
+        %h2{:style=>"color: #ff0000;"} Image privacy warning
+        %p
+          Images included in comments on private games are not (yet) made private automatically.
+          You can make an image private by selecting it on your photos page and editing it's details.
+
+
+      %a#newest_comment
+      = render :partial => 'comments/comment', :collection => @comments
+
+      -if @comments.any?
+        / this shouldn't be needed, as any user should be able to view comment on a game
+        - @user = current_user
+        %span#more_comments_links= more_comments_links(@game)
+
+      
+%script{:type=>"text/javascript", :charset=>"utf-8"}
+  = remote_function :url => {:controller => 'games', :action => 'update_views', :id => @game}, :method => :put
+      

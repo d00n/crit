@@ -1,0 +1,88 @@
+/-if FACEBOOK_CONNECT
+/  =render :partial => "facebooker/feed_post", :locals => {:type => 'post'}
+
+#col1
+  .center
+    %br
+  -if @post.character
+    =render :partial => 'character_profile', :locals => {:character => @post.character}
+  -elsif @post.game
+    =render :partial => 'game_profile', :locals => {:game => @post.game}  
+  -else
+    =render :partial => 'author_profile', :locals => {:user => @user}
+
+  -box :class => "alt" do 
+    %a{:href => '#', :onclick => "tinyMCE.execCommand('mceCurblyAdvImage');return false;"}=:upload_an_image_for_your_post.l
+    
+  -if @is_current_user
+    =render :partial => 'post_links'    
+    
+#col2
+  - if (@post.game && @post.game.is_private) || (@post.character && @post.character.is_private)
+    .box
+      %h3{:style=>"color: #ff0000;"} Image privacy warning
+      Images included in blog posts for private games and characters are not (yet) made private automatically.
+      You can make an image private by selecting it on your
+      ="#{link_to "photos page", user_photos_path(@user)},".html_safe
+      and editing it's details.
+
+  -box do 
+    %h2
+      =@post.category ? (:new_post_for_category.l :category => @post.category.name) : :new_post.l
+      - if @post.game
+        = "for #{h(@post.game.name)}"
+      - elsif @post.character
+        = "for #{h(@post.character.name)}"
+      -else
+        = "for #{h(@user.display_name)}"
+
+
+
+    = error_messages_for :post
+    =form_for(:post, :url => user_posts_path, :html => {:class => "MainForm", :id => 'post_form'}) do |f|			
+      = f.hidden_field :game_id
+      = f.hidden_field :character_id
+      - unless @post.category || @categories.blank?        
+        %label
+          =:category.l
+        %select{:id=>"post_category_id", :name=>"post[category_id]"}
+          -for category in @categories
+            %option{:value=>"#{category.id}"}= h(category.name)
+      -else
+        = f.hidden_field :category_id
+        = f.hidden_field :contest_id
+
+      %label
+        =:title.l
+        %em="(#{:required.l})"
+      = f.text_field :title
+
+      %p
+      %label
+        =:body_text.l
+        %em="(#{:required.l})"
+      = f.text_area :raw_post, :class => "rich_text_editor", :style => "width:95%;"
+
+      %p
+      %label
+        =:tags.l
+      = text_field_tag 'tag_list', @post.tag_list, {:autocomplete => "off", :size => 35}
+      -#.auto_complete#tag_list_auto_complete
+      -#  = auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [','] }
+
+      %p
+      %label
+        %a{:href=> "#", :onclick => "$('poll-ui').toggle(); return false;"}
+          = image_tag 'icons/poll.png'
+          Add a poll
+        %em=:optional.l
+      #poll-ui{:style => 'display:none'}=render :partial => 'polls/new'
+
+      /%label
+      /  =:save_post_as.l
+      /= f.select(:published_as, [[:published.l, 'live'], [:draft.l, 'draft']])
+      
+      %p
+        = submit_tag :save.l
+
+  = observe_field  "post_category_id", {:url => {:controller => 'categories', :action => 'show_tips'}, :with => "id", :update => "category_tips", :complete => visual_effect(:highlight, "category_tips", :duration => 0.5)}

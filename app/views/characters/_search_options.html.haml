@@ -1,0 +1,21 @@
+.box.alt.first_alt
+  = link_to( "Back to all characters", characters_path) if params['name'] || params['tag_list']
+  =form_tag characters_path, :method => :get , :class => 'MainForm' do
+    %label= "System"
+    = text_field_tag 'property', @search['property']
+    
+    %p
+    %label= "Genre"
+    = text_field_tag 'genre', @search['genre']
+    
+    %p
+    %label= "Name"
+    = text_field_tag 'name', @search['name']    
+    
+    %p 
+
+    %input{"type"=>"submit", "value"=>"Search Characters"}
+
+
+
+

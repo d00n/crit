@@ -1,0 +1,17 @@
+.vertically_aligned_text_and_images
+  .centered_images
+    -if use_badge_level == 0
+      =image_tag(asset_path("bug_16x16.png"))
+    -elsif use_badge_level == 1
+      =image_tag(asset_path("E_16x16.png"))
+    -elsif use_badge_level == 2
+      =image_tag(asset_path("L_16x16.png"))
+    -elsif use_badge_level == 3
+      =image_tag(asset_path("X_16x16.png"))
+    -elsif use_badge_level == 4
+      =image_tag(asset_path("M_16x16.png"))
+  .centered_text
+    =feature_description
+  .centered_images
+    -if has_popup
+      =image_tag(asset_path("QuestionInCircle_16x16.png"))

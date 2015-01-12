@@ -1,0 +1,16 @@
+.box
+  %h2
+    =link_to "#{@open_game_count} open games", games_path(:status => "true"), :method => :get
+    in
+    =link_to "#{@game_system_count} systems", game_systems_path
+  %table{:cellspacing => "5pt"}
+    %tr
+      %td.wrap_table_cell_contents{:width => "10pt", :valign => "bottom",:align => "center"} Open games
+      %td{:valign => "middle"} 
+        System
+    -@game_systems.each do |game_system|
+      %tr
+        %td{:align => "center"} 
+          =link_to game_system.open_game_count, games_path(:system_name => game_system.name, :status => "true"), :method => :get
+        %td=link_to h(game_system.name), games_path(:system_name => game_system.name, :status => "true"), :method => :get
+

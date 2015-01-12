@@ -1,0 +1,47 @@
+-box do 
+  %h3 
+    Manage posts
+    |
+    =link_to :view_my_blog.l, user_posts_path(current_user)
+    |
+    /=link_to :new_post.l, new_user_post_path(current_user)
+
+
+  %p
+    =:posts_saved_with_draft_status_wont_appear_in_your_blog_until_you_publish_them.l
+  
+
+  %table{:border => 0, :width => '100%'}
+    %thead
+      %tr
+        %th=:date_created.l
+        %th=:date_published.l            
+        %th=:title.l
+        /%th=:category.l
+        %th=:tags.l
+        %th="Character"
+        %th="Game"
+        %th=:comments.l
+        %th=:status.l
+    %tbody
+      - @posts.each do |post|
+        %tr
+          %td
+            %abbr{:title=>"#{post.created_at}"}= I18n.l(post.created_at, :format => :published_date)
+          %td
+            -if post.published_as == 'live'
+              %abbr{:title=>"#{post.published_at}"}= I18n.l(post.published_at, :format => :published_date)
+          %td
+            = link_to h(post.title), edit_user_post_path(post.user, post)
+            = link_to("(#{:preview.l})", user_post_path(post.user, post), :target => '_blank') unless post.is_live?
+          /%td= post.category ? post.category.name : :uncategorized.l
+          %td= post.tag_list
+          %td= post.character ? h(post.character.name) : ''
+          %td= post.game ? h(post.game.name) : ''
+          %td= post.comments.count
+          %td= post.is_live? ? link_to(:published.l, user_post_path(post.user, post)) : :draft.l
+          
+  =paginate @posts
+
+          
+          

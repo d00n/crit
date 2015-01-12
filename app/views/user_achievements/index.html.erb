@@ -1,0 +1,22 @@
+<h1>Listing user_achievements</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Level</th>
+  </tr>
+
+<% @user_achievements.each do |user_achievements| %>
+  <tr>
+    <td><%=h user_achievements.user_id %></td>
+    <td><%=h user_achievements.level %></td>
+    <td><%= link_to 'Show', user_achievements %></td>
+    <td><%= link_to 'Edit', edit_user_achievement_path(user_achievements) %></td>
+    <td><%= link_to 'Destroy', user_achievements, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New user_achievements', new_user_achievement_path %>

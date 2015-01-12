@@ -1,0 +1,61 @@
+#col1
+  = render :partial => 'users/user_avatar_sidebar', :locals => {:user => User.find(5) }
+  .box
+    %h2 About that tattoo...
+  .box
+    %h2 I've got no ink yet, what do you have in mind?
+
+
+#col2
+  .box
+    .center
+      =image_tag( premium_label(4))
+  %p
+
+  .box
+
+    %h2 Want to put a stake in the ground, and let the world see what you believe in?
+    %br
+    %h2 So do we, and that's why we're here. We want to revitalize the RPG community, and firmly believe that making it easier to play will bring more people to the table.
+    %br
+    %h2 The model is proven, our usage stats are uber, and our plans bigger than you can imagine. To wit:
+
+  .box
+    %h1.center Gaming will fix the world.
+
+  .box
+    %h2 What you see here is phase 1. Phase 2 involves taking this platform into the educational realm.
+    %br
+    %h2 Why?
+    %br
+    %h2 Because education is the foundation of civilization.
+    %p
+    %h2 We have games *on hand* that involve:
+    .boost
+      %ul
+        %li Current events
+        %li Economics
+        %li Sociology
+        %li Biology
+        %li Military strategy
+        %li History
+        %li Theology
+        %li Politics
+        %li and on, every aspect of our reality!
+    %p
+    %h2 THIS is how we fix the world:
+
+  .box
+    %h1.center Get kids to think.
+
+  .box
+    %h2 That's our big picture.
+    %p
+    %h2 Help us make this happen, and earn a place in RPG lore as a patron of Infrno, the platform that brought roleplaying back in to the mainstream, and prepared our kids to address the challenges facing human kind!
+
+
+
+
+  .box
+    %h1.center=mail_to "mythic_membership@infrno.net", "I want to be a part of this, let's talk!"
+

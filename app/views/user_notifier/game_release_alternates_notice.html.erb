@@ -1,0 +1,8 @@
+<%= render :partial => 'user_notifier/greeting', :locals => {:user => @user}  %>
+You were an alternate for the game '<%= h @game.name %>', and it has checked in full.
+
+We're sorry you didn't get into that game, but while you're here, jump in Infrno's chat tool, located on the bottom of every page. Just like IRL cons, people who couldn't get into a game are hanging out looking for connections. Come say hi!
+
+http://www.infrno.net/
+
+<%= render :partial => 'user_notifier/goodbye_and_footer', :locals => {:user => @user}  %>

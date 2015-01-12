@@ -1,0 +1,11 @@
+-box :class => 'alt first_alt' do
+  = link_to( "&raquo; #{:back_to_all_users.l}", users_path) if params['login'] || params['tag_list']
+  =form_tag publishers_path, :method => :get , :class => 'MainForm' do
+    %label= "Name"
+    = text_field_tag 'publisher_name', @search['publisher_name']
+
+    %p 
+    %input{"type"=>"submit", "value"=>"Search vendors"}
+
+      
+ 

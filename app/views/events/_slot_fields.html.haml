@@ -1,0 +1,16 @@
+.fields
+  %li
+    = f.label "Name"
+    = f.text_field :name
+  %li
+    = f.label 'Start time'
+    = f.calendar_date_select :start_time, :time => true     
+  %li
+    = f.label 'End time'
+    = f.calendar_date_select :end_time, :time => true    
+  %li
+    = f.hidden_field :_destroy
+    = link_to_function "remove", "remove_fields(this)"
+      
+        
+

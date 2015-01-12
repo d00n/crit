@@ -1,0 +1,99 @@
+-description = "#{@user.display_name}'s profile on #{configatron.community_name}."
+-description += " #{configatron.meta_description}"
+- @meta = { :description => description, :keywords => "#{h(@user.display_name)}, #{configatron.meta_keywords}, #{@user.tags.join(", ") unless @user.tags.nil?}", :robots => configatron.robots_meta_show_content }
+
+- @section = 'my_profile'
+
+#col1
+  .box.photo_nav
+    %h3=:dashboard.l
+    
+    .left
+      %ul
+        %li View
+        %li=link_to "My profile", user_path(@user)  
+        %li=link_to "My blog", user_posts_path(@user)
+        %li=link_to "My photos", user_photos_path(@user)
+        /%li=link_to :my_clippings.l, user_clippings_path(@user)
+        %li=link_to :"My friends", accepted_user_friendships_path(@user)
+        %li=link_to "Inbox", user_messages_path(@user)
+        -if current_user.admin?
+          %li=link_to :admin_dashboard.l, admin_dashboard_path
+          
+    .right
+      %ul
+        %li Manage
+        %li=link_to "Edit profile", edit_user_path(@user)
+        %li=link_to "Edit account", edit_account_user_path(@user)
+        %li=link_to "Manage posts", manage_user_posts_path(@user)
+        %li= link_to "Log out", logout_url
+            
+  .box
+    %h3=:stats.l
+    %ul
+      - if @user.last_login_at
+        %li=:you_last_logged_in_on.l+" #{I18n.l(@user.last_login_at, :format => :published_date)}"
+        
+      %li=:member_since.l+" #{I18n.l(@user.created_at, :format => :published_date)}"
+      -unless @user.posts.empty?
+        %li
+          You have written
+          = link_to(@user.posts.count.to_s + " posts", user_posts_path(@user))
+        
+      -unless @user.photos.empty?
+        %li
+          You have uploaded
+          = link_to(@user.photos.count.to_s + " photos", user_photos_path(@user))
+        
+      /-unless @user.clippings.empty?
+      /  %li=:you_have_added_clippings.l(:count => @user.clippings.count)
+      
+      -unless @user.comments.empty?
+        %li
+          You have left
+          =link_to( @user.comments.count.to_s + " comments", user_comments_path(@user))
+        
+      -unless @user.accepted_friendships.empty?
+        %li
+          You have 
+          = link_to( @user.accepted_friendships.count.to_s + ' friends', accepted_user_friendships_path(@user))
+        
+      -if @user.characters.count > 0
+        %li
+          You have 
+          = link_to( @user.games.count.to_s + ' games', games_path)
+      -if @user.characters.count > 0
+        %li
+          You have 
+          = link_to( @user.characters.count.to_s + ' characters', characters_path)
+
+     
+  -if @featured_writers.any?
+    .box
+      %h3
+        =:featured_writer.l
+      -@featured_writers.each do |user|
+        =render :partial => "users/sidebar_user", :locals => {:user => user}
+                
+        
+  .box
+    %h3 Active users
+    -@active_users.each do |user|    
+      =render :partial => "users/sidebar_user", :locals => {:user => user}  
+
+        
+  =render :partial => "tags/tags"      
+    
+
+  
+#col2
+
+
+  .box#footer_content
+    = image_tag 'spinner.gif', :plugin => 'community_engine'
+    Loading What's Hot     
+
+    %script{:type=>"text/javascript"}
+      = remote_function(:update => "footer_content", :url => { :controller => 'base', :action => 'footer_content' })
+
+

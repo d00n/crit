@@ -1,0 +1,14 @@
+= render :partial => 'users/user_avatar_sidebar', :locals => {:user => @user}
+
+.box
+  %li.fn
+    = render :partial => 'users/user_name', :locals => {:user => user}
+  %ul
+    %li.update=:member_since.l+" #{I18n.l(user.created_at, :format => :short_published_date)}"
+    %li.view
+      - if user.posts.count == 1
+        = link_to :singular_posts.l(:count => user.posts.count), user_posts_path(user)
+      - else
+        = link_to :plural_posts.l(:count => user.posts.count), user_posts_path(user)
+    %li.rss
+      =link_to :rss_feed.l, user_posts_path(user, :format => :rss)

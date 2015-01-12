@@ -1,0 +1,65 @@
+%br
+.center
+  -case level_name
+  -when "Epic"
+    =image_tag( premium_label(1))
+  -when "Legendary"
+    =image_tag( premium_label(2))
+  -when "Exalted"
+    =image_tag( premium_label(3))
+
+
+.prices
+  %p
+
+  -case level_name
+  -when "Epic"
+    ="Monthly: $#{configatron.EPIC_MONTHLY_AMOUNT}"
+    %p
+
+    ="Semiannual: $#{configatron.EPIC_SEMIANNUAL_AMOUNT}"
+    %br
+    10% savings!
+    %p
+
+    ="Annual: $#{configatron.EPIC_ANNUAL_AMOUNT}"
+    %br
+    20% savings!
+    %p
+
+
+  -when "Legendary"
+    ="Monthly: $#{configatron.LEGENDARY_MONTHLY_AMOUNT}"
+    %p
+
+    ="Semiannual: $#{configatron.LEGENDARY_SEMIANNUAL_AMOUNT}"
+    %br
+    10% savings!
+    %p
+
+    ="Annual: $#{configatron.LEGENDARY_ANNUAL_AMOUNT}"
+    %br
+    20% savings!
+    %p
+
+
+
+  -when "Exalted"
+    ="Monthly: $#{configatron.EXALTED_MONTHLY_AMOUNT}"
+    %p
+
+    ="Semiannual: $#{configatron.EXALTED_SEMIANNUAL_AMOUNT}"
+    %br
+    10% savings!
+    %p
+
+    ="Annual: $#{configatron.EXALTED_ANNUAL_AMOUNT}"
+    %br
+    20% savings!
+    %p
+
+  = link_to "Log in", login_path({:target_page => "premium_membership"})
+  = :or.l
+  = link_to "create an account", signup_path
+  ="to upgrade your account."
+  %p

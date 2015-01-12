@@ -1,0 +1,151 @@
+-#!!!
+-#%html
+-#  %head
+-#    %link{:rel=>"shortcut icon", :href=>"#{home_url}favicon.ico"}
+-#    %meta{"http-equiv"=>"Content-Type", :content=>"text/html;charset=utf-8"}
+-#    =csrf_meta_tag
+-#
+-#    %title= page_title
+-#    -if @meta
+-#      -@meta.each do |key|
+-#        %meta{:name=>key[0], :content=>key[1]}
+-#
+-#    - if @rss_title && @rss_url
+-#      = auto_discovery_link_tag(:rss, @rss_url, {:title => @rss_title})
+-#
+-#    = render :partial => "shared/scripts_and_styles"
+-#
+-#  %body
+-#    -unless configatron.auth_providers.facebook.key.blank?
+-#      =render :partial => 'facebook/fb_require'
+-#
+-#    .navbar.navbar-inverse.navbar-fixed-top{role: "navigation"}
+-#      .container-fluid
+-#        = render :partial => "shared/header"
+-#
+-#    .container
+-#      .row
+-#        = render_jumbotron
+-#      .row
+-#        .col-sm-9
+-#          %h1=container_title
+-#          = render :partial => "shared/messages"
+-#          = yield
+-#        .col-sm-3.pull-right
+-#          = render :partial => "shared/sidebar"
+-#
+-#
+-#      -if show_footer_content?
+-#        .row#footer-content
+-#          = image_tag 'spinner.gif', :plugin => 'community_engine'
+-#          =:loading_recent_content.l
+-#
+-#      .row
+-#        .col-sm-12
+-#          = render :partial => 'shared/footer_links'
+-#
+-#          %p= :community_tagline.l
+-#
+-#    = render :partial => "shared/end_javascript"
+-#    = yield :end_javascript
+-#
+
+!!!
+%html
+  %head
+    %link{:rel=>"shortcut icon", :href=>"#{home_url}favicon.ico"}
+    %meta{"http-equiv"=>"Content-Type", :content=>"text/html;charset=utf-8"}
+    =csrf_meta_tag
+
+
+    %title= page_title
+
+    -if @character || @game || @event || @product || @user || @achievement
+    -else
+      %meta{:property=>'og:title', :content=>'Infrno - Free virtual table top for role playing, with built-in video chat.'}
+      %meta{:property=>'og:type', :content=>'game'}
+      %meta{:property=>'og:image', :content=>'http://www.infrno.net/system/photos/4897/medium/custom_banner_stand_gc2010_1.jpg'}
+      %meta{:property=>'og:url', :content=>'http://www.infrno.net'}
+      %meta{:property=>'og:site_name', :content=>'Infrno'}
+      %meta{:property=>'fb:app_id', :content=>'133055480072103'}
+
+    -if @meta
+      -@meta.each do |key|
+        %meta{:name=>key[0], :content=>key[1]}
+
+    = render :partial => "shared/scripts_and_styles"
+    - if @rss_title && @rss_url
+      = auto_discovery_link_tag(:rss, @rss_url, {:title => @rss_title})
+
+    - javascript_tag do
+      = yield(:jstemplates)
+
+
+
+
+  %body
+    #container
+      #content
+        = render :partial => "shared/header"
+
+        #contentBody
+          = render :partial => "shared/messages"
+
+          = yield
+
+        #contentFooter
+          .footer
+            %ul
+              %li.first
+                %a{:href=>home_url, :title=>"#{configatron.community_name} home"}= "Home"
+
+              -#%li
+              -#  %a{:href=>'/privacy_policy.html'} Privacy policy
+              -#%li
+              -#  %a{:href=>'/report.html'} Report copyright infringement
+              -#%li
+              -#  %a{:href=>'/tos.html'} TOS
+
+
+              %li
+                = link_to Page.find(1).title, pages_path(Page.find(1))
+              %li
+                = link_to Page.find(2).title, pages_path(Page.find(2))
+              %li
+                = link_to Page.find(7).title, pages_path(Page.find(7))
+              %li
+                = link_to Page.find(8).title, pages_path(Page.find(8))
+              %li
+                = link_to Page.find(9).title, pages_path(Page.find(9))
+
+              /%li
+              /  %a{:href=> contact_url, :title=>"Contact"}
+              /    Contact
+
+              /- if @rss_title && @rss_url
+              /  %li#rss= link_to :rss.l, @rss_url, {:title => @rss_title}
+
+    -##footer_bar
+
+
+    = render :partial => "shared/end_javascript"
+    = yield :end_javascript
+
+
+    -if DEPLOY_CHATCAT
+      =render :partial => "shared/chatcat"
+
+    -##rss
+    -#  %a{:href=>"/site_index.rss"}
+    -#    %img{:src=>"/assets/rss_icon.png", :height => "25", :width => "25"}
+    -##twitter
+    -#  %a{:href=>"http://twitter.com/Infrno"}
+    -#    %img{:src=>"/assets/twitter.png", :height => "25", :width => "25"}
+    -##facebook
+    -#  %a{:href=>"http://www.facebook.com/pages/Infrno/138633756147583"}
+    -#    %img{:src=>"/assets/facebook.png", :height => "25", :width => "25"}
+    -#- if FACEBOOK_LIKE
+    -#  #facebook_recommend
+    -#    :plain
+    -#      <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.infrno.net%2F&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=dark&amp;font&amp;height=35&amp;appId=133055480072103" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe>
+    -#

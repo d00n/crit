@@ -1,0 +1,116 @@
+= javascript_include_tag 'delegate'
+= javascript_include_tag 'form_helper'
+=calendar_date_select_includes
+= error_messages_for :event
+
+
+#col1
+  .box
+    -#= render :partial => 'events/profile_sidebar', :locals => {:event => @event}
+
+#col2
+  .box
+    -if @event.name.blank?
+      %h3 New Event
+    -else
+      %h3= @event.name
+
+  .box
+
+    =form_for(@event, :html => {:class => "cmxform"}) do |event_form|
+      .container
+        .user_row
+          %fieldset
+            %legend
+              Event details
+            %ol
+              %li
+                = event_form.label 'Name'
+                = event_form.text_field :name
+
+              %li
+                = event_form.label 'Start time'
+                = event_form.calendar_date_select :start_time, :time => true
+
+              %li
+                = event_form.label 'End time'
+                = event_form.calendar_date_select :end_time, :time => true
+
+
+        .user_row
+          %fieldset
+            %legend
+              Status
+            %ol
+              %li
+                = event_form.check_box :show_game_reg_links_on_event_profile
+                Show game registration links on event profile
+
+              %li
+                = event_form.check_box :is_primary_home_page_promo
+                Show in primary promotion spot
+
+              %li
+                = event_form.check_box :is_secondary_home_page_promo
+                Show in secondary promotion spot
+
+              %li
+                = event_form.check_box :is_registering_games
+                Open for game registration
+
+              %li
+                = event_form.check_box :is_registering_premium_players
+                Open for premium player registration
+
+              %li
+                = event_form.check_box :is_registering_regular_players
+                Open for regular player registration
+
+
+
+        .user_row
+          %fieldset
+            %legend
+              Event description
+            This is the main part of your product page. It can be as long as you want, and can include embedded images in a variety of formats.
+            %ol
+              %li
+                = event_form.text_area :description, :class => "rich_text_editor", :size => "50x20"
+
+
+        .user_row
+          %fieldset
+            %legend
+              Event promotion copy
+            This text is shown when your event is promoted on the home page
+            %ol
+              %li
+                = event_form.text_area :summary, :class => "rich_text_editor", :size => "50x20"
+
+        .user_row
+          %h3= :tags.l
+          #event_tags
+            = text_field_tag 'tag_list', @event.tag_list.to_s, {:autocomplete => "on", :size=>"90"}
+            -##tag_list_auto_complete.auto_complete
+            -#= auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [',', ' ']  }
+
+        .user_row
+          %fieldset
+            %legend
+              Slots
+              =link_to_add_fields "(add slot)", event_form, :slots
+
+            %ol
+            =event_form.fields_for :slots do |builder|
+              =render 'slot_fields', :f => builder
+
+        %p
+        = event_form.submit 'Save event'
+
+
+
+
+
+
+
+
