@@ -744,7 +744,7 @@ class UserNotifier < ActionMailer::Base
     headers     'X-SMTPAPI' => '{"category" : "Email confirmation"}'
 
     @subject    += "#{:please_activate_your_new_account.l(:site => configatron.community_name)}"
-    @url = "#{home_url}users/activate/#{user.activation_code}"
+    @url  = "#{home_url}users/#{user.activation_code}/activate"
     mail(:to => @recipients, :subject => @subject)
   end
 
