@@ -206,7 +206,7 @@ class UserNotifier < ActionMailer::Base
 
     @recipients  = ""
     @subject     = subject
-    @body        = message
+    @message        = message
     @sent_on     = Time.now
     mail(:to => @recipients, :subject => @subject)
   end
@@ -661,9 +661,9 @@ class UserNotifier < ActionMailer::Base
     @recipients  = "#{email}"
     @subject     = "#{user.display_name} wants you to become Infrnal!"
     @sent_on     = Time.now
-    @user = @body[:user]  = user
-    @url = @body[:url]   = signup_by_id_url(user, user.invite_code)
-    @message = @body[:message]  = message
+    @user = user
+    @url = signup_by_id_url(user, user.invite_code)
+    @message = message
     mail(:to => @recipients, :subject => @subject)
   end
 
@@ -673,9 +673,7 @@ class UserNotifier < ActionMailer::Base
 
     @subject     += "#{:would_like_to_be_friends_with_you_on.l(:user => friendship.user.display_name, :site => configatron.community_name)}"
     @url = pending_user_friendships_url(friendship.friend)
-    @body[:url]   = pending_user_friendships_url(friendship.friend)
     @requester = friendship.user
-    @body[:requester]  = friendship.user
     mail(:to => @recipients, :subject => @subject)
   end
 
@@ -685,11 +683,8 @@ class UserNotifier < ActionMailer::Base
 
     @subject     += "#{:friendship_request_accepted.l}"
     @requester = friendship.user
-    @body[:requester]  = friendship.user
     @friend = friendship.friend
-    @body[:friend]     = friendship.friend
     @url =  user_url(friendship.friend)
-    @body[:url]        = user_url(friendship.friend)
     mail(:to => @recipients, :subject => @subject)
   end
 
@@ -698,9 +693,9 @@ class UserNotifier < ActionMailer::Base
     headers     'X-SMTPAPI' => '{"category" : "Comment notice"}'
 
     @subject     += "#{:has_something_to_say_to_you_on.l(:user => comment.user.display_name, :site => configatron.community_name)}"
-    @url = @body[:url]   = commentable_url(comment)
-    @comment = @body[:comment]  = comment
-    @commenter = @body[:commenter]  = comment.user
+    @url = commentable_url(comment)
+    @comment = comment
+    @commenter = comment.user
     mail(:to => @recipients, :subject => @subject)
   end
 
@@ -709,11 +704,11 @@ class UserNotifier < ActionMailer::Base
     headers     'X-SMTPAPI' => '{"category" : "Comment notice"}'
 
     @subject     += "#{:has_commented_on_something_that_you_also_commented_on.l(:user => comment.user.display_name, :item => comment.commentable_type)}"
-    @url = @body[:url]   = commentable_url(comment)
-    @comment = @body[:comment]  = comment
-    @commenter = @body[:commenter]  = comment.user
+    @url = commentable_url(comment)
+    @comment = comment
+    @commenter = comment.user
 
-    @unsubscribe_link = @body[:unsubscribe_link]  = url_for(:controller => 'comments', :action => 'unsubscribe', :comment_id => comment.id, :token => comment.token_for(user.email), :email => user.email)
+    @unsubscribe_link = url_for(:controller => 'comments', :action => 'unsubscribe', :comment_id => comment.id, :token => comment.token_for(user.email), :email => user.email)
     mail(:to => @recipients, :subject => @subject)
   end
 
@@ -725,10 +720,10 @@ class UserNotifier < ActionMailer::Base
     @subject     = "[#{configatron.community_name}] "
     @sent_on     = Time.now
     @subject     += "#{:has_commented_on_something_that_you_also_commented_on.l(:user => comment.user.display_name, :item => comment.commentable_type)}"
-    @url = @body[:url]   = commentable_url(comment)
-    @comment = @body[:comment]  = comment
+    @url = commentable_url(comment)
+    @comment = comment
 
-    @unsubscribe_link = @body[:unsubscribe_link]  = url_for(:controller => 'comments', :action => 'unsubscribe', :comment_id => comment.id, :token => comment.token_for(email), :email => email)
+    @unsubscribe_link = url_for(:controller => 'comments', :action => 'unsubscribe', :comment_id => comment.id, :token => comment.token_for(email), :email => email)
     mail(:to => @recipients, :subject => @subject)
   end
 
@@ -749,7 +744,7 @@ class UserNotifier < ActionMailer::Base
     headers     'X-SMTPAPI' => '{"category" : "Email confirmation"}'
 
     @subject    += "#{:please_activate_your_new_account.l(:site => configatron.community_name)}"
-    @url = @body[:url]   = "#{home_url}users/activate/#{user.activation_code}"
+    @url = "#{home_url}users/activate/#{user.activation_code}"
     mail(:to => @recipients, :subject => @subject)
   end
 
@@ -772,13 +767,13 @@ class UserNotifier < ActionMailer::Base
 
     @subject     = "#{name} wants you to check out this story on #{configatron.community_name}: #{post.title}"
     content_type "text/plain"
-    @name = @body[:name]  = name
-    @title = @body[:title]   = post.title
-    @post = @body[:post]  = post
-    @signup_link = @body[:signup_link]  = (current_user ?  signup_by_id_url(current_user, current_user.invite_code) : signup_url )
-    @message = @body[:message]   = message
-    @url = @body[:url]   = user_post_url(post.user, post)
-    @description = @body[:description]  = truncate_words(post.post, 100, "...")
+    @name = name
+    @title = post.title
+    @post = post
+    @signup_link = (current_user ?  signup_by_id_url(current_user, current_user.invite_code) : signup_url )
+    @message = message
+    @url = user_post_url(post.user, post)
+    @description = truncate_words(post.post, 100, "...")
     mail(:to => @recipients, :subject => @subject)
   end
 
@@ -787,7 +782,7 @@ class UserNotifier < ActionMailer::Base
     headers     'X-SMTPAPI' => '{"category" : "Account activation"}'
 
     @subject    += "#{:your_account_has_been_activated.l(:site => configatron.community_name)}"
-    @url = @body[:url]   = home_url
+    @url = home_url
     mail(:to => @recipients, :subject => @subject)
   end
 
@@ -829,7 +824,7 @@ class UserNotifier < ActionMailer::Base
     setup_sender_info
     @subject     = "[#{configatron.community_name}] "
     @sent_on     = Time.now
-    @user = @body[:user]  = user
+    @user = user
   end
 
   def setup_sender_info

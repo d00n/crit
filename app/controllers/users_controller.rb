@@ -664,7 +664,7 @@ class UsersController < BaseController
   end
 
   def create
-    @user       = User.new(params[:user])
+    @user       = User.new(user_params)
     @user.role  = Role[:member]
 
     if @user.email.end_with?('outlook.com')
@@ -1018,7 +1018,8 @@ class UsersController < BaseController
                          :publisher_name,
                          :allow_fb_autopost_achievement_unlocked,
                          :allow_fb_autopost_new_friend,
-                         {:avatar_attributes => [:id, :name, :description, :album_id, :user, :user_id, :photo, :photo_remote_url]},
+                         {:avatar_attributes => [:id, :name, :description, :album_id, :user,
+                                                 :user_id, :photo, :photo_remote_url]},
                          :birthday) if params[:user]
   end
 end
