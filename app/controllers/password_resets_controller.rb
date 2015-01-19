@@ -1,14 +1,12 @@
 class PasswordResetsController < BaseController
-
-  before_filter :require_no_user
-  before_filter :load_user_using_perishable_token, :only => [ :edit, :update ]
+  require_from_ce('controllers/password_resets_controller')
 
   def new
     render :layout => 'single_column'
   end
 
   def create
-    @user = User.find_by_email(params[:email])
+    @user = User.where("lower(email) = ?", params[:email].downcase).first
     if @user
       @user.deliver_password_reset_instructions!
 

@@ -1,16 +1,5 @@
-# This controller handles the login/logout function of the site.
 class SessionsController < BaseController
   require_from_ce('controllers/sessions_controller')
-
-
-  #def index
-  #  redirect_to :action => "new"
-  #end
-  #
-  #def new
-  #  redirect_to user_path(current_user) and return if current_user
-  #  @user_session = UserSession.new
-  #end
 
   def create
 
@@ -31,13 +20,6 @@ class SessionsController < BaseController
     end
   end
 
-  def destroy
-    redirect_to new_session_path and return if current_user_session.nil?
-    current_user_session.destroy
-    reset_session
-    flash[:notice] = :youve_been_logged_out_hope_you_come_back_soon.l
-    redirect_to new_session_path
-  end
 
   #skip_before_filter :verify_authenticity_token, :only => :create
   #

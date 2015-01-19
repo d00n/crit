@@ -1,7 +1,3 @@
-#require 'hpricot'
-#require 'open-uri'
-#require 'pp'
-
 class BaseController < ApplicationController
   require_from_ce('controllers/base_controller')
 

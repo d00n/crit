@@ -1,4 +1,5 @@
 class PagesController < BaseController
+  require_from_ce('controllers/pages_controller')
 
   def show
     @page = Page.live.find(params[:id])

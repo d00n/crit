@@ -1,40 +1,46 @@
 class Product < ActiveRecord::Base
-  #extend FriendlyId
   belongs_to :user
 
   validates_length_of("name", :minimum => 3)
 
-  has_many :posts, :order => "published_at desc"
-  #friendly_id :name, :use => [:slugged, :finders]
-
-#  validates_presence_of :name
+  has_many :posts, -> { order 'published_at desc' }
 
   acts_as_commentable
   acts_as_taggable
-  scope :recent, :order => 'products.created_at DESC'
-  scope :dtrpg, :conditions => 'dtrpg_product_id is not NULL'
-  scope :dtrpg_stale, :conditions => 'dtrpg_product_id is not NULL', :order => 'products.updated_at DESC'
+  scope :recent, -> {order 'products.created_at DESC'}
+  scope :dtrpg, -> {where('dtrpg_product_id is not NULL')}
+  scope :dtrpg_stale, -> {dtrpg.order 'products.updated_at DESC'}
 
-  scope :featured, :order => 'products.featured_product_rank ASC', :conditions => ["featured_product_rank > 0"]
-  scope :featured_displayed, :order => 'products.featured_product_rank ASC', :conditions => ["featured_product_rank > 0"]
-  scope :featured_not_displayed, :order => 'products.name ASC', :conditions => ["featured_product_rank = 0 or featured_product_rank is null" ]
+  scope :is_featured,-> {where("featured_product_rank > 0") }
+  scope :featured,-> {is_featured.order 'products.featured_product_rank ASC'}
 
-  scope :catalog, :order => 'products.catalog_rank ASC', :conditions => ["catalog_rank > 0"]
-  scope :catalog_displayed, :order => 'products.catalog_rank ASC', :conditions => ["catalog_rank > 0"]
-  scope :catalog_not_displayed, :order => 'products.name ASC', :conditions => ["catalog_rank = 0 or catalog_rank is null" ]
-  scope :popular, :order => 'products.view_count DESC'
+  scope :is_featured_displayed, -> {where("featured_product_rank > 0") }
+  scope :featured_displayed, -> {is_featured_displayed.order 'products.featured_product_rank ASC'}
+
+  scope :is_featured_not_displayed, -> {where("featured_product_rank = 0 or featured_product_rank is null")}
+  scope :featured_not_displayed, -> {is_featured_not_displayed.order 'products.name ASC'}
+
+  scope :is_catalog, -> {where("catalog_rank > 0")}
+  scope :catalog, -> {is_catalog.order 'products.catalog_rank ASC'}
+
+  scope :is_catalog_displayed, -> {where("catalog_rank > 0")}
+  scope :catalog_displayed, -> {is_catalog_displayed.order 'products.catalog_rank ASC'}
+
+  scope :is_catalog_not_displayed, -> {where("catalog_rank = 0 or catalog_rank is null")}
+  scope :catalog_not_displayed, -> {is_catalog_not_displayed.order 'products.name ASC'}
+
+  scope :popular, -> {order 'products.view_count DESC'}
 
   belongs_to  :avatar, :class_name => "Photo", :foreign_key => "avatar_id"
 #  has_one  :artwork, :class_name => "Artwork", :as => :owner
 #  has_one  :logo, :class_name => "Logo", :foreign_key => "product_id"
 
   has_many :game_products, :dependent => :destroy
-  has_many :games, :through => :game_products, :order => "updated_at desc"
+  has_many :games, -> {order "updated_at desc"}, :through => :game_products
 
   has_many :character_products, :dependent => :destroy
-  has_many :characters, :through => :character_products, :order => "updated_at desc"
+  has_many :characters, -> {order "updated_at desc"}, :through => :character_products
 
-  #has_and_belongs_to_many :system_categories
   has_many :system_category_products, :dependent => :destroy
   has_many :system_categories, :through => :system_category_products
 

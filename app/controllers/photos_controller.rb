@@ -204,6 +204,6 @@ class PhotosController < BaseController
 
   protected
   def photo_params
-    params[:photo].permit(:is_private, :album_id) if params[:photo]
+    params[:photo].permit(:name, :description, :album_id, :photo, :is_private)
   end
 end

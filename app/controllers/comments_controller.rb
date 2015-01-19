@@ -1,55 +1,55 @@
 class CommentsController < BaseController
+  require_from_ce('controllers/comments_controller')
 
-
-  def create
-    #@commentable = comment_type.constantize.find(comment_id)
-    #@commentable = comment_type.classify.find(comment_id)
-
-    commentable_type = get_commentable_type(params[:commentable_type])
-    @commentable = commentable_type.singularize.constantize.find(params[:commentable_id])
-
-    @comment = Comment.new(params[:comment])
-
-    @comment.commentable = @commentable
-    @comment.recipient = @commentable.owner
-    @comment.user_id = current_user.id if current_user
-    @comment.author_ip = request.remote_ip #save the ip address for everyone, just because
-    
-    # Moving back to the default CE FB pattern of creating this object in app/views/comments/create.js.rjs
-    if FACEBOOK_CONNECT && false
-      fp = FacebookPublisher.create_comment_created(@comment, commentable_url(@comment))        
-      @fp_json = ActiveSupport::JSON.encode(fp)   
-
-      # staging test value      
-      #@fp_json = '{"attachment": {"href": "http://staging.infrno.net/skipper#comment_", "name": "James Meier, a user on Infrno.net", "description": "o909990", "media": [{"type": "image", "src": "http://staging.infrno.net/photos/0000/1133/1269983106783_thumb.jpg", "href": "http://staging.infrno.net/skipper#comment_"}], "properties": {"tags": {"href": "http://staging.infrno.net/skipper#comment_", "text": "D&D 35, D&D 4e,Warhammer Fantasy, Traveller, CthulhuTech, mouse guard"}}}, "action_links": null, "user_message": "left a comment on Infrno.net", "target": {"friends": null, "hometown_location": null, "session": {"session_key": "2.lUYq4t5cETRgLzgVgXN0tg__.3600.1289534400-100001574959518", "expires": 0, "api_key":"a2cf6e94b330f369e2e5e91c67cd66e8", "uid": 100001574959518, "secret_key": "0fe93e2d6ea19e1be5e155b37066a5c3", "secret_from_session": null, "auth_token": null, "batch_request": null}, "populated": false, "uid": 100001574959518, "id": null, "current_location": null, "pic": null}}'
-      #@fp_json = '{"attachment": {"href": "http://staging.infrno.net/skipper#comment_", "name": "James Meier, a user on Infrno.net", "description": "44444444", "media": [{"type": "image", "src": "http://staging.infrno.net/photos/0000/1133/1269983106783_thumb.jpg", "href": "http://staging.infrno.net/skipper#comment_"}], "properties": {"tags": {"href": "http://staging.infrno.net/skipper#comment_", "text": "D&D 35, D&D 4e, Warhammer Fantasy, Traveller, CthulhuTech, mouse guard"}}}, "action_links": null, "user_message": "left a comment on Infrno.net", "target": {"friends": null, "hometown_location": null, "session": {"session_key": "2.lUYq4t5cETRgLzgVgXN0tg__.3600.1289534400-100001574959518", "expires": 0, "api_key": "a2cf6e94b330f369e2e5e91c67cd66e8", "uid": 100001574959518, "secret_key": "0fe93e2d6ea19e1be5e155b37066a5c3", "secret_from_session": null, "auth_token": null, "batch_request": null}, "populated": false, "uid": 100001574959518, "id": null, "current_location": null, "pic": null}}'
-      #@fp_json = "{'attachment': {'href': 'http://staging.infrno.net/skipper#comment_', 'name': 'James Meier, a user on Infrno.net', 'description': '44444444', 'media': [{'type': 'image', 'src': 'http://staging.infrno.net/photos/0000/1133/1269983106783_thumb.jpg', 'href': 'http://staging.infrno.net/photos/0000/1133/1269983106783_thumb.jpg'}], 'properties': {'tags': {'href': 'http://staging.infrno.net/skipper#comment_', 'text': 'D&D 35, D&D 4e, Warhammer Fantasy, Traveller, CthulhuTech, mouse guard'}}}, 'action_links': null, 'user_message': 'left a comment on Infrno.net', 'target': {'friends': null, 'hometown_location': null, 'session': {'session_key': '2.lUYq4t5cETRgLzgVgXN0tg__.3600.1289534400-100001574959518', 'expires': 0, 'api_key': 'a2cf6e94b330f369e2e5e91c67cd66e8', 'uid': 100001574959518, 'secret_key': '0fe93e2d6ea19e1be5e155b37066a5c3', 'secret_from_session': null, 'auth_token': null, 'batch_request': null}, 'populated': false, 'uid': 100001574959518, 'id': null, 'current_location': null, 'pic': null}}"
-
-      #href = "http://staging.infrno.net/photos/0000/1133/1269983106783_thumb.jpg"
-      #src = "http://staging.infrno.net/skipper#comment_"
-      #media = '"media": [{"type":"image", "href":"'+href+'", "src":"'+src+'"}], '      
-            
-      logger.info("CommentsController.create fp= " + fp.inspect)
-      logger.info("CommentsController.create fp_json= " + @fp_json)
-      
-      #@fp_json.insert(16, media)
-      #logger.info("CommentsController.create fp_json= " + @fp_json)
-    end
-
-    respond_to do |format|
-      if (logged_in? || verify_recaptcha(@comment)) && @comment.save
-        @comment.send_notifications
-
-        flash.now[:notice] = :comment_was_successfully_created.l
-        format.html { redirect_to commentable_url(@comment) }
-        format.js
-      else
-        flash.now[:error] = :comment_save_error.l_with_args(:error => @comment.errors.full_messages.to_sentence)
-        format.html { redirect_to :controller => comment_type.underscore.pluralize, :action => 'show', :id => comment_id }
-        format.js
-      end
-    end
-  end
+  #def create
+  #  #@commentable = comment_type.constantize.find(comment_id)
+  #  #@commentable = comment_type.classify.find(comment_id)
+  #
+  #  commentable_type = get_commentable_type(params[:commentable_type])
+  #  @commentable = commentable_type.singularize.constantize.find(params[:commentable_id])
+  #
+  #  @comment = @commentable.comments.new(comment_params)
+  #
+  #  #@comment.commentable = @commentable
+  #  @comment.recipient = @commentable.owner
+  #  @comment.user_id = current_user.id if current_user
+  #  @comment.author_ip = request.remote_ip #save the ip address for everyone, just because
+  #
+  #  # Moving back to the default CE FB pattern of creating this object in app/views/comments/create.js.rjs
+  #  if FACEBOOK_CONNECT && false
+  #    fp = FacebookPublisher.create_comment_created(@comment, commentable_url(@comment))
+  #    @fp_json = ActiveSupport::JSON.encode(fp)
+  #
+  #    # staging test value
+  #    #@fp_json = '{"attachment": {"href": "http://staging.infrno.net/skipper#comment_", "name": "James Meier, a user on Infrno.net", "description": "o909990", "media": [{"type": "image", "src": "http://staging.infrno.net/photos/0000/1133/1269983106783_thumb.jpg", "href": "http://staging.infrno.net/skipper#comment_"}], "properties": {"tags": {"href": "http://staging.infrno.net/skipper#comment_", "text": "D&D 35, D&D 4e,Warhammer Fantasy, Traveller, CthulhuTech, mouse guard"}}}, "action_links": null, "user_message": "left a comment on Infrno.net", "target": {"friends": null, "hometown_location": null, "session": {"session_key": "2.lUYq4t5cETRgLzgVgXN0tg__.3600.1289534400-100001574959518", "expires": 0, "api_key":"a2cf6e94b330f369e2e5e91c67cd66e8", "uid": 100001574959518, "secret_key": "0fe93e2d6ea19e1be5e155b37066a5c3", "secret_from_session": null, "auth_token": null, "batch_request": null}, "populated": false, "uid": 100001574959518, "id": null, "current_location": null, "pic": null}}'
+  #    #@fp_json = '{"attachment": {"href": "http://staging.infrno.net/skipper#comment_", "name": "James Meier, a user on Infrno.net", "description": "44444444", "media": [{"type": "image", "src": "http://staging.infrno.net/photos/0000/1133/1269983106783_thumb.jpg", "href": "http://staging.infrno.net/skipper#comment_"}], "properties": {"tags": {"href": "http://staging.infrno.net/skipper#comment_", "text": "D&D 35, D&D 4e, Warhammer Fantasy, Traveller, CthulhuTech, mouse guard"}}}, "action_links": null, "user_message": "left a comment on Infrno.net", "target": {"friends": null, "hometown_location": null, "session": {"session_key": "2.lUYq4t5cETRgLzgVgXN0tg__.3600.1289534400-100001574959518", "expires": 0, "api_key": "a2cf6e94b330f369e2e5e91c67cd66e8", "uid": 100001574959518, "secret_key": "0fe93e2d6ea19e1be5e155b37066a5c3", "secret_from_session": null, "auth_token": null, "batch_request": null}, "populated": false, "uid": 100001574959518, "id": null, "current_location": null, "pic": null}}'
+  #    #@fp_json = "{'attachment': {'href': 'http://staging.infrno.net/skipper#comment_', 'name': 'James Meier, a user on Infrno.net', 'description': '44444444', 'media': [{'type': 'image', 'src': 'http://staging.infrno.net/photos/0000/1133/1269983106783_thumb.jpg', 'href': 'http://staging.infrno.net/photos/0000/1133/1269983106783_thumb.jpg'}], 'properties': {'tags': {'href': 'http://staging.infrno.net/skipper#comment_', 'text': 'D&D 35, D&D 4e, Warhammer Fantasy, Traveller, CthulhuTech, mouse guard'}}}, 'action_links': null, 'user_message': 'left a comment on Infrno.net', 'target': {'friends': null, 'hometown_location': null, 'session': {'session_key': '2.lUYq4t5cETRgLzgVgXN0tg__.3600.1289534400-100001574959518', 'expires': 0, 'api_key': 'a2cf6e94b330f369e2e5e91c67cd66e8', 'uid': 100001574959518, 'secret_key': '0fe93e2d6ea19e1be5e155b37066a5c3', 'secret_from_session': null, 'auth_token': null, 'batch_request': null}, 'populated': false, 'uid': 100001574959518, 'id': null, 'current_location': null, 'pic': null}}"
+  #
+  #    #href = "http://staging.infrno.net/photos/0000/1133/1269983106783_thumb.jpg"
+  #    #src = "http://staging.infrno.net/skipper#comment_"
+  #    #media = '"media": [{"type":"image", "href":"'+href+'", "src":"'+src+'"}], '
+  #
+  #    logger.info("CommentsController.create fp= " + fp.inspect)
+  #    logger.info("CommentsController.create fp_json= " + @fp_json)
+  #
+  #    #@fp_json.insert(16, media)
+  #    #logger.info("CommentsController.create fp_json= " + @fp_json)
+  #  end
+  #
+  #  respond_to do |format|
+  #    if (logged_in? || verify_recaptcha(@comment)) && @comment.save
+  #      @comment.send_notifications
+  #
+  #      flash.now[:notice] = :comment_was_successfully_created.l
+  #      format.html { redirect_to commentable_url(@comment) }
+  #      format.js
+  #    else
+  #      flash.now[:error] = :comment_save_error.l_with_args(:error => @comment.errors.full_messages.to_sentence)
+  #      format.html { redirect_to :controller => comment_type.underscore.pluralize, :action => 'show', :id => comment_id }
+  #      format.js
+  #    end
+  #  end
+  #end
 
   def index
     #begin

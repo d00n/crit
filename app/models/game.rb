@@ -15,7 +15,7 @@ class Game < ActiveRecord::Base
   has_many :slot_game_registrations, :dependent => :destroy
   has_many :slots, :through => :slot_game_registrations  
   
-  has_many :posts, :order => "published_at desc"
+  has_many :posts, -> {order "published_at desc"}
   
   has_many :unlocked_achievements, :dependent => :destroy
 
@@ -24,7 +24,7 @@ class Game < ActiveRecord::Base
 
   acts_as_commentable
   acts_as_taggable  
-  scope :recent, :order => 'games.updated_at DESC'
+  scope :recent, -> {order 'games.updated_at DESC'}
   acts_as_activity :user
   
   validates_presence_of :name , :start_at 

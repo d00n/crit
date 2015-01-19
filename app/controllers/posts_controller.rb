@@ -5,74 +5,6 @@ class PostsController < BaseController
   before_filter :valid_character_required, :only => [:character_index]
   before_filter :private_filter, :only => [:show]
 
-  #uses_tiny_mce do
-  #  {:only => [:new, :edit, :update, :create ], :options => configatron.infrno_simple_mce_options}
-  #end
-  #
-  #uses_tiny_mce do
-  #  {:only => [:show], :options => configatron.infrno_simple_mce_options}
-  #end
-
-
-  #def index
-  #  @user = User.find(params[:user_id])
-  #  @category = Category.find_by_name(params[:category_name]) if params[:category_name]
-  #
-  #  @posts = @user.posts.recent
-  #  @posts = @post.where('category_id = ?', @category.id) if @category
-  #  @posts = @posts.page(params[:page]).per(10)
-  #
-  #  @is_current_user = @user.eql?(current_user)
-  #
-  #  @popular_posts = @user.posts.order("view_count DESC").limit(10).all
-  #
-  #  @rss_title = "#{configatron.community_name}: #{@user.login}'s posts"
-  #  @rss_url = user_posts_path(@user,:format => :rss)
-  #
-  #  respond_to do |format|
-  #    format.html # index.rhtml
-  #    format.rss {
-  #      render_rss_feed_for(@posts,
-  #         { :feed => {:title => @rss_title, :link => url_for(:controller => 'posts', :action => 'index', :user_id => @user) },
-  #           :item => {:title => :title,
-  #                     :description => :post,
-  #                     :link => Proc.new {|post| user_post_url(post.user, post)},
-  #                     :pub_date => :published_at} })
-  #    }
-  #  end
-  #end
-  #
-  #
-  ## GET /posts/1
-  ## GET /posts/1.xml
-  #def show
-  #  @rss_title = "#{configatron.community_name}: #{@user.login}'s posts"
-  #  @rss_url = user_posts_path(@user,:format => :rss)
-  #
-  #  # how to screen private??
-  #  @post = Post.find(params[:id])
-  #
-  #  @user = @post.user
-  #  @is_current_user = @user.eql?(current_user)
-  #  @comment = Comment.new(params[:comment])
-  #
-  #  @comments = @post.comments.includes(:user).order('created_at ASC').limit(200)
-  #
-  #  @previous = @post.previous_post
-  #  @next = @post.next_post
-  #  @popular_posts = @user.posts.find(:all, :limit => 10, :order => "view_count DESC")
-  #  @related = Post.find_related_to(@post)
-  #  @most_commented = Post.find_most_commented
-  #end
-
-
-  
-  def manage
-    @search = Post.unscoped.search(params[:search])
-    #@search.order ||= :descend_by_created_at
-    @posts = @search.where(:user_id => @user.id).order('created_at DESC').page(params[:page]).per(500)
-  end
-  
   def character_index
     @character = Character.find_by_id(params[:id])
 
@@ -81,8 +13,6 @@ class PostsController < BaseController
       redirect_to private_game_path(@game)
       return
     end
-
-
 
     @user = @character.owner            
     @posts = @character.posts.recent.page(params[:page]).per(20)
@@ -143,9 +73,11 @@ class PostsController < BaseController
   # GET /posts/new
   def new
     @user = current_user #User.find(params[:user_id])
-    @post = Post.new(params[:post])
+    #@post = Post.new(params[:post])
+    @post = Post.new
+    @post.category = Category.find(params[:category_id]) if params[:category_id]
     @post.published_as = 'live'
-    @categories = Category.find(:all)    
+    @categories = Category.all
     if !(params[:game_id]).nil?
       @game = Game.find(params[:game_id])
       if @game.owner == current_user
@@ -165,7 +97,7 @@ class PostsController < BaseController
   # POST /posts.xml
   def create
     @user = current_user #User.find(params[:user_id])
-    @post = Post.new(params[:post])
+    @post = Post.new(post_params)
     @post.user = @user
     @post.tag_list = params[:tag_list] || ''
 
@@ -218,7 +150,7 @@ class PostsController < BaseController
   # PUT /posts/1
   # PUT /posts/1.xml
   def update
-    @post = Post.find(params[:id])
+    @post = Post.unscoped.find(params[:id])
     @user = @post.user
     @post.tag_list = params[:tag_list] || ''
 
@@ -227,7 +159,7 @@ class PostsController < BaseController
     end
 
     respond_to do |format|
-      if @post.update_attributes(params[:post])
+      if @post.update_attributes(post_params)
         @post.update_poll(params[:poll], params[:choices]) if params[:poll]
 
         format.html { redirect_to user_post_path(@post.user, @post) }
@@ -264,17 +196,17 @@ class PostsController < BaseController
     end
   end  
     
-  def send_to_friend
-    unless params[:emails]
-      render :partial => 'posts/send_to_friend', :locals => {:user_id => params[:user_id], :post_id => params[:post_id]} and return
-    end
-    @post = Post.find(params[:id])
-    if @post.send_to(params[:emails], params[:message], (current_user || nil))
-      render :inline => "It worked!"            
-    else
-      render :inline => "You entered invalid addresses: <ul>"+ @post.invalid_emails.collect{|email| '<li>'+email+'</li>' }.join+"</ul> Please correct these and try again.", :status => 500
-    end
-  end
+  #def send_to_friend
+  #  unless params[:emails]
+  #    render :partial => 'posts/send_to_friend', :locals => {:user_id => params[:user_id], :post_id => params[:post_id]} and return
+  #  end
+  #  @post = Post.find(params[:id])
+  #  if @post.send_to(params[:emails], params[:message], (current_user || nil))
+  #    render :inline => "It worked!"
+  #  else
+  #    render :inline => "You entered invalid addresses: <ul>"+ @post.invalid_emails.collect{|email| '<li>'+email+'</li>' }.join+"</ul> Please correct these and try again.", :status => 500
+  #  end
+  #end
 
   def popular
     @posts = Post.find_popular({:limit => 15, :since => 30.days})

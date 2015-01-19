@@ -36,18 +36,14 @@ class TagsController < BaseController
   def show
     tag_array = ActsAsTaggableOn::TagList.from( URI::decode(params[:id]) )
 
-    #@tags = ActsAsTaggableOn::Tag.find(:all, :conditions => [ 'name IN (?)', tag_array ] )
     @tags = ActsAsTaggableOn::Tag.where('name IN (?)', tag_array)
     if @tags.nil? || @tags.empty?
       flash[:notice] = :tag_does_not_exists.l_with_args(:tag => tag_array)
       redirect_to :action => :index and return
     end
 
-    #@related_tags = @tags.collect { |tag| tag.related_tags }.flatten.uniq
     @related_tags = @tags.first.related_tags
-
     @tags_raw = @tags.collect { |t| t.name } .join(',')
-
     @popular_tags = popular_tags(50)
 
     if params[:type]

@@ -1,4 +1,5 @@
 class FriendshipsController < BaseController
+  require_from_ce('controllers/friendships_controller')
 
   def create
     @user = User.find(params[:user_id])

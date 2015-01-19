@@ -4,7 +4,7 @@ class Character < ActiveRecord::Base
   has_many :pregenerated_character_requests, :dependent => :destroy  
   has_many :character_registrations, :dependent => :destroy
   has_many :games, :through => :character_registrations
-  has_many :posts, :order => "published_at desc"
+  has_many :posts, -> {order "published_at desc"}
   belongs_to  :avatar, :class_name => "Photo", :foreign_key => "avatar_id"
 
   has_many :unlocked_achievements, :dependent => :destroy
@@ -16,7 +16,7 @@ class Character < ActiveRecord::Base
   acts_as_taggable  
   acts_as_activity :user
   
-  scope :recent, :order => 'characters.updated_at DESC'
+  scope :recent, -> {order 'characters.updated_at DESC'}
   validates_presence_of :name
    
   has_many :c_carried_items, :dependent => :destroy

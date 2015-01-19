@@ -1,4 +1,5 @@
 class ActivitiesController < BaseController
+  require_from_ce('controllers/activities_controller')
 
   def network
     @activities = @user.network_activity(:per_page => 15, :page => params[:page])

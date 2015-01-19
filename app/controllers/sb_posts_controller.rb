@@ -1,4 +1,5 @@
 class SbPostsController < BaseController
+  require_from_ce('controllers/sb_posts_controller')
 
   protected
     #overide in your app
