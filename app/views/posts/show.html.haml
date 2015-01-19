@@ -46,6 +46,9 @@
           
       %li.email
         %a{:href=>"#", :onclick=>"showSendTo_friend(); return false;", :title=>:email_this_story_to_friends.l}= :email_to_friends.l
+
+      %a.email.list-group-item{:href => "#", :title => :email_this_story_to_friends.l}
+        =fa_icon "envelope fw", :text => :email_to_friends.l
         
       -if @is_current_user || admin? || moderator?
         %li.edit= link_to :edit.l, edit_user_post_path(@post.user, @post)

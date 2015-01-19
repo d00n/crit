@@ -13,7 +13,7 @@
           -if ( comment.can_be_deleted_by(current_user) )
             .li.delete
               -#TODO fix
-              =link_to_remote(:delete.l, {:url => commentable_comment_path(comment.commentable_type, comment.commentable_id, comment), :method => :delete, 500 => 'alert(\'Sorry, there was a server error\'); return false',  :success => visual_effect(:fade, "comment_#{comment.id}"), :confirm => :are_you_sure_you_want_to_permanently_delete_this_comment.l} )
+              -#=link_to_remote(:delete.l, {:url => commentable_comment_path(comment.commentable_type, comment.commentable_id, comment), :method => :delete, 500 => 'alert(\'Sorry, there was a server error\'); return false',  :success => visual_effect(:fade, "comment_#{comment.id}"), :confirm => :are_you_sure_you_want_to_permanently_delete_this_comment.l} )
 
       .user_row_col3
         #user_generated_html

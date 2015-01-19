@@ -639,16 +639,16 @@ class UsersController < BaseController
   end
 
 
-  def new
-    @user         = User.new( {:birthday => Date.parse((Time.now - 25.years).to_s) }.merge(params[:user] || {}) )
-    #@user         = User.new( {:birthday => Date.parse((Time.now - 25.years).to_s)) } )
-    @inviter_id   = params[:id]
-    @inviter_code = params[:code]
-
-    flash.clear
-
-    render :layout => 'single_column'
-  end
+  #def new
+  #  @user         = User.new( {:birthday => Date.parse((Time.now - 25.years).to_s) }.merge(params[:user] || {}) )
+  #  #@user         = User.new( {:birthday => Date.parse((Time.now - 25.years).to_s)) } )
+  #  @inviter_id   = params[:id]
+  #  @inviter_code = params[:code]
+  #
+  #  flash.clear
+  #
+  #  render :layout => 'single_column'
+  #end
 
   def new_facebook
     redirect_to home_url
@@ -1015,9 +1015,11 @@ class UsersController < BaseController
                          :last_name,
                          :notify_admin_blasts,
                          :notify_registrations,
+                         :publisher_name,
                          :allow_fb_autopost_achievement_unlocked,
                          :allow_fb_autopost_new_friend,
-                         {:avatar_attributes => [:id, :name, :description, :album_id, :user, :user_id, :photo, :photo_remote_url]}, :birthday) if params[:user]
+                         {:avatar_attributes => [:id, :name, :description, :album_id, :user, :user_id, :photo, :photo_remote_url]},
+                         :birthday) if params[:user]
   end
 end
 

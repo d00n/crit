@@ -2,6 +2,43 @@
 class SessionsController < BaseController
   require_from_ce('controllers/sessions_controller')
 
+
+  #def index
+  #  redirect_to :action => "new"
+  #end
+  #
+  #def new
+  #  redirect_to user_path(current_user) and return if current_user
+  #  @user_session = UserSession.new
+  #end
+
+  def create
+
+    l = params[:login]
+    pw = params[:password]
+    rm = params[:remember_me]
+
+    @user_session = UserSession.new(:login => l, :password => pw, :remember_me => rm)
+
+    if @user_session.save
+      self.current_user = @user_session.record #if current_user has been called before this, it will ne nil, so we have to make to reset it
+
+      flash[:notice] = :thanks_youre_now_logged_in.l
+      redirect_back_or_default(dashboard_user_path(current_user))
+    else
+      flash[:notice] = :uh_oh_we_couldnt_log_you_in_with_the_username_and_password_you_entered_try_again.l
+      render :action => :new, :email => params[:email]
+    end
+  end
+
+  def destroy
+    redirect_to new_session_path and return if current_user_session.nil?
+    current_user_session.destroy
+    reset_session
+    flash[:notice] = :youve_been_logged_out_hope_you_come_back_soon.l
+    redirect_to new_session_path
+  end
+
   #skip_before_filter :verify_authenticity_token, :only => :create
   #
   #def new

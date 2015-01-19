@@ -9,4 +9,5 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Crit::Application.config.secret_key_base = '1cfe1198e9cbc3a6444bd1acd48f5f941a1e7909d0b090779a84ea443a4834d48f02ec1e80656c4f7ccce7c04445e12298589341523815a7f73b1f40847df8bf'
+#Crit::Application.config.secret_key_base = '1cfe1198e9cbc3a6444bd1acd48f5f941a1e7909d0b090779a84ea443a4834d48f02ec1e80656c4f7ccce7c04445e12298589341523815a7f73b1f40847df8bf'
+Crit::Application.config.secret_key_base = '87f8daf5bf42fe96aea99dd2be98e7cdb7e2934b18dfb3e48df0d2d924023ce3bb74311b675ed34b47812918e01aeee720b6ba248212a207cabedc57729329a'
