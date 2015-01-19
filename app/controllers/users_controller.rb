@@ -739,7 +739,7 @@ class UsersController < BaseController
     end
 
     @friend_count               = @user.accepted_friendships.count
-    @accepted_friendships       = @user.accepted_friendships.find(:all, :limit => 5, :order => 'created_at DESC').collect{|f| f.friend }
+    @accepted_friendships       = @user.accepted_friendships.limit(5).to_a.collect{|f| f.friend }
     @pending_friendships_count  = @user.pending_friendships.count()
 
     @chat_admin_list = ''
@@ -761,12 +761,12 @@ class UsersController < BaseController
     #    end
     #end
 
-    @comments       = @user.comments.find(:all, :limit => 100, :order => 'created_at')
+    @comments       = @user.comments.limit(10).order('created_at DESC')
     @photo_comments = Comment.find_photo_comments_for(@user)
     @users_comments = Comment.find_comments_by_user(@user).limit(5)
 
-    @recent_posts   = @user.posts.find(:all, :limit => 5, :order => "published_at DESC")
-    #@clippings      = @user.clippings.find(:all, :limit => 5)
+    @recent_posts   = @user.posts.recent.limit(5)
+    #@clippings      = @user.clippings.limit(5)
     @comment        = Comment.new(params[:comment])
 
     if current_user && current_user == @user

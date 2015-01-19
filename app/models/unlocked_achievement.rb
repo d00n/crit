@@ -9,8 +9,8 @@ class UnlockedAchievement < ActiveRecord::Base
 
     acts_as_activity :user
 
-    scope :winners, :order => 'level desc'
-    scope :user_winners, where("user_id is not null")
+    scope :winners, -> {order('level desc')}
+    scope :user_winners, -> {where('user_id is not null') }
 
   def has_access(user)
     if user &&
