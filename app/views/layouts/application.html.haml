@@ -74,11 +74,17 @@
         %meta{:name=>key[0], :content=>key[1]}
 
     = render :partial => "shared/scripts_and_styles"
+
+
+    = render :partial => "shared/end_javascript"
+    = yield :end_javascript
+
+
     - if @rss_title && @rss_url
       = auto_discovery_link_tag(:rss, @rss_url, {:title => @rss_title})
 
-    - javascript_tag do
-      = yield(:jstemplates)
+    -#- javascript_tag do
+    -#  = yield(:jstemplates)
 
 
 
@@ -128,8 +134,6 @@
     -##footer_bar
 
 
-    = render :partial => "shared/end_javascript"
-    = yield :end_javascript
 
 
     -if DEPLOY_CHATCAT

@@ -57,7 +57,7 @@ Crit::Application.routes.draw do
   get  '/newsletter_publisher_list.:format' => 'users#newsletter_publisher_list'
 
 
-  get  '/users/:id/update_views' => 'users#update_views', :as => :user_update_views
+  put  '/users/:id/update_views' => 'users#update_views', :as => :user_update_views
   get  '/users/:id/grant_network_god_mode_access' => 'users#grant_network_god_mode_access', :as => :grant_network_god_mode_access
   get  '/users/:id/revoke_network_god_mode_access' => 'users#revoke_network_god_mode_access', :as => :revoke_network_god_mode_access
   get  '/users/:id/grant_event_admin' => 'users#grant_event_admin', :as => :grant_event_admin
@@ -104,7 +104,7 @@ Crit::Application.routes.draw do
   get  '/users/:id/games' => 'users#games', :as => :user_games
   get  '/users/:id/games_playing' => 'users#games_playing', :as => :user_games_playing
 
-  get  '/characters/:id/update_views' => 'characters#update_views', :as => :character_update_views
+  put  '/characters/:id/update_views' => 'characters#update_views', :as => :character_update_views
   get  '/characters/:id/pick_profile_photo' => 'characters#pick_profile_photo', :as => :character_pick_profile_photo
   get  '/characters/:id/change_profile_photo' => 'characters#change_profile_photo', :as => :character_change_profile_photo
   get  '/characters/:id/new_avatar_photo' => 'characters#new_avatar_photo', :as => :new_character_avatar_photo
@@ -123,7 +123,7 @@ Crit::Application.routes.draw do
   get  '/characters/:id/product/:product_id/add' => 'characters#product_add', :as => :character_product_add
   get  '/characters/:id/product/:product_id/remove' => 'characters#product_remove', :as => :character_product_remove
 
-  get  '/games/:id/update_views' => 'games#update_views', :as => :game_update_views
+  put  '/games/:id/update_views' => 'games#update_views', :as => :game_update_views
   get  '/games/:id/change_profile_photo' => 'games#change_profile_photo', :as => :game_change_profile_photo
   get  '/games/:id/register_player_for_event/slot/:slot_id' => 'games#register_player_for_event', :as => :register_player_for_event
   get  '/games/:id/register_alternate_for_event/slot/:slot_id' => 'games#register_alternate_for_event', :as => :register_alternate_for_event
@@ -202,7 +202,7 @@ Crit::Application.routes.draw do
 
   get  '/new_facebook' => 'users#new_facebook'
 
-  get  '/events/:id/update_views' => 'events#update_views', :as => :event_update_views
+  put  '/events/:id/update_views' => 'events#update_views', :as => :event_update_views
   get  '/events/:id/change_profile_photo' => 'events#change_profile_photo', :as => :event_change_profile_photo
   get  '/events/:id/pick_profile_photo' => 'events#pick_profile_photo', :as => :event_pick_profile_photo
   get  '/events/:id/remove_profile_photo' => 'events#remove_profile_photo', :as => :event_remove_profile_photo

@@ -1,4 +1,14 @@
 module ApplicationHelper
+
+  def remote_function(options)
+    ("$.ajax({url: '#{ url_for(options[:url]) }', type: '#{ options[:method] || 'GET' }', " +
+        "data: #{ options[:with] ? options[:with] + '&amp;' : '' } + " +
+        "'authenticity_token=' + encodeURIComponent('#{ form_authenticity_token }')" +
+        (options[:data_type] ? ", dataType: '" + options[:data_type] + "'" : "") +
+        (options[:success] ? ", success: function(response) {" + options[:success] + "}" : "") +
+        (options[:before] ? ", beforeSend: function(data) {" + options[:before] + "}" : "") + "});").html_safe
+  end
+
   def link_to_remove_fields(name, f)
     f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")
   end
