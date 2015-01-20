@@ -22,16 +22,16 @@
     
     
 
-  -if slot.slot_game_registrations.count(:conditions => "status = 'pending'") > 0
+  -if slot.slot_game_registrations.where("status = 'pending'").count > 0
     %h3 Pending game registrations
     - slot.slot_game_registrations.find_all_by_status('pending').each do |pending|
       = render :partial => 'slots/game_listing', :locals => {:game => pending.game, :slot => slot, :slot_game_registration => pending}
   
     
 
-  -if slot.slot_game_registrations.count(:conditions => "status = 'active'") > 0
+  -if slot.slot_game_registrations.where("status = 'active'").count > 0
     %h3 Games
-    - slot.slot_game_registrations.find_all_by_status('active').each do |active|
+    - slot.slot_game_registrations.where("status = 'active'").each do |active|
       = render :partial => 'slots/game_listing', :locals => {:game => active.game, :slot => slot, :slot_game_registration => active}
       = render :partial => 'slots/registered_players', :locals => {:game => active.game, :slot => slot}
       %br

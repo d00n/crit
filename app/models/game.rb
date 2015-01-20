@@ -146,8 +146,8 @@ class Game < ActiveRecord::Base
   def active_characters()
     active_characters = []
      
-    self.character_registrations.find_all_by_status('active').each do |character_registration|
-      active_characters << Character.find_by_id(character_registration.character_id)
+    self.character_registrations.where("status = 'active'").each do |character_registration|
+      active_characters << Character.where(id: character_registration.character_id)
     end
     
     return active_characters
@@ -157,8 +157,8 @@ class Game < ActiveRecord::Base
   def active_players()
     active_players = []
      
-    self.player_registrations.find_all_by_status('active').each do |player_registration|
-      active_players << User.find_by_id(player_registration.user_id)     
+    self.player_registrations.where("status = 'active'").each do |player_registration|
+      active_players << User.where(id: player_registration.user_id)
     end
     
     return active_players
@@ -168,7 +168,7 @@ class Game < ActiveRecord::Base
     alternate_players = []
      
     self.player_registrations.where("status = 'alternate'").order('created_at').each do |player_registration|
-      alternate_players << User.find_by_id(player_registration.user_id)     
+      alternate_players << User.where(id: player_registration.user_id)
     end
     
     return alternate_players
@@ -187,8 +187,8 @@ class Game < ActiveRecord::Base
   def pending_characters()
     pending_characters = []
      
-    self.character_registrations.find_all_by_status('pending').each do |character_registration|
-      pending_characters << Character.find_by_id(character_registration.character_id)
+    self.character_registrations.where("status = 'pending'").each do |character_registration|
+      pending_characters << Character.where(id: character_registration.character_id)
     end
     
     return pending_characters
@@ -197,8 +197,8 @@ class Game < ActiveRecord::Base
   def pending_players()
     pending_players = []
      
-    self.player_registrations.find_all_by_status('pending').each do |player_registration|
-      pending_players << User.find_by_id(player_registration.user_id)
+    self.player_registrations.where("status = 'pending'").each do |player_registration|
+      pending_players << User.where(id: player_registration.user_id)
     end
     
     return pending_players
@@ -206,7 +206,7 @@ class Game < ActiveRecord::Base
   
   def has_active_character(current_user)   
     self.character_registrations.each do |character_registration|
-      character = Character.find_by_id(character_registration.character_id)
+      character = Character.where(id: character_registration.character_id)
       if character_registration.status == 'active' && character.owner == current_user
         return true;
       end
@@ -218,7 +218,7 @@ class Game < ActiveRecord::Base
   def active_characters_for_player(user)  
     active_characters = []
     self.character_registrations.each do |character_registration|
-      character = Character.find_by_id(character_registration.character_id)
+      character = Character.where(id: character_registration.character_id)
       if character_registration.status == 'active' && character.owner == user
         active_characters << character
       end
@@ -230,7 +230,7 @@ class Game < ActiveRecord::Base
   def pending_characters_for_player(user)  
     active_characters = []
     self.character_registrations.each do |character_registration|
-      character = Character.find_by_id(character_registration.character_id)
+      character = Character.where(id: character_registration.character_id)
       if character_registration.status == 'pending' && character.owner == user
         active_characters << character
       end

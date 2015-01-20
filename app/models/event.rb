@@ -8,14 +8,14 @@ class Event < ActiveRecord::Base
   
   after_save :update_player_reg_desks
   
-  has_many :posts, :order => "published_at desc"
+  has_many :posts, -> {order "published_at desc"}
     
   acts_as_commentable
   acts_as_taggable  
   acts_as_activity :user
   
   validates_presence_of :name  
-  scope :recent, order('events.updated_at DESC')
+  scope :recent, -> {order 'events.updated_at DESC'}
   
   #attr_protected :user_id
   
@@ -122,7 +122,8 @@ class Event < ActiveRecord::Base
       unless login_slug_list.blank?
         login_slug_list += ", "
       end
-      login_slug_list += player.login_slug
+
+      login_slug_list += player.all.first.login_slug
     end
 
     return login_slug_list
@@ -146,7 +147,7 @@ class Event < ActiveRecord::Base
       unless login_slug_list.blank?
         login_slug_list += ", "
       end
-      login_slug_list += alternate.login_slug
+      login_slug_list += alternate.all.first.login_slug
     end
 
     return login_slug_list

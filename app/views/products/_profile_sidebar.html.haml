@@ -81,7 +81,7 @@
       %li.view
         = link_to "Edit product", edit_product_path(@product)
       %li.view
-        = link_to "Delete product", @product, :confirm => 'Are you sure?', :method => :delete
+        = link_to "Delete product", @product, data: {:confirm => 'Are you sure?'}, :method => :delete
       %li.view
         = link_to "Choose a product photo", :controller => "products", :id => @product.id, :action => "pick_profile_photo"
       %li.view

@@ -95,7 +95,7 @@ class EventsController < BaseController
 
   def show
     @event = Event.find(params[:id])
-    @comments = @event.comments.find(:all, :limit => 100, :order => 'created_at ')
+    @comments = @event.comments.order('created_at').limit(100)
 
 
     @show_game_reg_links = false

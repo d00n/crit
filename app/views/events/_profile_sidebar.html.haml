@@ -51,7 +51,7 @@
           %li.view
             = link_to "Remove profile photo", :controller => "events", :id => event.id, :action => "remove_profile_photo"
           %li.view
-            = link_to "Delete event", event, :confirm => 'Are you sure?', :method => :delete     
+            = link_to "Delete event", event, data: {:confirm => 'Are you sure?'}, :method => :delete
               
           
           

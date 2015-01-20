@@ -116,7 +116,7 @@
     %li.view= link_to "Manage pregenerated characters",  edit_pregenerated_character_offers_path(@game)
     %li.view= link_to "Reset game table", :controller => "games", :action => "reset_game_table", :id => @game.id
     %li.view= link_to "Clone game",  edit_game_clone_path(@game)
-    %li.view= link_to "Delete game",  @game, :confirm => 'Are you sure?', :method => :delete
+    %li.view= link_to "Delete game",  @game, data: {:confirm => 'Are you sure?'}, :method => :delete
 
           
 .box

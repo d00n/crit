@@ -6,7 +6,7 @@
     - if current_user && (current_user == @system_category.owner || current_user.admin?)
       %li.view= link_to "Edit category", edit_system_category_path(@system_category)
       %li.view= link_to "Add product", system_category_product_search_path(@system_category)
-      %li.view= link_to "Delete category", @system_category, :confirm => 'Are you sure?', :method => :delete
+      %li.view= link_to "Delete category", @system_category, data: {:confirm => 'Are you sure?'}, :method => :delete
       %li.view= link_to "Choose a category photo", :controller => "system_categories", :id => @system_category.id, :action => "pick_profile_photo"
       %li.view= link_to "Remove category photo", :controller => "system_categories", :id => @system_category.id, :action => "remove_profile_photo"
       - if current_user.admin?

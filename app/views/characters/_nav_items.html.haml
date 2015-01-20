@@ -51,7 +51,7 @@
       %li.view= link_to 'Upload new profile photo', new_character_avatar_photo_path(@character)
       %li.print= link_to "Print character sheet", :controller => "characters", :id => @character.id, :action => "print"
       %li.view= link_to "Clone character",  edit_character_clone_path(@character)  
-      %li.view= link_to "Delete character",  @character, :confirm => 'Are you sure?', :method => :delete
+      %li.view= link_to "Delete character",  @character, data: {:confirm => 'Are you sure?'}, :method => :delete
         
     -elsif current_user && @character.others_can_clone
       %li.view= link_to "Clone character",  edit_character_clone_path(@character)  
