@@ -40,7 +40,8 @@
     .user_row_col3b
       = truncate_words(post.post, 50, '...' )
 
-      = render :partial => 'polls/excerpt', :locals => {:poll => post.poll} if post.poll
+      -#TODO bring it baack
+      -#= render :partial => 'polls/excerpt', :locals => {:poll => post.poll} if post.poll
 
 -else
   .user_row

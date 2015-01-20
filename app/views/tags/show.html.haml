@@ -8,31 +8,28 @@
       - @tags.each do |tag|
         = link_to h(tag.name), tag_path(tag.name)
      
-  =render :partial => "shared/ad"
-
-  -if @related_tags
-    .box
-      %h3
-        Related tags,
-        = link_to 'see all', tags_path
-      %ul
-        -tag_cloud @related_tags, %w(css1 css2 css3 css4) do |tag, css_class|
-          =link_to h(tag.name), tag_path(tag), :class => css_class
-        -#- tag_cloud @related_tags, %w(nube1 nube2 nube3 nube4 nube5) do |name, css_class|
-        -#  - css_class = css_class + (name.eql?(params[:id]) ? " selected": "")
-        -#  %li.tags= link_to name, tag_url(u name.name), :class => css_class
-
-  =render :partial => "shared/ad"
-
-  -if @popular_tags
-    .box
-      %h3
-        Popular tags,
-        = link_to 'see all', tags_path
-      %ul
-        - tag_cloud @popular_tags, %w(nube1 nube2 nube3 nube4 nube5) do |name, css_class|
-          - css_class = css_class + (name.eql?(params[:id]) ? " selected": "")
-          %li.tags= link_to name, tag_url(u name.name), :class => css_class
+  -#=render :partial => "shared/ad"
+  -#
+  -#-if @related_tags
+  -#  .box
+  -#    %h3
+  -#      Related tags,
+  -#      = link_to 'see all', tags_path
+  -#    %ul
+  -#      -tag_cloud @related_tags, %w(css1 css2 css3 css4) do |tag, css_class|
+  -#        =link_to h(tag.name), tag_path(tag), :class => css_class
+  -#
+  -#=render :partial => "shared/ad"
+  -#
+  -#-if @popular_tags
+  -#  .box
+  -#    %h3
+  -#      Popular tags,
+  -#      = link_to 'see all', tags_path
+  -#    %ul
+  -#      - tag_cloud @popular_tags, %w(nube1 nube2 nube3 nube4 nube5) do |name, css_class|
+  -#        - css_class = css_class + (name.eql?(params[:id]) ? " selected": "")
+  -#        %li.tags= link_to name, tag_url(u name.name), :class => css_class
     
   =render :partial => "shared/ad"
 
