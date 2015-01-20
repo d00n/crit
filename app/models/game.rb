@@ -147,7 +147,7 @@ class Game < ActiveRecord::Base
     active_characters = []
      
     self.character_registrations.where("status = 'active'").each do |character_registration|
-      active_characters << Character.where(id: character_registration.character_id)
+      active_characters << Character.find(character_registration.character_id)
     end
     
     return active_characters
@@ -158,7 +158,7 @@ class Game < ActiveRecord::Base
     active_players = []
      
     self.player_registrations.where("status = 'active'").each do |player_registration|
-      active_players << User.where(id: player_registration.user_id)
+      active_players << User.find(player_registration.user_id)
     end
     
     return active_players
@@ -168,7 +168,7 @@ class Game < ActiveRecord::Base
     alternate_players = []
      
     self.player_registrations.where("status = 'alternate'").order('created_at').each do |player_registration|
-      alternate_players << User.where(id: player_registration.user_id)
+      alternate_players << User.find(player_registration.user_id)
     end
     
     return alternate_players

@@ -123,7 +123,7 @@ class Event < ActiveRecord::Base
         login_slug_list += ", "
       end
 
-      login_slug_list += player.all.first.login_slug
+      login_slug_list += player.login_slug
     end
 
     return login_slug_list
