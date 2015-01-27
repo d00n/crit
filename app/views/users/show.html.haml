@@ -68,10 +68,14 @@
         = render :partial => 'products/product', :locals => {:product => product}
 
   #comments.box.alt
-    %p= render :partial => 'comments/comment_form', :locals => {:commentable => @user}
+    -#%p= render :partial => 'comments/comment_form', :locals => {:commentable => @user}
+    -#%a#newest_comment
+    -#= render :partial => 'comments/comment', :collection => @comments
+
+    = render :partial => 'comments/comment_form', :locals => {:commentable => @user}
     %a#newest_comment
     = render :partial => 'comments/comment', :collection => @comments
-    
+
     -if @comments.any?
       %span#more_comments_links= more_comments_links(@user)
 
