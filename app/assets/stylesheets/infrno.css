@@ -1484,10 +1484,10 @@ ul.message_nav li {
 	background-repeat: no-repeat;
 	padding-left:20px;
 }
-ul.message_nav li.inbox_new {background-image: url(/assets/icons/email_open.png);}
-ul.message_nav li.inbox {background-image: url(/assets/icons/email.png);}
-ul.message_nav li.sent {background-image: url(/assets/icons/email_go.png);}
-li.compose {background-image: url(/assets/icons/email_edit.png);}
+ul.message_nav li.inbox_new {background-image: url(/assets/email_open.png);}
+ul.message_nav li.inbox {background-image: url(/assets/email.png);}
+ul.message_nav li.sent {background-image: url(/assets/email_go.png);}
+li.compose {background-image: url(/assets/email_edit.png);}
 .messages .photo a img{
 	float: left;
 	display: block;

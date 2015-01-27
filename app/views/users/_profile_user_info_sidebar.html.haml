@@ -14,24 +14,24 @@
     = link_to( "#{:assume_user_id.l}", assume_user_path(@user) , :method => :post )
     %p
     -if @user.event_admin
-      = link_to "Revoke event admin", revoke_event_admin_path(@user), :confirm => 'Are you sure?'
+      = link_to "Revoke event admin", revoke_event_admin_path(@user), data: {confirm:'Are you sure?'}
     -else
-      = link_to "Grant event admin", grant_event_admin_path(@user), :confirm => 'Are you sure?'
+      = link_to "Grant event admin", grant_event_admin_path(@user), data: {confirm:'Are you sure?'}
     %br
     -if @user.chat_admin
-      = link_to "Revoke chat admin", revoke_chat_admin_path(@user), :confirm => 'Are you sure?'
+      = link_to "Revoke chat admin", revoke_chat_admin_path(@user), data: {confirm:'Are you sure?'}
     -else
-      = link_to "Grant chat admin", grant_chat_admin_path(@user),  :confirm => 'Are you sure?'
+      = link_to "Grant chat admin", grant_chat_admin_path(@user),  data: {confirm:'Are you sure?'}
     %br
     -if @user.user_admin
-      = link_to "Revoke user admin", revoke_user_admin_path(@user), :confirm => 'Are you sure?'
+      = link_to "Revoke user admin", revoke_user_admin_path(@user), data: {confirm:'Are you sure?'}
     -else
-      = link_to "Grant user admin", grant_user_admin_path(@user), :confirm => 'Are you sure?'
+      = link_to "Grant user admin", grant_user_admin_path(@user), data: {confirm:'Are you sure?'}
     %br
     -if @user.is_banned
-      = link_to "Unban user", unban_user_path(@user), :confirm => 'Are you sure?'
+      = link_to "Unban user", unban_user_path(@user), data: {confirm:'Are you sure?'}
     -else
-      = link_to "Ban user", ban_user_path(@user), :confirm => 'Are you sure?'
+      = link_to "Ban user", ban_user_path(@user), data: {confirm:'Are you sure?'}
     %br
 
     -#-if @user.achievement_admin

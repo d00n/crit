@@ -3,9 +3,9 @@ class Achievement < ActiveRecord::Base
 
   has_many :unlocked_achievements, :dependent => :destroy
 
-  has_many :users, :through => :unlocked_achievements, :order => 'level DESC'
-  has_many :games, :through => :unlocked_achievements, :order => 'level DESC'
-  has_many :characters, :through => :unlocked_achievements, :order => 'level DESC'
+  has_many :users, -> {order 'level DESC'}, :through => :unlocked_achievements
+  has_many :games, -> {order 'level DESC'}, :through => :unlocked_achievements
+  has_many :characters, -> {order 'level DESC'}, :through => :unlocked_achievements
 
   validates :name, :presence => true
   validates :description, :presence => true

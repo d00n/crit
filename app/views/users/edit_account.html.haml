@@ -50,7 +50,7 @@
           %ul
             %li.view= link_to 'Membership history', user_membership_path(@user)
       %p
-        %li.view=link_to :deactivate_link.l, deactivate_user_path(@user), :method => :put, :confirm => :deactivate_confirmation.l
+        %li.view=link_to :deactivate_link.l, deactivate_user_path(@user), :method => :put, data: {confirm: :deactivate_confirmation.l}
       %label
         %em= :deactivate_tip.l
   #col2

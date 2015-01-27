@@ -44,6 +44,7 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 gem 'byebug', group: [:development, :test]
+gem 'quiet_assets', group: :development
 
 gem 'community_engine', '~> 3.0.0'
 gem 'sprockets', '~> 2.10.0'
