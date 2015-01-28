@@ -1,11 +1,11 @@
-%script{"type"=>"text/javascript", "src"=>"http://www.plaxo.com/css/m/js/util.js"}
-%script{"type"=>"text/javascript", "src"=>"http://www.plaxo.com/css/m/js/basic.js"}
-%script{"type"=>"text/javascript", "src"=>"http://www.plaxo.com/css/m/js/abc_launcher.js"}
+-#%script{"type"=>"text/javascript", "src"=>"http://www.plaxo.com/css/m/js/util.js"}
+-#%script{"type"=>"text/javascript", "src"=>"http://www.plaxo.com/css/m/js/basic.js"}
+-#%script{"type"=>"text/javascript", "src"=>"http://www.plaxo.com/css/m/js/abc_launcher.js"}
 
 - @section = (@post.category && @post.category.name)
 - @meta = { :title => "#{@post.title}", :description => "#{truncate_words(@post.post, 200, '...' )}  #{configatron.meta_description}", :keywords => "#{configatron.meta_keywords}, #{@post.tags.join(", ") unless @post.tags.nil?}", :robots => configatron.robots_meta_show_content }
 
-#send_to_friend.modal.fade{:role => 'dialog', "aria-hidden" => "true", :"aria-labelledby" => "send_to_friend_label", :tabindex => "-1", :style => 'padding-top: 60px;'}
+-##send_to_friend.modal.fade{:role => 'dialog', "aria-hidden" => "true", :"aria-labelledby" => "send_to_friend_label", :tabindex => "-1", :style => 'padding-top: 60px;'}
 
 #col1
   -if @post.character
@@ -33,8 +33,8 @@
       %li.comments= link_to :comments.l+" (#{@post.comments.size})", user_post_path(@user, @post)+'#comments'      
       - if current_user and current_user.can_request_friendship_with(@post.user)
         %li.addfriend= add_friend_link(@post.user)
-      %li.print
-        %a{"href"=>"#", :onclick=>"window.print(); return false;", :title=>:print_this_story.l}= :print.l
+      -#%li.print
+      -#  %a{"href"=>"#", :onclick=>"window.print(); return false;", :title=>:print_this_story.l}= :print.l
 
       -if DEPLOY_ADDTOANY
         %li.view
@@ -44,11 +44,11 @@
         %li.view
           =render :partial => "shared/addThis"      
           
-      %li.email
-        %a{:href=>"#", :onclick=>"showSendTo_friend(); return false;", :title=>:email_this_story_to_friends.l}= :email_to_friends.l
-
-      %a.email.list-group-item{:href => "#", :title => :email_this_story_to_friends.l}
-        =fa_icon "envelope fw", :text => :email_to_friends.l
+      -#%li.email
+      -#  %a{:href=>"#", :onclick=>"showSendTo_friend(); return false;", :title=>:email_this_story_to_friends.l}= :email_to_friends.l
+      -#
+      -#%a.email.list-group-item{:href => "#", :title => :email_this_story_to_friends.l}
+      -#  =fa_icon "envelope fw", :text => :email_to_friends.l
         
       -if @is_current_user || admin? || moderator?
         %li.edit= link_to :edit.l, edit_user_post_path(@post.user, @post)

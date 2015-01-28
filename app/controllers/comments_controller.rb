@@ -131,10 +131,6 @@ class CommentsController < BaseController
 
   private
 
-    def get_commentable_type(string)
-      string.camelize
-    end
-
     def comment_title
     return @comments.first.commentable_name if @comments.first
   

@@ -17,9 +17,9 @@
             -if ( comment.can_be_deleted_by(current_user) )
               .li
                 =link_to fa_icon("trash-o fw", :text => :delete.l), commentable_comment_path(comment.commentable_type, comment.commentable_id, comment), :method => :delete, 'data-confirm' => :are_you_sure_you_want_to_permanently_delete_this_comment.l, :remote => true
-            -if logged_in? && (current_user.admin? || current_user.moderator?)
-              .li
-                =link_to fa_icon("pencil-square-o fw", :text => :edit.l), edit_commentable_comment_path(comment.commentable_type, comment.commentable_id, comment), :class => 'edit-via-ajax'
+            -#-if logged_in? && (current_user.admin? || current_user.moderator?)
+            -#  .li
+            -#    =link_to fa_icon("pencil-square-o fw", :text => :edit.l), edit_commentable_comment_path(comment.commentable_type, comment.commentable_id, comment), :class => 'edit-via-ajax'
 
 
         .user_row_col3
@@ -45,8 +45,8 @@
               %a{"href"=> commentable_url(comment), "rel"=>"bookmark"}
                 %abbr.published{"title"=>"#{comment.created_at}"}
                   = time_ago_in_words comment.created_at
-            -if logged_in? && (current_user.admin? || current_user.moderator?)
-              =link_to fa_icon("pencil-square-o fw", :text => :edit.l), edit_commentable_comment_path(comment.commentable_type, comment.commentable_id, comment), :class => 'edit-via-ajax'
+            -#-if logged_in? && (current_user.admin? || current_user.moderator?)
+            -#  =link_to fa_icon("pencil-square-o fw", :text => :edit.l), edit_commentable_comment_path(comment.commentable_type, comment.commentable_id, comment), :class => 'edit-via-ajax'
             -if ( comment.can_be_deleted_by(current_user) )
               =link_to fa_icon("trash-o fw", :text => :delete.l), commentable_comment_path(comment.commentable_type, comment.commentable_id, comment), :method => :delete, 'data-confirm' => :are_you_sure_you_want_to_permanently_delete_this_comment.l, :remote => true
 

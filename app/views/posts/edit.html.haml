@@ -100,4 +100,4 @@
         = :or.l
         =link_to :cancel.l, user_post_path(current_user, @post)
 
-  = observe_field  "post_category_id", {:url => {:action => 'category_tips_update'}, :with => "post_category_id", :update => "category_tips", :complete => visual_effect(:highlight, "category_tips", :duration => 0.5)}
+  -#= observe_field  "post_category_id", {:url => {:action => 'category_tips_update'}, :with => "post_category_id", :update => "category_tips", :complete => visual_effect(:highlight, "category_tips", :duration => 0.5)}
