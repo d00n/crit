@@ -1149,7 +1149,8 @@ class GamesController < BaseController
     @game = current_user.games.find(params[:id])
 
     respond_to do |format|
-      if @game.update_attributes(params[:game])
+      attributes = game_params.permit!
+      if @game.update_attributes(attributes)
         flash[:notice] = 'Game notepads were successfully updated.'
         format.html { redirect_to(@game) }
         format.xml  { head :ok }
@@ -1491,6 +1492,11 @@ class GamesController < BaseController
     if game && !game.has_access(current_user)
         redirect_to private_game_url
     end
+  end
+
+  private
+  def game_params
+    params.require(:game).permit(:public_notepad, :owner_notepad)
   end
 
 end

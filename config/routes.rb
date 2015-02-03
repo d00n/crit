@@ -136,7 +136,7 @@ Crit::Application.routes.draw do
   get  '/games/:id/register_alternate/' => 'games#register_alternate', :as => :register_alternate
   get  '/games/:id/notepad' => 'games#notepad', :as => :game_notepad
   get  '/games/:id/edit_notepad' => 'games#edit_notepad', :as => :game_edit_notepad
-  get  '/games/:id/update_notepad' => 'games#update_notepad', :as => :game_update_notepad
+  patch  '/games/:id/update_notepad' => 'games#update_notepad', :as => :game_update_notepad
   get  '/games/:id/posts' => 'posts#game_index', :as => :game_post
   get  '/games/:id/edit_pregenerated_character_offers' => 'games#edit_pregenerated_character_offers', :as => :edit_pregenerated_character_offers
   get  '/games/:id/update_pregenerated_character_offers' => 'games#update_pregenerated_character_offers', :as => :update_pregenerated_character_offers

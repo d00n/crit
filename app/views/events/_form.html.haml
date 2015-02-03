@@ -1,6 +1,5 @@
 = javascript_include_tag 'delegate'
 = javascript_include_tag 'form_helper'
-=calendar_date_select_includes
 = error_messages_for :event
 
 
@@ -30,11 +29,11 @@
 
               %li
                 = event_form.label 'Start time'
-                = event_form.calendar_date_select :start_time, :time => true
+                = event_form.text_field :start_time, :id => "datetimepicker"
 
               %li
                 = event_form.label 'End time'
-                = event_form.calendar_date_select :end_time, :time => true
+                = event_form.text_field :end_time
 
 
         .user_row
@@ -110,7 +109,8 @@
 
 
 
-
+%script{:type => "text/javascript"}
+  jQuery('#datetimepicker').datetimepicker();
 
 
 

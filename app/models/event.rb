@@ -216,6 +216,6 @@ class Event < ActiveRecord::Base
   protected
   def validate
     errors.add("start_time", " must be before end time") unless start_time && end_time && (start_time < end_time)
-  end  
-  
+  end
+
 end

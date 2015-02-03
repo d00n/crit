@@ -104,4 +104,11 @@ class SlotsController < BaseController
     redirect_to event_path(slotGameRegistration.slot.event)
   end
 
+  protected
+  def slot_params
+    params.require(:slot).permit(:name,
+                         :start_time,
+                         :end_time)
+  end
+
 end

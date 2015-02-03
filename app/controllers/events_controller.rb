@@ -157,7 +157,12 @@ class EventsController < BaseController
     @event.tag_list = params[:tag_list]
 
     respond_to do |format|
-      if @event.update_attributes(params[:event])
+
+      attributes = {}
+      if event_params
+        attributes = event_params.permit!
+      end
+      if @event.update_attributes(attributes)
         flash[:notice] = 'Event was successfully updated.'
         format.html { redirect_to(@event) }
         format.xml  { head :ok }
@@ -374,5 +379,24 @@ class EventsController < BaseController
     @event_strips = Game.event_strips_for_month(@shown_month, :conditions => calendar_conditions )
   end
 
-
+  private
+  def event_params
+    params.require(:event).permit(:name,
+                          :start_time,
+                          :end_time,
+                          :description,
+                          :metro_area,
+                          :location,
+                          :allow_rsvp,
+                          :summary,
+                          :is_registering_games,
+                          :is_registering_regular_players,
+                          :is_registering_premium_players,
+                          :show_game_reg_links_on_event_profile,
+                          :is_primary_home_page_promo,
+                          :is_secondary_home_page_promo,
+                          :tag_list,
+                          {:slots_attributes => [:name, :start_time, :end_time]}
+                        )
+  end
 end
