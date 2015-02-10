@@ -24,7 +24,7 @@ Crit::Application.routes.draw do
   get  '/system_categories/new_game' => 'system_categories#new_game', :as => :system_categories_new_game
 
 
-  get  '/system_categories/:id/pick_profile_photo' => 'system_categories#pick_profile_photo', :as => :system_category_pick_profile_photo
+  put  '/system_categories/:id/pick_profile_photo' => 'system_categories#pick_profile_photo', :as => :system_category_pick_profile_photo
   get  '/system_categories/:id/change_profile_photo' => 'system_categories#change_profile_photo', :as => :system_category_change_profile_photo
   get  '/system_categories/:id/bump_views' => 'system_categories#bump_views', :as => :system_category_bump_views
   get  '/system_categories/:id/product/search' => 'system_categories#product_search', :as => :system_category_product_search
@@ -105,7 +105,7 @@ Crit::Application.routes.draw do
   get  '/users/:id/games_playing' => 'users#games_playing', :as => :user_games_playing
 
   put  '/characters/:id/update_views' => 'characters#update_views', :as => :character_update_views
-  get  '/characters/:id/pick_profile_photo' => 'characters#pick_profile_photo', :as => :character_pick_profile_photo
+  put  '/characters/:id/pick_profile_photo' => 'characters#pick_profile_photo', :as => :character_pick_profile_photo
   get  '/characters/:id/change_profile_photo' => 'characters#change_profile_photo', :as => :character_change_profile_photo
   get  '/characters/:id/new_avatar_photo' => 'characters#new_avatar_photo', :as => :new_character_avatar_photo
   get  '/characters/:id/game_table_sheet' => 'characters#game_table_sheet', :as => :game_table_sheet
@@ -114,8 +114,8 @@ Crit::Application.routes.draw do
   get  '/characters/:id/print' => 'characters#print'
   get  '/characters/:id/posts' => 'posts#character_index', :as => :character_post
   get  '/characters/:id/notepad' => 'characters#notepad', :as => :character_notepad
-  get  '/characters/:id/update_notepad' => 'characters#update_notepad', :as => :character_update_notepad
   get  '/characters/:id/edit_notepad' => 'characters#edit_notepad', :as => :character_edit_notepad
+  patch  '/characters/:id/update_notepad' => 'characters#update_notepad', :as => :character_update_notepad
   get  '/characters/auto_complete_for_character_genre' => 'characters#auto_complete_for_character_genre', :as => :auto_complete_for_character_genre
 
   get  '/characters/:id/products/' => 'characters#products', :as => :character_products
@@ -130,7 +130,7 @@ Crit::Application.routes.draw do
   get  '/games/:id/d20pro_allow_connections' => 'games#d20pro_allow_connections', :as => :d20pro_allow_connections
   get  '/games/:id/d20pro_disable_connections' => 'games#d20pro_disable_connections', :as => :d20pro_disable_connections
   get  '/games/:id/d20pro_launch.:format' => 'games#d20pro_launch', :as => :d20pro_launch
-  get  '/games/:id/pick_profile_photo' => 'games#pick_profile_photo', :as => :game_pick_profile_photo
+  put  '/games/:id/pick_profile_photo' => 'games#pick_profile_photo', :as => :game_pick_profile_photo
   get  '/games/:id/registration_desk' => 'games#registration_desk', :as => :registration_desk
   get  '/games/:id/register_player/' => 'games#register_player', :as => :register_player
   get  '/games/:id/register_alternate/' => 'games#register_alternate', :as => :register_alternate
@@ -203,8 +203,8 @@ Crit::Application.routes.draw do
   get  '/new_facebook' => 'users#new_facebook'
 
   put  '/events/:id/update_views' => 'events#update_views', :as => :event_update_views
-  get  '/events/:id/change_profile_photo' => 'events#change_profile_photo', :as => :event_change_profile_photo
-  get  '/events/:id/pick_profile_photo' => 'events#pick_profile_photo', :as => :event_pick_profile_photo
+  put  '/events/:id/change_profile_photo' => 'events#change_profile_photo', :as => :event_change_profile_photo
+  put  '/events/:id/pick_profile_photo' => 'events#pick_profile_photo', :as => :event_pick_profile_photo
   get  '/events/:id/remove_profile_photo' => 'events#remove_profile_photo', :as => :event_remove_profile_photo
   get  '/events/:id/select_achievements' => 'events#select_achievements', :as => :select_event_achievements
   get  '/events/:id/grant_player_achievements/:achievement_id' => 'events#grant_player_achievements', :as => :grant_player_achievements

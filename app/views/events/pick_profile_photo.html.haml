@@ -5,7 +5,7 @@
 
   .clear
   - @photos.each do |photo|
-    = link_to image_tag(photo.photo.url(:thumb), :class => "polaroid"),  event_pick_profile_photo_path({:id => @event, :photo_id => photo}), :method => :put
+    = link_to image_tag(photo.photo.url(:thumb), :class => "polaroid"),  event_change_profile_photo_path({:id => @event, :photo_id => photo}), :method => :put
     
   =paginate @photos
 

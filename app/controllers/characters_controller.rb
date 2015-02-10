@@ -351,8 +351,10 @@ class CharactersController < BaseController
   def update_notepad
     @character = current_user.characters.find(params[:id])
 
+    attributes = character_params.permit!
+
     respond_to do |format|
-      if @character.update_attributes(params[:character])
+      if @character.update_attributes(attributes)
         flash[:notice] = 'Character notepads were successfully updated.'
         format.html { redirect_to(@character) }
         format.xml  { head :ok }
@@ -488,6 +490,11 @@ class CharactersController < BaseController
       flash[:error] = 'You may not edit characters you do not own.'
       redirect_to user_path(current_user)
     end
+  end
+
+  protected
+  def character_params
+    params[:character].permit(:owner_notepad, :public_notepad)
   end
 
 end
