@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  require 'builder'
+  #require 'builder'
   belongs_to :user
   belongs_to :avatar, :class_name => "Photo", :foreign_key => "avatar_id"  
   

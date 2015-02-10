@@ -1,5 +1,4 @@
-= error_messages_for :game
-=calendar_date_select_includes
+=error_messages_for :game
 
 #col1
   -if @game.id
@@ -9,8 +8,6 @@
       %br
       =image_tag @game.avatar_photo_url(:medium)
 
-
-
 #col2
   -if @game.id
     =render :partial => 'col2_header', :locals => { :game => @game }
@@ -18,9 +15,7 @@
     .box
       %h3 New game
 
-
   .box
-
     =form_for(@game, :html => {:class => "cmxform"}) do |game_form|
       .container
         = hidden_field_tag :register_slot_id, @register_slot_id
@@ -105,7 +100,7 @@
                 %ol
                   %li
                     = game_form.label 'Start time'
-                    = game_form.calendar_date_select :start_at, :time => true
+                    = game_form.text_field :start_at, :id => "datetimepicker"
 
                   %li
                     = game_form.label 'Length (hours)'
