@@ -13,7 +13,8 @@
   .box
     %h2= @event.name.html_safe
 
-  -if @event.end_time < Time.now
+  //-if (defined?(@event.end_time).nil?) && (@event.end_time < Time.now)
+  -if (@event.end_time) && (@event.end_time < Time.now)
     .box
       %h3= "Event has finished. A big thanks to the GMs and the #{@event.seats_filled} players!".html_safe
 

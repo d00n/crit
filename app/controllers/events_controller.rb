@@ -137,7 +137,11 @@ class EventsController < BaseController
   end
 
   def create
-    @event = current_user.events.new(params[:event])
+    attributes = {}
+    if event_params
+      attributes = event_params.permit!
+    end
+    @event = current_user.events.new(attributes)
     @event.tag_list = params[:event][:name]  + ", " + params[:tag_list]
 
     respond_to do |format|
@@ -396,7 +400,7 @@ class EventsController < BaseController
                           :is_primary_home_page_promo,
                           :is_secondary_home_page_promo,
                           :tag_list,
-                          {:slots_attributes => [:name, :start_time, :end_time]}
+                          :slots_attributes => [:id, :name, :start_time, :end_time]
                         )
   end
 end

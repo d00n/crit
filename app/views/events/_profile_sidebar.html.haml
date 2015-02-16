@@ -14,11 +14,13 @@
     %h3='Navigation'
     .vcard.author
       %ul
-        %li.update
-          / http://amcubes.com/2007/12/12/formating-date-time-in-rails/
-          ="Starts: #{event.start_time.strftime('%a, %b %d, %I:%M%p %Z')}"
-        %li.update
-          ="Ends: #{event.end_time.strftime('%a, %b %d, %I:%M%p %Z')}"
+        -if (defined?(event.start_time)).nil?
+          %li.update
+            // http://amcubes.com/2007/12/12/formating-date-time-in-rails/
+            ="Starts: #{event.start_time.strftime('%a, %b %d, %I:%M%p %Z')}"
+        -if (defined?(event.end_time)).nil?
+          %li.update
+            ="Ends: #{event.end_time.strftime('%a, %b %d, %I:%M%p %Z')}"
         %li.update= link_to("Event calendar", event_calendar_path(@event))
 
           
