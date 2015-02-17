@@ -1,5 +1,4 @@
 = error_messages_for :game
-=calendar_date_select_includes
 
 #col1
   .centered
@@ -42,7 +41,7 @@
       -else
         %ol
           %li
-            = game_form.calendar_date_select :start_at, :time => true
+            = game_form.text_field :start_at, :id => "datepicker_start"
 
     .box
       %p
@@ -51,7 +50,8 @@
 
 
 
-
+%script{:type => "text/javascript"}
+  jQuery('#datetimepicker_start').datetimepicker();
 
 
 

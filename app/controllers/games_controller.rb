@@ -4,73 +4,73 @@ class GamesController < BaseController
   include Viewable
 
   protect_from_forgery :only => [:create, :update, :destroy]
- 
 
-  before_filter :login_required, :except => [:index, 
-    :index_open, 
-    :show,
-    :products,
-    :private_game,
-    :sheet, 
-    :notepad, 
-    :update_views, 
-    :play, 
-    :gametable, 
-    :ot_play, 
-    :ot_gametable, 
-    :registration_desk]
 
-  before_filter :valid_game_required, :only => [ 
-    :register_player,
-    :register_alternate, 
-    :choose_pregenerated_character, 
-    :choose_character, 
-    :register_pregenerated_character, 
-    :register_character, 
-    :show, 
-    :play,
-    :gametable, 
-    :ot_play, 
-    :ot_gametable, 
-    :registration_desk,
-    :notepad, 
-    :update, 
-    :edit_pregenerated_character_offers,
-    :update_pregenerated_character_offers, 
-    :edit_notepad, 
-    :update_notepad,
-    :d20pro_allow_connections, 
-    :d20pro_disable_connections,
-    :d20pro_launch, 
-    :new_avatar_photo,
-    :private_filter,
-    :private_game,
-    :products,
-    :product_add,
-    :product_remove,
-    :product_search]
+  before_filter :login_required, :except => [:index,
+                                             :index_open,
+                                             :show,
+                                             :products,
+                                             :private_game,
+                                             :sheet,
+                                             :notepad,
+                                             :update_views,
+                                             :play,
+                                             :gametable,
+                                             :ot_play,
+                                             :ot_gametable,
+                                             :registration_desk]
+
+  before_filter :valid_game_required, :only => [
+      :register_player,
+      :register_alternate,
+      :choose_pregenerated_character,
+      :choose_character,
+      :register_pregenerated_character,
+      :register_character,
+      :show,
+      :play,
+      :gametable,
+      :ot_play,
+      :ot_gametable,
+      :registration_desk,
+      :notepad,
+      :update,
+      :edit_pregenerated_character_offers,
+      :update_pregenerated_character_offers,
+      :edit_notepad,
+      :update_notepad,
+      :d20pro_allow_connections,
+      :d20pro_disable_connections,
+      :d20pro_launch,
+      :new_avatar_photo,
+      :private_filter,
+      :private_game,
+      :products,
+      :product_add,
+      :product_remove,
+      :product_search]
 
   before_filter :private_filter, :except => [:private_game, :register_player, :register_alternate, :cancel_player, :cancel_alternate, :registration_desk, :index]
 
-  after_filter :expire_game_index_calendar_fragment, :only => 
-    [:change_profile_photo,
-    :register_player,
-    :register_alternate,
-    :register_player_for_event,
-    :register_alternate_for_event,
-    :approve_player,
-    :deny_player,
-    :cancel_player,
-    :cancel_alternate,
-    :kick_player,
-    :kick_alternate,
-    :player_leave_game]
+  after_filter :expire_game_index_calendar_fragment, :only =>
+      [:change_profile_photo,
+       :register_player,
+       :register_alternate,
+       :register_player_for_event,
+       :register_alternate_for_event,
+       :approve_player,
+       :deny_player,
+       :cancel_player,
+       :cancel_alternate,
+       :kick_player,
+       :kick_alternate,
+       :player_leave_game]
 
   #auto_complete_for :game, :genre
 
   uses_tiny_mce do
     {:only => [:new, :create, :update, :edit, :edit_notepad, :welcome_about],
-      :options => configatron.default_mce_options.merge({:editor_selector => "rich_text_editor"}) }
+     :options => configatron.default_mce_options.merge({:editor_selector => "rich_text_editor"})}
   end
 
   uses_tiny_mce do
@@ -177,11 +177,11 @@ class GamesController < BaseController
 #  end
 
 
-  # START - Player registration
+# START - Player registration
 
   def register_player
     game = Game.find_by_id(params[:id])
-    
+
     if game.slots.any?
       flash[:error] = 'This game is part of an event. Registration must be done through the event.'
       redirect_to event_path(game.slots.last.event)
@@ -218,7 +218,7 @@ class GamesController < BaseController
 
   def register_alternate
     game = Game.find_by_id(params[:id])
-    
+
     if game.slots.any?
       flash[:error] = 'This game is part of an event. Registration must be done through the event.'
       redirect_to event_path(game.slots.last.event)
@@ -248,13 +248,13 @@ class GamesController < BaseController
   def register_player_for_event
     game = Game.find_by_id(params[:id])
     slot = Slot.find_by_id(params[:slot_id])
-    
+
     if slot.event.is_registering_premium_players && current_user.membership_level < 2
       flash[:error] = 'Early registration is available for Exalted members. Upgrade today!'
       redirect_to event_path(slot.event)
       return
     end
-    
+
     # Any event edit will affect game.status, so we can trust that open means open
 
     if game && game.status == 'open' && game.active_players.size < game.player_seats
@@ -262,7 +262,7 @@ class GamesController < BaseController
       game.player_registrations << playerRegistration
       current_user.player_registrations << playerRegistration
 
-     if game.auto_approve_player_registrations
+      if game.auto_approve_player_registrations
         playerRegistration.status = 'active'
         playerRegistration.save
         UserNotifier.game_approve_player_notice(playerRegistration.game, playerRegistration).deliver
@@ -288,7 +288,7 @@ class GamesController < BaseController
       redirect_to event_path(slot.event)
       return
     end
-    
+
     # Any event edit will affect game.status, so we can trust that open means open
 
     if game && game.status == 'open' && game.alternate_players.size < game.alternate_seats
@@ -428,7 +428,6 @@ class GamesController < BaseController
   end
 
   # END - Player registration
-
 
 
   #def deny_pregenerated
@@ -667,24 +666,23 @@ class GamesController < BaseController
     if games.where_sql.blank? # No search criteria
       calendar_conditions = '1'
     else
-      calendar_conditions = games.where_sql.sub(/^WHERE/i,'')
+      calendar_conditions = games.where_sql.sub(/^WHERE/i, '')
     end
 
-    
 
     @month = (params[:month] || Time.zone.now.month).to_i
     @year = (params[:year] || Time.zone.now.year).to_i
     @shown_month = Date.civil(@year, @month)
-    @event_strips = Game.event_strips_for_month(@shown_month, :conditions => calendar_conditions )
+    @event_strips = Game.event_strips_for_month(@shown_month, :conditions => calendar_conditions)
 
     @game_index_calendar_cache_fragment_suffix = "PacificTimeUSCanada"
     if current_user
-      @game_index_calendar_cache_fragment_suffix = current_user.time_zone.gsub(/\W/ ,'')
+      @game_index_calendar_cache_fragment_suffix = current_user.time_zone.gsub(/\W/, '')
     end
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @games }
+      format.xml { render :xml => @games }
     end
   end
 
@@ -728,42 +726,40 @@ class GamesController < BaseController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @game }
+      format.xml { render :xml => @game }
     end
   end
-
-  
 
 
   # GET /games/1/join
   # def join
-    # @game = Game.find(params[:id])
-    #
-    # @pending_characters = @game.pending_characters
-    # @active_characters = @game.active_characters
-    #
-    # @active_players = @game.active_players
-    # @pending_players = @game.pending_players
-        #
-    # @eligible_characters = []
-    # @ineligible_characters = []
-    # @my_characters = current_user.characters
-   #
-    # @game.character_registrations.each do |registration|
-      # character = Character.find_by_id(registration.character_id)
-      #
-      # if @my_characters.include?(character)
-        # @ineligible_characters << character
-      # end
-    # end
-#
-    # if !@my_characters.nil? && !@ineligible_characters.nil?
-      # @eligible_characters = @my_characters - @ineligible_characters
-    # end
-      #
-    # respond_to do |format|
-      # format.html # join.html.erb
-    # end
+  # @game = Game.find(params[:id])
+  #
+  # @pending_characters = @game.pending_characters
+  # @active_characters = @game.active_characters
+  #
+  # @active_players = @game.active_players
+  # @pending_players = @game.pending_players
+  #
+  # @eligible_characters = []
+  # @ineligible_characters = []
+  # @my_characters = current_user.characters
+  #
+  # @game.character_registrations.each do |registration|
+  # character = Character.find_by_id(registration.character_id)
+  #
+  # if @my_characters.include?(character)
+  # @ineligible_characters << character
+  # end
+  # end
+  #
+  # if !@my_characters.nil? && !@ineligible_characters.nil?
+  # @eligible_characters = @my_characters - @ineligible_characters
+  # end
+  #
+  # respond_to do |format|
+  # format.html # join.html.erb
+  # end
   # end
 
 
@@ -806,7 +802,7 @@ class GamesController < BaseController
 
     respond_to do |format|
       format.html # notepad.html.erb
-      format.xml  { render :xml => @character }
+      format.xml { render :xml => @character }
     end
   end
 
@@ -858,7 +854,7 @@ class GamesController < BaseController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @game }
+      format.xml { render :xml => @game }
     end
   end
 
@@ -866,7 +862,11 @@ class GamesController < BaseController
   # POST /games
   # POST /games.xml
   def create
-    @game = current_user.games.new(params[:game])
+    attributes = {}
+    if game_params
+      attributes = game_params.permit!
+    end
+    @game = current_user.games.new(attributes)
     @game.room_id = fetchRoomId
 
     # This has issues with case, resulting in dupes of the same tag
@@ -903,7 +903,7 @@ class GamesController < BaseController
             @game.add_product(product)
           end
         end
-        
+
         #if @game.game_system
         #  @game.game_system.update_game_counts
         #end
@@ -921,7 +921,7 @@ class GamesController < BaseController
             @game.save
 
             UserNotifier.slot_register_game_notice(slotGameRegistration).deliver
-            
+
             flash[:notice] = "#{@game.name} has been registered.".html_safe
 
             redirect_to event_path(slotGameRegistration.slot.event)
@@ -937,10 +937,10 @@ class GamesController < BaseController
         #UserNotifier.new_game_notice(@game).deliver
 
         format.html { redirect_to seo_game_path(@game) }
-        format.xml  { render :xml => @game, :status => :created, :location => @game }
+        format.xml { render :xml => @game, :status => :created, :location => @game }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @game.errors, :status => :unprocessable_entity }
+        format.xml { render :xml => @game.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -951,7 +951,7 @@ class GamesController < BaseController
   def update
     @game = Game.find(params[:id])
 
-    if current_user && ( current_user == @game.owner || current_user.admin?)
+    if current_user && (current_user == @game.owner || current_user.admin?)
 
 
       # This has issues with case, resulting in dupes of the same tag
@@ -996,11 +996,11 @@ class GamesController < BaseController
           if @game.game_system
             @game.game_system.update_game_counts
           end
-          
+
           if old_month != @game.start_at.month ||
-             old_year != @game.start_at.year ||
-             old_day != @game.start_at.day ||
-             old_hour != @game.start_at.hour
+              old_year != @game.start_at.year ||
+              old_day != @game.start_at.day ||
+              old_hour != @game.start_at.hour
 
             cache_fragment_match = "game_index_calendar_" + old_month.to_s + "_" + old_year.to_s + ".*"
             expire_fragment(/#{cache_fragment_match}/)
@@ -1010,10 +1010,10 @@ class GamesController < BaseController
 
           flash[:notice] = 'Game was successfully updated.'
           format.html { redirect_to(@game) }
-          format.xml  { head :ok }
+          format.xml { head :ok }
         else
           format.html { render :action => "edit" }
-          format.xml  { render :xml => @game.errors, :status => :unprocessable_entity }
+          format.xml { render :xml => @game.errors, :status => :unprocessable_entity }
         end
       end
     end
@@ -1022,7 +1022,7 @@ class GamesController < BaseController
   # GET /games/1/edit
   def edit_name
     @game = Game.find(params[:id])
-    if @game && ( @game.owner == current_user || current_user.admin? )
+    if @game && (@game.owner == current_user || current_user.admin?)
       return @game
     else
       flash[:error] = 'You may not edit games you do not own.'
@@ -1033,7 +1033,7 @@ class GamesController < BaseController
   # GET /games/1/edit
   def edit
     @game = Game.find(params[:id])
-    if @game && ( @game.owner == current_user || current_user.admin? )
+    if @game && (@game.owner == current_user || current_user.admin?)
       return @game
     else
       flash[:error] = 'You may not edit games you do not own.'
@@ -1042,7 +1042,7 @@ class GamesController < BaseController
   end
 
   def edit_clone
-    original =  Game.find(params[:id])
+    original = Game.find(params[:id])
 
     if original.others_can_clone || current_user == original.owner
       @game = original.get_clone(current_user)
@@ -1056,7 +1056,6 @@ class GamesController < BaseController
   end
 
 
-
   # DELETE /games/1
   # DELETE /games/1.xml
   def destroy
@@ -1068,7 +1067,7 @@ class GamesController < BaseController
     end
 
     expire_game_index_calendar_fragment()
-    
+
     @game.destroy
 
     @month = Time.zone.now.month
@@ -1076,7 +1075,7 @@ class GamesController < BaseController
 
     respond_to do |format|
       format.html { redirect_to(games_url) }
-      format.xml  { head :ok }
+      format.xml { head :ok }
     end
   end
 
@@ -1137,7 +1136,7 @@ class GamesController < BaseController
 
   def edit_notepad
     @game = Game.find(params[:id])
-    if @game && ( @game.owner == current_user || current_user.admin? )
+    if @game && (@game.owner == current_user || current_user.admin?)
       return @game
     else
       flash[:error] = 'You may not edit game notepads you do not own.'
@@ -1153,10 +1152,10 @@ class GamesController < BaseController
       if @game.update_attributes(attributes)
         flash[:notice] = 'Game notepads were successfully updated.'
         format.html { redirect_to(@game) }
-        format.xml  { head :ok }
+        format.xml { head :ok }
       else
         format.html { render :action => "edit_notepad" }
-        format.xml  { render :xml => @character.errors, :status => :unprocessable_entity }
+        format.xml { render :xml => @character.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -1171,7 +1170,7 @@ class GamesController < BaseController
       return
     end
 
-    @photo  = Photo.find(params[:photo_id])
+    @photo = Photo.find(params[:photo_id])
     @game.avatar = @photo
 
     if @game.save!
@@ -1180,7 +1179,7 @@ class GamesController < BaseController
 
       @photo.is_private = @game.is_private
       @game.save!
-      
+
     else
       format.html { render :action => "edit" }
     end
@@ -1205,20 +1204,20 @@ class GamesController < BaseController
     #@tags = Photo.tag_counts :conditions => { :user_id => @user.id }, :limit => 20
 
     @rss_title = "#{configatron.community_name}: #{@user.login}'s photos"
-    @rss_url = user_photos_path(@user,:format => :rss)
+    @rss_url = user_photos_path(@user, :format => :rss)
 
     respond_to do |format|
       format.html # index.rhtml
       format.rss {
         render_rss_feed_for(@photos,
-           { :feed => {:title => @rss_title, :link => url_for(:controller => 'photos', :action => 'index', :user_id => @user) },
-             :item => {:title => :name,
-                       :description => Proc.new {|photo| description_for_rss(photo)},
-                       :link => Proc.new {|photo| user_photo_url(photo.user, photo)},
-                       :pub_date => :created_at} })
+                            {:feed => {:title => @rss_title, :link => url_for(:controller => 'photos', :action => 'index', :user_id => @user)},
+                             :item => {:title => :name,
+                                       :description => Proc.new { |photo| description_for_rss(photo) },
+                                       :link => Proc.new { |photo| user_photo_url(photo.user, photo) },
+                                       :pub_date => :created_at}})
 
       }
-      format.xml { render :action => 'index.rxml', :layout => false}
+      format.xml { render :action => 'index.rxml', :layout => false }
     end
   end
 
@@ -1252,7 +1251,7 @@ class GamesController < BaseController
   def fetchRoomId
     # TODO: run this under https, and pass credentials via post
     begin
-      res = Net::HTTP.post_form(URI.parse(ROOM_ID_SERVER + '/services/newRoomId'), {'username'=>'muldoon', 'password'=>'a2eaff9f7e6e3241e44f3360a47eefda'})
+      res = Net::HTTP.post_form(URI.parse(ROOM_ID_SERVER + '/services/newRoomId'), {'username' => 'muldoon', 'password' => 'a2eaff9f7e6e3241e44f3360a47eefda'})
       return res.body
     rescue
       return nil
@@ -1285,13 +1284,13 @@ class GamesController < BaseController
         format.xml do
 
           name = current_user.first_name + " " + current_user.last_name
-          @d20pro_alias= name.gsub(/[^a-zA-Z0-9]/,'_')
-          stream = render_to_string(:template=>"games/d20pro_launch.xml.builder")
-          send_data(stream, :type=>"application/x-d20pro", :filename => "launch.d20pro")
+          @d20pro_alias= name.gsub(/[^a-zA-Z0-9]/, '_')
+          stream = render_to_string(:template => "games/d20pro_launch.xml.builder")
+          send_data(stream, :type => "application/x-d20pro", :filename => "launch.d20pro")
         end
         format.prp do
-          stream = render_to_string(:template=>"games/d20pro_launch.prp")
-          send_data(stream, :type=>"text/plain", :filename => "launch.d20pro")
+          stream = render_to_string(:template => "games/d20pro_launch.prp")
+          send_data(stream, :type => "text/plain", :filename => "launch.d20pro")
         end
       end
     else
@@ -1342,7 +1341,7 @@ class GamesController < BaseController
     end
 
     if @game.opentok_session_id.blank?
-       @game.set_opentok_session(request.remote_addr)
+      @game.set_opentok_session(request.remote_addr)
     end
 
     opentok = OpenTok::OpenTokSDK.new OPENTOK_API_KEY, OPENTOK_API_SECRET
@@ -1418,7 +1417,7 @@ class GamesController < BaseController
   def system_category_add
     @game = Game.find_by_id(params[:id])
 
-    if current_user && ( @game.owner == current_user || current_user.admin? )
+    if current_user && (@game.owner == current_user || current_user.admin?)
       system_category = SystemCategory.find(params[:system_category_id])
       system_category.products.each do |product|
         @game.add_product(product)
@@ -1439,7 +1438,7 @@ class GamesController < BaseController
   def product_add
     @game = Game.find_by_id(params[:id])
 
-    if current_user && ( @game.owner == current_user || current_user.admin? )
+    if current_user && (@game.owner == current_user || current_user.admin?)
       product = Product.find(params[:product_id])
       @game.add_product(product)
       if @game.characters.any?
@@ -1458,7 +1457,7 @@ class GamesController < BaseController
   def product_remove
     @game = Game.find_by_id(params[:id])
 
-    if current_user && ( @game.owner == current_user || current_user.admin? )
+    if current_user && (@game.owner == current_user || current_user.admin?)
       @game = Game.find_by_id(params[:id])
       product = Product.find(params[:product_id])
       @game.products.delete(product)
@@ -1490,13 +1489,35 @@ class GamesController < BaseController
   def private_filter
     game = Game.find_by_id(params[:id])
     if game && !game.has_access(current_user)
-        redirect_to private_game_url
+      redirect_to private_game_url
     end
   end
 
   private
   def game_params
-    params.require(:game).permit(:public_notepad, :owner_notepad)
+    params.require(:game).permit(:name,
+                                 :status,
+                                 :player_seats,
+                                 :alternate_seats,
+                                 :others_can_clone,
+                                 :allow_spectators,
+                                 :use_video,
+                                 :is_private,
+                                 :min_age,
+                                 :max_age,
+                                 :start_at,
+                                 :session_length,
+                                 :number_of_sessions,
+                                 :is_d20pro,
+                                 :d20pro_ip,
+                                 :d20pro_port,
+                                 :d20pro_password,
+                                 :description,
+                                 :premise,
+                                 :style_of_play,
+                                 :room_id,
+                                 :public_notepad,
+                                 :owner_notepad)
   end
 
 end
