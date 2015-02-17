@@ -2,6 +2,7 @@ class SlotsController < BaseController
 
   def choose_game
     @slot = Slot.find(params[:id])
+    @event = @slot.event
   end
 
   def register_game
