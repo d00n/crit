@@ -1,5 +1,5 @@
-= javascript_include_tag 'delegate'
-= javascript_include_tag 'form_helper'
+-#= javascript_include_tag 'delegate'
+-#= javascript_include_tag 'form_helper'
 = error_messages_for :event
 
 
@@ -97,12 +97,15 @@
           %fieldset
             %legend
               Slots
-              =link_to_add_fields "(add slot)", event_form, :slots
 
             %ol
-            =event_form.fields_for :slots do |builder|
-              =render 'slot_fields', :f => builder
+            =event_form.fields_for :slots do |slot|
+              =render 'slot_fields', :f => slot
 
+        %p
+        = event_form.submit 'Delete checked slots', :name => "remove_slot"
+        %p
+        = event_form.submit 'Add slot', :name => "add_slot"
         %p
         = event_form.submit 'Save event'
 

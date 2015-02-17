@@ -5,7 +5,8 @@
       -if !slot.name.blank?
         = "#{h(slot.name)}:".html_safe
         
-      ="#{slot.start_time.strftime('%a, %b %d, %I:%M%p %Z')} - #{slot.end_time.strftime('%I:%M%p %Z')}".html_safe
+      -if !slot.start_time.blank? &&  !slot.end_time.blank?
+        ="#{slot.start_time.strftime('%a, %b %d, %I:%M%p %Z')} - #{slot.end_time.strftime('%I:%M%p %Z')}".html_safe
       
     -if current_user && slot.event.is_registering_games  && slot.event.show_game_reg_links_on_event_profile
       - if current_user.games.count > 0

@@ -123,7 +123,7 @@ class EventsController < BaseController
   # GET /products/new.xml
   def new
     @event = Event.new
-    #3.times { @event.slots.build }
+    3.times { @event.slots.build }
 
     respond_to do |format|
       format.html { render :layout => 'application' }
@@ -144,6 +144,13 @@ class EventsController < BaseController
     @event = current_user.events.new(attributes)
     @event.tag_list = params[:event][:name]  + ", " + params[:tag_list]
 
+    if params[:add_slot]
+      @event.slots.build
+    elsif params[:remove_slot]
+      # nested model with _destroy=1 should get automatically deleted
+
+    end
+
     respond_to do |format|
       if @event.save
         flash[:notice] = 'Event was successfully created.'
@@ -160,21 +167,38 @@ class EventsController < BaseController
     @event = current_user.events.find(params[:id])
     @event.tag_list = params[:tag_list]
 
-    respond_to do |format|
+    if params[:add_slot]
+      unless params[:event][:slots_attributes].blank?
+        for attribute in params[:event][:slots_attributes]
+          @event.slots.build(attribute.last.except(:_destroy)) unless attribute.last.has_key?(:id)
+        end
+      end
+      @event.slots.build
+    elsif params[:remove_slot]
+      removed_slots = params[:event][:slots_attributes].collect { |i, att| att[:id] if (att[:id] && att[:_destroy].to_i == 1)}
+      Slot.delete(removed_slots)
+      flash[:notice] = "Slots removed."
 
+      for attribute in params[:event][:slots_attributes]
+        @event.slots.build(attribute.last.except(:_destroy)) if (!attribute.last.has_key?(:id) && attribute.last[:_destroy].to_i == 0)
+      end
+    else
       attributes = {}
       if event_params
         attributes = event_params.permit!
       end
+
       if @event.update_attributes(attributes)
         flash[:notice] = 'Event was successfully updated.'
-        format.html { redirect_to(@event) }
-        format.xml  { head :ok }
+        redirect_to action: 'show', id: @event.id
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
+        redirect_to :action => "edit"
       end
+      return
     end
+
+    render :action => 'edit'
+    return
   end
 
   def destroy
@@ -400,7 +424,7 @@ class EventsController < BaseController
                           :is_primary_home_page_promo,
                           :is_secondary_home_page_promo,
                           :tag_list,
-                          :slots_attributes => [:id, :name, :start_time, :end_time]
+                          :slots_attributes => [:id, :name, :start_time, :end_time, :_destroy]
                         )
   end
 end

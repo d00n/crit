@@ -9,8 +9,8 @@
     = f.label 'End time'
     = f.text_field :end_time
   %li
-    = f.hidden_field :_destroy
-    = link_to_function "remove", "remove_fields(this)"
-      
+    = f.label 'Delete'
+    = f.check_box :_destroy
+
         
 
