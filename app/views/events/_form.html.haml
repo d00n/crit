@@ -94,18 +94,19 @@
             -#= auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [',', ' ']  }
 
         .user_row
-          %fieldset
-            %legend
-              Slots
+          .slots[@event]
+            %fieldset
+              %legend
+                Slots
 
-            %ol
-            =event_form.fields_for :slots do |slot|
-              =render 'slot_fields', :f => slot
+              %ol
+              =event_form.fields_for :slots do |slot|
+                =render 'slots/form', :f => slot, :slot => slot.object
 
-        %p
-        = event_form.submit 'Delete checked slots', :name => "remove_slot"
-        %p
-        = event_form.submit 'Add slot', :name => "add_slot"
+            .new-slots
+            %p
+            %a{href: "#", title: "add slot", class: "slot-add"}Add slot
+
         %p
         = event_form.submit 'Save event'
 
@@ -113,8 +114,9 @@
 
 
 %script{:type => "text/javascript"}
-  jQuery('#datetimepicker_start').datetimepicker();
-  jQuery('#datetimepicker_end').datetimepicker();
+  $(document).ready(function() {
+  dynamicAddRemove('event', 'events', 'slot', 'slots');
+  });
 
 
 

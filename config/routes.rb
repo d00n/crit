@@ -12,7 +12,9 @@ Crit::Application.routes.draw do
   resources :properties
   resources :characters
   resources :games
-  resources :events
+  resources :events do
+    resources :slots
+  end
   resources :characters
   resources :products
   resources :system_categories

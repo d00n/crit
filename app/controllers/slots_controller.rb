@@ -1,5 +1,25 @@
 class SlotsController < BaseController
 
+  def new
+    event = Event.find(params[:event_id])
+    @slot = event.slots.create
+    new_slot_form = render_to_string :layout => false
+    new_slot_form.gsub!("[#{@slot.id}]", "[#{Time.now.to_i}]")
+    render :text => new_slot_form, :layout => false
+  end
+
+  def destroy
+    event = Event.find(params[:event_id])
+    unless event.slots.exists?(params[:id])
+      render :text => { :success => false, :msg => 'the slot was not found.' }.to_json and return
+    end
+    if event.slots.destroy(params[:id])
+      render :text => { :success => true }.to_json
+    else
+      render :text => { :success => false, :msg => 'something unexpected happened.' }.to_json
+    end
+  end
+
   def choose_game
     @slot = Slot.find(params[:id])
     @event = @slot.event
