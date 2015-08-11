@@ -51,3 +51,11 @@ gem 'sprockets', '~> 2.10.0'
 gem 'mysql2'
 gem 'event-calendar', :require => 'event_calendar'
 gem 'omniauth-facebook'
+
+
+group :development do
+  gem 'capistrano', '~> 3.1'
+  gem 'capistrano-bundler', '~> 1.1.2'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-passenger', '~> 0.1.1'
+end
