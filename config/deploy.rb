@@ -8,7 +8,6 @@ task :production do
   role :web, "deploy@54.69.82.151"
   role :app, "deploy@54.69.82.151"
   role :db, "deploy@54.69.82.151", :primary => true
-  set :application, "infrno"
   set :robots_file, "robots.txt.production"
 end
 
@@ -20,13 +19,13 @@ end
 # set :deploy_to, '/var/www/my_app_name'
 
 # Default value for :scm is :git
-# set :scm, :git
+set :scm, :git
 
 # Default value for :format is :pretty
-# set :format, :pretty
+set :format, :pretty
 
 # Default value for :log_level is :debug
-# set :log_level, :debug
+set :log_level, :debug
 
 # Default value for :pty is false
 # set :pty, true
@@ -41,7 +40,7 @@ end
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 # Default value for keep_releases is 5
-# set :keep_releases, 5
+set :keep_releases, 2
 
 
 
@@ -55,5 +54,15 @@ namespace :deploy do
       # end
     end
   end
+end
 
+desc "Check that we can access everything"
+task :check_write_permissions do
+  on roles(:all) do |host|
+    if test("[ -w #{fetch(:deploy_to)} ]")
+      info "#{fetch(:deploy_to)} is writable on #{host}"
+    else
+      error "#{fetch(:deploy_to)} is not writable on #{host}"
+    end
+  end
 end
