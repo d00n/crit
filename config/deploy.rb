@@ -4,6 +4,10 @@ lock '3.4.0'
 set :application, 'infrno'
 set :repo_url, 'git@github.com:d00n/crit.git'
 
+set :passenger_restart_with_touch, true
+
+set :branch, ENV['BRANCH'] || 'develop'
+
 task :production do
   role :web, "deploy@54.69.82.151"
   role :app, "deploy@54.69.82.151"
@@ -66,3 +70,10 @@ task :check_write_permissions do
     end
   end
 end
+
+task :update_rvm_key do
+  on roles :all do
+    execute :gpg2, "--keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3"
+  end
+end
+before "rvm1:install:rvm", "update_rvm_key"

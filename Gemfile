@@ -58,5 +58,5 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-passenger', '~> 0.1.1'
-  gem 'capistrano-rvm'
+  gem 'rvm1-capistrano3', require: false
 end
