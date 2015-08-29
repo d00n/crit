@@ -6,7 +6,9 @@ set :repo_url, 'git@github.com:d00n/crit.git'
 
 set :passenger_restart_with_touch, true
 
-set :branch, ENV['BRANCH'] || 'develop'
+set :branch, $1 if `git branch` =~ /\* (\S+)\s/m
+
+# set :branch, ENV['BRANCH'] || 'develop'
 
 task :production do
   role :web, "deploy@54.69.82.151"
