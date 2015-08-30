@@ -17,7 +17,6 @@
 
 .sass-cache/
 .DS_Store
-config/database.yml
 *~
 
 /public/photos
