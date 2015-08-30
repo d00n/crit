@@ -10,7 +10,8 @@ set :branch, $1 if `git branch` =~ /\* (\S+)\s/m
 # set :branch, ENV['BRANCH'] || 'develop'
 
 set :rvm_type, :auto
-set :rvm_ruby_version, '2.0.0-p643'
+set :rvm_ruby_version, '2.0.0-p643@strip01'
+set :rvm_path, '/usr/local/rvm'
 
 task :production do
   role :web, "deploy@54.69.82.151"
