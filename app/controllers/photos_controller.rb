@@ -72,7 +72,7 @@ class PhotosController < BaseController
   # POST /photos.xml
   def create
     @user = current_user
-    @photo = Photo.new(params[:photo])
+    @photo = Photo.new(photo_params)
     @photo.user = @user
     @photo.tag_list = params[:tag_list] || ''
 
@@ -204,6 +204,6 @@ class PhotosController < BaseController
 
   protected
   def photo_params
-    params[:photo].permit(:name, :description, :album_id, :photo, :is_private)
+    params[:photo].permit(:name, :description, :album_id, :photo, :is_private, )
   end
 end
