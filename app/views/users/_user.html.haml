@@ -17,7 +17,7 @@
           =:joined.l + " #{time_ago_in_words user.created_at}"
 
       - if current_user and current_user.can_request_friendship_with(user)
-        %li.addfriend= add_friend_link(user)
+        %li{:class=>"addfriend_#{user.id}"}= add_friend_link(user)
         
     - unless user.tags.empty?
       %li.tags

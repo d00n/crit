@@ -5,7 +5,7 @@ class FriendshipsController < BaseController
     @user = User.find(params[:user_id])
     @friendship = Friendship.new(:user_id => params[:user_id], :friend_id => params[:friend_id], :initiator => true )
     @friendship.friendship_status_id = FriendshipStatus[:pending].id
-    reverse_friendship = Friendship.new(params[:friendship])
+    reverse_friendship = Friendship.new
     reverse_friendship.friendship_status_id = FriendshipStatus[:pending].id
     reverse_friendship.user_id, reverse_friendship.friend_id = @friendship.friend_id, @friendship.user_id
 
@@ -13,14 +13,14 @@ class FriendshipsController < BaseController
       if @friendship.save && reverse_friendship.save
         UserNotifier.friendship_request(@friendship).deliver if @friendship.friend.notify_friend_requests?
         format.html {
-          flash[:notice] = :friendship_requested.l_with_args(:friend => @friendship.friend.login) 
+          flash[:notice] = :friendship_requested.l_with_args(:friend => @friendship.friend.login)
           redirect_to accepted_user_friendships_path(@user)
         }
-        format.js { render( :inline => :requested_friendship_with.l+" #{@friendship.friend.login}." ) }        
+        format.js {@text = "#{:requested_friendship_with.l} #{@friendship.friend.login}."}
       else
         flash.now[:error] = :friendship_could_not_be_created.l
         format.html { redirect_to user_friendships_path(@user) }
-        format.js { render( :inline => "Friendship request failed." ) }                
+        format.js {@text = "#{:friendship_request_failed.l}."}
       end
     end
 
