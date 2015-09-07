@@ -7,6 +7,8 @@ class UpgradeToActsAsCommentable4x < ActiveRecord::Migration
       t.string :role, :default => "comments"
     end
 
+
+
     Comment.all.map do |comment|
       comment.new_title = comment.title
       comment.new_comment = comment.comment

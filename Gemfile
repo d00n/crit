@@ -60,4 +60,6 @@ group :development do
   gem 'capistrano-rvm'
   gem 'capistrano-passenger', '~> 0.1.1'
   #gem 'rvm1-capistrano3', require: false
+
+  gem 'colorize'
 end

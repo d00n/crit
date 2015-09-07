@@ -294,6 +294,7 @@ DEPENDENCIES
   capistrano-rails (~> 1.1)
   capistrano-rvm
   coffee-rails (~> 4.0.0)
+  colorize
   community_engine (~> 3.0.0)
   event-calendar
   jbuilder (~> 1.2)
