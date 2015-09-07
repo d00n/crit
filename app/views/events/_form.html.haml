@@ -1,7 +1,10 @@
--#= javascript_include_tag 'delegate'
--#= javascript_include_tag 'form_helper'
+= javascript_include_tag 'delegate'
+= javascript_include_tag 'form_helper'
+=calendar_date_select_includes
 = error_messages_for :event
 
+-content_for :end_javascript do
+  = tag_auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [','] }
 
 #col1
   .box
@@ -29,11 +32,11 @@
 
               %li
                 = event_form.label 'Start time'
-                = event_form.text_field :start_time, :id => "datetimepicker_start"
+                -#= event_form.calendar_date_select :start_time, :time => true
 
               %li
                 = event_form.label 'End time'
-                = event_form.text_field :end_time, :id => "datetimepicker_end"
+                -#= event_form.calendar_date_select :end_time, :time => true
 
 
         .user_row
@@ -89,23 +92,25 @@
         .user_row
           %h3= :tags.l
           #event_tags
-            = text_field_tag 'tag_list', @event.tag_list.to_s, {:autocomplete => "on", :size=>"90"}
-            -##tag_list_auto_complete.auto_complete
-            -#= auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [',', ' ']  }
+            = text_field_tag 'tag_list', @event.tag_list.to_s, {:autocomplete => "off", :size=>"90"}
+
+            %br
+              Tags are comma-separated keywords that describe your event.
+              %br
+              =:you_can_browse_all_content_and_users_on.l
+              = configatron.community_name
+              =:by_looking_at_the.l
+              = link_to :tags_page.l, tags_path
 
         .user_row
-          .slots[@event]
-            %fieldset
-              %legend
-                Slots
+          %fieldset
+            %legend
+              Slots
+              =link_to_add_fields "(add slot)", event_form, :slots
 
-              %ol
-              =event_form.fields_for :slots do |slot|
-                =render 'slots/form', :f => slot, :slot => slot.object
-
-            .new-slots
-            %p
-            %a{href: "#", title: "add slot", class: "slot-add"}Add slot
+            %ol
+            =event_form.fields_for :slots do |builder|
+              =render 'slot_fields', :f => builder
 
         %p
         = event_form.submit 'Save event'
@@ -113,10 +118,11 @@
 
 
 
-%script{:type => "text/javascript"}
-  $(document).ready(function() {
-  dynamicAddRemove('event', 'events', 'slot', 'slots');
-  });
+
+
+
+
+
 
 
 

@@ -50,6 +50,7 @@ gem 'community_engine', '~> 3.0.0'
 gem 'sprockets', '~> 2.10.0'
 gem 'mysql2'
 gem 'event-calendar', :require => 'event_calendar'
+gem 'calendar_date_select'
 gem 'omniauth-facebook'
 
 
