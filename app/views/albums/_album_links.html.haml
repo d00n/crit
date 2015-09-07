@@ -3,6 +3,6 @@
   %ul
     %li= link_to "Edit album", edit_user_album_path(current_user,@album) 
     %li= link_to "Add photos to album", new_user_album_photo_path(current_user,@album)
-    %li= link_to "Delete album", user_album_path(current_user,@album), data: {:confirm => 'Are you sure?'} :method => :delete
+    %li= link_to "Delete album", user_album_path(current_user,@album), data: {confirm: 'Are you sure?'}, :method => :delete
     
                                                                       

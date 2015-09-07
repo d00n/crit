@@ -39,11 +39,16 @@
         %li.tags
           =li_tags_helper(@photo)
 
-  -box :class => "hfeed comments", :id => 'comments' do
-    %h3 Comments
+  -#-box :class => "hfeed comments", :id => 'comments' do
+  -#  %h3 Comments
+  -#  %p= render :partial => 'comments/comment_form', :locals => {:commentable => @photo}
+  -#  %a#newest_comment
+  -#  = render :partial => 'comments/comment', :collection => @photo.comments
+  -#  -if @photo.comments.any?
+  -#    %span#more_comments_links= more_comments_links(@photo)
+
+  -box :id => 'comments' do
     %p= render :partial => 'comments/comment_form', :locals => {:commentable => @photo}
     %a#newest_comment
     = render :partial => 'comments/comment', :collection => @photo.comments
-    -if @photo.comments.any?
-      %span#more_comments_links= more_comments_links(@photo)
-
+    %span#more_comments_links= more_comments_links(@photo)
