@@ -1,6 +1,6 @@
 = javascript_include_tag 'delegate'
 = javascript_include_tag 'form_helper'
-=calendar_date_select_includes
+-#=calendar_date_select_includes
 = error_messages_for :event
 
 -content_for :end_javascript do
@@ -33,6 +33,7 @@
               %li
                 = event_form.label 'Start time'
                 -#= event_form.calendar_date_select :start_time, :time => true
+                = event_form.input :start_time, :as => :datetime_picker
 
               %li
                 = event_form.label 'End time'
