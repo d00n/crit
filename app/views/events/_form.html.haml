@@ -6,7 +6,7 @@
 -content_for :end_javascript do
   -#= tag_auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [','] }
   :javascript
-    $( "#datetimepicker" ).datetimepicker();
+    $('.datetimepicker').datetimepicker();
 
 #col1
   .box
@@ -35,11 +35,11 @@
               %li
                 .form-group
                   = event_form.label 'Start time'
-                  = event_form.datetime_select :start_time
+                  = event_form.text_field :start_time, class: "datetimepicker"
 
               %li
                 = event_form.label 'End time'
-                -#= event_form.calendar_date_select :end_time, :time => true
+                = event_form.text_field :end_time, class: "datetimepicker"
 
 
         .user_row
@@ -117,21 +117,5 @@
 
         %p
         = event_form.submit 'Save event'
-
-
--#:javascript
--#  $(function() {
--#    $("#datepicker").datepicker();
--#  });
-
-
-
-
-
-
-
-
-
-
 
 

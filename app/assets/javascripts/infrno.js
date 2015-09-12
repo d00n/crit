@@ -1,1 +1,1 @@
-alert('crit: fuck yoooo!!!!');
+$('.datetimepicker').datetimepicker();

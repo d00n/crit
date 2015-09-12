@@ -192,8 +192,8 @@ Crit::Application.routes.draw do
   get  '/new_publisher' => 'users#new_publisher'
 
   get  '/products/:id/change_profile_photo' => 'products#change_profile_photo', :as => :product_change_profile_photo
-#get  '/products/:id/pick_profile_photo' => 'products#pick_profile_photo', :as => :product_pick_profile_photo
-#  get  '/products/:id/remove_profile_photo' => 'products#remove_profile_photo', :as => :product_remove_profile_photo
+  get  '/products/:id/pick_profile_photo' => 'products#pick_profile_photo', :as => :product_pick_profile_photo
+  get  '/products/:id/remove_profile_photo' => 'products#remove_profile_photo', :as => :product_remove_profile_photo
 #  get  '/products/user/:id/' => 'products#publisher_products', :as => :product_publisher_products
 #  get  '/products/:user_id/manage_featured_products/' => 'products#manage_featured_products', :as => :product_manage_featured_products
 #  get  '/products/:user_id/update_featured_products/' => 'products#update_featured_products', :as => :product_update_featured_products
