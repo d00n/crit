@@ -1,0 +1,1 @@
+alert('crit: fuck yoooo!!!!');

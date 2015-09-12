@@ -115,7 +115,6 @@
               -#%li
               -#  %a{:href=>'/tos.html'} TOS
 
-
               %li
                 = link_to Page.find(1).title, pages_path(Page.find(1))
               %li
@@ -136,11 +135,6 @@
 
     -##footer_bar
 
-
-
-
-    -if DEPLOY_CHATCAT
-      =render :partial => "shared/chatcat"
 
     -##rss
     -#  %a{:href=>"/site_index.rss"}

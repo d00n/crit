@@ -1,10 +1,12 @@
-= javascript_include_tag 'delegate'
-= javascript_include_tag 'form_helper'
+-#= javascript_include_tag 'delegate'
+-#= javascript_include_tag 'form_helper'
 -#=calendar_date_select_includes
 = error_messages_for :event
 
 -content_for :end_javascript do
-  = tag_auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [','] }
+  -#= tag_auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [','] }
+  :javascript
+    $( "#datetimepicker" ).datetimepicker();
 
 #col1
   .box
@@ -31,9 +33,9 @@
                 = event_form.text_field :name
 
               %li
-                = event_form.label 'Start time'
-                -#= event_form.calendar_date_select :start_time, :time => true
-                = event_form.input :start_time, :as => :datetime_picker
+                .form-group
+                  = event_form.label 'Start time'
+                  = event_form.datetime_select :start_time
 
               %li
                 = event_form.label 'End time'
@@ -115,6 +117,12 @@
 
         %p
         = event_form.submit 'Save event'
+
+
+-#:javascript
+-#  $(function() {
+-#    $("#datepicker").datepicker();
+-#  });
 
 
 

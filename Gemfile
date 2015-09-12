@@ -38,9 +38,6 @@ end
 # Use unicorn as the app server
 # gem 'unicorn'
 
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 gem 'byebug', group: [:development, :test]
@@ -51,7 +48,12 @@ gem 'sprockets', '~> 2.10.0'
 gem 'mysql2'
 gem 'event-calendar', :require => 'event_calendar'
 gem 'omniauth-facebook'
+gem 'activemerchant', '1.21.0'
+gem 'active_utils', '1.0.3'
 
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
+gem 'bootstrap-datetimepicker'
 
 group :development do
   gem 'capistrano', '~> 3.1'
