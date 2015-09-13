@@ -1,8 +1,9 @@
-= javascript_include_tag 'delegate'
-= javascript_include_tag 'form_helper'
+-#= javascript_include_tag 'delegate'
+-#= javascript_include_tag 'form_helper'
 = error_messages_for :character
 
-
+-content_for :end_javascript do
+  =tag_auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [','] }
 
 =form_for @character, :html => {:class => "cmxform"}  do |character_form|
 
@@ -410,7 +411,7 @@
           About
         %ol
           %li 
-            = character_form.text_area :about, :class => "rich_text_editor", :size => "50x20"
+            = character_form.text_area :about, :class => "rich_text_editor"
             
     .user_row 
       %fieldset
