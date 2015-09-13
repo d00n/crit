@@ -183,7 +183,7 @@ class Event < ActiveRecord::Base
   def seats_open
     s = 0
     self.slots.each do |slot|
-      if slot.start_time > Time.now
+      if slot.start_time && slot.start_time > Time.now
         s += slot.seats_open
       end
     end
