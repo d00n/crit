@@ -40,8 +40,6 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-gem 'byebug', group: [:development, :test]
-gem 'quiet_assets', group: :development
 
 gem 'community_engine', '~> 3.0.0'
 gem 'sprockets', '~> 2.10.0'
@@ -60,6 +58,9 @@ source 'https://rails-assets.org' do
 end
 
 group :development do
+  gem 'byebug'
+  gem 'quiet_assets'
+
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1'

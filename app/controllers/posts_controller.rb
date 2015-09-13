@@ -78,14 +78,15 @@ class PostsController < BaseController
     @post.category = Category.find(params[:category_id]) if params[:category_id]
     @post.published_as = 'live'
     @categories = Category.all
-    if !(params[:game_id]).nil?
-      @game = Game.find(params[:game_id])
+
+    if !(params[:post][:game_id]).nil?
+      @game = Game.find(params[:post][:game_id])
       if @game.owner == current_user
         @post.game = @game
       end
     end
-    if !(params[:character_id]).nil?
-      @post.character = Character.find(params[:character_id])
+    if !(params[:post][:character_id]).nil?
+      @character = Character.find(params[:post][:character_id])
       if @character.owner == current_user
         @post.character = @character
       end
@@ -101,14 +102,18 @@ class PostsController < BaseController
     @post.user = @user
     @post.tag_list = params[:tag_list] || ''
 
-    if !(params[:game_id]).nil?
-      @game = Game.find(params[:game_id])
+
+    if ( params[:post][:game_id].to_i > 0 )
+      @game = Game.find(params[:post][:game_id])
+      byebug
       if @game.owner == current_user
         @post.game = @game
       end
     end
-    if !(params[:character_id]).nil?
-      @post.character = Character.find(params[:character_id])
+
+    if ( params[:post][:character_id].to_i > 0 )
+      @character = Character.find(params[:post][:character_id])
+      byebug
       if @character.owner == current_user
         @post.character = @character
       end
