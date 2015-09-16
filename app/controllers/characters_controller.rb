@@ -320,7 +320,7 @@ class CharactersController < BaseController
     @character.tag_list = params[:tag_list]
 
     respond_to do |format|
-      if @character.update_attributes(params[:character])
+      if @character.update_attributes(character_params)
 
         flash[:notice] = 'Character was successfully updated.'
         format.html { redirect_to(@character) }
@@ -494,7 +494,78 @@ class CharactersController < BaseController
 
   protected
   def character_params
-    params[:character].permit(:owner_notepad, :public_notepad)
+    params[:character].permit(:name,
+                              :user_id,
+                              :created_at,
+                              :updated_at,
+                              :description,
+                              :property,
+                              :genre,
+                              :about,
+                              :background,
+                              :party_description,
+                              :gender,
+                              :race,
+                              :eye_color,
+                              :hair_color,
+                              :fashion_sense,
+                              :place_of_birth,
+                              :current_residence,
+                              :relationship_status,
+                              :weapon_of_choice,
+                              :ethnicity,
+                              :birthday,
+                              :astrological_sign,
+                              :age,
+                              :skin_color,
+                              :height,
+                              :weight,
+                              :level,
+                              :guild,
+                              :server,
+                              :current_profession,
+                              :current_class,
+                              :paragon_path,
+                              :epic_destiny,
+                              :xp_name,
+                              :xp_earned,
+                              :xp_spent,
+                              :view_count,
+                              :avatar_id,
+                              :character_relationships,
+                              :alignment,
+                              :xp_unspent,
+                              :owner_notepad,
+                              :public_notepad,
+                              :pregenerated_character_request_id,
+                              :others_can_clone,
+                              :is_private,
+                              :name_slug,
+                              :products_counter,
+                              {:c_attributes_attributes => [:id, :_destroy, :name, :score, :modifiers, :notes]},
+                              {:c_skills_attributes => [:id, :_destroy, :name, :level, :base_attribute, :bonus, :penalty, :misc, :notes]},
+                              {:c_special_attributes_attributes => [:id, :_destroy, :name, :level, :effects, :notes]},
+                              {:c_qualities_attributes => [:id, :_destroy, :name, :qtype, :effects, :notes]},
+                              {:c_special_abilities_attributes => [:id, :_destroy, :name, :effects, :notes]},
+                              {:c_powers_attributes => [:id, :_destroy, :name, :requirements, :duration, :range, :uses, :damage, :effects]},
+                              {:c_combats_attributes => [:id, :_destroy, :name, :notes]},
+                              {:c_damages_attributes => [:id, :_destroy, :name, :notes]},
+                              {:c_movements_attributes => [:id, :_destroy, :name, :rate]},
+                              {:c_physical_abilities_attributes => [:id, :_destroy, :name, :notes]},
+                              {:c_distinguishing_features_attributes => [:id, :_destroy, :name]},
+                              {:c_mannerisms_attributes => [:id, :_destroy, :name]},
+                              {:c_virtues_attributes => [:id, :_destroy, :name]},
+                              {:c_flaws_attributes => [:id, :_destroy, :name]},
+                              {:c_educations_attributes => [:id, :_destroy, :name]},
+                              {:c_trainings_attributes => [:id, :_destroy, :name]},
+                              {:c_interests_attributes => [:id, :_destroy, :name]},
+                              {:c_hobbies_attributes => [:id, :_destroy, :name]},
+                              {:c_goals_attributes => [:id, :_destroy, :name]},
+                              {:c_weapons_attributes => [:id, :_destroy, :name, :damage, :range, :rate_of_fire, :capacity, :modifiers, :effects, :properties]},
+                              {:c_possessions_attributes => [:id, :_destroy, :name]},
+                              :_destroy,
+                              :id
+    )
   end
 
 end
