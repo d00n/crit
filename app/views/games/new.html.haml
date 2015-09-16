@@ -1,5 +1,9 @@
 = error_messages_for :game
 
+-content_for :end_javascript do
+  :javascript
+    $('.datetimepicker').datetimepicker();
+
 #col1
   .centered
     %br
@@ -41,7 +45,7 @@
       -else
         %ol
           %li
-            = game_form.text_field :start_at, :id => "datepicker_start"
+            = game_form.text_field :start_at, :class => "datetimepicker"
 
     .box
       %p

@@ -819,7 +819,7 @@ class GamesController < BaseController
 
     if params[:system_category_id]
       @system_category_id = params[:system_category_id]
-      system_category = SystemCategory.find(params[:system_category_id])
+      system_category = SystemCategory.find_by_id(params[:system_category_id])
       if system_category
         @game.name = current_user.display_name + "'s " + system_category.name + " game"
         system_category.products.each do |product|
@@ -830,7 +830,7 @@ class GamesController < BaseController
 
     if params[:product_id]
       @product_id = params[:product_id]
-      product = Product.find(params[:product_id])
+      product = Product.find_by_id(params[:product_id])
       if product
         @game.name = current_user.display_name + "'s " + product.name + " game"
         @game.add_product(product)
@@ -887,7 +887,7 @@ class GamesController < BaseController
 
         if params[:system_category_id]
           @system_category_id = params[:system_category_id]
-          system_category = SystemCategory.find(params[:system_category_id])
+          system_category = SystemCategory.find_by_id(params[:system_category_id])
           if system_category
             system_category.products.each do |product|
               @game.add_product(product)
@@ -898,7 +898,7 @@ class GamesController < BaseController
 
         if params[:product_id]
           @product_id = params[:product_id]
-          product = Product.find(params[:product_id])
+          product = Product.find_by_id(params[:product_id])
           if product
             @game.add_product(product)
           end
