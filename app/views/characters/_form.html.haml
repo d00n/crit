@@ -2,9 +2,6 @@
 -#= javascript_include_tag 'form_helper'
 = error_messages_for :character
 
--content_for :end_javascript do
-  =tag_auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [','] }
-
 =form_for @character, :html => {:class => "cmxform"}  do |character_form|
 
   :javascript
@@ -859,7 +856,11 @@
     .user_row 
       %h3= :tags.l
       #character_tags
-        = text_field_tag 'tag_list', @character.tag_list.to_s, {:autocomplete => "off", :size=>"90"}
+        = character_form.text_field :tag_list, :autocomplete => "off"
+        -content_for :end_javascript do
+          =tag_auto_complete_field 'character_tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [','] }
+
+        -#= text_field_tag 'tag_list', @character.tag_list.to_s, {:autocomplete => "off", :size=>"90"}
         -##tag_list_auto_complete.auto_complete
         -#= auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [',', ' ']  }
 
@@ -867,7 +868,6 @@
     = character_form.submit "Save character"
 
 
-    
 
   
 

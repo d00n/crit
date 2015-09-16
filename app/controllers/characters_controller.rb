@@ -544,6 +544,7 @@ class CharactersController < BaseController
                               :products_counter,
                               {:c_attributes_attributes => [:id, :_destroy, :name, :score, :modifiers, :notes]},
                               {:c_skills_attributes => [:id, :_destroy, :name, :level, :base_attribute, :bonus, :penalty, :misc, :notes]},
+                              {:c_skill_specializations => [:id, :_destroy, :name, :skill, :level, :bonus, :penalty, :notes]},
                               {:c_special_attributes_attributes => [:id, :_destroy, :name, :level, :effects, :notes]},
                               {:c_qualities_attributes => [:id, :_destroy, :name, :qtype, :effects, :notes]},
                               {:c_special_abilities_attributes => [:id, :_destroy, :name, :effects, :notes]},
@@ -563,6 +564,7 @@ class CharactersController < BaseController
                               {:c_goals_attributes => [:id, :_destroy, :name]},
                               {:c_weapons_attributes => [:id, :_destroy, :name, :damage, :range, :rate_of_fire, :capacity, :modifiers, :effects, :properties]},
                               {:c_possessions_attributes => [:id, :_destroy, :name]},
+                              :tag_list,
                               :_destroy,
                               :id
     )
