@@ -983,7 +983,7 @@ class GamesController < BaseController
       end
 
       respond_to do |format|
-        if @game.update_attributes(params[:game])
+        if @game.update_attributes(game_params)
 
           if @game.characters.any? && @game.products.any?
             @game.products.each do |product|
@@ -1506,6 +1506,7 @@ class GamesController < BaseController
                                  :min_age,
                                  :max_age,
                                  :start_at,
+                                 :old_start_at,
                                  :session_length,
                                  :number_of_sessions,
                                  :is_d20pro,
@@ -1517,7 +1518,8 @@ class GamesController < BaseController
                                  :style_of_play,
                                  :room_id,
                                  :public_notepad,
-                                 :owner_notepad)
+                                 :owner_notepad,
+                                 :id, :_destroy, :tag_list)
   end
 
 end
