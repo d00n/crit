@@ -1,5 +1,9 @@
 =error_messages_for :game
 
+-content_for :end_javascript do
+  :javascript
+    $('.datetimepicker').datetimepicker();
+
 #col1
   -if @game.id
     = render :partial => 'profile_game_info_sidebar'
@@ -100,7 +104,7 @@
                 %ol
                   %li
                     = game_form.label 'Start time'
-                    = game_form.text_field :start_at, :id => "datetimepicker"
+                    = game_form.text_field :start_at, class: "datetimepicker"
 
                   %li
                     = game_form.label 'Length (hours)'

@@ -4,7 +4,6 @@
 = error_messages_for :event
 
 -content_for :end_javascript do
-  -#= tag_auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [','] }
   :javascript
     $('.datetimepicker').datetimepicker();
 
@@ -33,9 +32,8 @@
                 = event_form.text_field :name
 
               %li
-                .form-group
-                  = event_form.label 'Start time'
-                  = event_form.text_field :start_time, class: "datetimepicker"
+                = event_form.label 'Start time'
+                = event_form.text_field :start_time, class: "datetimepicker"
 
               %li
                 = event_form.label 'End time'
