@@ -105,7 +105,6 @@ class PostsController < BaseController
 
     if ( params[:post][:game_id].to_i > 0 )
       @game = Game.find(params[:post][:game_id])
-      byebug
       if @game.owner == current_user
         @post.game = @game
       end
@@ -113,7 +112,6 @@ class PostsController < BaseController
 
     if ( params[:post][:character_id].to_i > 0 )
       @character = Character.find(params[:post][:character_id])
-      byebug
       if @character.owner == current_user
         @post.character = @character
       end

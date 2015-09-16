@@ -1,6 +1,9 @@
 = javascript_include_tag 'community_engine'
 = tiny_mce_init_if_needed
 
--if  (controller_name == 'events' && action_name == 'edit')
-  =javascript_include_tag "jquery.datetimepicker"
-  =stylesheet_link_tag "jquery.datetimepicker"
+-#-if  (controller_name == 'events' && action_name == 'edit')
+  -#=javascript_include_tag "jquery.datetimepicker"
+  -#=stylesheet_link_tag "jquery.datetimepicker"
+
+=javascript_include_tag "jquery.datetimepicker"
+=stylesheet_link_tag "jquery.datetimepicker"
