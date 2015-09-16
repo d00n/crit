@@ -856,7 +856,7 @@
     .user_row 
       %h3= :tags.l
       #character_tags
-        = character_form.text_field :tag_list, :autocomplete => "off"
+        = character_form.text_field :tag_list, {:autocomplete => "off", :class => "tag_input_field"}
         -content_for :end_javascript do
           =tag_auto_complete_field 'character_tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [','] }
 
