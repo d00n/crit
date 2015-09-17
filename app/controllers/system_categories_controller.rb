@@ -26,8 +26,8 @@ class SystemCategoriesController < BaseController
 
 
   def add_game
-    system_category = SystemCategory.find(params[:id])
-    game = Game.find(params[:game_id])
+    system_category = SystemCategory.find_by_id(params[:id])
+    game = Game.find_by_id(params[:game_id])
 
     if current_user && (current_user == game.owner || current_user.admin?)
       system_category.products.each do |product|
@@ -70,7 +70,7 @@ class SystemCategoriesController < BaseController
     end
 
     if params[:game_system_id]
-      @game_system = GameSystem.find(params[:game_system_id])
+      @game_system = GameSystem.find_by_id(params[:game_system_id])
     end
 
     if params[:system_category_id]

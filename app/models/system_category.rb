@@ -1,5 +1,5 @@
 class SystemCategory < ActiveRecord::Base
-  extend FriendlyId
+  #extend FriendlyId
 
   belongs_to :user
   validates_length_of("name", :minimum => 3)
@@ -10,7 +10,7 @@ class SystemCategory < ActiveRecord::Base
   has_many :system_category_products, :dependent => :destroy
   has_many :products, :through => :system_category_products
 
-  friendly_id :name, :use => [:slugged, :finders]
+  #friendly_id :name, :use => [:slugged, :finders]
 
   #scope :popular, :order => 'system_categories.view_count DESC'
 

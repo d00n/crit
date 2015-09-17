@@ -26,8 +26,8 @@ Crit::Application.routes.draw do
   get  '/system_categories/new_game' => 'system_categories#new_game', :as => :system_categories_new_game
 
 
-  put  '/system_categories/:id/pick_profile_photo' => 'system_categories#pick_profile_photo', :as => :system_category_pick_profile_photo
-  get  '/system_categories/:id/change_profile_photo' => 'system_categories#change_profile_photo', :as => :system_category_change_profile_photo
+  get  '/system_categories/:id/pick_profile_photo' => 'system_categories#pick_profile_photo', :as => :system_category_pick_profile_photo
+  put  '/system_categories/:id/change_profile_photo' => 'system_categories#change_profile_photo', :as => :system_category_change_profile_photo
   get  '/system_categories/:id/bump_views' => 'system_categories#bump_views', :as => :system_category_bump_views
   get  '/system_categories/:id/product/search' => 'system_categories#product_search', :as => :system_category_product_search
   get  '/system_categories/:id/product/:product_id/add' => 'system_categories#product_add', :as => :system_category_product_add
@@ -107,8 +107,8 @@ Crit::Application.routes.draw do
   get  '/users/:id/games_playing' => 'users#games_playing', :as => :user_games_playing
 
   put  '/characters/:id/update_views' => 'characters#update_views', :as => :character_update_views
-  put  '/characters/:id/pick_profile_photo' => 'characters#pick_profile_photo', :as => :character_pick_profile_photo
-  get  '/characters/:id/change_profile_photo' => 'characters#change_profile_photo', :as => :character_change_profile_photo
+  get  '/characters/:id/pick_profile_photo' => 'characters#pick_profile_photo', :as => :character_pick_profile_photo
+  put  '/characters/:id/change_profile_photo' => 'characters#change_profile_photo', :as => :character_change_profile_photo
   get  '/characters/:id/new_avatar_photo' => 'characters#new_avatar_photo', :as => :new_character_avatar_photo
   get  '/characters/:id/game_table_sheet' => 'characters#game_table_sheet', :as => :game_table_sheet
   get  '/characters/:id/edit_clone' => 'characters#edit_clone', :as => :edit_character_clone
@@ -126,13 +126,13 @@ Crit::Application.routes.draw do
   get  '/characters/:id/product/:product_id/remove' => 'characters#product_remove', :as => :character_product_remove
 
   put  '/games/:id/update_views' => 'games#update_views', :as => :game_update_views
-  get  '/games/:id/change_profile_photo' => 'games#change_profile_photo', :as => :game_change_profile_photo
+  put  '/games/:id/change_profile_photo' => 'games#change_profile_photo', :as => :game_change_profile_photo
   get  '/games/:id/register_player_for_event/slot/:slot_id' => 'games#register_player_for_event', :as => :register_player_for_event
   get  '/games/:id/register_alternate_for_event/slot/:slot_id' => 'games#register_alternate_for_event', :as => :register_alternate_for_event
   get  '/games/:id/d20pro_allow_connections' => 'games#d20pro_allow_connections', :as => :d20pro_allow_connections
   get  '/games/:id/d20pro_disable_connections' => 'games#d20pro_disable_connections', :as => :d20pro_disable_connections
   get  '/games/:id/d20pro_launch.:format' => 'games#d20pro_launch', :as => :d20pro_launch
-  put  '/games/:id/pick_profile_photo' => 'games#pick_profile_photo', :as => :game_pick_profile_photo
+  get  '/games/:id/pick_profile_photo' => 'games#pick_profile_photo', :as => :game_pick_profile_photo
   get  '/games/:id/registration_desk' => 'games#registration_desk', :as => :registration_desk
   get  '/games/:id/register_player/' => 'games#register_player', :as => :register_player
   get  '/games/:id/register_alternate/' => 'games#register_alternate', :as => :register_alternate
@@ -191,7 +191,7 @@ Crit::Application.routes.draw do
   get  '/publishers/:id/' => 'users#show', :as => :publisher
   get  '/new_publisher' => 'users#new_publisher'
 
-  get  '/products/:id/change_profile_photo' => 'products#change_profile_photo', :as => :product_change_profile_photo
+  put  '/products/:id/change_profile_photo' => 'products#change_profile_photo', :as => :product_change_profile_photo
   get  '/products/:id/pick_profile_photo' => 'products#pick_profile_photo', :as => :product_pick_profile_photo
   get  '/products/:id/remove_profile_photo' => 'products#remove_profile_photo', :as => :product_remove_profile_photo
 #  get  '/products/user/:id/' => 'products#publisher_products', :as => :product_publisher_products
@@ -206,7 +206,7 @@ Crit::Application.routes.draw do
 
   put  '/events/:id/update_views' => 'events#update_views', :as => :event_update_views
   put  '/events/:id/change_profile_photo' => 'events#change_profile_photo', :as => :event_change_profile_photo
-  put  '/events/:id/pick_profile_photo' => 'events#pick_profile_photo', :as => :event_pick_profile_photo
+  get  '/events/:id/pick_profile_photo' => 'events#pick_profile_photo', :as => :event_pick_profile_photo
   get  '/events/:id/remove_profile_photo' => 'events#remove_profile_photo', :as => :event_remove_profile_photo
   get  '/events/:id/select_achievements' => 'events#select_achievements', :as => :select_event_achievements
   get  '/events/:id/grant_player_achievements/:achievement_id' => 'events#grant_player_achievements', :as => :grant_player_achievements
