@@ -264,7 +264,7 @@ class CharactersController < BaseController
   # POST /characters
   # POST /characters.xml
   def create
-    @character = current_user.characters.new(params[:character])
+    @character = current_user.characters.new(character_params)
 
     # This has issues with case, resulting in dupes of the same tag
     #@character.tag_list = params[:character][:property] + ", " + params[:tag_list]

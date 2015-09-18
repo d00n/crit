@@ -206,7 +206,7 @@ class Game < ActiveRecord::Base
   
   def has_active_character(current_user)   
     self.character_registrations.each do |character_registration|
-      character = Character.where(id: character_registration.character_id)
+      character = Character.where(id: character_registration.character_id).first
       if character_registration.status == 'active' && character.owner == current_user
         return true;
       end
@@ -218,7 +218,7 @@ class Game < ActiveRecord::Base
   def active_characters_for_player(user)  
     active_characters = []
     self.character_registrations.each do |character_registration|
-      character = Character.where(id: character_registration.character_id)
+      character = Character.where(id: character_registration.character_id).first
       if character_registration.status == 'active' && character.owner == user
         active_characters << character
       end
@@ -230,7 +230,7 @@ class Game < ActiveRecord::Base
   def pending_characters_for_player(user)  
     active_characters = []
     self.character_registrations.each do |character_registration|
-      character = Character.where(id: character_registration.character_id)
+      character = Character.where(id: character_registration.character_id).first
       if character_registration.status == 'pending' && character.owner == user
         active_characters << character
       end

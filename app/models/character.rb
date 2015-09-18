@@ -313,178 +313,214 @@ class Character < ActiveRecord::Base
     for a in (0 .. self.c_carried_items.count-1)
       @character.c_carried_items.build(self.c_carried_items[a].attributes)
       @character.c_carried_items[a].character_id = @character.id
+      @character.c_carried_items[i].id = '';
     end
 
     for b in (0 .. self.c_special_items.count-1)
       @character.c_special_items.build(self.c_special_items[b].attributes)
       @character.c_special_items[b].character_id = @character.id
+      @character.c_special_items[i].id = '';
     end
 
     for c in (0 .. self.c_languages.count-1)
       @character.c_languages.build(self.c_languages[c].attributes)
       @character.c_languages[c].character_id = @character.id
+      @character.c_languages[i].id = '';
     end
 
     for i in (0 .. self.c_wealths.count-1)
       @character.c_wealths.build(self.c_wealths[i].attributes)
       @character.c_wealths[i].character_id = @character.id
+      @character.c_wealths[i].id = '';
     end
 
     for i in (0 .. self.c_physical_abilities.count-1)
       @character.c_physical_abilities.build(self.c_physical_abilities[i].attributes)
       @character.c_physical_abilities[i].character_id = @character.id
+      @character.c_physical_abilities[i].id = '';
     end
 
     for i in (0 .. self.c_senses.count-1)
       @character.c_senses.build(self.c_senses[i].attributes)
       @character.c_senses[i].character_id = @character.id
+      @character.c_senses[i].id = '';
     end
 
     for i in (0 .. self.c_previous_professions.count-1)
       @character.c_previous_professions.build(self.c_previous_professions[i].attributes)
       @character.c_previous_professions[i].character_id = @character.id
+      @character.c_previous_professions[i].id = '';
     end
 
     for i in (0 .. self.c_previous_classes.count-1)
       @character.c_previous_classes.build(self.c_previous_classes[i].attributes)
       @character.c_previous_classes[i].character_id = @character.id
+      @character.c_previous_classes[i].id = '';
     end
 
     for i in (0 .. self.c_armors.count-1)
       @character.c_armors.build(self.c_armors[i].attributes)
       @character.c_armors[i].character_id = @character.id
+      @character.c_armors[i].id = '';
     end
 
     for i in (0 .. self.c_attributes.count-1)
       @character.c_attributes.build(self.c_attributes[i].attributes)
       @character.c_attributes[i].character_id = @character.id
+      @character.c_attributes[i].id = '';
     end
 
     for i in (0 .. self.c_healings.count-1)
       @character.c_healings.build(self.c_healings[i].attributes)
       @character.c_healings[i].character_id = @character.id
+      @character.c_healings[i].id = '';
     end
 
     for i in (0 .. self.c_maxwounds.count-1)
       @character.c_maxwounds.build(self.c_maxwounds[i].attributes)
       @character.c_maxwounds[i].character_id = @character.id
+      @character.c_maxwounds[i].id = '';
     end
 
     for i in (0 .. self.c_movements.count-1)
       @character.c_movements.build(self.c_movements[i].attributes)
       @character.c_movements[i].character_id = @character.id
+      @character.c_movements[i].id = '';
     end
 
     for i in (0 .. self.c_possessions.count-1)
       @character.c_possessions.build(self.c_possessions[i].attributes)
       @character.c_possessions[i].character_id = @character.id
+      @character.c_possessions[i].id = '';
     end
 
     for i in (0 .. self.c_powers.count-1)
       @character.c_powers.build(self.c_powers[i].attributes)
       @character.c_powers[i].character_id = @character.id
+      @character.c_powers[i].id = '';
     end
 
     for i in (0 .. self.c_combats.count-1)
       @character.c_combats.build(self.c_combats[i].attributes)
       @character.c_combats[i].character_id = @character.id
+      @character.c_combats[i].id = '';
     end
 
     for i in (0 .. self.c_damages.count-1)
       @character.c_damages.build(self.c_damages[i].attributes)
       @character.c_damages[i].character_id = @character.id
+      @character.c_damages[i].id = '';
     end
 
     for i in (0 .. self.c_qualities.count-1)
       @character.c_qualities.build(self.c_qualities[i].attributes)
       @character.c_qualities[i].character_id = @character.id
+      @character.c_qualities[i].id = '';
     end
 
     for i in (0 .. self.c_racial_abilities.count-1)
       @character.c_racial_abilities.build(self.c_racial_abilities[i].attributes)
       @character.c_racial_abilities[i].character_id = @character.id
+      @character.c_racial_abilities[i].id = '';
     end
 
     for i in (0 .. self.c_skills.count-1)
       @character.c_skills.build(self.c_skills[i].attributes)
       @character.c_skills[i].character_id = @character.id
+      @character.c_skills[i].id = '';
     end
 
     for i in (0 .. self.c_skill_specializations.count-1)
       @character.c_skill_specializations.build(self.c_skill_specializations[i].attributes)
       @character.c_skill_specializations[i].character_id = @character.id
+      @character.c_skill_specializations[i].id = '';
     end
 
     for i in (0 .. self.c_special_abilities.count-1)
       @character.c_special_abilities.build(self.c_special_abilities[i].attributes)
       @character.c_special_abilities[i].character_id = @character.id
+      @character.c_special_abilities[i].id = '';
     end
 
     for i in (0 .. self.c_special_attributes.count-1)
       @character.c_special_attributes.build(self.c_special_attributes[i].attributes)
       @character.c_special_attributes[i].character_id = @character.id
+      @character.c_special_attributes[i].id = '';
     end
 
     for i in (0 .. self.c_defenses.count-1)
       @character.c_defenses.build(self.c_defenses[i].attributes)
       @character.c_defenses[i].character_id = @character.id
+      @character.c_defenses[i].id = '';
     end
 
     for i in (0 .. self.c_weapons.count-1)
       @character.c_weapons.build(self.c_weapons[i].attributes)
       @character.c_weapons[i].character_id = @character.id
+      @character.c_weapons[i].id = '';
     end
 
     for i in (0 .. self.c_wound_levels.count-1)
       @character.c_wound_levels.build(self.c_wound_levels[i].attributes)
       @character.c_wound_levels[i].character_id = @character.id
+      @character.c_wound_levels[i].id = '';
     end
 
     for i in (0 .. self.c_distinguishing_features.count-1)
       @character.c_distinguishing_features.build(self.c_distinguishing_features[i].attributes)
       @character.c_distinguishing_features[i].character_id = @character.id
+      @character.c_distinguishing_features[i].id = '';
     end
 
     for i in (0 .. self.c_mannerisms.count-1)
       @character.c_mannerisms.build(self.c_mannerisms[i].attributes)
       @character.c_mannerisms[i].character_id = @character.id
+      @character.c_mannerisms[i].id = '';
     end
 
     for i in (0 .. self.c_virtues.count-1)
       @character.c_virtues.build(self.c_virtues[i].attributes)
       @character.c_virtues[i].character_id = @character.id
+      @character.c_virtues[i].id = '';
     end
 
     for i in (0 .. self.c_flaws.count-1)
       @character.c_flaws.build(self.c_flaws[i].attributes)
       @character.c_flaws[i].character_id = @character.id
+      @character.c_flaws[i].id = '';
     end
 
     for i in (0 .. self.c_educations.count-1)
       @character.c_educations.build(self.c_educations[i].attributes)
       @character.c_educations[i].character_id = @character.id
+      @character.c_educations[i].id = '';
     end
 
     for i in (0 .. self.c_trainings.count-1)
       @character.c_trainings.build(self.c_trainings[i].attributes)
       @character.c_trainings[i].character_id = @character.id
+      @character.c_trainings[i].id = '';
     end
 
     for i in (0 .. self.c_interests.count-1)
       @character.c_interests.build(self.c_interests[i].attributes)
       @character.c_interests[i].character_id = @character.id
+      @character.c_interests[i].id = '';
     end
 
     for i in (0 .. self.c_hobbies.count-1)
       @character.c_hobbies.build(self.c_hobbies[i].attributes)
       @character.c_hobbies[i].character_id = @character.id
+      @character.c_hobbies[i].id = '';
     end
 
     for i in (0 .. self.c_goals.count-1)
       @character.c_goals.build(self.c_goals[i].attributes)
       @character.c_goals[i].character_id = @character.id
+      @character.c_goals[i].id = '';
     end
 
+    @character.owner = current_user
     @character.save
 
     return @character

@@ -141,7 +141,7 @@ Crit::Application.routes.draw do
   patch  '/games/:id/update_notepad' => 'games#update_notepad', :as => :game_update_notepad
   get  '/games/:id/posts' => 'posts#game_index', :as => :game_post
   get  '/games/:id/edit_pregenerated_character_offers' => 'games#edit_pregenerated_character_offers', :as => :edit_pregenerated_character_offers
-  get  '/games/:id/update_pregenerated_character_offers' => 'games#update_pregenerated_character_offers', :as => :update_pregenerated_character_offers
+  patch  '/games/:id/update_pregenerated_character_offers' => 'games#update_pregenerated_character_offers', :as => :update_pregenerated_character_offers
   get  '/games/:id/reset_game_table' => 'games#reset_game_table', :as => :reset_game_table
   get  '/games/:id/approve_player/:user_id' => 'games#approve_player', :as => :approve_player
   get  '/games/:id/deny_player/:user_id' => 'games#deny_player', :as => :deny_player
