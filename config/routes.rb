@@ -226,7 +226,7 @@ Crit::Application.routes.draw do
   get  '/slots/:id/cancel_game/:game_id' => 'slots#cancel_game', :as => :cancel_game
 
   get  '/contact' => 'contact#index'
-  get  '/contact_create' => 'contact#create'
+  post  '/contact_create' => 'contact#create'
 
   get  '/calendar/:year/:month' => 'calendar#index',
        :year => Time.zone.now.year,
