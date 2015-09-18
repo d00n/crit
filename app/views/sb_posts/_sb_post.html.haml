@@ -1,12 +1,4 @@
 %tr
-
-  %td{:id=>"post-body-#{post.id}"}
-    .editable
-      - if logged_in?
-        = link_to fa_icon("comment"), new_forum_topic_sb_post_path(post.topic.forum, post.topic), :class => 'reply-toggle'
-      = post.body.html_safe
-    .editor.hide
-
   %td.col-sm-3{:style => 'border-left:0'}
     %ul.list-unstyled
       -if post.user
@@ -32,6 +24,12 @@
           = render :partial => '/moderators/toggle', :locals => {:user => post.user, :forum => @forum}
 
 
+  %td{:id=>"post-body-#{post.id}"}
+    .editable
+      - if logged_in?
+        = link_to fa_icon("comment"), new_forum_topic_sb_post_path(post.topic.forum, post.topic), :class => 'reply-toggle'
+      = post.body.html_safe
+    .editor.hide
 
 -#%tr.post{"id"=>"posts-#{post.dom_id}-row"}
 -#  %td.author.vcard{:width => "15%"}

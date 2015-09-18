@@ -71,7 +71,7 @@ class AchievementsController < BaseController
   # POST /achievements
   # POST /achievements.xml
   def create
-    @achievement = Achievement.new(params[:achievement])
+    @achievement = Achievement.new(achievement_params)
     @sample_achievements = Achievement.first(3)
 
     @achievement.owner = current_user
@@ -100,7 +100,7 @@ class AchievementsController < BaseController
 
 
     respond_to do |format|
-      if @achievement.update_attributes(params[:achievement])
+      if @achievement.update_attributes(achievement_params)
         flash[:notice] = 'Achievement was successfully updated.'
         format.html { redirect_to(@achievement) }
         format.xml  { head :ok }
@@ -523,7 +523,14 @@ class AchievementsController < BaseController
     authors_ids_and_counts.each do |a|
       @authors << User.find(a[0])
     end
+  end
 
+  protected
+  def achievement_params
+    params[:achievement].permit(:id,
+                        :name, :others_can_grant, :description,
+                        :avatar, :thumb, :badge
+                         ) if params[:achievement]
   end
 
 end
