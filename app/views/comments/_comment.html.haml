@@ -54,7 +54,6 @@
             #user_generated_html
               = comment.comment.html_safe
 
-  %hr
 
 
 -#-if comment.user
@@ -105,4 +104,4 @@
 -#- if highlighted
 -#  %script{"type"=>"text/javascript"}
 -#    =(visual_effect :highlight, "comment_#{comment.id}", :duration => 1).html_safe
--#
+

@@ -1,9 +1,6 @@
 -@meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_show_content }
 -@section = 'games'
 
-/=stylesheet_link_tag "prototip"
-/=stylesheet_link_tag "event_calendar"
-
 .box
   -if @no_search_criteria
     -cache "game_index_calendar_#{@month}_#{@year}_#{@game_index_calendar_cache_fragment_suffix}" do

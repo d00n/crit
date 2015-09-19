@@ -6,6 +6,10 @@ class UsersController < BaseController
                                            :newsletter_admin_list,
                                            :newsletter_power_user_list ]
 
+  uses_tiny_mce do
+    {:only => [:show, :edit, :update], :options => configatron.default_mce_options}
+  end
+
   def activate
     if params[:id].blank?
       flash[:error] = 'Missing activation code'

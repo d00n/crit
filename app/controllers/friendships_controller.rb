@@ -10,7 +10,6 @@ class FriendshipsController < BaseController
     reverse_friendship.friendship_status_id = FriendshipStatus[:pending].id
     reverse_friendship.user_id, reverse_friendship.friend_id = @friendship.friend_id, @friendship.user_id
 
-    byebug
     respond_to do |format|
       if @friendship.save && reverse_friendship.save
         UserNotifier.friendship_request(@friendship).deliver if @friendship.friend.notify_friend_requests?
