@@ -1,4 +1,4 @@
-Crit::Application.configure do
+Conftest::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -78,35 +78,42 @@ Crit::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  config.active_record.default_timezone = :utc
 
   config.action_mailer.smtp_settings = { :enable_starttls_auto => false }
 
-  # gametable vars
-  APP_URL = "http://localhost:3000"
+  APP_URL = "http://www.infrno.net"
 
-  LIBRARY_SERVER = "http://kieara"
+  LIBRARY_SERVER = "http://www.infrno.net"
   LIBRARY_BASE_PATH = "/libraries/"
   LIBRARY_REGISTRY_FILE = "libraries.xml"
 
-  IMAGE_SERVER = "http://kieara"
+  IMAGE_SERVER = "http://wowza.infrno.net"
 
-  WOWZA_SERVER = "rtmp://kieara"
-  ROOM_ID_SERVER = "http://localhost"
+  WOWZA_SERVER = "rtmp://wowza.infrno.net"
+  ROOM_ID_SERVER = "http://wowza.infrno.net"
   MINT_VERSION = "60"
-  OT_MINT_VERSION = "71"
-  CACHE_SERVER_7 = "http://localhost:3000"
-  CACHE_SERVER_8 = "http://localhost:3000"
-  CACHE_SERVER_9 = "http://localhost:3000"
+  OT_MINT_VERSION = "72"
+  GAMETABLE_DOWN_FOR_MAINT = false
+  GAMETABLE_PEER_ENABLED = false
+  SWFVERSIONSTR = "10.1.0"
+  #GAMETABLE_GOOGLE_ANALYTICS_REPORT_INTERVAL_SECONDS = 60
+  #GAMETABLE_GOOGLE_ANALYTICS_DEBUG_MODE = false
+
+  UPCOMING_GAME_NOTIFICATION_DAYS = 3
+
+
+  CACHE_SERVER_7 = "http://www.infrno.net"
+  CACHE_SERVER_8 = "http://www.infrno.net"
+  CACHE_SERVER_9 = "http://www.infrno.net"
 
   FACEBOOK_CONNECT = true
   FACEBOOK_CONNECT_STEALTH_TEST = false
-  FACEBOOK_LIKE = false
+  FACEBOOK_LIKE = true
 
-  DEPLOY_GOOGLE_ANALYTICS = false
+  DEPLOY_GOOGLE_ANALYTICS = true
   DEPLOY_QUANTCAST = false
   DEPLOY_ENVOLVED = false
-  DEPLOY_CHATCAT = false
+  DEPLOY_CHATCAT = true
   DEPLOY_ADDTOANY = false
   DEPLOY_ADDTHIS = false
   WOWZA_SECRET_KEY = "871a3f2c392e10ca2e04c442f1eedb65"
@@ -115,41 +122,49 @@ Crit::Application.configure do
 
   OPENTOK_API_KEY = "8248452"
   OPENTOK_API_SECRET = "632a2ffe32d64987c12de01ad4b5099a936c96d3"
-  OPENTOK_JAVASCRIPT_SRC = "http://staging.tokbox.com/v0.91.56/js/TB.min.js"
-  OPENTOK_API_URL = "https://staging.tokbox.com/hl"
+  OPENTOK_JAVASCRIPT_SRC = "http://static.opentok.com/v0.91.56/js/TB.min.js"
+  OPENTOK_API_URL = "https://api.opentok.com/hl"
   OPENTOK_CONNECTION_DEBUGGING = false
   OPENTOK_REMOTE_STREAMS = 7
 
   EVENT_ALTERNATE_SEATS = 2
 
-  GAMETABLE_DOWN_FOR_MAINT = false
-  GAMETABLE_PEER_ENABLED = false
-  SWFVERSIONSTR = "10.1.0"
-  #GAMETABLE_GOOGLE_ANALYTICS_REPORT_INTERVAL_SECONDS = 5
-  #GAMETABLE_GOOGLE_ANALYTICS_DEBUG_MODE = true
-
-  UPCOMING_GAME_NOTIFICATION_DAYS = 30
-
-
   BOOTH_VISIT_ACHIEVEMENT_ENABLED = false
-  BOOTH_VISIT_ACHIEVEMENT_ID = 1
-  BOOTH_VISIT_REMOTE_IP = '127.0.'
+  BOOTH_VISIT_ACHIEVEMENT_ID = 10
+  BOOTH_VISIT_REMOTE_IP = '75.211.81'
 
   CON_GAME_ID = ''
 
-  ENVOLVE_API_KEY = '140-tlUfHfyhmMjDupqHwmQCoIHnrUHzCqUL'
+  ENVOLVE_API_KEY = '1497-ovrudelSPzcHnqOhnRHHsPfWEhTgRavi'
+
+  config.log_level = :info
+
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+      :address => "localhost",
+      :port => "25",
+      :domain => "infrno.net"
+  }
+
+  config.action_controller.asset_host= Proc.new { |source|
+    if source.starts_with?('/assets/tiny_mce')
+      "http://www.infrno.net"
+    else
+      "http://cdn#{rand(3)}.infrno.net"
+    end
+  }
 
 
-  PAYPAL_CERT = "/config/certs/test_paypal_cert.pem"
-  INFRNO_CERT = "/config/certs/test_infrno_cert.pem"
-  INFRNO_KEY = "/config/certs/test_infrno_key.pem"
-  PAYPAL_EMAIL= "paypal_1331429423_biz@infrno.net"
-  PAYPAL_CERT_ID= "WXVPCQBWUJ9M6"
-  PAYPAL_URL= "https://www.sandbox.paypal.com/cgi-bin/webscr"
+  PAYPAL_CERT = "/config/certs/paypal_cert.pem"
+  INFRNO_CERT = "/config/certs/infrno_cert.pem"
+  INFRNO_KEY = "/config/certs/infrno_key.pem"
+  PAYPAL_EMAIL= "paypal@infrno.net"
+  PAYPAL_CERT_ID= "FC2W3PRULU66N"
+  PAYPAL_URL= "https://www.paypal.com/cgi-bin/webscr"
 
-  #ActiveMerchant::Billing::Base.gateway_mode = :test
-  ##ActiveMerchant::Billing::Base.integration_mode = :test
-  #ActiveMerchant::Billing::PaypalGateway.pem_file = File.read(Rails.root.to_s + PAYPAL_CERT)
+  ActiveMerchant::Billing::Base.gateway_mode = :production
+  #ActiveMerchant::Billing::Base.integration_mode = :production
+  ActiveMerchant::Billing::PaypalGateway.pem_file = File.read(Rails.root.to_s + PAYPAL_CERT)
 
   WIZARDS_USER_ID= 21612
   PAIZO_USER_ID= 21611
