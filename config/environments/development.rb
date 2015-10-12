@@ -27,6 +27,8 @@ Crit::Application.configure do
   # number of complex assets.
   config.assets.debug = false
 
+  config.assets.raise_runtime_errors = true
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 

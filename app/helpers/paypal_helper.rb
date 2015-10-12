@@ -2,28 +2,28 @@ module PaypalHelper
   def premium_label(membership_level = 0)
     case membership_level
       when 0
-        return '/assets/membership/infrnal.png'
+        return 'infrnal.png'
       when 1
-        return '/assets/membership/epic.png'
+        return 'epic.png'
       when 2
-        return '/assets/membership/legendary.png'
+        return 'legendary.png'
       when 3
-        return '/assets/membership/exalted.png'
+        return 'exalted.png'
       when 4
-        return '/assets/membership/mythic.png'
+        return 'mythic.png'
     end
   end
 
 
   def premium_glyph(membership_level = 0)
     if membership_level == 1
-      return '/assets/E_16x16.png'
+      return 'E_16x16.png'
     elsif membership_level == 2
-      return '/assets/L_16x16.png'
+      return 'L_16x16.png'
     elsif membership_level == 3
-      return '/assets/X_16x16.png'
+      return 'X_16x16.png'
     elsif membership_level == 4
-      return '/assets/M_16x16.png'
+      return 'M_16x16.png'
     end
   end
 

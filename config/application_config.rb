@@ -91,8 +91,8 @@ configatron.configure_from_hash(
     },
 
     :photo => {
-        :missing_thumb => '/assets/bug_100.png',
-        :missing_medium => "/assets/bug_290.png",
+        :missing_thumb => 'bug_100.png',
+        :missing_medium => "bug_290.png",
         :paperclip_options => {
             :default_url => "",
             :path => "#{Rails.root}/public/system/:attachment/:id/:style/:filename",
