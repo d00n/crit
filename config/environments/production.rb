@@ -146,13 +146,13 @@ Crit::Application.configure do
       :domain => "infrno.net"
   }
 
-  config.action_controller.asset_host= Proc.new { |source|
-    if source.starts_with?('/assets/tiny_mce')
-      "http://www.infrno.net"
-    else
-      "http://cdn#{rand(3)}.infrno.net"
-    end
-  }
+  #config.action_controller.asset_host= Proc.new { |source|
+  #  if source.starts_with?('/assets/tiny_mce')
+  #    "http://www.infrno.net"
+  #  else
+  #    "http://cdn#{rand(3)}.infrno.net"
+  #  end
+  #}
 
 
   PAYPAL_CERT = "/config/certs/paypal_cert.pem"
