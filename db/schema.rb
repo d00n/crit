@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150918141249) do
+ActiveRecord::Schema.define(version: 20151022061623) do
 
   create_table "achievements", force: true do |t|
     t.string   "name"
@@ -977,7 +977,7 @@ ActiveRecord::Schema.define(version: 20150918141249) do
   end
 
   add_index "messages", ["parent_id"], name: "index_messages_on_parent_id", using: :btree
-  add_index "messages", ["recipient_deleted", "recipient_id", "read_at"], name: "index_messages_on_recipient_deleted_and_recipient_id_and_read_at", using: :btree
+  add_index "messages", ["recipient_deleted", "recipient_id", "read_at"], name: "index_messages_XAPP", using: :btree
 
   create_table "metro_areas", force: true do |t|
     t.string  "name"

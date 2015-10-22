@@ -7,7 +7,7 @@
 -if user.membership_level > 0
   .box
     .center
-      =link_to image_tag(premium_label(user.membership_level)), premium_membership_path
+      =link_to image_tag(premium_label(user.membership_level), :alt => "Premium label"), premium_membership_path
 %p
 
 -if user.accepted_achievements.any?
