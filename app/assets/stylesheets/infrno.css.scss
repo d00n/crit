@@ -18,7 +18,7 @@ padding:0;
 }
 
 body {
-background: image-url("/assets/bgbody2.jpg") repeat-y scroll center top #000000;
+background: image-url("bgbody2.jpg") repeat-y scroll center top #000000;
 color:#FFDF7F;
 font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
 font-size:11px;
@@ -117,14 +117,14 @@ text-decoration:none;
 }
 
 #container {
-background: image-url("/assets/bgbody1.jpg") no-repeat scroll center top transparent;
+background: image-url("bgbody1.jpg") no-repeat scroll center top transparent;
 margin:0 auto;
 text-align:left;
 width:100%;
 }
 
 #content {
-background: image-url("/assets/bgcontent.jpg") repeat-y scroll center top transparent;
+background: image-url("bgcontent.jpg") repeat-y scroll center top transparent;
 margin:0 auto;
 padding:0;
 width:950px;
@@ -151,7 +151,7 @@ overflow:hidden;
 }
 
 #contentFooter {
-background: image-url("/assets/bgfooter.jpg") no-repeat scroll center top transparent;
+background: image-url("bgfooter.jpg") no-repeat scroll center top transparent;
 height:239px;
 margin:0;
 padding:0;
@@ -159,7 +159,7 @@ width:950px;
 }
 
 #contentFooterNoLinkBar {
-background: image-url("/assets/bgfooter.jpg") no-repeat scroll center top transparent;
+background: image-url("bgfooter.jpg") no-repeat scroll center top transparent;
 height:83px;
 margin:0;
 padding:0;
@@ -168,7 +168,7 @@ width:950px;
 
 
 .single-col {
-background: image-url("/assets/bgbody2-single-col.jpg") repeat-y scroll center top #000000;
+background: image-url("bgbody2-single-col.jpg") repeat-y scroll center top #000000;
 font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
 font-size:11px;
 direction:ltr;
@@ -181,21 +181,21 @@ text-align:center;
 
 
 #container-single-col{
-background: image-url("/assets/bgbody1-single-col.jpg") no-repeat scroll center top transparent;
+background: image-url("bgbody1-single-col.jpg") no-repeat scroll center top transparent;
 margin:0 auto;
 text-align:left;
 width:100%;
 }
 
 #content-single-col {
-background: image-url("/assets/bgcontent-single-col.jpg") repeat-y scroll center top transparent;
+background: image-url("bgcontent-single-col.jpg") repeat-y scroll center top transparent;
 margin:0 auto;
 padding:0;
 width:550px;
 }
 
 #contentHeader-single-col {
-background: image-url("/assets/beta-gencon-bgheader-single-col.jpg") no-repeat scroll center top transparent;
+background: image-url("beta-gencon-bgheader-single-col.jpg") no-repeat scroll center top transparent;
 height:164px;
 margin:0;
 padding:0;
@@ -209,7 +209,7 @@ width:550px;
 }
 
 #contentFooter-single-col {
-background: image-url("/assets/bgfooter-single-col.jpg") no-repeat scroll center top transparent;
+background: image-url("bgfooter-single-col.jpg") no-repeat scroll center top transparent;
 height:350px;
 margin:0;
 padding:0;
@@ -218,7 +218,7 @@ width:550px;
 
 
 .box-single-col {
-background: image-url("/assets/bgbox-single-col.jpg") repeat scroll 0 0 transparent;
+background: image-url("bgbox-single-col.jpg") repeat scroll 0 0 transparent;
 margin: 0 80px 13px;
 padding:12px;
 -moz-border-radius: 5px;
@@ -391,14 +391,14 @@ background-position:0 -28px;
 }
 
 .signup {width: 72px;}
-.signup a {background-image:  image-url("/assets/navsignup.png"); margin-left: 3px;}
+.signup a {background-image:  image-url("navsignup.png"); margin-left: 3px;}
 
 .profile {
 width:72px;
 }
 
 .profile a {
-background-image: image-url("/assets/navprofile.png");
+background-image: image-url("navprofile.png");
 }
 
 .people {
@@ -406,7 +406,7 @@ width:66px;
 }
 
 .people a {
-background-image: image-url("/assets/navpeople.png");
+background-image: image-url("navpeople.png");
 }
 
 .characters {
@@ -414,14 +414,14 @@ width:102px;
 }
 
 .characters a {
-background-image: image-url("/assets/navcharacters.png");
+background-image: image-url("navcharacters.png");
 }
 .games {
 width:62px;
 }
 
 .games a {
-background-image: image-url("/assets/navgames.png");
+background-image: image-url("navgames.png");
 }
 
 .vendors {
@@ -429,7 +429,7 @@ width:80px;
 }
 
 .vendors a {
-background-image: image-url("/assets/navvendors.png");
+background-image: image-url("navvendors.png");
 }
 
 .forums_nav {
@@ -437,11 +437,11 @@ width:71px;
 }
 
 .forums_nav a {
-background-image: image-url("/assets/navforums.png");
+background-image: image-url("navforums.png");
 }
 
 .feedback {width: 85px;}
-.feedback a {background-image:  image-url(/assets/navfeedback.png);}
+.feedback a {background-image:  image-url("navfeedback.png");}
 
 .navbar:after {
 clear:both;
@@ -452,7 +452,7 @@ visibility:hidden;
 }
 
 .box {
-BACKGROUND:  image-url(/assets/bgbox.jpg);
+BACKGROUND:  image-url("bgbox.jpg");
 PADDING: 10px;
 MARGIN: 10px 0;
 BORDER: 0;
@@ -464,7 +464,7 @@ border-radius: 5px;
 }
 
 .box_achievements {
-BACKGROUND:  image-url(/assets/bgbox.jpg);
+BACKGROUND:  image-url("bgbox.jpg");
 PADDING-TOP: 5px;
 PADDING-BOTTOM: 5px;
 BORDER: 1px solid;
@@ -534,7 +534,7 @@ white-space:nowrap;
 }
 
 button.submitBtn {
-background: image-url("/assets/btn.png") no-repeat scroll right -90px transparent;
+background: image-url("btn.png") no-repeat scroll right -90px transparent;
 border:0 none;
 cursor:pointer;
 font:bold 13px Verdana,Arial,Helvetica,sans-serif;
@@ -547,7 +547,7 @@ text-align:center;
 }
 
 button.submitBtn span {
-background: image-url("/assets/btn.png") no-repeat scroll left top transparent;
+background: image-url("btn.png") no-repeat scroll left top transparent;
 color:#CE6A07;
 display:block;
 height:22px;
@@ -836,7 +836,7 @@ text-align:right;
 }
 
 .entry-content h6 a {
-background: image-url("/assets/add.png") no-repeat scroll left center transparent;
+background: image-url("add.png") no-repeat scroll left center transparent;
 font-weight:bold;
 padding:2px 2px 2px 20px;
 text-decoration:none;
@@ -844,7 +844,7 @@ text-transform:uppercase;
 }
 
 .update  {
-background-image: image-url("/assets/date.png");
+background-image: image-url("date.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -852,7 +852,7 @@ padding:3px 0 3px 20px;
 }
 
 li.addfriend  {
-background-image: image-url("/assets/user_add.png");
+background-image: image-url("user_add.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -860,7 +860,7 @@ padding:3px 0 3px 20px;
 }
 
 li.view  {
-background-image: image-url("/assets/page_white_magnify.png");
+background-image: image-url("page_white_magnify.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -868,7 +868,7 @@ padding:3px 0 3px 20px;
 }
 
 li.comments  {
-background-image: image-url("/assets/comments.png");
+background-image: image-url("comments.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -876,7 +876,7 @@ padding:3px 0 3px 20px;
 }
 
 li.print  {
-background-image: image-url("/assets/printer.png");
+background-image: image-url("printer.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -884,7 +884,7 @@ padding:3px 0 3px 20px;
 }
 
 li.email  {
-background-image: image-url("/assets/user_go.png");
+background-image: image-url("user_go.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -892,7 +892,7 @@ padding:3px 0 3px 20px;
 }
 
 li.edit  {
-background-image: image-url("/assets/post.png");
+background-image: image-url("post.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -900,7 +900,7 @@ padding:3px 0 3px 20px;
 }
 
 li.delete  {
-background-image: image-url("/assets/delete.png");
+background-image: image-url("delete.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -908,7 +908,7 @@ padding:3px 0 3px 20px;
 }
 
 li.facebook  {
-background-image: image-url("/assets/facebook_small_f.gif");
+background-image: image-url("facebook_small_f.gif");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -923,7 +923,7 @@ li.blank  {
     height: 25px;
 }
 li.bug  {
-background-image: image-url("/assets/bug_16x16.png");
+background-image: image-url("bug_16x16.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
