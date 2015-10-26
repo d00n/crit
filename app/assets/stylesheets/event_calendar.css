@@ -20,7 +20,7 @@
   line-height: 14px;
   margin: 0;
   padding: 0;
-  border-bottom: 1px solid #d5d5d5;
+  /*border-bottom: 1px solid #d5d5d5;*/
 }
 
 /* Month name header & links */
@@ -42,7 +42,7 @@
 /* Containers */
 .ec-body {
   position: relative;
-  border-right: 1px solid #303030;
+  /*border-right: 1px solid #303030;*/
   white-space: nowrap;
 }
 
@@ -70,7 +70,7 @@
   width: 100%;
   background: white;
   overflow: hidden;
-  border-right: 1px solid #d5d5d5;
+  /*border-right: 1px solid #d5d5d5;*/
 }
 
 .ec-row {
@@ -156,7 +156,7 @@ a.ec-day-link {
 }
 
 .ec-event {
-  color: black !important;
+  background-color: black !important;
   padding-right: 1px;
   padding-left: 11px;
   -webkit-border-radius: 3px;
