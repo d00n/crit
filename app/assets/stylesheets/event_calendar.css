@@ -155,7 +155,7 @@ a.ec-day-link {
 }
 
 .ec-event {
-  color: white;
+  color: white !important;
   padding-right: 1px;
   padding-left: 11px;
   -webkit-border-radius: 3px;
