@@ -1215,7 +1215,7 @@ width:810px;
 
 
 .gametable-navbar {
-background: image-url(bggametablenavbar.jpg) repeat-x top left;
+background: image-url("bggametablenavbar.jpg") repeat-x top left;
 margin: 0;
 padding: 0;
 height: 30px;
@@ -1262,7 +1262,7 @@ pre.message_body {
 
 .warning {
 padding: 5px ;
-background: image-url(bgbox.jpg);
+background: image-url("bgbox.jpg");
 }
 
 .auto_complete{
