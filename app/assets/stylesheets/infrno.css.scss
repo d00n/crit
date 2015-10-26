@@ -1086,7 +1086,7 @@ div.pagination strong{
 
 .flash_message{
   font-size: 15px;
-BACKGROUND: image-url(bgbox.jpg);
+BACKGROUND: image-url("bgbox.jpg");
 PADDING-TOP: 5px;
 PADDING-BOTTOM: 5px;
 BORDER: 1px solid;
@@ -1474,10 +1474,8 @@ vertical-align:top;/* align to bottom */
 
 .prototip .gametip { width: 270px; border: 5px solid #a1a1a1;}
 .prototip .gametip .toolbar { background: #606060; color: #fff; font: italic 17px Georgia, serif; }
-/*.prototip .gametip .toolbar a.close { background: image-url(close_hover.gif);}*/
 .prototip .gametip .toolbar a.close:hover { background: image-url("close.gif");}
-/*.prototip .gametip .title { padding: 5px;}*/
-.prototip .gametip .content { 
+.prototip .gametip .content {
 background: image-url("bgbox.jpg") repeat scroll 0 0 transparent;
 padding: 5px; }
 
