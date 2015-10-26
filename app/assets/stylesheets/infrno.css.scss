@@ -317,7 +317,7 @@ text-align:center;
 }
 
 .box-245 {
-background: url(/assets/bgbox.jpg);
+background: url(bgbox.jpg);
 padding: 0px 10px 10px 10px;
 border: 0;
 -moz-border-radius: 5px;
@@ -931,7 +931,7 @@ padding:3px 0 3px 20px;
 height: 25px;
 }
 li.epic  {
-background-image:url("/assets/E_16x16.png");
+background-image:image-url("E_16x16.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -939,7 +939,7 @@ padding:3px 0 3px 20px;
     height: 25px;
 }
 li.exalted  {
-background-image:url("/assets/X_16x16.png");
+background-image:image-url("X_16x16.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -947,7 +947,7 @@ padding:3px 0 3px 20px;
     height: 25px;
 }
 li.mythic  {
-background-image:url("/assets/M_16x16.png");
+background-image:image-url("M_16x16.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -955,7 +955,7 @@ padding:3px 0 3px 20px;
     height: 25px;
 }
 li.legendary  {
-background-image:url("/assets/L_16x16.png");
+background-image:image-url("L_16x16.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -964,7 +964,7 @@ padding:3px 0 3px 20px;
 }
 
 li.plus  {
-    background-image:url("/assets/plus.png");
+    background-image:image-url("plus.png");
     background-color:transparent;
     background-position:left 3px;
     background-repeat:no-repeat;
@@ -979,7 +979,7 @@ padding:3px 0 3px 20px;
 }
 
 .rss  {
-background-image:url("/assets/rss.png");
+background-image:image-url("rss.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -987,7 +987,7 @@ padding:3px 0 3px 20px;
 }
 
 .tags {
-background:url("/assets/tag_blue.png");
+background:image-url("tag_blue.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -995,7 +995,7 @@ padding:3px 0 3px 20px;
 }
 
 .delete {
-background:url("/assets/delete.png");
+background:image-url("delete.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -1003,7 +1003,7 @@ padding:3px 0 3px 20px;
 }
 
 .geo {
-background:url("/assets/world.png");
+background:image-url("world.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -1011,7 +1011,7 @@ padding:3px 0 3px 20px;
 }
 
 .compose {
-background:url("/assets/email_edit.png");
+background:image-url("email_edit.png");
 background-color:transparent;
 background-position:left 3px;
 background-repeat:no-repeat;
@@ -1034,28 +1034,28 @@ li.fn .user_name{
     /*padding:3px 0 3px 20px;*/
 /*}*/
 /*.epic_user {*/
-    /*background:url("/assets/E_16x16.png");*/
+    /*background:image-url("E_16x16.png");*/
     /*background-color:transparent;*/
     /*background-position:left 3px;*/
     /*background-repeat:no-repeat;*/
     /*padding:3px 0 3px 20px;*/
 /*}*/
 /*.legendary_user {*/
-    /*background:url("/assets/L_16x16.png");*/
+    /*background:image-url("L_16x16.png");*/
     /*background-color:transparent;*/
     /*background-position:left 3px;*/
     /*background-repeat:no-repeat;*/
     /*padding:3px 0 3px 20px;*/
 /*}*/
 /*.exalted_user {*/
-    /*background:url("/assets/X_16x16.png");*/
+    /*background:image-url("X_16x16.png");*/
     /*background-color:transparent;*/
     /*background-position:left 3px;*/
     /*background-repeat:no-repeat;*/
     /*padding:3px 0 3px 20px;*/
 /*}*/
 /*.mythic_user {*/
-    /*background:url("/assets/M_16x16.png");*/
+    /*background:image-url("M_16x16.png");*/
     /*background-color:transparent;*/
     /*background-position:left 3px;*/
     /*background-repeat:no-repeat;*/
@@ -1086,7 +1086,7 @@ div.pagination strong{
 
 .flash_message{
   font-size: 15px;
-BACKGROUND: url(/assets/bgbox.jpg);
+BACKGROUND: image-url(bgbox.jpg);
 PADDING-TOP: 5px;
 PADDING-BOTTOM: 5px;
 BORDER: 1px solid;
@@ -1215,7 +1215,7 @@ width:810px;
 
 
 .gametable-navbar {
-background: url(/assets/bggametablenavbar.jpg) repeat-x top left;
+background: image-url(bggametablenavbar.jpg) repeat-x top left;
 margin: 0;
 padding: 0;
 height: 30px;
@@ -1262,7 +1262,7 @@ pre.message_body {
 
 .warning {
 padding: 5px ;
-background: url(/assets/bgbox.jpg);
+background: image-url(bgbox.jpg);
 }
 
 .auto_complete{
@@ -1344,11 +1344,11 @@ list-style: none;
 color: #846c38;
 }
 .button:active {
-background: transparent url("/assets/buttonpress.png") repeat-x top left;
+background: transparent image-url("buttonpress.png") repeat-x top left;
 color: #846c38;
 }
 .button {
-    background: transparent url("/assets/button.png") repeat-x top left;
+    background: transparent image-url("button.png") repeat-x top left;
 border: 1px solid #150e06;
 height: 18px;
 margin: 2px 0;
@@ -1474,16 +1474,16 @@ vertical-align:top;/* align to bottom */
 
 .prototip .gametip { width: 270px; border: 5px solid #a1a1a1;}
 .prototip .gametip .toolbar { background: #606060; color: #fff; font: italic 17px Georgia, serif; }
-/*.prototip .gametip .toolbar a.close { background: url(close_hover.gif);}*/
-.prototip .gametip .toolbar a.close:hover { background: url(close.gif);}
+/*.prototip .gametip .toolbar a.close { background: image-url(close_hover.gif);}*/
+.prototip .gametip .toolbar a.close:hover { background: image-url("close.gif");}
 /*.prototip .gametip .title { padding: 5px;}*/
 .prototip .gametip .content { 
-background: url("/assets/bgbox.jpg") repeat scroll 0 0 transparent;
+background: image-url("bgbox.jpg") repeat scroll 0 0 transparent;
 padding: 5px; }
 
-.prototip .featuretip_2col { width: 550px; border: 5px solid #a1a1a1; background: url("/assets/bgbox.jpg") repeat scroll 0 0 transparent; }
+.prototip .featuretip_2col { width: 550px; border: 5px solid #a1a1a1; background: image-url("bgbox.jpg") repeat scroll 0 0 transparent; }
 .prototip .featuretip_2col .toolbar { background: #606060; color: #fff; font: italic 17px Georgia, serif; }
-.prototip .featuretip_2col .toolbar a.close:hover { background: url(close.gif);}
+.prototip .featuretip_2col .toolbar a.close:hover { background: image-url("close.gif");}
 
 .tooltip_body{
     margin: 10px;
@@ -1498,10 +1498,10 @@ ul.message_nav li {
 	background-repeat: no-repeat;
 	padding-left:20px;
 }
-ul.message_nav li.inbox_new {background-image: url(/assets/email_open.png);}
-ul.message_nav li.inbox {background-image: url(/assets/email.png);}
-ul.message_nav li.sent {background-image: url(/assets/email_go.png);}
-li.compose {background-image: url(/assets/email_edit.png);}
+ul.message_nav li.inbox_new {background-image: image-url("email_open.png");}
+ul.message_nav li.inbox {background-image: image-url("email.png");}
+ul.message_nav li.sent {background-image: image-url("email_go.png");}
+li.compose {background-image: image-url("email_edit.png");}
 .messages .photo a img{
 	float: left;
 	display: block;
@@ -1747,7 +1747,7 @@ h4 .membership_level_glyph{
 }
 
 .box-no-margin {
-    BACKGROUND: url(/assets/bgbox.jpg);
+    BACKGROUND: image-url("bgbox.jpg");
     PADDING-TOP: 5px;
     BORDER: 0;
     -moz-border-radius: 5px;
@@ -1883,7 +1883,7 @@ margin-left: 26px;
 
 .box_tile_header {
     width: 577px;
-    BACKGROUND: url(/assets/bgbox.jpg);
+    BACKGROUND: image-url("bgbox.jpg");
     PADDING: 10px;
     MARGIN: 10px 0 0 10px;
     BORDER: 0;
@@ -1898,7 +1898,7 @@ margin-left: 26px;
 width: 274px;
     height: 140px;
     float:left;
-    BACKGROUND: url(/assets/bgbox.jpg);
+    BACKGROUND: image-url("bgbox.jpg");
     PADDING: 10px;
     MARGIN: 10px 0 0 10px;
     BORDER: 0;
