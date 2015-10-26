@@ -91,11 +91,12 @@
 }
 
 .ec-day-bg {
-  border-left: 1px solid #d5d5d5;
+    background-color: black;
+  /*border-left: 1px solid #d5d5d5;*/
 }
 
 .ec-today-bg {
-  background-color: #ffffdd;
+  /*background-color: #ffffdd;*/
 }
 
 .ec-row-table {
@@ -155,7 +156,7 @@ a.ec-day-link {
 }
 
 .ec-event {
-  color: white !important;
+  color: black !important;
   padding-right: 1px;
   padding-left: 11px;
   -webkit-border-radius: 3px;
