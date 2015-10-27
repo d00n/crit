@@ -7,7 +7,7 @@
   .box-single-col
     .center
       %h3 Sign up with your Facebook account
-      = link_to(image_tag("/assets/facebook.png", :alt => 'Sign in with facebook'), "/auth/facebook", :title => 'Sign in with facebook')
+      = link_to(image_tag("facebook.png", :alt => 'Sign in with facebook'), "/auth/facebook", :title => 'Sign in with facebook')
 
       /-if configatron.auth_providers.to_hash.keys.any?
       /  -box :class => "alt" do

@@ -5,7 +5,7 @@
 
 #col-float-middle-600
   .box.center
-    =image_tag('/assets/PremiumMemberships.png', :style => "width:500px;")
+    =image_tag('PremiumMemberships.png', :style => "width:500px;")
 
 
 
@@ -24,8 +24,8 @@
 
     #achievements.pointer
       =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Author achievements and grant them to users, characters, and games", :has_popup => true}
-    #staff_tshirt.pointer
-      =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Free Infrno staff tshirt", :has_popup => true}
+    -##staff_tshirt.pointer
+      -#=render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Free Infrno staff tshirt", :has_popup => true}
     #feature_caucus_2.pointer
       =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "50 votes in every Feature Caucus", :has_popup => true}
 

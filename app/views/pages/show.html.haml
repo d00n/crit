@@ -1,7 +1,7 @@
 -@meta = { :description => configatron.meta_description, :keywords => configatron.meta_keywords, :robots => configatron.robots_meta_show_content }
 
 #col1
-  =render :partial => "shared/home_page_user_profile", :locals => { :tags => tags}
+  =render :partial => "shared/home_page_user_profile", :locals => { :tags => @popular_tags}
   
 #col2
   .box 
