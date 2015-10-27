@@ -59,6 +59,7 @@ Crit::Application.routes.draw do
   get  '/newsletter_publisher_list.:format' => 'users#newsletter_publisher_list'
 
 
+  put  '/users/:id/change_profile_photo' => 'users#change_profile_photo', :as => :user_change_profile_photo
   put  '/users/:id/update_views' => 'users#update_views', :as => :user_update_views
   get  '/users/:id/grant_network_god_mode_access' => 'users#grant_network_god_mode_access', :as => :grant_network_god_mode_access
   get  '/users/:id/revoke_network_god_mode_access' => 'users#revoke_network_god_mode_access', :as => :revoke_network_god_mode_access
