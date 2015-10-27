@@ -15,7 +15,7 @@
 
 - if forum_page?
   -#= javascript_include_tag 'lowpro', 'forum', :plugin => 'community_engine'
-  = stylesheet_link_tag 'infrno_forum'
+  -#= stylesheet_link_tag 'infrno_forum'
   - unless @feed_icons.blank?
     - @feed_icons.each do |feed|
       = auto_discovery_link_tag :rss, feed[:url], :title => "Subscribe to '#{feed[:title]}'"
