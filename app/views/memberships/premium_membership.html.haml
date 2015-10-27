@@ -14,7 +14,7 @@
     .membership_level_section_image
       =image_tag( premium_label(1))
     #ad_free.pointer
-      =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Ad-free", :has_popup => true}
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Ad-free", :has_popup => false}
     -##exalted_badge
     -#  =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Exalted membership badge"}
 
@@ -23,11 +23,11 @@
     =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Unlimited use of the game table", :has_popup => false}
 
     #achievements.pointer
-      =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Author achievements and grant them to users, characters, and games", :has_popup => true}
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Author achievements and grant them to users, characters, and games", :has_popup => false}
     -##staff_tshirt.pointer
       -#=render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "Free Infrno staff tshirt", :has_popup => true}
     #feature_caucus_2.pointer
-      =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "50 votes in every Feature Caucus", :has_popup => true}
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 1, :feature_description => "50 votes in every Feature Caucus", :has_popup => false}
 
     %br
     .prices= "Monthly: $#{configatron.EPIC_MONTHLY_AMOUNT}"
@@ -71,15 +71,15 @@
     -#  =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "Exalted membership badge"}
 
     #early_access.pointer
-      =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "Early player registration for virtual conventions", :has_popup => true}
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "Early player registration for virtual conventions", :has_popup => false}
     #premium_member_events.pointer
-      =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "Exclusive access to Exalted member appreciation events", :has_popup => true}
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "Exclusive access to Exalted member appreciation events", :has_popup => false}
     #dtrpg_gift_certificate.pointer
-      =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "Monthly drawing for a $10 DriveThruRPG gift certificate", :has_popup => true}
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "Monthly drawing for a $10 DriveThruRPG gift certificate", :has_popup => false}
     -##exalted_tshirt.pointer
     -#  =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "Free Infrno Exalted tshirt", :has_popup => true}
     #feature_caucus_4.pointer
-      =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "200 votes in every Feature Caucus", :has_popup => true}
+      =render :partial => "feature_listing", :locals => {:use_badge_level => 3, :feature_description => "200 votes in every Feature Caucus", :has_popup => false}
 
     %br
 
@@ -178,5 +178,5 @@
 -#    -#=render :partial => "feature_listing", :locals => {:use_badge_level => 0, :feature_description => "Limited access", :has_popup => false}
 
 
-=render :partial => "feature_tip"
+-#=render :partial => "feature_tip"
 

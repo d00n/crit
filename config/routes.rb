@@ -6,7 +6,6 @@ Crit::Application.routes.draw do
 
   resources :achievements
   resources :player_registrations
-  resources :products
   resources :intake_survey
   resources :game_systems
   resources :properties
@@ -192,6 +191,7 @@ Crit::Application.routes.draw do
   get  '/publishers/:id/' => 'users#show', :as => :publisher
   get  '/new_publisher' => 'users#new_publisher'
 
+  put  '/products/:id/update_views' => 'products#update_views', :as => :product_update_views
   put  '/products/:id/change_profile_photo' => 'products#change_profile_photo', :as => :product_change_profile_photo
   get  '/products/:id/pick_profile_photo' => 'products#pick_profile_photo', :as => :product_pick_profile_photo
   get  '/products/:id/remove_profile_photo' => 'products#remove_profile_photo', :as => :product_remove_profile_photo
