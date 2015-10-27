@@ -281,6 +281,7 @@ class AchievementsController < BaseController
     end
 
     path = fetch_return_path(unlocked_achievement)
+    byebug
     redirect_to path
   end
 

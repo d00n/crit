@@ -81,7 +81,7 @@ Crit::Application.configure do
 
   config.action_mailer.smtp_settings = { :enable_starttls_auto => false }
 
-  APP_URL = "http://www.infrno.net"
+  APP_URL = "http://crit.infrno.net"
 
   LIBRARY_SERVER = "http://www.infrno.net"
   LIBRARY_BASE_PATH = "/libraries/"
