@@ -280,7 +280,8 @@ class AchievementsController < BaseController
       UserNotifier.achievement_granted_by_non_author_notice(unlocked_achievement, unlocked_achievement.achievement.owner).deliver
     end
 
-    redirect_to fetch_return_path(unlocked_achievement)
+    path = fetch_return_path(unlocked_achievement)
+    redirect_to path
   end
 
   def accept
@@ -473,6 +474,7 @@ class AchievementsController < BaseController
   end
 
   def fetch_return_path(unlocked_achievement)
+
 
     if request.referer.starts_with?(APP_URL+'/users/')
       if unlocked_achievement.character
