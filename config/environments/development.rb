@@ -37,21 +37,21 @@ Crit::Application.configure do
   config.action_mailer.smtp_settings = { :enable_starttls_auto => false }
 
   # gametable vars
-  APP_URL = "http://localhost:3000"
+  APP_URL = "http://192.168.113.131:3000"
 
-  LIBRARY_SERVER = "http://kieara"
+  LIBRARY_SERVER = APP_URL
   LIBRARY_BASE_PATH = "/libraries/"
   LIBRARY_REGISTRY_FILE = "libraries.xml"
 
-  IMAGE_SERVER = "http://kieara"
+  IMAGE_SERVER = APP_URL
 
-  WOWZA_SERVER = "rtmp://kieara"
-  ROOM_ID_SERVER = "http://localhost"
+  WOWZA_SERVER = "rtmp://wowza.infrno.net"
+  ROOM_ID_SERVER = "http://wowza.infrno.net"
   MINT_VERSION = "60"
   OT_MINT_VERSION = "71"
-  CACHE_SERVER_7 = "http://localhost:3000"
-  CACHE_SERVER_8 = "http://localhost:3000"
-  CACHE_SERVER_9 = "http://localhost:3000"
+  CACHE_SERVER_7 = APP_URL
+  CACHE_SERVER_8 = APP_URL
+  CACHE_SERVER_9 = APP_URL
 
   FACEBOOK_CONNECT = true
   FACEBOOK_CONNECT_STEALTH_TEST = false

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151022061623) do
+ActiveRecord::Schema.define(version: 20151028181029) do
 
   create_table "achievements", force: true do |t|
     t.string   "name"
@@ -855,7 +855,7 @@ ActiveRecord::Schema.define(version: 20151022061623) do
     t.boolean  "others_can_clone",                  default: false
     t.string   "opentok_session_id"
     t.boolean  "is_private",                        default: false
-    t.boolean  "use_video",                         default: true
+    t.boolean  "use_video",                         default: false
     t.string   "name_slug"
     t.integer  "products_counter",                  default: 0
   end

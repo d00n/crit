@@ -1,11 +1,13 @@
 !!!
 %html
   %head
+
+    =stylesheet_link_tag 'application'
+    =javascript_include_tag 'community_engine'
+    =javascript_include_tag "application"
+
     %link{:rel=>"shortcut icon", :href=>"/favicon.ico"}
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html;charset=utf-8"}
-    =stylesheet_link_tag "infrno_#{configatron.INFRNO_CSS_VERSION}"
-    = javascript_include_tag "prototype"
-    = javascript_include_tag "rails"
 
     %script{:type=>"text/javascript", :charset=>"utf-8"}
       function hideAll()

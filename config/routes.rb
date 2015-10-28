@@ -180,8 +180,8 @@ Crit::Application.routes.draw do
   #get  '/publishers/:id/products/:product_id/games/:game_id/' => 'games#show', :as => :game
   #get  '/publishers/:id/products/:product_id/characters/:character_id' => 'characters#show', :as => :character
 
-  get  '/games/:id/play/' => 'games#play', :as => :gametable
-  get  '/games/:id/gametable/' => 'games#gametable', :as => :whiteboard
+  get  '/games/:id/play/' => 'games#ot_play', :as => :gametable
+  get  '/games/:id/ot_gametable/' => 'games#ot_gametable', :as => :whiteboard
 
 #  get  '/game/open' => 'game_systems#index'
   get  '/admin/game_systems/:action' => 'game_systems#manage', :as => :admin_game_systems
