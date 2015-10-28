@@ -9,85 +9,21 @@
     %link{:rel=>"shortcut icon", :href=>"/favicon.ico"}
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html;charset=utf-8"}
 
-    %script{:type=>"text/javascript", :charset=>"utf-8"}
-      function hideAll()
-      {
-      document.getElementById('gametable').className='x-hide-display';
-      document.getElementById('gametable_tab').className='';
-      - @game.active_characters.each do |character|
-        ="document.getElementById('char_#{character.id}').hide();"
-        ="document.getElementById('char_tab_#{character.id}').className='';"
-      }
-
   %body
     .gametable-navbar
       =link_to image_tag("infrnogametablelogo.png", :class => "smlogo"), game_path(@game), :confirm => "You are leaving the game table. Are you sure?"
 
       %ul
-        %li{:class => 'current', :id => "gametable_tab"}
-          %a{:href => "foo", :onclick => "hideAll(); document.getElementById('gametable').className='x-show-display'; document.getElementById('gametable_tab').className='current'; return false;"}
-            %span
-              Game table
-
         - @game.active_characters.each do |character|
           %li{:class => '', :id => "char_tab_#{character.id}"}
-            %a{:onclick => "hideAll(); document.getElementById('char_#{character.id}').show(); document.getElementById('char_tab_#{character.id}').className='current'; return false;"}
+            %a{:href => character_url(character), :target => '_blank' }
               %span
                 = truncate_words(h(character.name), 2, "...")
 
-    -#-if @game.use_video
-    -#  %div{:id=>"devicePanelContainer"}
-    -#    %input{:id=>"closeButton", :type=>"button", :onclick=>"closePanel();", :value=>"Close panel"}
-
-
-
     %div{:id=>"gametable", :class=>"x-show-display"}
-      -if @game.use_video
-        %div{:id=>"gametable_center"}
-          %iframe{:src => "/games/#{@game.id}/ot_gametable", :width=>"100%", :height=>"100%", :scrolling=>"no", :frameborder=>"0"}
-      -else
-        %div{:id=>"gametable_full"}
-          %iframe{:src => "/games/#{@game.id}/ot_gametable", :width=>"100%", :height=>"100%", :scrolling=>"no", :frameborder=>"0"}
+      %div{:id=>"gametable_full"}
+        %iframe{:src => "/games/#{@game.id}/ot_gametable", :width=>"100%", :height=>"100%", :scrolling=>"no", :frameborder=>"0"}
 
-      -if @game.use_video
-        %div{:id=>"gametable_left"}
-          .controls
-            #status
-              Connecting...
-            #action
-              &nbsp;
-            #count-header{:class=>"hidden_controls"}
-              Not yet connected
-            #participants{:class=>"hidden_controls"}
-              &nbsp;
-            #watchers{:class=>"hidden_controls"}
-              &nbsp;
-          .video_feeds
-            #myCamera{:class =>"publisherContainer"}
-            #remote_views
-              #remote_stream_1{:class=>"remote_feed"}
-              #remote_stream_2{:class=>"remote_feed"}
-              #remote_stream_3{:class=>"remote_feed"}
-              #remote_stream_4{:class=>"remote_feed"}
-              #remote_stream_5{:class=>"remote_feed"}
-              #remote_stream_6{:class=>"remote_feed"}
-              #remote_stream_7{:class=>"remote_feed"}
-
-
-
-
-
-
-
-
-     
-    #container
-      #content
-        #contentBody
-          - @game.active_characters.each do |character|
-            %div{:id=>"char_#{character.id}", :style=>"display:none"}
-              - @character = character
-              = render :file => "characters/game_table_sheet.html.haml"
 
 
 
