@@ -31,7 +31,7 @@
 
         - @game.active_characters.each do |character|
           %li{:class => '', :id => "char_tab_#{character.id}"}
-            %a{:href => character_url(character), :onclick => "hideAll(); document.getElementById('char_#{character.id}').show(); document.getElementById('char_tab_#{character.id}').className='current'; return false;"}
+            %a{:onclick => "hideAll(); document.getElementById('char_#{character.id}').show(); document.getElementById('char_tab_#{character.id}').className='current'; return false;"}
               %span
                 = truncate_words(h(character.name), 2, "...")
 
