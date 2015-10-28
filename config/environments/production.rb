@@ -83,7 +83,7 @@ Crit::Application.configure do
 
   APP_URL = "http://crit.infrno.net"
 
-  LIBRARY_SERVER = APP_URL
+  LIBRARY_SERVER = "http://www.infrno.net"
   LIBRARY_BASE_PATH = "/libraries/"
   LIBRARY_REGISTRY_FILE = "libraries.xml"
 
