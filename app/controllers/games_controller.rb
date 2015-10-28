@@ -1344,9 +1344,9 @@ class GamesController < BaseController
       @game.set_opentok_session(request.remote_addr)
     end
 
-    opentok = OpenTok::OpenTokSDK.new OPENTOK_API_KEY, OPENTOK_API_SECRET
-    @opentok_session_id = @game.opentok_session_id
-    @opentok_token = opentok.generate_token :session_id => @ot_session_id, :role => OpenTok::RoleConstants::PUBLISHER, :connection_data => "username=#{@user_name},level=4"
+    #opentok = OpenTok::OpenTokSDK.new OPENTOK_API_KEY, OPENTOK_API_SECRET
+    #@opentok_session_id = @game.opentok_session_id
+    #@opentok_token = opentok.generate_token :session_id => @ot_session_id, :role => OpenTok::RoleConstants::PUBLISHER, :connection_data => "username=#{@user_name},level=4"
 
 
     render :layout => false
