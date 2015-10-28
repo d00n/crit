@@ -33,9 +33,9 @@
               %span
                 = truncate_words(h(character.name), 2, "...")
 
-    -if @game.use_video
-      %div{:id=>"devicePanelContainer"}
-        %input{:id=>"closeButton", :type=>"button", :onclick=>"closePanel();", :value=>"Close panel"}
+    -#-if @game.use_video
+    -#  %div{:id=>"devicePanelContainer"}
+    -#    %input{:id=>"closeButton", :type=>"button", :onclick=>"closePanel();", :value=>"Close panel"}
 
 
 

@@ -1340,9 +1340,9 @@ class GamesController < BaseController
       @enable_network_god_mode = current_user.enable_network_god_mode
     end
 
-    if @game.opentok_session_id.blank?
-      @game.set_opentok_session(request.remote_addr)
-    end
+    #if @game.opentok_session_id.blank?
+    #  @game.set_opentok_session(request.remote_addr)
+    #end
 
     #opentok = OpenTok::OpenTokSDK.new OPENTOK_API_KEY, OPENTOK_API_SECRET
     #@opentok_session_id = @game.opentok_session_id

@@ -1,0 +1,65 @@
+<registry>
+  <libraries>
+   <library name="com.simplediagrams.backgroundLibrary.SubtlePatterns" displayName="Subtle Patterns">
+      <custom>false</custom>
+      <type>backgrounds</type>
+      <enabled>true</enabled>
+    </library>
+    <library name="com.simplediagrams.backgroundLibrary.basic" displayName="Basic">
+      <custom>false</custom>
+      <type>backgrounds</type>
+      <enabled>true</enabled>
+    </library>
+   
+    <library name="com.simplediagrams.shapeLibrary.basic" displayName="Basic">
+      <custom>false</custom>
+      <type>shapes</type>
+      <enabled>true</enabled>
+    </library>
+    <library name="com.simplediagrams.shapeLibrary.basicClean" displayName="Basic (Clean)">
+      <custom>false</custom>
+      <type>shapes</type>
+      <enabled>true</enabled>
+    </library>
+    <library name="com.simplediagrams.shapeLibrary.biz" displayName="Biz">
+      <custom>false</custom>
+      <type>shapes</type>
+      <enabled>true</enabled>
+    </library>
+    <library name="com.simplediagrams.shapeLibrary.meetings" displayName="Meetings">
+      <custom>false</custom>
+      <type>shapes</type>
+      <enabled>true</enabled>
+    </library>
+    <library name="com.simplediagrams.shapeLibrary.communication" displayName="Communication">
+      <custom>false</custom>
+      <type>shapes</type>
+      <enabled>true</enabled>
+    </library>
+    <library name="com.simplediagrams.shapeLibrary.computersAndNetworks" displayName="Computers and Networks">
+      <custom>false</custom>
+      <type>shapes</type>
+      <enabled>true</enabled>
+    </library>
+    <library name="com.simplediagrams.shapeLibrary.education" displayName="Education">
+      <custom>false</custom>
+      <type>shapes</type>
+      <enabled>true</enabled>
+    </library>
+    <library name="com.simplediagrams.shapeLibrary.energy" displayName="Energy">
+      <custom>false</custom>
+      <type>shapes</type>
+      <enabled>true</enabled>
+    </library>
+    <library name="com.simplediagrams.shapeLibrary.farm" displayName="Farm">
+      <custom>false</custom>
+      <type>shapes</type>
+      <enabled>true</enabled>
+    </library>
+    <library name="com.simplediagrams.shapeLibrary.medical" displayName="Medical">
+      <custom>false</custom>
+      <type>shapes</type>
+      <enabled>true</enabled>
+    </library>
+  </libraries>
+</registry>

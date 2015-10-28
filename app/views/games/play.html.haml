@@ -7,21 +7,10 @@
     %title
       = @game.name
   
-    = javascript_include_tag "prototype"
-    = javascript_include_tag "rails"
-    =stylesheet_link_tag "infrno_#{configatron.INFRNO_CSS_VERSION}"
+    -#= javascript_include_tag "prototype"
+    -#= javascript_include_tag "rails"
+    -#=stylesheet_link_tag "infrno_#{configatron.INFRNO_CSS_VERSION}"
     
-      
-    %script{:type=>"text/javascript", :charset=>"utf-8"}
-      function hideAll() 
-      {      
-      document.getElementById('gametable').className='x-hide-display';
-      document.getElementById('gametable_tab').className='';
-      - @game.active_characters.each do |character|
-        ="document.getElementById('char_#{character.id}').hide();"
-        ="document.getElementById('char_tab_#{character.id}').className='';"
-      }
-      
     %script{:type => "text/javascript"}
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-19974708-1']);
