@@ -10,7 +10,7 @@ class PopulateEmptyUserLoginSlugs < ActiveRecord::Migration
       User.find(11931).destroy
     end
     User.where("login_slug is null").each do |u|
-      puts "> #{u.id}, #{u.login}"
+      puts "> #{u.id}, #{u.login}, #{u.email}"
       u.login_slug = u.login.tr(" ", "_")
       u.save!
     end

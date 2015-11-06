@@ -8,6 +8,7 @@ class BaseController < ApplicationController
   #skip_before_filter :verify_authenticity_token, :only => :footer_content
 
   helper_method :commentable_url
+  helper_method :nick
 
   # caching site_index makes the authenticity_token stale for the login form
   caches_action :site_index, :footer_content, :if => Proc.new{|c| c.cache_action? }
@@ -415,6 +416,14 @@ class BaseController < ApplicationController
       return publisher_product_character_path(character.products.first.owner, character.products.first, character)
     else
       return character_path(character)
+    end
+  end
+
+  def nick
+    if (current_user.nil?)
+      return "guest"
+    else
+      return current_user.login
     end
   end
 
