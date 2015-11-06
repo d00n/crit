@@ -10,7 +10,7 @@
     function fbInit() {
       FB.init('#{Facebooker.api_key}', window.xd_receiver_location, 
         { 'ifUserConnected': CE_Facebooker.fbConnected,
-          permsToRequestOnConnect : "email,publish_stream",
+          permsToRequestOnConnect : "email,publish_actions",
         });
     }
     var head = document.getElementsByTagName("head")[0], script = document.createElement("script"), done = false;
