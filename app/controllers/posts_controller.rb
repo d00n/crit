@@ -79,13 +79,13 @@ class PostsController < BaseController
     @post.published_as = 'live'
     @categories = Category.all
 
-    if !(params[:post][:game_id]).nil?
+    if !(params[:post]).nil? && !(params[:post][:game_id]).nil?
       @game = Game.find(params[:post][:game_id])
       if @game.owner == current_user
         @post.game = @game
       end
     end
-    if !(params[:post][:character_id]).nil?
+    if !(params[:post]).nil? && !(params[:post][:character_id]).nil?
       @character = Character.find(params[:post][:character_id])
       if @character.owner == current_user
         @post.character = @character
