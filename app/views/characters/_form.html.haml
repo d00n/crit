@@ -406,34 +406,26 @@
       %fieldset
         %legend
           About
-        %ol
-          %li 
-            = character_form.text_area :about, :class => "rich_text_editor"
+      = character_form.text_area :about, :class => "rich_text_editor", :size => "50x20"
             
     .user_row 
       %fieldset
         %legend
           Background
-        %ol
-          %li 
-            = character_form.text_area :background, :class => "rich_text_editor", :size => "50x20"
+      = character_form.text_area :background, :class => "rich_text_editor", :size => "50x20"
           
     .user_row 
       %fieldset
         %legend
           Someone else would describe me as...
-        %ol
-          %li
-            = character_form.text_area :party_description, :class => "rich_text_editor", :size => "50x20"
+      = character_form.text_area :party_description, :class => "rich_text_editor", :size => "50x20"
           
     .user_row 
       %fieldset
         %legend
           Character relationships
-        %ol
-          %li 
-            = character_form.text_area :character_relationships, :class => "rich_text_editor", :size => "50x20"
-    
+      = character_form.text_area :character_relationships, :class => "rich_text_editor", :size => "50x20"
+
     .user_row
       .InfrnoForm
         %fieldset
