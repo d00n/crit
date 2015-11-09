@@ -153,4 +153,6 @@
 
     = render :partial => "shared/end_javascript"
     = yield :end_javascript
-    = render :partial => "shared/scrollback"
+
+    -if DEPLOY_SCROLLBACK
+      = render :partial => "shared/scrollback"
