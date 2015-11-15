@@ -117,7 +117,7 @@ text-decoration:none;
 }
 
 #container {
-background: image-url("bgbody1.jpg") no-repeat scroll center top transparent;
+background: url(image_path("bgbody1.jpg")) no-repeat scroll center top transparent;
 margin:0 auto;
 text-align:left;
 width:100%;
@@ -151,7 +151,7 @@ overflow:hidden;
 }
 
 #contentFooter {
-background: image_url("bgfooter.jpg") no-repeat scroll center top transparent;
+background: image-url("bgfooter.jpg") no-repeat scroll center top transparent;
 height:239px;
 margin:0;
 padding:0;
