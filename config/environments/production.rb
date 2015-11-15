@@ -112,7 +112,7 @@ Crit::Application.configure do
   FACEBOOK_CONNECT_STEALTH_TEST = false
   FACEBOOK_LIKE = true
 
-  DEPLOY_SCROLLBACK = false
+  DEPLOY_SCROLLBACK = true
   DEPLOY_GOOGLE_ANALYTICS = true
   DEPLOY_QUANTCAST = false
   DEPLOY_ENVOLVED = false
