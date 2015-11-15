@@ -18,7 +18,7 @@ padding:0;
 }
 
 body {
-background: url(image_path("bgbody2.jpg")) repeat-y scroll center top #000000;
+background: image-url("bgbody2.jpg") repeat-y scroll center top #000000;
 color:#FFDF7F;
 font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
 font-size:11px;
@@ -117,7 +117,7 @@ text-decoration:none;
 }
 
 #container {
-background: url(image_path("bgbody1.jpg")) no-repeat scroll center top transparent;
+background: image-url("bgbody1.jpg") no-repeat scroll center top transparent;
 margin:0 auto;
 text-align:left;
 width:100%;
