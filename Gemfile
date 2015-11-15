@@ -48,6 +48,7 @@ gem 'event-calendar', :require => 'event_calendar'
 gem 'omniauth-facebook'
 gem 'activemerchant', '1.21.0'
 gem 'active_utils', '1.0.3'
+gem 'asin'
 
 #gem 'momentjs-rails', '>= 2.9.0'
 #gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
