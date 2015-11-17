@@ -21,11 +21,12 @@ module CalendarHelper
       
       d = Date.civil(event.start_at.in_time_zone.year.to_i, event.start_at.in_time_zone.month.to_i, event.start_at.in_time_zone.day.to_i)
       
-      if d.cwday == 5 || d.cwday == 6
-        new_tip = "new Tip('game_#{event.id}', $('tooltip_#{event.id}'),  {hideOn: false, hook: {target: 'topLeft', tip: 'topRight'}, hideAfter: .5, className: 'gametip',});"
-      else        
-        new_tip = "new Tip('game_#{event.id}', $('tooltip_#{event.id}'),  {hideOn: false, hook: {target: 'topRight', tip: 'topLeft'}, hideAfter: .5, className: 'gametip',});"
-      end
+      #if d.cwday == 5 || d.cwday == 6
+      #  new_tip = "new Tip('game_#{event.id}', $('tooltip_#{event.id}'),  {hideOn: false, hook: {target: 'topLeft', tip: 'topRight'}, hideAfter: .5, className: 'gametip',});"
+      #else
+      #  new_tip = "new Tip('game_#{event.id}', $('tooltip_#{event.id}'),  {hideOn: false, hook: {target: 'topRight', tip: 'topLeft'}, hideAfter: .5, className: 'gametip',});"
+      #end
+      new_tip =""
       
       li_system = ''
       if !event.system_name.blank?
@@ -54,7 +55,7 @@ module CalendarHelper
 
 
       %(
-      <a href="/games/#{event.id}" id="game_#{event.id}" >#{h(event.name)}</a>
+      <a href="/games/#{event.id}" id="game_#{event.id}" title="#{event.name}" >#{h(event.name)}</a>
       <div id="tooltip_#{event.id}">
         #{link_to image_tag( event.avatar_photo_url(:thumb), :width => "100" ), seo_game_path(event)}
         <h2>#{link_to h(event.name), seo_game_path(event)}</h2>
