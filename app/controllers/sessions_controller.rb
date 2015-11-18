@@ -21,7 +21,7 @@ class SessionsController < BaseController
   end
 
 
-  #skip_before_filter :verify_authenticity_token, :only => :create
+  skip_before_filter :verify_authenticity_token, :only => :create
   #
   #def new
   #  redirect_to home_url and return if current_user

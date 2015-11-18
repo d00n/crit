@@ -432,7 +432,7 @@ class BaseController < ApplicationController
   def set_timezone
     #if logged_in?
     if (defined? current_user)
-      Time.zone = current_user.time_zone
+      Time.zone = current_user.try(:time_zone)
     end
   end
 

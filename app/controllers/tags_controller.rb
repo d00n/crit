@@ -1,9 +1,9 @@
 class TagsController < BaseController
   require_from_ce('controllers/tags_controller')
 
-  #before_filter :login_required, :only => [:manage, :edit, :update, :destroy]
-  #before_filter :admin_required, :only => [:manage, :edit, :update, :destroy]
-  #skip_before_filter :verify_authenticity_token, :only => 'auto_complete_for_tag_name'
+  before_filter :login_required, :only => [:manage, :edit, :update, :destroy]
+  before_filter :admin_required, :only => [:manage, :edit, :update, :destroy]
+  skip_before_filter :verify_authenticity_token, :only => 'auto_complete_for_tag_name'
   #
   #caches_action :show, :cache_path => Proc.new { |controller| controller.send(:tag_url, controller.params[:id]) }, :if => Proc.new{|c| c.cache_action? }
   #def cache_action?
