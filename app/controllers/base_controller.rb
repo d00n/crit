@@ -1,11 +1,11 @@
 class BaseController < ApplicationController
   require_from_ce('controllers/base_controller')
 
-  #include AuthenticatedSystem
-  #include LocalizedApplication
-  #around_filter :set_locale
-  #before_filter :set_timezone
-  #skip_before_filter :verify_authenticity_token, :only => :footer_content
+  include AuthenticatedSystem
+  include LocalizedApplication
+  around_filter :set_locale
+  before_filter :set_timezone
+  skip_before_filter :verify_authenticity_token, :only => :footer_content
 
   helper_method :commentable_url
   helper_method :nick
