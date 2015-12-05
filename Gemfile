@@ -59,7 +59,7 @@ source 'https://rails-assets.org' do
 end
 
 group :development do
-  gem 'byebug'
+  #gem 'byebug'
   gem 'quiet_assets'
 
   gem 'capistrano', '~> 3.1'
