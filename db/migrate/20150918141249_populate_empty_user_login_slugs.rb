@@ -23,9 +23,9 @@ class PopulateEmptyUserLoginSlugs < ActiveRecord::Migration
       u.save!
     end
 
-    execute "update users set email = concat ('staging', id, '@infrno.net');"
-    execute "update photos set photo_file_name='TheThirdMan.png';"
-    execute "update posts set post='Get outta my hood';"
-    execute "update posts set raw_post='Get outta my hood';"
+    #execute "update users set email = concat ('staging', id, '@infrno.net');"
+    #execute "update photos set photo_file_name='TheThirdMan.png';"
+    #execute "update posts set post='Get outta my hood';"
+    #execute "update posts set raw_post='Get outta my hood';"
   end
 end
