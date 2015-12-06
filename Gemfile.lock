@@ -67,6 +67,10 @@ GEM
       sass (~> 3.2)
     bootstrap_form (2.2.0)
     builder (3.1.4)
+    byebug (3.5.1)
+      columnize (~> 0.8)
+      debugger-linecache (~> 1.2)
+      slop (~> 3.6)
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -94,6 +98,7 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     colorize (0.7.7)
+    columnize (0.9.0)
     community_engine (3.0.0)
       actionpack-action_caching
       actionpack-page_caching
@@ -137,6 +142,7 @@ GEM
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     crass (1.0.1)
+    debugger-linecache (1.2.0)
     dynamic_form (1.1.4)
     erubis (2.7.0)
     event-calendar (2.3.3)
@@ -274,6 +280,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    slop (3.6.0)
     sprockets (2.10.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -308,6 +315,7 @@ DEPENDENCIES
   active_utils (= 1.0.3)
   activemerchant (= 1.21.0)
   asin
+  byebug
   capistrano (~> 3.1)
   capistrano-bundler (~> 1.1.2)
   capistrano-passenger (~> 0.1.1)

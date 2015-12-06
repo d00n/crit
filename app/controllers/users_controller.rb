@@ -707,7 +707,8 @@ class UsersController < BaseController
 
   def edit
     @metro_areas, @states = setup_locations_for(@user)
-    @avatar               = Photo.new
+    #@avatar               = Photo.new
+    @avatar               = (@user.avatar ||@user.build_avatar)
     load_tshirt_sizes
   end
 
