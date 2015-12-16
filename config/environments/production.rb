@@ -123,6 +123,8 @@ Crit::Application.configure do
   WOWZA_WHITEBOARD_APP = "whiteboard"
   WOWZA_CHAT_APP = "chat"
 
+  D20PRO_SECRET = "roll20_can_suck_my_balls"
+
   OPENTOK_API_KEY = "8248452"
   OPENTOK_API_SECRET = "632a2ffe32d64987c12de01ad4b5099a936c96d3"
   OPENTOK_JAVASCRIPT_SRC = "http://static.opentok.com/v0.91.56/js/TB.min.js"

@@ -1009,33 +1009,45 @@ class UsersController < BaseController
 
 
   def sideload
-    email = params[:email]
-    hash =  params[:hash]
-    first_name = params[:first_name]
-    last_name = params[:last_name]
+    if !(params.has_key?(:hash) && params.has_key?(:email))
+      redirect_to games_index
+    end
 
-    @user       = User.new(user_params)
+    sha2 = Digest::SHA2.new
+    hash_input = params[:email] + D20PRO_SECRET
+    sha2.update hash_input
+    hash = sha2.hexdigest
+
+    byebug
+
+    if hash != params[:hash]
+      redirect_to games_index
+    end
+
+    @user       = User.new()
     @user.role  = Role[:member]
-
-    @user.birthday
-    @user.crypted_password
-    @user.password_salt
-    @user.login = User.create_unique_login(first_name + "_" + last_name)
-
-    #TODO validate hash
-
-    params[:tos_pp_agreement] = "1"
+    @user.email = params[:email]
+    @user.first_name = params[:first_name]
+    @user.last_name = params[:last_name]
+    @user.birthday = User.first.birthday
+    @user.crypted_password = User.first.crypted_password
+    @user.password_salt = User.first.password_salt
+    @user.login = User.create_unique_login(last_name)
+    @user.save!
 
     create_friendship_with_inviter(@user, params)
     create_friendship_with_kieara(@user)
-
 
     #TODO d20pro-specific account activation welcome email
 
     achievement = Achievement.find(D20PRO_REG_ACHIEVEMENT_ID)
     @user.achievements << achievement
 
-    @user.save
+    @user.save!
+
+    # TODO log user in
+    Authlogic::Session::Base.controller = Authlogic::ControllerAdapters::RailsAdapter.new(self)
+    @user_session = UserSession.new(:login => @user.login)
 
     redirect_to game_index
   end
