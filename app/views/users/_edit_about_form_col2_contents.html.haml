@@ -26,23 +26,23 @@
   = render :partial => 'offerings/chooser'
 
 -box do
-  %h3= :tags.l
-  #user_tags
-    =text_field @user.tag_list.to_s, {:autocomplete => "off", :class => "tag_input_field"}
-    -content_for :end_javascript do
-      =tag_auto_complete_field 'user_tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [','] }
+  -#%h3= :tags.l
+  -##user_tags
+  -#  =text_field @user.tag_list.to_s, {:autocomplete => "off", :class => "tag_input_field"}
+  -#  -content_for :end_javascript do
+  -#    =tag_auto_complete_field 'user_tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [','] }
 
     -#= text_field_tag 'tag_list', @user.tag_list.to_s, {:autocomplete => "off", :size=>"58"}
     -##tag_list_auto_complete.auto_complete
     -#= auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [',']}
 
 
-    %p
-
-    =:you_could_tag_yourself.l
-    - if @user.vendor?
-      =:custom_friendly_local.l
-    - else
-      = configatron.meta_keywords.split(",")[0..3].join(", ")
-    %br
+    -#%p
+    -#
+    -#=:you_could_tag_yourself.l
+    -#- if @user.vendor?
+    -#  =:custom_friendly_local.l
+    -#- else
+    -#  = configatron.meta_keywords.split(",")[0..3].join(", ")
+    -#%br
 
