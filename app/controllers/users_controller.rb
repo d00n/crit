@@ -1008,6 +1008,29 @@ class UsersController < BaseController
   end
 
 
+  def sideload
+    email = params[:email]
+    hash =  params[:hash]
+    first_name = params[:first_name]
+    last_name = params[:last_name]
+
+    @user       = User.new(user_params)
+    @user.role  = Role[:member]
+
+    params[:tos_pp_agreement] = "1"
+
+    create_friendship_with_inviter(@user, params)
+    create_friendship_with_kieara(@user)
+
+    achievement = Achievement.find(D20PRO_REG_ACHIEVEMENT_ID)
+    @user.achievements << achievement
+
+    @user.save
+
+    redirect_to game_index
+  end
+
+
   protected
   def user_params
     params[:user].permit(:avatar_id, :company_name, :country_id, :description, :email,

@@ -50,13 +50,12 @@ Crit::Application.routes.draw do
   get  '/users/:user_id/characters/:id' => 'characters#show', :as => :user_character
   get  '/users/:user_id/events/:id' => 'events#show', :as => :user_event
 
-
-
   get  '/newsletter_user_list.:format' => 'users#newsletter_user_list'
   get  '/newsletter_admin_list.:format' => 'users#newsletter_admin_list'
   get  '/newsletter_power_user_list.:format' => 'users#newsletter_power_user_list'
   get  '/newsletter_publisher_list.:format' => 'users#newsletter_publisher_list'
 
+  get  '/users/sideload' => 'users#sideload', :as => :sideload_user
 
   put  '/users/:id/change_profile_photo' => 'users#change_profile_photo', :as => :user_change_profile_photo
   put  '/users/:id/update_views' => 'users#update_views', :as => :user_update_views
