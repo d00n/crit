@@ -1017,10 +1017,20 @@ class UsersController < BaseController
     @user       = User.new(user_params)
     @user.role  = Role[:member]
 
+    @user.birthday
+    @user.crypted_password
+    @user.password_salt
+    @user.login = User.create_unique_login(first_name + "_" + last_name)
+
+    #TODO validate hash
+
     params[:tos_pp_agreement] = "1"
 
     create_friendship_with_inviter(@user, params)
     create_friendship_with_kieara(@user)
+
+
+    #TODO d20pro-specific account activation welcome email
 
     achievement = Achievement.find(D20PRO_REG_ACHIEVEMENT_ID)
     @user.achievements << achievement
