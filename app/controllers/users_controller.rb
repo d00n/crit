@@ -1018,38 +1018,45 @@ class UsersController < BaseController
     sha2.update hash_input
     hash = sha2.hexdigest
 
-    byebug
-
     if hash != params[:hash]
       redirect_to games_index
     end
 
-    @user       = User.new()
-    @user.role  = Role[:member]
-    @user.email = params[:email]
-    @user.first_name = params[:first_name]
-    @user.last_name = params[:last_name]
-    @user.birthday = User.first.birthday
-    @user.crypted_password = User.first.crypted_password
-    @user.password_salt = User.first.password_salt
-    @user.login = User.create_unique_login(last_name)
-    @user.save!
+    @user = User.find_by_email(params[:email])
 
-    create_friendship_with_inviter(@user, params)
-    create_friendship_with_kieara(@user)
+    if @user
+    else
+      @user = User.new()
+      @user.role = Role[:member]
+      @user.email = params[:email]
+      @user.first_name = params[:first_name]
+      @user.last_name = params[:last_name]
+      @user.birthday = User.first.birthday
+      @user.crypted_password = User.first.crypted_password
+      @user.password_salt = User.first.password_salt
+      @user.login = User.create_unique_login(params[:last_name])
+      @user.save!
+    end
+
+    #create_friendship_with_inviter(@user, params)
+    #create_friendship_with_kieara(@user)
 
     #TODO d20pro-specific account activation welcome email
 
-    achievement = Achievement.find(D20PRO_REG_ACHIEVEMENT_ID)
-    @user.achievements << achievement
+    #achievement = Achievement.find(D20PRO_REG_ACHIEVEMENT_ID)
+    #@user.achievements << achievement
 
-    @user.save!
+    #@user.save!
 
     # TODO log user in
-    Authlogic::Session::Base.controller = Authlogic::ControllerAdapters::RailsAdapter.new(self)
-    @user_session = UserSession.new(:login => @user.login)
+    #Authlogic::Session::Base.controller = Authlogic::ControllerAdapters::RailsAdapter.new(self)
+    @user.reset_persistence_token!
+    @user_session = UserSession.create(@user)
+    @user_session.save
 
-    redirect_to game_index
+    byebug
+
+    redirect_to games_path
   end
 
 
