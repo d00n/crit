@@ -1010,7 +1010,9 @@ class UsersController < BaseController
 
   def sideload
     if !(params.has_key?(:hash) && params.has_key?(:email))
-      redirect_to games_index
+      flash[:error] = "This will go in your permanent record."
+      redirect_to home_path
+      return
     end
 
     sha2 = Digest::SHA2.new
@@ -1019,12 +1021,15 @@ class UsersController < BaseController
     hash = sha2.hexdigest
 
     if hash != params[:hash]
-      redirect_to games_index
+      flash[:error] = "Your ticket is expired."
+      redirect_to home_path
+      return
     end
 
     @user = User.find_by_email(params[:email])
 
     if @user
+      # anything to do for existing users???
     else
       @user = User.new()
       @user.role = Role[:member]
@@ -1035,6 +1040,7 @@ class UsersController < BaseController
       @user.crypted_password = User.first.crypted_password
       @user.password_salt = User.first.password_salt
       @user.login = User.create_unique_login(params[:last_name])
+      @user.activate
       @user.save!
     end
 
@@ -1050,11 +1056,8 @@ class UsersController < BaseController
 
     # TODO log user in
     #Authlogic::Session::Base.controller = Authlogic::ControllerAdapters::RailsAdapter.new(self)
-    @user.reset_persistence_token!
     @user_session = UserSession.create(@user)
     @user_session.save
-
-    byebug
 
     redirect_to games_path
   end

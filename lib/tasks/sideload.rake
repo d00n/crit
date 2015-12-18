@@ -8,7 +8,7 @@ namespace :sideload do
     sha2.update hash_input
     hash = sha2.hexdigest
 
-    url = "/users/sideload?email=#{args.email}&hash=#{hash}&first_name=#{args.first_name}&last_name=#{args.last_name}"
+    url = "/users/sideload?email=#{args.email}&first_name=#{args.first_name}&last_name=#{args.last_name}&hash=#{hash}"
 
     puts url
   end
