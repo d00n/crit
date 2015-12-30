@@ -1059,6 +1059,7 @@ class UsersController < BaseController
     @user_session = UserSession.create(@user)
     @user_session.save
 
+    # TODO append   is_d20pro to url
     redirect_to games_path
   end
 
