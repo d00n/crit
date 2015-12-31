@@ -272,17 +272,17 @@ class PostsController < BaseController
     end    
   end
   
-  def update_views
-    if logged_in?
-      @post = Post.find(params[:id])
-      updated = update_view_count(@post)
-      render :text => updated ? 'updated' : 'duplicate'
-      return
-    end
-    
-    # not really a dup, but this isn't displayed anyway
-    render :text => 'duplicate'
-  end
+  #def update_views
+  #  if logged_in?
+  #    @post = Post.find(params[:id])
+  #    updated = update_view_count(@post)
+  #    render :text => updated ? 'updated' : 'duplicate'
+  #    return
+  #  end
+  #
+  #  # not really a dup, but this isn't displayed anyway
+  #  render :text => 'duplicate'
+  #end
 
   def private_filter
     post = Post.find(params[:id])
