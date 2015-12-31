@@ -11,8 +11,7 @@ class BaseController < ApplicationController
   helper_method :nick
 
   # caching site_index makes the authenticity_token stale for the login form
-  #caches_action :site_index, :footer_content, :if => Proc.new{|c| c.cache_action? }
-  caches_action :site_index, :footer_content, :if => false
+  caches_action :site_index, :footer_content, :if => Proc.new{|c| c.cache_action? }
   #caches_action :only => :footer_content, :if => Proc.new{|c| c.cache_action? }
   #def cache_action?
   #  !logged_in? && controller_name.eql?('base') && params[:format].blank?
