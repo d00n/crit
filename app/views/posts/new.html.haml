@@ -70,13 +70,13 @@
       -#.auto_complete#tag_list_auto_complete
       -#  = auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [','] }
 
-      %p
-      %label
-        %a{:href=> "#", :onclick => "$('poll-ui').toggle(); return false;"}
-          = image_tag 'icons/poll.png'
-          Add a poll
-        %em=:optional.l
-      #poll-ui{:style => 'display:none'}=render :partial => 'polls/new'
+      -#%p
+      -#%label
+      -#  %a{:href=> "#", :onclick => "$('poll-ui').toggle(); return false;"}
+      -#    = image_tag 'icons/poll.png'
+      -#    Add a poll
+      -#  %em=:optional.l
+      -##poll-ui{:style => 'display:none'}=render :partial => 'polls/new'
 
       /%label
       /  =:save_post_as.l

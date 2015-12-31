@@ -85,7 +85,7 @@
     #user_generated_html
       = @post.post.html_safe
       
-    = render :partial => 'polls/poll_ui', :locals => {:poll => @post.polls.first} unless @post.polls.empty?
+    -#= render :partial => 'polls/poll_ui', :locals => {:poll => @post.polls.first} unless @post.polls.empty?
   
   -box :class => 'hfeed comments', :id => 'comments' do      
     %h3 Comments
