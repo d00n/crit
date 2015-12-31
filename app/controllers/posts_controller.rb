@@ -296,8 +296,10 @@ class PostsController < BaseController
       redirect_to home_url
     end
   end
-  
 
-  
+
+  def post_params
+    params[:post].permit(:category_id, :title, :raw_post, :published_as, :send_comment_notifications, :tag_list, :is_system_announcement, :is_game_announcement)
+  end
     
 end
