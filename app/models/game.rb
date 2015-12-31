@@ -188,7 +188,7 @@ class Game < ActiveRecord::Base
     pending_characters = []
      
     self.character_registrations.where("status = 'pending'").each do |character_registration|
-      pending_characters << Character.where(id: character_registration.character_id)
+      pending_characters << Character.where(id: character_registration.character_id).first
     end
     
     return pending_characters
@@ -198,7 +198,7 @@ class Game < ActiveRecord::Base
     pending_players = []
      
     self.player_registrations.where("status = 'pending'").each do |player_registration|
-      pending_players << User.where(id: player_registration.user_id)
+      pending_players << User.where(id: player_registration.user_id).first
     end
     
     return pending_players
