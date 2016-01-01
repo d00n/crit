@@ -7,7 +7,7 @@ class SessionsController < BaseController
     pw = params[:password]
     rm = params[:remember_me]
 
-    @user_session = UserSession.new(:login => l, :password => pw, :remember_me => rm)
+    @user_session = UserSession.new(:login => l, :password => pw, :remember_me => true)
 
     if @user_session.save
       self.current_user = @user_session.record #if current_user has been called before this, it will ne nil, so we have to make to reset it
@@ -19,6 +19,7 @@ class SessionsController < BaseController
       render :action => :new, :email => params[:email]
     end
   end
+
 
 
   skip_before_filter :verify_authenticity_token, :only => :create
