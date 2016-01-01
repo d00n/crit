@@ -13,6 +13,8 @@ configatron.default_mce_options = {
 
 configatron.simple_mce_options = {
     :selector => 'textarea.rich_text_editor',
+    :relative_urls => false,
+    :convert_urls => false,
     :convert_fonts_to_spans => true,
     :menubar => false,
     :statusbar => false,
