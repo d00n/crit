@@ -80,4 +80,4 @@
       %span#more_comments_links= more_comments_links(@user)
 
 %script{:type=>"text/javascript", :charset=>"utf-8"}
-  = remote_function :url => {:controller => 'users', :action => 'update_views', :id => @user}, :method => :patch
+  = remote_function :url => {:controller => 'users', :action => 'update_views', :id => @user}, :method => :put
