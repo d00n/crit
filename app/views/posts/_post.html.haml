@@ -29,9 +29,9 @@
       %li.update
         = time_ago_in_words post.published_at
       %li.view
-        = "Views(#{post.view_count})"
+        = "Views: #{post.view_count}"
       %li.comments
-        = link_to :comments.l+" (#{post.comments.count})", user_post_path(post.user, post)+'#comments'
+        = link_to "Comments: #{post.comments.count}", user_post_path(post.user, post)+'#comments'
 
       - if post.tags.any?
         %li.tags

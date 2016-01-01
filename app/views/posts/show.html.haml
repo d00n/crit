@@ -25,12 +25,12 @@
     =render :partial => 'post_links'
 
   .box 
-    %h3 This Post
+    %h3 This post
     %ul
       %li.update
         = @post.published_at_display(:literal_date)
-      %li.view= "Views(#{@post.view_count})"
-      %li.comments= link_to :comments.l+" (#{@post.comments.size})", user_post_path(@user, @post)+'#comments'      
+      %li.view= "Views: #{@post.view_count}"
+      %li.comments= link_to "Comments: #{@post.comments.size}", user_post_path(@user, @post)+'#comments'
       - if current_user and current_user.can_request_friendship_with(@post.user)
         %li.addfriend= add_friend_link(@post.user)
       -#%li.print

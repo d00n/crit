@@ -61,7 +61,7 @@
 
 /- unless users_comments.empty?
 /  .box
-/    %h3= link_to "Comments (#{user.comments.count})", user_comments_path(user)
+/    %h3= link_to "Comments: #{user.comments.count}", user_comments_path(user)
 /    - users_comments.each do |comment|
 /      %dl.vcard
 /        %dt.photo

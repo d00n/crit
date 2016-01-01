@@ -10,9 +10,9 @@
   .user_row_col2
     .user_row_col2_col1
       %li.view
-        = "Views(#{event.view_count})"
+        = "Views: #{event.view_count}"
       %li.comments
-        = link_to :comments.l+" (#{event.comments.count})", event_path(event)+'#comments'      
+        = link_to "Comments: #{event.comments.count}", event_path(event)+'#comments'
 
   .entry-content
     /= truncate_words(event.description, 75, '...' )

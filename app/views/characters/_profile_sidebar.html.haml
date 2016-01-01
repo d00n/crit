@@ -33,7 +33,7 @@
           = "Created: #{time_ago_in_words @character.created_at}  "
 
       %li.view
-        Character views:
+        Views:
         = h(@character.view_count)
 
       - if @character.tags.any?

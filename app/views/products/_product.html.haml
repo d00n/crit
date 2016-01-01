@@ -83,11 +83,11 @@
 
 
       -if product.games.any?
-        %li.view= link_to "Games (#{product.games.count})", product_games_path(product.owner, product)
+        %li.view= link_to "Games: #{product.games.count}", product_games_path(product.owner, product)
       -if product.characters.any?
-        %li.view= link_to "Characters (#{product.characters.count})", product_characters_path(product.owner, product)
+        %li.view= link_to "Characters: #{product.characters.count}", product_characters_path(product.owner, product)
       %li.view= "Views (#{product.view_count})"
-      %li.comments= link_to :comments.l+" (#{product.comments.count})", publisher_product_path(product.owner, product)+'#comments'
+      %li.comments= link_to "Comments: #{product.comments.count}", publisher_product_path(product.owner, product)+'#comments'
 
 
       -if !product.amazon_asin.blank?
