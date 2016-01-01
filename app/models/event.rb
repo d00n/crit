@@ -147,7 +147,7 @@ class Event < ActiveRecord::Base
       unless login_slug_list.blank?
         login_slug_list += ", "
       end
-      login_slug_list += alternate.all.first.login_slug
+      login_slug_list += alternate.login_slug
     end
 
     return login_slug_list

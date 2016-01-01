@@ -182,7 +182,7 @@
         -if @user.last_request_at
           %li.update= "Last seen: #{time_ago_in_words(@user.last_request_at)}"
         %li.update= "Time zone: #{@user.time_zone}"
-        %li.view= "Profile views: #{@user.view_count}"
+        %li.view= "Views: #{@user.view_count}"
 
 
         - if @user.tags.any?
