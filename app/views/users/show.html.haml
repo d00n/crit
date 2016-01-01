@@ -79,6 +79,5 @@
     -if @comments.any?
       %span#more_comments_links= more_comments_links(@user)
 
--#TODO: ajax fix
--#%script{:type=>"text/javascript", :charset=>"utf-8"}
--#  = remote_function :url => {:controller => 'users', :action => 'update_views', :id => @user}, :method => :put
+%script{:type=>"text/javascript", :charset=>"utf-8"}
+  = remote_function :url => {:controller => 'users', :action => 'update_views', :id => @user}, :method => :patch

@@ -80,6 +80,6 @@
       - @user = current_user
       %span#more_comments_links= more_comments_links(@game)
       
--#%script{:type=>"text/javascript", :charset=>"utf-8"}
--#  = remote_function :url => {:controller => 'games', :action => 'update_views', :id => @game}, :method => :put
+%script{:type=>"text/javascript", :charset=>"utf-8"}
+  = remote_function :url => {:controller => 'games', :action => 'update_views', :id => @game}, :method => :put
       

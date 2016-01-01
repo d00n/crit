@@ -94,8 +94,8 @@
     = render :partial => 'comments/comment', :collection => @comments
     %span#more_comments_links= more_comments_links(@post)
 
--#%script{:type=>"text/javascript", :charset=>"utf-8"}
--#  = remote_function :url => {:controller => 'posts', :action => 'update_views', :user_id => @post.user, :id => @post}, :method => :put
+%script{:type=>"text/javascript", :charset=>"utf-8"}
+  = remote_function :url => {:controller => 'posts', :action => 'update_views', :user_id => @post.user, :id => @post}, :method => :patch
 
 -content_for :end_javascript do
   :javascript
