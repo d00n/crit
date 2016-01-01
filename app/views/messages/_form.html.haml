@@ -24,7 +24,7 @@
 
       %p
       %label{:for => "message_body"}= :message.l + ":"
-      = f.text_area :body, :cols => 50
+      = f.text_area :body, :cols => 50, :rows => 20
 
       %p
       = submit_tag :send.l
