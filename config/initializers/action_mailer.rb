@@ -3,8 +3,8 @@ Crit::Application.configure do
       :address   => "smtp.mandrillapp.com",
       :port      => 25,
       :enable_starttls_auto => true,
-      :user_name => ENV["MANDRILL_USERNAME"],
-      :password  => ENV["MANDRILL_API_KEY"],
+      :user_name => "mike@infrno.net",
+      :password  => "B9hrczI6VOKbwx3Kk0TD1Q",
       :authentication => 'login',
       :domain => 'infrno.net'
   }
