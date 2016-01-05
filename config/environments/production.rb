@@ -82,7 +82,7 @@ Crit::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
 
-  config.action_mailer.smtp_settings = { :enable_starttls_auto => false }
+  config.action_mailer.smtp_settings = { :enable_starttls_auto => true }
 
   APP_URL = "http://www.infrno.net"
 
