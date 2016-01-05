@@ -94,8 +94,7 @@ Crit::Application.configure do
 
   CON_GAME_ID = ''
 
-  ENVOLVE_API_KEY = '140-tlUfHfyhmMjDupqHwmQCoIHnrUHzCqUL'
-
+  #ENVOLVE_API_KEY = '140-tlUfHfyhmMjDupqHwmQCoIHnrUHzCqUL'
 
   PAYPAL_CERT = "/config/certs/test_paypal_cert.pem"
   INFRNO_CERT = "/config/certs/test_infrno_cert.pem"
@@ -103,6 +102,9 @@ Crit::Application.configure do
   PAYPAL_EMAIL= "paypal_1331429423_biz@infrno.net"
   PAYPAL_CERT_ID= "WXVPCQBWUJ9M6"
   PAYPAL_URL= "https://www.sandbox.paypal.com/cgi-bin/webscr"
+
+  MANDRILL_USERNAME = 'mike@infrno.net'
+  MANDRILL_API_KEY = 'B9hrczI6VOKbwx3Kk0TD1Q'
 
   #ActiveMerchant::Billing::Base.gateway_mode = :test
   ##ActiveMerchant::Billing::Base.integration_mode = :test

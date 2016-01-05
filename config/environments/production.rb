@@ -145,12 +145,16 @@ Crit::Application.configure do
 
   config.log_level = :info
 
+
+  MANDRILL_USERNAME = 'mike@infrno.net'
+  MANDRILL_API_KEY = 'B9hrczI6VOKbwx3Kk0TD1Q'
+
   ActionMailer::Base.delivery_method = :smtp
-  ActionMailer::Base.smtp_settings = {
-      :address => "localhost",
-      :port => "25",
-      :domain => "infrno.net"
-  }
+  #ActionMailer::Base.smtp_settings = {
+  #    :address => "localhost",
+  #    :port => "25",
+  #    :domain => "infrno.net"
+  #}
 
   #config.action_controller.asset_host= Proc.new { |source|
   #  if source.starts_with?('/assets/tiny_mce')
