@@ -1,4 +1,4 @@
-Crit::Application.configure do
+Crit::Application.config do
   config.action_mailer.smtp_settings = {
       :address   => "smtp.mandrillapp.com",
       :port      => 25,
