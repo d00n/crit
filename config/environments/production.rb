@@ -149,7 +149,7 @@ Crit::Application.configure do
   MANDRILL_USERNAME = 'mike@infrno.net'
   MANDRILL_API_KEY = 'B9hrczI6VOKbwx3Kk0TD1Q'
 
-  ActionMailer::Base.delivery_method = :smtp
+  #ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
       :address   => "smtp.mandrillapp.com",
       :port      => 25,
