@@ -55,7 +55,7 @@ namespace :user_notifications do
 
     user_ids.each do |user_id|
       user = User.find(user_id)
-      logger.info "#{user.display_name}, #{user.games_starting_soon.size} games"
+      logger.info "#{user.games_starting_soon.size} games, #{user.email}, #{user.display_name}"
       UserNotifier.upcoming_game_notification(user).deliver
     end
 
