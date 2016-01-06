@@ -146,19 +146,19 @@ Crit::Application.configure do
   config.log_level = :info
 
 
-  MANDRILL_USERNAME = 'mike@infrno.net'
-  MANDRILL_API_KEY = 'B9hrczI6VOKbwx3Kk0TD1Q'
+  #MANDRILL_USERNAME = 'mike@infrno.net'
+  #MANDRILL_API_KEY = 'B9hrczI6VOKbwx3Kk0TD1Q'
 
   #ActionMailer::Base.delivery_method = :smtp
-  ActionMailer::Base.smtp_settings = {
-      :address   => "smtp.mandrillapp.com",
-      :port      => 25,
-      :enable_starttls_auto => true,
-      :user_name => "mike@infrno.net",
-      :password  => "B9hrczI6VOKbwx3Kk0TD1Q",
-      :authentication => 'login',
-      :domain => 'infrno.net'
-  }
+  #ActionMailer::Base.smtp_settings = {
+  #    :address   => "smtp.mandrillapp.com",
+  #    :port      => 25,
+  #    :enable_starttls_auto => true,
+  #    :user_name => "mike@infrno.net",
+  #    :password  => "B9hrczI6VOKbwx3Kk0TD1Q",
+  #    :authentication => 'login',
+  #    :domain => 'infrno.net'
+  #}
 
   #config.action_controller.asset_host= Proc.new { |source|
   #  if source.starts_with?('/assets/tiny_mce')

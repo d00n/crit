@@ -106,6 +106,8 @@ Crit::Application.configure do
   MANDRILL_USERNAME = 'mike@infrno.net'
   MANDRILL_API_KEY = 'B9hrczI6VOKbwx3Kk0TD1Q'
 
+
+
   #ActiveMerchant::Billing::Base.gateway_mode = :test
   ##ActiveMerchant::Billing::Base.integration_mode = :test
   #ActiveMerchant::Billing::PaypalGateway.pem_file = File.read(Rails.root.to_s + PAYPAL_CERT)
