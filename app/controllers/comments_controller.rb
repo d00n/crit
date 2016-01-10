@@ -68,66 +68,73 @@ class CommentsController < BaseController
     #  return
     #end
 
-    commentable_type = get_commentable_type(params[:commentable_type])
-    commentable_class = commentable_type.singularize.constantize
-    commentable_type_humanized = commentable_type.humanize
-    commentable_type_tableized = commentable_type.tableize
+    begin
 
-    @commentable = commentable_class.find(params[:commentable_id])
-    #don't use the get_type, as we want the specific case where the user typed /User/username/comments
-    redirect_to user_comments_path(params[:commentable_id]) and return if (params[:commentable_type] && params[:commentable_type].camelize == "User")    
-      
-    unless logged_in? || @commentable && (!@commentable.owner.nil? && @commentable.owner.profile_public?)
-      flash.now[:error] = :this_users_profile_is_not_public_youll_need_to_create_an_account_and_log_in_to_access_it.l
-      redirect_to :controller => 'sessions', :action => 'new' and return
-    end
+      commentable_type = get_commentable_type(params[:commentable_type])
+      commentable_class = commentable_type.singularize.constantize
+      commentable_type_humanized = commentable_type.humanize
+      commentable_type_tableized = commentable_type.tableize
 
-    if @commentable
+      @commentable = commentable_class.find(params[:commentable_id])
+      #don't use the get_type, as we want the specific case where the user typed /User/username/comments
+      redirect_to user_comments_path(params[:commentable_id]) and return if (params[:commentable_type] && params[:commentable_type].camelize == "User")
 
-      @comments = @commentable.comments.recent.page(params[:page]).per(100)
+      unless logged_in? || @commentable && (!@commentable.owner.nil? && @commentable.owner.profile_public?)
+        flash.now[:error] = :this_users_profile_is_not_public_youll_need_to_create_an_account_and_log_in_to_access_it.l
+        redirect_to :controller => 'sessions', :action => 'new' and return
+      end
 
-      if @comments.to_a.empty?
+      if @commentable
 
-        if  (comment_type != "User")
-          render :text => :no_comments_found.l_with_args(:type => comment_type.constantize)
-          return
-        end
-        
-        if comment_type == "User"
-          @user = @commentable
-          @title = @user.login
-          @back_url = user_path(@user)
-        else comment_type != "User" 
+        @comments = @commentable.comments.recent.page(params[:page]).per(100)
+
+        if @comments.to_a.empty?
+
+          if  (commentable_type != "User")
+            render :text => :no_comments_found.l_with_args(:type => commentable_type.constantize)
+            return
+          end
+
+          if commentable_type == "User"
+            @user = @commentable
+            @title = @user.login
+            @back_url = user_path(@user)
+          else commentable_type != "User"
           @user = @commentable.user
           @title = comment_title
           @back_url = url_for([@user, @commentable].compact)
+          end
+
+        else
+          @user = @comments.first.recipient
+          @title = comment_title
+          @back_url = commentable_url(@comments.first)
         end
 
-      else
-        @user = @comments.first.recipient
-        @title = comment_title
-        @back_url = commentable_url(@comments.first)
+        respond_to do |format|
+          format.html {
+            render :action => 'index' and return
+          }
+          format.rss {
+            @rss_title = "#{configatron.community_name}: #{@commentable.class.to_s.underscore.capitalize} Comments - #{@title}"
+            #@rss_url = comment_rss_link
+            #render_comments_rss_feed_for([], @commentable, @rss_title) and return
+            redirect_to contact_path
+            return
+          }
+        end
       end
-      
+
       respond_to do |format|
         format.html {
-          render :action => 'index' and return
+          flash[:notice] = :no_comments_found.l_with_args(:type => comment_type.constantize)
+          redirect_to :controller => 'base', :action => 'site_index' and return
         }
-        format.rss {
-          @rss_title = "#{configatron.community_name}: #{@commentable.class.to_s.underscore.capitalize} Comments - #{@title}"
-          #@rss_url = comment_rss_link
-          #render_comments_rss_feed_for([], @commentable, @rss_title) and return
-          redirect_to contact_path
-          return
-        }
-      end      
-    end
+      end
 
-    respond_to do |format|
-      format.html {
-        flash[:notice] = :no_comments_found.l_with_args(:type => comment_type.constantize)
-        redirect_to :controller => 'base', :action => 'site_index' and return
-      }
+    rescue
+      render :nothing => true
+      return
     end
   end  
 
