@@ -66,11 +66,10 @@ namespace :user_notifications do
     logger = Logger.new('log/rake_user_notifications_test.log')
     logger.info "#{Time.now} Sending test emails"
 
-    user_ids = []
+    user = User.find(5)
 
-    user_ids.each do |user_id|
-      user = User.find(user_id)
-      logger.info "#{user.games_starting_soon.size} games, #{user.email}, #{user.display_name}"
+    (1..10).each do |i|
+      logger.info "Test: #{i}"
       UserNotifier.upcoming_game_notification(user).deliver
     end
   end
