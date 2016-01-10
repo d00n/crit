@@ -115,8 +115,10 @@ class CommentsController < BaseController
         }
         format.rss {
           @rss_title = "#{configatron.community_name}: #{@commentable.class.to_s.underscore.capitalize} Comments - #{@title}"
-          @rss_url = comment_rss_link
-          render_comments_rss_feed_for(@comments, @title) and return
+          #@rss_url = comment_rss_link
+          #render_comments_rss_feed_for([], @commentable, @rss_title) and return
+          redirect_to contact_path
+          return
         }
       end      
     end
