@@ -12,6 +12,8 @@ class SessionsController < BaseController
     if @user_session.save
       self.current_user = @user_session.record #if current_user has been called before this, it will ne nil, so we have to make to reset it
 
+      #logger.debug("SessionsController.create about to redirect to @user_session[:return_to]= #{@user_session[:return_to]}")
+
       #flash[:notice] = :thanks_youre_now_logged_in.l
       redirect_back_or_default(home_path)
     else
