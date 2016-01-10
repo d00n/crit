@@ -2,9 +2,10 @@
   %dt
     =time_ago_in_words(activity.created_at)
   %dd.hot
-    -if activity.can_be_deleted_by?(current_user)
-      =link_to_remote image_tag("icons/delete.png", :plugin => 'community_engine', :class=>'icon'), :url => activity_path(activity), :method => :delete, :html => {:class => 'right'}
-  
+    -#-if activity.can_be_deleted_by?(current_user)
+      #=link_to_remote image_tag("icons/delete.png", :plugin => 'community_engine', :class=>'icon'), :url => activity_path(activity), :method => :delete, :html => {:class => 'right'}
+      #=link_to image_tag("trash-o fw", :text => 'Delete'), activity_path(activity), :method => :delete, 'data-confirm' => 'Are you sure?', :remote => true
+
     /=link_to image_tag(activity.user.avatar_photo_url(:thumb), :class => "polaroid" ), user_path(activity.user)
 
     =link_to activity.user.display_name, user_path(activity.user.login_slug)  
