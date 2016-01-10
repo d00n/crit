@@ -49,6 +49,7 @@ gem 'omniauth-facebook'
 gem 'activemerchant', '1.21.0'
 gem 'active_utils', '1.0.3'
 gem 'asin'
+gem 'exception_notification' ,'3.0.0', :require => 'exception_notifier'
 
 #gem 'momentjs-rails', '>= 2.9.0'
 #gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
