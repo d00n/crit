@@ -27,12 +27,14 @@ class PostsController < BaseController
     respond_to do |format|
       format.html # index.rhtml
       format.rss {
-        render_rss_feed_for(@posts,
-           { :feed => {:title => @rss_title, :link => url_for(:controller => 'posts', :action => 'index', :character_id => @character) },
-             :item => {:title => :title,
-                       :description => :post,
-                       :link => Proc.new {|post| character_post_url(post.character, post)},
-                       :pub_date => :published_at} })
+        render :nothing => true
+        return
+        #render_rss_feed_for(@posts,
+        #   { :feed => {:title => @rss_title, :link => url_for(:controller => 'posts', :action => 'index', :character_id => @character) },
+        #     :item => {:title => :title,
+        #               :description => :post,
+        #               :link => Proc.new {|post| character_post_url(post.character, post)},
+        #               :pub_date => :published_at} })
       }
     end
   end       
@@ -60,12 +62,15 @@ class PostsController < BaseController
     respond_to do |format|
       format.html # index.rhtml
       format.rss {
-        render_rss_feed_for(@posts,
-           { :feed => {:title => @rss_title, :link => url_for(:controller => 'posts', :action => 'index', :game_id => @game) },
-             :item => {:title => :title,
-                       :description => :post,
-                       :link => Proc.new {|post| game_post_url(post.game, post)},
-                       :pub_date => :published_at} })
+        render :nothing => true
+        return
+
+        #render_rss_feed_for(@posts,
+        #   { :feed => {:title => @rss_title, :link => url_for(:controller => 'posts', :action => 'index', :game_id => @game) },
+        #     :item => {:title => :title,
+        #               :description => :post,
+        #               :link => Proc.new {|post| game_post_url(post.game, post)},
+        #               :pub_date => :published_at} })
       }
     end
   end
