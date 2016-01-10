@@ -32,7 +32,7 @@
     
     / this shouldn't be needed, as any logged in user should be able to comment on a game
     - @user = @product.owner
-    %span#more_comments_links= more_user_comments_links
+    %span#more_comments_links= more_comments_links(@product)
       
 %script{:type=>"text/javascript", :charset=>"utf-8"}
   = remote_function :url => {:controller => 'products', :action => 'update_views', :id => @product}, :method => :put

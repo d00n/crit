@@ -40,7 +40,7 @@
   -#
   -#  / this shouldn't be needed, as any logged in user should be able to comment on a system_category
   -#  - @user = @system_category.owner
-  -#  %span#more_comments_links= more_user_comments_links
+  -#  %span#more_comments_links= more_comments_links(@product)
 
 %script{:type=>"text/javascript", :charset=>"utf-8"}
   = remote_function :url => {:controller => 'system_categories', :action => 'update_views', :id => @system_category}, :method => :put
