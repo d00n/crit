@@ -238,4 +238,6 @@ Crit::Application.routes.draw do
     resources :comments, :as => :commentable_comments
   end
 
+  get '*php', :to => 'application#raise_not_found'
+
 end
