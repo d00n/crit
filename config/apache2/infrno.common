@@ -1,0 +1,50 @@
+  ServerName infrno.net
+  ServerAlias www.infrno.net
+  ServerAlias infrno.vps654.speedyrails.ca
+  DocumentRoot /var/www/apps/infrno/current/public
+
+#  RailsEnv "development"
+#  RackEnv "development"
+
+  <Directory "/var/www/apps/infrno/current/public">
+    Options FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+  </Directory>
+
+  RewriteEngine On
+
+  #Redirect requested Ticket 1092
+  rewriteCond %{HTTP_HOST} ^infrno.net$ [NC]
+  rewriteRule ^(.*)$ http://www.infrno.net$1 [R=301,L]
+
+  RewriteCond %{REQUEST_URI} (css|js|jpe?g|png|gif|ico)$ [NC]
+  RewriteCond %{QUERY_STRING} ^[0-9]+$
+  RewriteRule ^(.*)$ $1 [E=set_expires_header:true,L]
+
+  Header add Expires "Thu, 01 Jan 2020 00:00:00 -0500" env=set_expires_header
+  Header unset ETag env=set_expires_header
+
+  # Uncomment for rewrite debugging
+  #RewriteLog logs/infrno_rewrite_log
+  #RewriteLogLevel 9
+
+  # Check for maintenance file and redirect all requests
+  RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
+  RewriteCond %{SCRIPT_FILENAME} !maintenance.html
+  RewriteRule ^.*$ /system/maintenance.html [L]
+
+  # Deflate
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/javascript text/css application/javascript
+  BrowserMatch ^Mozilla/4 gzip-only-text/html
+  BrowserMatch ^Mozilla/4.0[678] no-gzip
+  BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+
+  # Uncomment for deflate debugging
+  #DeflateFilterNote Input input_info
+  #DeflateFilterNote Output output_info
+  #DeflateFilterNote Ratio ratio_info
+  #LogFormat '"%r" %{output_info}n/%{input_info}n (%{ratio_info}n%%)' deflate
+  #CustomLog logs/infrno_deflate_log deflate
+
