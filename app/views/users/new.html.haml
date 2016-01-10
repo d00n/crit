@@ -6,7 +6,7 @@
 -if FACEBOOK_CONNECT
   .box-single-col
     .center
-      %h3 Sign up with your Facebook account
+      %h3 Click this
       = link_to(image_tag("facebook.png", :alt => 'Sign in with facebook'), "/auth/facebook", :title => 'Sign in with facebook')
 
       /-if configatron.auth_providers.to_hash.keys.any?
@@ -16,91 +16,91 @@
       /     -alt = t('sessions.new.omniauth.button_alt', :provider => provider.capitalize)
       /      = link_to(image_tag("auth/#{provider.to_s}_64.png", :alt => alt), "/auth/#{provider.to_s}", :title => alt)
 
-.box-single-col
-  .center
-    -if FACEBOOK_CONNECT
-      %h3 Don't have Facebook? Prove you're not a bot by contacting us.
-    -else
-      %h3 Don't have Facebook? Prove you're not a bot by contacting us.
-
-
 -#.box-single-col
 -#  .center
 -#    -if FACEBOOK_CONNECT
--#      %h3= "..or sign up directly, all fields required"
+-#      %h3 Don't have Facebook? Prove you're not a bot by contacting us.
 -#    -else
--#      %h3 Sign up! all fields are required
--#
--#  =form_for :user, :url => users_path, :html => {:class => 'MainForm'} do |f|
--#    = hidden_field_tag 'user[publisher_name]', 'n/a'
--#
--#
--#    %label{"for"=>"first_name"}
--#      First name
--#    = f.text_field :first_name
--#
--#    %p
--#    %label{"for"=>"last_name"}
--#      Last name
--#    = f.text_field :last_name
--#
--#    %p
--#    %label{"for"=>"user_email"}
--#      =:e_mail_address.l
--#
--#      %em (You will receive a confirmation email)
--#    = f.text_field :email
--#
--#    %p
--#    %label{"for"=>"user_login"}
--#      Login
--#      %br/
--#      Infrno uses real names to identify users, this is only used to log in.
--#      %br/
--#      %em (Must start with a letter. No spaces or special characters.)
--#    = f.text_field :login
--#
--#
--#
--#    %p
--#    %label{"for"=>"user_birthdate"}
--#      =:birthday.l
--#      %em (You must be at least 13 years old)
--#    = date_select :user, :birthday, {:start_year => (Time.now.year - configatron.max_age), :end_year => (Time.now.year - configatron.min_age)}
--#
--#    %p
--#    %label{"for"=>"tos_pp_agreement"}
--#      = check_box_tag 'tos_pp_agreement'
--#      I have read and agree to the
--#    %a{:href=>'/tos.html', :title=>'Terms of Service'} Terms of Service
--#    and
--#    %a{:href=>'/privacy_policy.html', :title=>'Privacy Policy'} Privacy Policy
--#
--#
--#
--#    %p
--#    %label{"for"=>"user_password"}
--#      Password
--#    = f.password_field :password
--#
--#    %p
--#    %label{"for"=>"user_password_confirmation"}
--#      Confirm password
--#    = f.password_field :password_confirmation
--#    = hidden_field_tag :inviter_id, params[:inviter_id]
--#    = hidden_field_tag :inviter_code, params[:inviter_code]
--#
--#
--#
--#    %p
--#    -if configatron.require_captcha_on_signup
--#      = recaptcha_tags :public_key => configatron.recaptcha_pub_key
--#
--#
--#
--#    %p
--#
--#    %p= submit_tag :sign_up.l
--#
+-#      %h3 Don't have Facebook? Prove you're not a bot by contacting us.
+
+
+.box-single-col
+  .center
+    -if FACEBOOK_CONNECT
+      %h3= "..or these.."
+    -else
+      %h3 Sign up! all fields are required
+
+  =form_for :user, :url => users_path, :html => {:class => 'MainForm'} do |f|
+    = hidden_field_tag 'user[publisher_name]', 'n/a'
+
+
+    %label{"for"=>"first_name"}
+      First name
+    = f.text_field :first_name
+
+    %p
+    %label{"for"=>"last_name"}
+      Last name
+    = f.text_field :last_name
+
+    %p
+    %label{"for"=>"user_email"}
+      =:e_mail_address.l
+
+      %em (You will receive a confirmation email)
+    = f.text_field :email
+
+    %p
+    %label{"for"=>"user_login"}
+      Login
+      %br/
+      Infrno uses real names to identify users, this is only used to log in.
+      %br/
+      %em (Must start with a letter. No spaces or special characters.)
+    = f.text_field :login
+
+
+
+    %p
+    %label{"for"=>"user_birthdate"}
+      =:birthday.l
+      %em (You must be at least 13 years old)
+    = date_select :user, :birthday, {:start_year => (Time.now.year - configatron.max_age), :end_year => (Time.now.year - configatron.min_age)}
+
+    %p
+    %label{"for"=>"tos_pp_agreement"}
+      = check_box_tag 'tos_pp_agreement'
+      I have read and agree to the
+    %a{:href=>'/tos.html', :title=>'Terms of Service'} Terms of Service
+    and
+    %a{:href=>'/privacy_policy.html', :title=>'Privacy Policy'} Privacy Policy
+
+
+
+    %p
+    %label{"for"=>"user_password"}
+      Password
+    = f.password_field :password
+
+    %p
+    %label{"for"=>"user_password_confirmation"}
+      Confirm password
+    = f.password_field :password_confirmation
+    = hidden_field_tag :inviter_id, params[:inviter_id]
+    = hidden_field_tag :inviter_code, params[:inviter_code]
+
+
+
+    %p
+    -if configatron.require_captcha_on_signup
+      = recaptcha_tags :public_key => configatron.recaptcha_pub_key
+
+
+
+    %p
+
+    %p= submit_tag :sign_up.l
+
 
 
