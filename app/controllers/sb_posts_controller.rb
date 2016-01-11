@@ -16,7 +16,7 @@ class SbPostsController < BaseController
     respond_to do |format|
       format.html
       format.rss {
-        render :nothing => true
+        render :nothing => true, :status => 404
         return
       }
     end
