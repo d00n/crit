@@ -177,7 +177,7 @@ class ProductsController < BaseController
   # POST /products
   # POST /products.xml
   def create
-    @product = current_user.products.new(params[:product])
+    @product = current_user.products.new(product_params)
     @product.tag_list = params[:product][:name]  + ", " + params[:tag_list]  
 
     respond_to do |format|
@@ -221,7 +221,7 @@ class ProductsController < BaseController
 
 
     respond_to do |format|
-      if @product.update_attributes(params[:product])
+      if @product.update_attributes(product_params)
 
         # Causes slug to be regenerated
         @product.name_slug = ''
@@ -330,4 +330,23 @@ class ProductsController < BaseController
     @comments = @product.comments.find(:all, :limit => 10, :order => 'created_at ')
   end
 
+  protected
+  def product_params
+    params[:product].permit(:name,
+        :key_creatives,
+        :manufacturer,
+        :product_code,
+        :isbn,
+        :price,
+        :date_available,
+        :purchase_book_url,
+        :purchase_pdf_url,
+        :catalog_rank,
+        :featured_product_rank,
+        :is_core_rulebook,
+        :summary,
+        :tag_list,
+        :description)
+
+  end
 end
