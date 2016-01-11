@@ -3,13 +3,6 @@ class SbPostsController < BaseController
 
   def index
 
-    respond_to do |format|
-      format.rss {
-        render :nothing => true
-        return
-      }
-    end
-
     conditions = []
     [:user_id, :forum_id].each { |attr|
       conditions << SbPost.send(:sanitize_sql, ["sb_posts.#{attr} = ?", params[attr].to_i]) if params[attr]
@@ -19,6 +12,15 @@ class SbPostsController < BaseController
     @posts = SbPost.with_query_options.where(conditions).page(params[:page])
 
     @users = User.distinct.where(:id => @posts.collect(&:user_id).uniq).to_a.index_by(&:id)
+
+    respond_to do |format|
+      format.html
+      format.rss {
+        render :nothing => true
+        return
+      }
+    end
+
   end
 
   protected
