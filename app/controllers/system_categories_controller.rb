@@ -143,7 +143,7 @@ class SystemCategoriesController < BaseController
       redirect_to home_url
     end
 
-    @system_category = current_user.system_categories.new(params[:system_category])
+    @system_category = current_user.system_categories.new(system_category_params)
 
     respond_to do |format|
       if @system_category.save
@@ -169,7 +169,7 @@ class SystemCategoriesController < BaseController
 
 
     respond_to do |format|
-      if @system_category.update_attributes(params[:system_category])
+      if @system_category.update_attributes(system_category_params)
 
         # Causes slug to be regenerated
         @system_category.name_slug = ''
@@ -332,5 +332,10 @@ class SystemCategoriesController < BaseController
       flash[:error] = 'NOPE!'
       redirect_to user_path(current_user)
     end
+  end
+
+  protected
+  def system_category_params
+    params[:system_category].permit(:name, :description)
   end
 end

@@ -33,6 +33,9 @@ Crit::Application.routes.draw do
   get  '/system_categories/:id/product/:product_id/remove' => 'system_categories#product_remove', :as => :system_category_product_remove
   get  '/system_categories/:id/game/:game_id/add' => 'system_categories#add_game', :as => :system_category_add_game
   get  '/system_categories/:id/character/:character_id/add' => 'system_categories#add_character', :as => :system_category_add_character
+  put  '/system_categories/:id/update_views' => 'system_categories#update_views', :as => :system_category_update_views
+  put  '/system_categories/:id/remove_profile_photo' => 'system_categories#remove_profile_photo', :as => :system_category_remove_profile_photo
+
   get  '/products/:id/system_categories' => 'products#system_categories', :as => :product_system_categories
 
   post '/ipn_subscription_notifications' => 'ipn_subscription_notifications#create', :as => :ipn_subscription_notifications
