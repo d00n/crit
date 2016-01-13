@@ -241,7 +241,7 @@ Crit::Application.routes.draw do
     resources :comments, :as => :commentable_comments
   end
 
-  match '*path', to: "application#raise_not_found", via: :all
+  #match '*path', to: "application#raise_not_found", via: :all
 
   #get '*php', :to => 'application#raise_not_found'
 
