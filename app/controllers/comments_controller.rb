@@ -133,7 +133,7 @@ class CommentsController < BaseController
       end
 
     rescue
-      render :nothing => true
+      render :nothing => true, :status => 404
       return
     end
   end  
