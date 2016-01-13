@@ -13,5 +13,6 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from ActionController::UnknownController, with: -> { raise_not_found  }
+  rescue_from ActionController::RoutingError, with: -> { raise_not_found  }
   rescue_from ActiveRecord::RecordNotFound, with: -> { raise_not_found  }
 end
