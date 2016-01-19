@@ -5,8 +5,9 @@
     =render :partial => 'messages/message_thread'
     
     %ul.message_nav
-      %li.sent= link_to :reply.l, new_user_message_path(@user, :reply_to => @message), :onclick => "$('reply').toggle(); $('message_body').activate().scrollTo();return false;"
- 
+      %li.sent= link_to :reply.l, new_user_message_path(@user, :reply_to => @message)
+      -#%li.sent= link_to :reply.l, new_user_message_path(@user, :reply_to => @message), :onclick => "$('reply').toggle(); $('message_body').activate().scrollTo();return false;"
+
       /%li.delete=link_to 'Delete', user_message_path(@user, @message), :method => 'delete'
 
 
