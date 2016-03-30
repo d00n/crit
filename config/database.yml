@@ -5,11 +5,11 @@
 #   gem 'sqlite3'
 development:
   adapter: mysql2
-  database: pax_XX
+  database: crit
   username: root
   password:
   host: localhost
-  socket: /var/lib/mysql/mysql.sock
+  socket: /var/run/mysqld/mysqld.sock
 #  encoding: latin1
 
 # Warning: The database defined as "test" will be erased and
