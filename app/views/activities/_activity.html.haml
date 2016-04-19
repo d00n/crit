@@ -1,6 +1,6 @@
 %dl{:class => (activity.item_type && activity.item_type.humanize.downcase), :id => dom_id(activity) }
   %dt
-    =time_ago_in_words(activity.created_at)
+    =activity.created_at.strftime('%a, %b %d, %Y')
   %dd.hot
     -#-if activity.can_be_deleted_by?(current_user)
       #=link_to_remote image_tag("icons/delete.png", :plugin => 'community_engine', :class=>'icon'), :url => activity_path(activity), :method => :delete, :html => {:class => 'right'}

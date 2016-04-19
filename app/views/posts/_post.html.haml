@@ -27,7 +27,7 @@
           = render :partial => 'users/user_name', :locals => {:user => post.user}
 
       %li.update
-        = time_ago_in_words post.published_at
+        = post.published_at.strftime('%a, %b %d, %Y')
       %li.view
         = "Views: #{post.view_count}"
       %li.comments

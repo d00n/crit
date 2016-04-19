@@ -24,7 +24,7 @@
         %li.view= "Registered in #{link_to game.slots.last.event.name, event_path(game.slots.last.event)}".html_safe
 
       %li.update
-        ="Last update: #{time_ago_in_words game.updated_at}"
+        ="Last update: #{game.updated_at.strftime('%a, %b %d, %Y')}"
 
       - if game.start_at
         %li.update="Day: #{game.start_at.strftime('%a, %b %d, %Y')}"

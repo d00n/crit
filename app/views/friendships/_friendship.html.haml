@@ -9,8 +9,7 @@
     = "#{:from.l} #{user.location}<br/>" if user.metro_area      
 
     .li.update
-      =:requested.l
-      = time_ago_in_words friendship.created_at
+      = friendship.created_at.strftime('%a, %b %d, %Y')
       
     -if !user.tags.empty?
       %li.tags

@@ -3,10 +3,10 @@
     %h3="User Admin"
     %ul
       %li= link_to( "#{:delete_this_user.l}", user_path(@user), {:method => :delete, data: {confirm: "Deleting a user can not be undone. Are you sure?"} } )
-      %li= "created at: #{time_ago_in_words(@user.created_at)}"
-      %li= "activated at: #{time_ago_in_words(@user.activated_at)}"
+      %li= "created at: #{@user.created_at.strftime('%a, %b %d, %Y')}"
+      %li= "activated at: #{@user.activated_at.strftime('%a, %b %d, %Y')}"
       -if @user.last_request_at
-        %li= "last request at: #{time_ago_in_words(@user.last_request_at)}"
+        %li= "last request at: #{@user.last_request_at.strftime('%a, %b %d, %Y')}"
       -else
         %li= "last request at: NIL"
       %li= "email: #{@user.email}"

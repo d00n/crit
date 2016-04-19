@@ -178,9 +178,9 @@
     .vcard.author
       %ul
         =render :partial => 'users/xp', :locals => {:user => @user}
-        %li.update= "Member since: #{time_ago_in_words(@user.created_at)}"
+        %li.update= "Member since: #{@user.created_at.strftime('%a, %b %d, %Y')}"
         -if @user.last_request_at
-          %li.update= "Last seen: #{time_ago_in_words(@user.last_request_at)}"
+          %li.update= "Last seen: #{@user.last_request_at.strftime('%a, %b %d, %Y')}"
         %li.update= "Time zone: #{@user.time_zone}"
         %li.view= "Views: #{@user.view_count}"
 

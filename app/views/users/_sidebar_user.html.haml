@@ -21,7 +21,7 @@
       %li.view= "Views: #{user.view_count}"
       %li.update
         %abbr.published{:title=>"#{user.created_at}"}
-          ="Joined: #{time_ago_in_words user.created_at}"
+          ="Joined: #{user.created_at.strftime('%a, %b %d, %Y')}"
 
       - if current_user and current_user.can_request_friendship_with(user)
         %li{:class=>"addfriend_#{user.id}"}= add_friend_link(user)
