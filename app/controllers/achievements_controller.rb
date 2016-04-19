@@ -474,8 +474,7 @@ class AchievementsController < BaseController
   end
 
   def fetch_return_path(unlocked_achievement)
-
-
+    
     if request.referer.starts_with?(APP_URL+'/users/')
       if unlocked_achievement.character
         return_path = unlocked_user_achievements_path(unlocked_achievement.character.user)
