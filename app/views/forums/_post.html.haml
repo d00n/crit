@@ -13,7 +13,7 @@
     %li.fn
       = render :partial => 'users/user_name', :locals => {:user => post.user}
     %li.update
-      = post.created_at
+      = post.created_at.strftime('%a, %b %d, %Y')
     %li.view
       = pluralize User.find(post.user_id).sb_posts_count, :post.l
       
