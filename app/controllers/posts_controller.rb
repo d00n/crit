@@ -233,9 +233,9 @@ class PostsController < BaseController
     @active_users = User.active.find_by_activity({:limit => 5, :require_avatar => false})
     @featured_writers = User.find_featured
     
-    @related_tags = Tag.find_by_sql("SELECT tags.id, tags.name, count(*) AS count 
-      FROM taggings, tags 
-      WHERE tags.id = taggings.tag_id GROUP BY tags.id, tags.name");
+    # @related_tags = Tag.find_by_sql("SELECT tags.id, tags.name, count(*) AS count
+    #   FROM taggings, tags
+    #   WHERE tags.id = taggings.tag_id GROUP BY tags.id, tags.name");
 
     @rss_title = "#{configatron.community_name} "+:popular_posts.l
     @rss_url = popular_rss_url    
