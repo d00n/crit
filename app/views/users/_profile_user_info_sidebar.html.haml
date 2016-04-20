@@ -90,7 +90,7 @@
         %li.view= link_to("Grant #{h@user.first_name} an achievement", select_user_achievements_path(@user))
 
       - if logged_in? && current_user.can_request_friendship_with(@user)
-        %li{:class=>"addfriend_#{user.id}"}= add_friend_link(user)
+        %li{:class=>"addfriend_#{@user.id}"}= add_friend_link(@user)
 
       -if logged_in? && current_user == @user
         %li.inbox
