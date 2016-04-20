@@ -476,7 +476,6 @@ class AchievementsController < BaseController
   def fetch_return_path(unlocked_achievement)
 
     logger.info("fetch_return_path referer: #{request.referer}")
-    logger.info("fetch_return_path unlocked_achievement.game: #{unlocked_achievement.game.id}")
     logger.info("fetch_return_path params: #{params}")
 
     if request.referer.starts_with?(APP_URL+'/users/')
