@@ -161,9 +161,9 @@
         %li.update="Length: #{h @game.session_length}"
 
       %li.update
-        = "Game created: #{time_ago_in_words @game.created_at}"
+        = "Game created: #{@game.created_at.strftime('%a, %b %d, %Y')}"
       %li.update
-        ="Last update: #{time_ago_in_words @game.updated_at}"
+        ="Last update: #{@game.updated_at.strftime('%a, %b %d, %Y')}"
       %li.view
         Views:
         = @game.view_count

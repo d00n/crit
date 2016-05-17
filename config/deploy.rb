@@ -5,6 +5,7 @@ set :application, 'infrno'
 set :repo_url, 'git@github.com:d00n/crit.git'
 set :passenger_restart_with_touch, true
 
+
 set :branch, $1 if `git branch` =~ /\* (\S+)\s/m
 # set :branch, ENV['BRANCH'] || 'develop'
 
@@ -48,7 +49,7 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 # Default value for keep_releases is 5
-set :keep_releases, 50
+set :keep_releases, 10
 
 
 

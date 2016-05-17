@@ -1519,6 +1519,7 @@ class GamesController < BaseController
                                  :room_id,
                                  :public_notepad,
                                  :owner_notepad,
+                                 :auto_approve_player_registrations,
                                  :id, :_destroy, :tag_list)
   end
 

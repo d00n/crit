@@ -151,11 +151,11 @@ Crit::Application.configure do
 
   #ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
-      :address   => "smtp.mandrillapp.com",
+      :address   => "email-smtp.us-west-2.amazonaws.com",
       :port      => 587,
       :enable_starttls_auto => true,
-      :user_name => "mike@infrno.net",
-      :password  => "B9hrczI6VOKbwx3Kk0TD1Q",
+      :user_name => "AKIAI5IURNQT6RHZQUGQ",
+      :password  => "AoqSsaCnsv/Q8v0UFK0dajh0uVZaiGE5OKOQwh/38RWu",
       :authentication => 'login',
       :domain => 'infrno.net'
   }

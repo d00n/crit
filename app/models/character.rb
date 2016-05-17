@@ -313,19 +313,19 @@ class Character < ActiveRecord::Base
     for a in (0 .. self.c_carried_items.count-1)
       @character.c_carried_items.build(self.c_carried_items[a].attributes)
       @character.c_carried_items[a].character_id = @character.id
-      @character.c_carried_items[i].id = '';
+      @character.c_carried_items[a].id = '';
     end
 
     for b in (0 .. self.c_special_items.count-1)
       @character.c_special_items.build(self.c_special_items[b].attributes)
       @character.c_special_items[b].character_id = @character.id
-      @character.c_special_items[i].id = '';
+      @character.c_special_items[b].id = '';
     end
 
     for c in (0 .. self.c_languages.count-1)
       @character.c_languages.build(self.c_languages[c].attributes)
       @character.c_languages[c].character_id = @character.id
-      @character.c_languages[i].id = '';
+      @character.c_languages[c].id = '';
     end
 
     for i in (0 .. self.c_wealths.count-1)
@@ -520,7 +520,8 @@ class Character < ActiveRecord::Base
       @character.c_goals[i].id = '';
     end
 
-    @character.owner = current_user
+    # @character.owner = new_owner
+    @character.user = new_owner
     @character.save
 
     return @character

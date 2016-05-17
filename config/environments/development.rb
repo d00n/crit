@@ -37,7 +37,7 @@ Crit::Application.configure do
   config.action_mailer.smtp_settings = { :enable_starttls_auto => false }
 
   # gametable vars
-  APP_URL = "http://192.168.113.131:3000"
+  APP_URL = "http://localhost:3000"
 
   LIBRARY_SERVER = APP_URL
   LIBRARY_BASE_PATH = "/libraries/"

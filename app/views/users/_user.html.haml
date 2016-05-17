@@ -14,7 +14,7 @@
         %li.geo= user.location
       %li.update
         %abbr.published{:title=>"#{user.created_at}"}
-          =:joined.l + " #{time_ago_in_words user.created_at}"
+          =:joined.l + " #{user.created_at.strftime('%a, %b %d, %Y')}"
 
       - if current_user and current_user.can_request_friendship_with(user)
         %li{:class=>"addfriend_#{user.id}"}= add_friend_link(user)

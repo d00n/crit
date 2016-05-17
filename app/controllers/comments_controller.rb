@@ -116,10 +116,11 @@ class CommentsController < BaseController
             render :action => 'index' and return
           }
           format.rss {
-            @rss_title = "#{configatron.community_name}: #{@commentable.class.to_s.underscore.capitalize} Comments - #{@title}"
+            # @rss_title = "#{configatron.community_name}: #{@commentable.class.to_s.underscore.capitalize} Comments - #{@title}"
             #@rss_url = comment_rss_link
             #render_comments_rss_feed_for([], @commentable, @rss_title) and return
-            render :nothing => true, :status => 404
+            # render :nothing => true, :status => 404
+            redirect_to home_url
             return
           }
         end
@@ -133,8 +134,9 @@ class CommentsController < BaseController
       end
 
     rescue
-      render :nothing => true, :status => 404
-      return
+      redirect_to home_url
+      # render :nothing => true, :status => 404
+      # return
     end
   end  
 

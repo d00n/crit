@@ -13,7 +13,7 @@
   .user_row_col2
     %li.fn= link_to post.title, user_post_path(post.user, post), :rel => 'bookmark'
     %li.update
-      = time_ago_in_words post.published_at
+      = post.published_at.strftime('%a, %b %d, %Y')
 
     %li.view
       = "Views: #{post.view_count}"

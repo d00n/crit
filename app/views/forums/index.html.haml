@@ -52,7 +52,7 @@
         %td.inv.lp
           - if forum.sb_posts.last
             Last post:
-            = link_to time_ago_in_words(forum.sb_posts.last.created_at), forum_topic_path(:forum_id => forum, :id => forum.sb_posts.last.topic_id, :page => forum.sb_posts.last.topic.last_page, :anchor => forum.sb_posts.last.dom_id)
+            = link_to forum.sb_posts.last.created_at.strftime('%a, %b %d, %Y'), forum_topic_path(:forum_id => forum, :id => forum.sb_posts.last.topic_id, :page => forum.sb_posts.last.topic.last_page, :anchor => forum.sb_posts.last.dom_id)
             %p
             %li.fn= render :partial => 'users/user_name', :locals => {:user => forum.sb_posts.last.user}
 

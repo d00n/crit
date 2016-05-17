@@ -30,7 +30,7 @@
 
       %li.update
         %abbr.published{:title=>"#{@character.owner.created_at}"}
-          = "Created: #{time_ago_in_words @character.created_at}  "
+          = "Created: #{@character.created_at.strftime('%a, %b %d, %Y')}  "
 
       %li.view
         Views:

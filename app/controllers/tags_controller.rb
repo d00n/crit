@@ -81,6 +81,11 @@ class TagsController < BaseController
       @users = User.recent.limit(5).tagged_with(tag_array).uniq
       #@clippings = Clipping.recent.limit(5).tagged_with(tag_array)
     end
+
+    respond_to do |format|
+      format.all { render "show.html.haml" }
+    end
+
   end
 
 end

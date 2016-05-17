@@ -1,7 +1,7 @@
 class TopicsController < BaseController
   require_from_ce('controllers/topics_controller')
 
-  before_filter :find_forum_and_topic, :except => [:index, :new, :create]
+  # before_filter :find_forum_and_topic, :except => [:index, :new, :create]
 
 
   #def new

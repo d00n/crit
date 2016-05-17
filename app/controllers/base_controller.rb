@@ -98,6 +98,7 @@ class BaseController < ApplicationController
 
     respond_to do |format|
       format.html { get_additional_homepage_data }
+      format.rss { redirect_to home_url}
     end
   end
 
