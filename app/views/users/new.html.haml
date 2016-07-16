@@ -72,9 +72,9 @@
     %label{"for"=>"tos_pp_agreement"}
       = check_box_tag 'tos_pp_agreement'
       I have read and agree to the
-    %a{:href=>'/tos.html', :title=>'Terms of Service'} Terms of Service
+    = link_to "Terms of Service", pages_path(Page.find(7))
     and
-    %a{:href=>'/privacy_policy.html', :title=>'Privacy Policy'} Privacy Policy
+    = link_to Page.find(8).title, pages_path(Page.find(8))
 
 
 
