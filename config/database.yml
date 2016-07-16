@@ -6,8 +6,8 @@
 development:
   adapter: mysql2
   database: crit
-  username: root
-  password:
+  username: crit_rw
+  password: sk00bysnack99
   host: localhost
   socket: /var/run/mysqld/mysqld.sock
 #  encoding: latin1
